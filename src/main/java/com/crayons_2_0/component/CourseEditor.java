@@ -117,18 +117,24 @@ public final class CourseEditor extends Window {
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
         footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-        Button ok = new Button("OK");
+        Button ok = new Button("Save");
         ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 close();
+                Notification success = new Notification(
+                        "Profile updated successfully");
+                success.setDelayMsec(2000);
+                success.setStyleName("bar success small");
+                success.setPosition(Position.BOTTOM_CENTER);
+                success.show(Page.getCurrent());
 
             }
         });
         ok.focus();
         footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_RIGHT);
+        footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
         return footer;
     }
 
