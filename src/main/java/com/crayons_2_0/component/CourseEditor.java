@@ -124,7 +124,7 @@ public final class CourseEditor extends Window {
             public void buttonClick(ClickEvent event) {
                 close();
                 Notification success = new Notification(
-                        "Profile updated successfully");
+                        "Course saved successfully");
                 success.setDelayMsec(2000);
                 success.setStyleName("bar success small");
                 success.setPosition(Position.BOTTOM_CENTER);
