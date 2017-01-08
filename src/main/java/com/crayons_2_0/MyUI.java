@@ -27,7 +27,7 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 @SpringUI
 @Viewport("user-scalable=no,initial-scale=1.0")
-@Theme("valo")
+@Theme("mytheme")
 public class MyUI extends UI {
 
     /**
