@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo&quot;}">
+  <meta name="vaadin-version" content="7.7.0">
+ </head> 
+ <body> 
+  <vaadin-vertical-layout responsive size-full> 
+   <vaadin-tab-sheet> 
+    <tab caption="Lineare Algebra I" selected> 
+     <vaadin-panel responsive size-full> 
+      <vaadin-form-layout size-full> 
+       <vaadin-twin-col-select responsive width="950px"> 
+        <option>Max Mustermann</option> 
+        <option>Jon Doe</option> 
+        <option>Otto Normal</option> 
+        <option>John Wayne</option> 
+        <option>Patrick Wayne</option> 
+        <option>Arthur Wayne</option> 
+        <option>Alexander Wayne</option> 
+       </vaadin-twin-col-select> 
+       <vaadin-horizontal-layout spacing responsive width="900px"> 
+        <vaadin-horizontal-layout spacing></vaadin-horizontal-layout> 
+        <vaadin-button responsive plain-text :center>
+          Teilnehmer verwalten 
+        </vaadin-button> 
+       </vaadin-horizontal-layout> 
+       <vaadin-horizontal-layout spacing responsive width-full> 
+        <vaadin-label responsive width-auto height="24px" plain-text>
+          Kursteilnehmer hinzufügen mit E-Mail Adresse oder Accountname 
+        </vaadin-label> 
+        <vaadin-text-field width-full :expand></vaadin-text-field> 
+        <vaadin-horizontal-layout spacing></vaadin-horizontal-layout> 
+       </vaadin-horizontal-layout> 
+       <vaadin-horizontal-layout spacing responsive width-full margin> 
+        <vaadin-button responsive width-full plain-text :expand>
+          Bearbeiten 
+        </vaadin-button> 
+        <vaadin-button responsive width-full plain-text :expand>
+          Schüleransicht 
+        </vaadin-button> 
+        <vaadin-button width-full plain-text :expand>
+          Löschen 
+        </vaadin-button> 
+       </vaadin-horizontal-layout> 
+      </vaadin-form-layout> 
+     </vaadin-panel> 
+    </tab> 
+    <tab caption="Lineare Algebra II"> 
+     <vaadin-panel responsive size-full> 
+      <vaadin-form-layout size-full> 
+       <vaadin-horizontal-layout spacing> 
+        <vaadin-label size-auto plain-text>
+          Kursname 
+        </vaadin-label> 
+        <vaadin-text-field></vaadin-text-field> 
+       </vaadin-horizontal-layout> 
+       <vaadin-table selectable width-full height="131px"> 
+        <table> 
+         <colgroup> 
+          <col property-id="Teilnehmer Name"> 
+          <col property-id="email"> 
+          <col property-id="score"> 
+         </colgroup> 
+         <tbody> 
+          <tr item-id="1"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="2"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="3"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="4"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="5"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="6"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="7"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="8"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="9"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+         </tbody> 
+        </table> 
+       </vaadin-table> 
+       <vaadin-horizontal-layout spacing> 
+        <vaadin-label size-auto plain-text>
+          Kursteilnehmer hinzufügen mit E-Mail Adresse 
+        </vaadin-label> 
+        <vaadin-text-field width-full></vaadin-text-field> 
+        <vaadin-horizontal-layout spacing> 
+         <vaadin-label size-auto plain-text>
+           Kursteilnehmer löschen mit E-Mail Adresse 
+         </vaadin-label> 
+         <vaadin-text-field width-full></vaadin-text-field> 
+        </vaadin-horizontal-layout> 
+       </vaadin-horizontal-layout> 
+       <vaadin-horizontal-layout spacing> 
+        <vaadin-label size-auto plain-text>
+          Kursteilnehmer hinzufügen mit Accountname 
+        </vaadin-label> 
+        <vaadin-text-field width-full></vaadin-text-field> 
+        <vaadin-horizontal-layout spacing> 
+         <vaadin-label size-auto plain-text>
+           Kursteilnehmer löschen mit Accountname 
+         </vaadin-label> 
+         <vaadin-text-field width-full></vaadin-text-field> 
+        </vaadin-horizontal-layout> 
+       </vaadin-horizontal-layout> 
+       <vaadin-native-button plain-text>
+         Save 
+       </vaadin-native-button> 
+       <vaadin-native-button plain-text>
+         Kurs bearbeiten 
+       </vaadin-native-button> 
+       <vaadin-native-button plain-text>
+         Kurs löschen 
+       </vaadin-native-button> 
+      </vaadin-form-layout> 
+     </vaadin-panel> 
+    </tab> 
+    <tab caption="Lineare Algebra 4"> 
+     <vaadin-panel responsive size-full> 
+      <vaadin-form-layout size-full> 
+       <vaadin-horizontal-layout spacing> 
+        <vaadin-label size-auto plain-text>
+          Kursname 
+        </vaadin-label> 
+        <vaadin-text-field></vaadin-text-field> 
+       </vaadin-horizontal-layout> 
+       <vaadin-table selectable width-full height="131px"> 
+        <table> 
+         <colgroup> 
+          <col property-id="Teilnehmer Name"> 
+          <col property-id="email"> 
+          <col property-id="score"> 
+         </colgroup> 
+         <tbody> 
+          <tr item-id="1"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="2"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="3"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="4"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="5"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="6"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="7"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="8"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+          <tr item-id="9"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+           <td>100%</td> 
+          </tr> 
+         </tbody> 
+        </table> 
+       </vaadin-table> 
+       <vaadin-horizontal-layout spacing> 
+        <vaadin-label size-auto plain-text>
+          Kursteilnehmer hinzufügen mit E-Mail Adresse 
+        </vaadin-label> 
+        <vaadin-text-field width-full></vaadin-text-field> 
+        <vaadin-horizontal-layout spacing> 
+         <vaadin-label size-auto plain-text>
+           Kursteilnehmer löschen mit E-Mail Adresse 
+         </vaadin-label> 
+         <vaadin-text-field width-full></vaadin-text-field> 
+        </vaadin-horizontal-layout> 
+       </vaadin-horizontal-layout> 
+       <vaadin-horizontal-layout spacing> 
+        <vaadin-label size-auto plain-text>
+          Kursteilnehmer hinzufügen mit Accountname 
+        </vaadin-label> 
+        <vaadin-text-field width-full></vaadin-text-field> 
+        <vaadin-horizontal-layout spacing> 
+         <vaadin-label size-auto plain-text>
+           Kursteilnehmer löschen mit Accountname 
+         </vaadin-label> 
+         <vaadin-text-field width-full></vaadin-text-field> 
+        </vaadin-horizontal-layout> 
+       </vaadin-horizontal-layout> 
+       <vaadin-native-button plain-text>
+         Save 
+       </vaadin-native-button> 
+       <vaadin-native-button plain-text>
+         Kurs bearbeiten 
+       </vaadin-native-button> 
+       <vaadin-native-button plain-text>
+         Kurs löschen 
+       </vaadin-native-button> 
+      </vaadin-form-layout> 
+     </vaadin-panel> 
+    </tab> 
+    <tab caption="+"> 
+     <vaadin-panel responsive size-full> 
+      <vaadin-form-layout responsive size-full> 
+       <vaadin-horizontal-layout spacing> 
+        <vaadin-label size-auto plain-text>
+          Kursname 
+        </vaadin-label> 
+        <vaadin-text-field></vaadin-text-field> 
+       </vaadin-horizontal-layout> 
+       <vaadin-table selectable responsive width-full height="131px"> 
+        <table> 
+         <colgroup> 
+          <col property-id="Teilnehmer Name"> 
+          <col property-id="email"> 
+         </colgroup> 
+         <tbody> 
+          <tr item-id="1"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+          <tr item-id="2"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+          <tr item-id="3"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+          <tr item-id="4"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+          <tr item-id="5"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+          <tr item-id="6"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+          <tr item-id="7"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+          <tr item-id="8"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+          <tr item-id="9"> 
+           <td>Jon Doe</td> 
+           <td>jon@doe.com</td> 
+          </tr> 
+         </tbody> 
+        </table> 
+       </vaadin-table> 
+       <vaadin-button responsive plain-text>
+         Hinzufügen 
+       </vaadin-button> 
+       <vaadin-horizontal-layout responsive size-full margin> 
+        <vaadin-button plain-text :center>
+          Erstellen 
+        </vaadin-button> 
+       </vaadin-horizontal-layout> 
+      </vaadin-form-layout> 
+     </vaadin-panel> 
+    </tab> 
+   </vaadin-tab-sheet> 
+  </vaadin-vertical-layout>  
+ </body>
+</html>

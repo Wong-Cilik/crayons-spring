@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo&quot;}">
+  <meta name="vaadin-version" content="7.7.0">
+ </head> 
+ <body> 
+  <vaadin-vertical-layout responsive size-full> 
+   <vaadin-horizontal-layout size-full margin> 
+    <vaadin-tab-sheet caption="Kursübersicht" size-full :expand> 
+     <tab caption="Programmieren" selected> 
+      <vaadin-tab-sheet caption="Programmieren" responsive size-full _id="kurs1"></vaadin-tab-sheet> 
+     </tab> 
+     <tab caption="softwaretechnik"> 
+      <vaadin-tab-sheet caption="Praxis Software Entwickling" responsive _id="kurs111"> 
+       <tab selected> 
+        <vaadin-grid-layout size-full> 
+         <row> 
+          <column></column> 
+         </row> 
+         <row> 
+          <column></column> 
+         </row> 
+         <row> 
+          <column></column> 
+         </row> 
+         <row> 
+          <column></column> 
+         </row> 
+        </vaadin-grid-layout> 
+       </tab> 
+      </vaadin-tab-sheet> 
+     </tab> 
+     <tab caption="BWL"> 
+      <vaadin-vertical-layout spacing margin> 
+       <vaadin-horizontal-layout> 
+        <vaadin-vertical-layout width-auto height="151px"> 
+         <vaadin-text-area caption="Kursbeschreibung" responsive width="900px" height-full>
+           Kursbeschreibung:Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
+         </vaadin-text-area> 
+        </vaadin-vertical-layout> 
+       </vaadin-horizontal-layout> 
+       <vaadin-vertical-layout width="900px" height="208px"> 
+        <vaadin-grid caption="Testergebnisse" responsive width="900px" height="134px"> 
+         <table> 
+          <colgroup> 
+           <col property-id="Project" sortable> 
+           <col property-id="Status" sortable> 
+          </colgroup> 
+          <thead> 
+           <tr default> 
+            <th plain-text>Tests</th> 
+            <th plain-text>Score</th> 
+           </tr> 
+          </thead> 
+          <tbody> 
+           <tr> 
+            <td>Lektion 1</td> 
+            <td>100%</td> 
+           </tr> 
+           <tr> 
+            <td>Lektion 2</td> 
+            <td>100%</td> 
+           </tr> 
+           <tr> 
+            <td>Lektion 3</td> 
+            <td>100%</td> 
+           </tr> 
+           <tr> 
+            <td>Lektion 4</td> 
+            <td>100%</td> 
+           </tr> 
+           <tr> 
+            <td>Lektion 5</td> 
+            <td>100%</td> 
+           </tr> 
+           <tr> 
+            <td>Lektion 6</td> 
+            <td>100%</td> 
+           </tr> 
+           <tr> 
+            <td>Lektion 7</td> 
+            <td>100%</td> 
+           </tr> 
+           <tr> 
+            <td>Lektion 8</td> 
+            <td>100%</td> 
+           </tr> 
+           <tr> 
+            <td>Lektion 9</td> 
+            <td>100%</td> 
+           </tr> 
+          </tbody> 
+         </table> 
+        </vaadin-grid> 
+        <vaadin-progress-bar caption="Lernfortschritt" responsive size-full :expand></vaadin-progress-bar> 
+       </vaadin-vertical-layout> 
+       <vaadin-horizontal-layout spacing width="900px" margin> 
+        <vaadin-button width-full plain-text :expand>
+          Kurs löschen 
+        </vaadin-button> 
+        <vaadin-button width-full plain-text :expand>
+          Lernen 
+        </vaadin-button> 
+       </vaadin-horizontal-layout> 
+      </vaadin-vertical-layout> 
+     </tab> 
+     <tab caption="Lineare Algebra I"> 
+      <vaadin-tab-sheet caption="softwaretechnik" responsive size-full _id="kurs11"></vaadin-tab-sheet> 
+     </tab> 
+     <tab caption="Lineare Algebra II"> 
+      <vaadin-tab-sheet caption="softwaretechnik" responsive size-full _id="kurs112"></vaadin-tab-sheet> 
+     </tab> 
+     <tab caption="Höhere Mathematik I"> 
+      <vaadin-tab-sheet caption="softwaretechnik" responsive size-full _id="kurs1121"></vaadin-tab-sheet> 
+     </tab> 
+     <tab caption="Höhere Mathematik II"> 
+      <vaadin-tab-sheet caption="softwaretechnik" responsive size-full _id="kurs113"></vaadin-tab-sheet> 
+     </tab> 
+     <tab caption="Grundbegriffe Informatik"> 
+      <vaadin-tab-sheet caption="softwaretechnik" responsive _id="kurs12"></vaadin-tab-sheet> 
+     </tab> 
+     <tab caption="Algorithmen I"> 
+      <vaadin-tab-sheet caption="softwaretechnik" responsive _id="kurs13"></vaadin-tab-sheet> 
+     </tab> 
+     <tab caption="Rechnerorganisation"> 
+      <vaadin-tab-sheet caption="softwaretechnik" responsive _id="kurs14"></vaadin-tab-sheet> 
+     </tab> 
+    </vaadin-tab-sheet> 
+   </vaadin-horizontal-layout> 
+  </vaadin-vertical-layout>  
+ </body>
+</html>

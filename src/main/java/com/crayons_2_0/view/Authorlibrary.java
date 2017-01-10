@@ -2,6 +2,7 @@ package com.crayons_2_0.view;
 
 import com.crayons_2_0.component.CourseEditor;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
+import com.crayons_2_0.mockup.autorenbereich;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -32,21 +33,20 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     public static final String VIEW_NAME = "Authorlibrary";
 
     public Authorlibrary() {
-        VerticalLayout aboutContent = new VerticalLayout();
-        aboutContent.setStyleName("about-content");
+        //VerticalLayout aboutContent = new VerticalLayout();
+        //aboutContent.setStyleName("about-content");
 
         // you can add Vaadin components in predefined slots in the custom
         // layout
-        aboutContent
-                .addComponent(new Label(FontAwesome.INFO_CIRCLE.getHtml() + " Authorlibrary VIEW ", ContentMode.HTML));
 
         setSizeFull();
         setStyleName("about-view");
         setSpacing(true);
 
-        addComponent(aboutContent);
-        setComponentAlignment(aboutContent, Alignment.MIDDLE_CENTER);
-        aboutContent.addComponent(buildFooter());
+       // addComponent(aboutContent);
+        //setComponentAlignment(aboutContent, Alignment.MIDDLE_CENTER);
+        addComponent(new autorenbereich());
+        addComponent(buildFooter());
     }
 
     private Component buildFooter() {

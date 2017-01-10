@@ -11,6 +11,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
+import com.crayons_2_0.component.MultipleChoice;
 
 @SpringUI
 public class AboutView extends VerticalLayout implements View {
@@ -27,6 +28,7 @@ public class AboutView extends VerticalLayout implements View {
 
         // you can add Vaadin components in predefined slots in the custom
         // layout
+        aboutContent.addComponent(new MultipleChoice());
         aboutContent.addComponent(
                 new Label(FontAwesome.INFO_CIRCLE.getHtml()
                         + " This application is using Vaadin "

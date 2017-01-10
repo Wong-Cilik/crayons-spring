@@ -12438,14 +12438,14 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .valo-menu-title {
 	line-height: 1.2;
-	background-color: #60a0ea;
-	background-image: -webkit-linear-gradient(top, #67a7eb 2%, #5491de 98%);
-	background-image: linear-gradient(to bottom,#67a7eb 2%, #5491de 98%);
+	background-color: #000;
+	background-image: -webkit-linear-gradient(top, #000 2%, #001 98%);
+	background-image: linear-gradient(to bottom,#002 2%, #001 98%);
 	color: white;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
 	padding: 11px 16px;
 	font-size: 14px;
-	border-bottom: 1px solid #4b7eb8;
+	border-bottom: 1px solid #000;
 	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 	text-align: center;
@@ -12592,6 +12592,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .valo-menu-item {
 	outline: none;
+	top: 50px;
 	font-weight: 500;
 	padding: 0 32px 0 16px;
 	cursor: pointer;
@@ -12622,7 +12623,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .valo-menu-item.selected .v-icon {
-	color: #60a0ea;
+	color: #0579ff;
 }
 
 .mytheme .valo-menu-item.selected [class*="badge"] {
@@ -12950,7 +12951,7 @@ div.v-layout.v-horizontal.v-widget {
 	white-space: nowrap;
 	position: fixed;
 	z-index: 9000;
-	top: 32px;
+	top: 60px;
 	bottom: 0;
 	height: auto;
 	max-width: 100%;
@@ -13529,7 +13530,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .v-ui[width-range~="801px-"] .valo-menu-part .user-menu {
 	position: fixed;
-	bottom: 0;
+	bottom: 10px;
 	margin-bottom: 0;
 }
 

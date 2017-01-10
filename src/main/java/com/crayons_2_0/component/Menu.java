@@ -3,14 +3,17 @@ package com.crayons_2_0.component;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
@@ -35,10 +38,21 @@ public class Menu extends CssLayout {
     private static final String VALO_MENU_VISIBLE = "valo-menu-visible";
     private Navigator navigator;
     private Map<String, Button> viewButtons = new HashMap<String, Button>();
-
+    
+    private MenuItem profileItem;
     private CssLayout menuItemsLayout;
     private CssLayout menuPart;
-
+    
+    /* User anzeigen 
+    private User getCurrentUser() {
+        return (User) VaadinSession.getCurrent().getAttribute(
+                User.class.getName());
+    }
+    public void updateUserName(final ProfileUpdatedEvent event) {
+        User user = getCurrentUser();
+        settingsItem.setText(user.getFirstName() + " " + user.getLastName());
+    }
+    */
     public Menu(Navigator navigator) {
         this.navigator = navigator;
         setPrimaryStyleName(ValoTheme.MENU_ROOT);
@@ -58,6 +72,7 @@ public class Menu extends CssLayout {
         //top.addComponent(image);
         top.addComponent(title);
         menuPart.addComponent(top);
+        //addComponent(buildUserMenu());
 
         // logout menu item
         MenuBar logoutMenu = new MenuBar();
@@ -107,6 +122,19 @@ public class Menu extends CssLayout {
 
         addComponent(menuPart);
     }
+    /*
+    private Component buildUserMenu() {
+        final MenuBar settings = new MenuBar();
+        settings.addStyleName(VALO_MENU_TOGGLE);
+        //final User user = getCurrentUser();
+        profileItem = settings.addItem("", new ThemeResource(
+                "img/profile-pic-300px.jpg"), null);
+        //updateUserName(null);
+        profileItem.addSeparator();
+        return settings;
+            
+        }
+        */
 
     /**
      * Register a pre-created view instance in the navigation menu and in the

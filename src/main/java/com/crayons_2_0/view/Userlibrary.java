@@ -1,5 +1,6 @@
 package com.crayons_2_0.view;
 
+import com.crayons_2_0.mockup.Benutzeransicht;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -33,6 +34,7 @@ public class Userlibrary extends VerticalLayout implements View {
         setStyleName("about-view");
         addComponent(aboutContent);
         setComponentAlignment(aboutContent, Alignment.MIDDLE_CENTER);
+        aboutContent.addComponent(new Benutzeransicht());
     }
 
     @Override
