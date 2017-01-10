@@ -9,30 +9,7 @@
   <vaadin-vertical-layout responsive size-full> 
    <vaadin-horizontal-layout size-full margin> 
     <vaadin-tab-sheet caption="Kursübersicht" size-full :expand> 
-     <tab caption="Programmieren" selected> 
-      <vaadin-tab-sheet caption="Programmieren" responsive size-full _id="kurs1"></vaadin-tab-sheet> 
-     </tab> 
-     <tab caption="softwaretechnik"> 
-      <vaadin-tab-sheet caption="Praxis Software Entwickling" responsive _id="kurs111"> 
-       <tab selected> 
-        <vaadin-grid-layout size-full> 
-         <row> 
-          <column></column> 
-         </row> 
-         <row> 
-          <column></column> 
-         </row> 
-         <row> 
-          <column></column> 
-         </row> 
-         <row> 
-          <column></column> 
-         </row> 
-        </vaadin-grid-layout> 
-       </tab> 
-      </vaadin-tab-sheet> 
-     </tab> 
-     <tab caption="BWL"> 
+     <tab caption="BWL" selected> 
       <vaadin-vertical-layout spacing margin> 
        <vaadin-horizontal-layout> 
         <vaadin-vertical-layout width-auto height="151px"> 
@@ -42,7 +19,7 @@
         </vaadin-vertical-layout> 
        </vaadin-horizontal-layout> 
        <vaadin-vertical-layout width="900px" height="208px"> 
-        <vaadin-grid caption="Testergebnisse" responsive width="900px" height="134px"> 
+        <vaadin-grid caption="Testergebnisse" responsive size-full :expand> 
          <table> 
           <colgroup> 
            <col property-id="Project" sortable> 
@@ -96,7 +73,7 @@
         </vaadin-grid> 
         <vaadin-progress-bar caption="Lernfortschritt" responsive size-full :expand></vaadin-progress-bar> 
        </vaadin-vertical-layout> 
-       <vaadin-horizontal-layout spacing width="900px" margin> 
+       <vaadin-horizontal-layout spacing responsive width-full margin> 
         <vaadin-button width-full plain-text :expand>
           Kurs löschen 
         </vaadin-button> 

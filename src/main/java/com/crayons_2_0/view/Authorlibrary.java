@@ -33,7 +33,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     public static final String VIEW_NAME = "Authorlibrary";
 
     public Authorlibrary() {
-        //VerticalLayout aboutContent = new VerticalLayout();
+        VerticalLayout aboutContent = new VerticalLayout();
         //aboutContent.setStyleName("about-content");
 
         // you can add Vaadin components in predefined slots in the custom
@@ -42,10 +42,13 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         setSizeFull();
         setStyleName("about-view");
         setSpacing(true);
+        setMargin(true);
 
        // addComponent(aboutContent);
         //setComponentAlignment(aboutContent, Alignment.MIDDLE_CENTER);
-        addComponent(new autorenbereich());
+        autorenbereich a = new autorenbereich();
+        addComponent(a);
+        setExpandRatio(a, 1f);
         addComponent(buildFooter());
     }
 

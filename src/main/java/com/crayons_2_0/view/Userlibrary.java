@@ -20,21 +20,15 @@ public class Userlibrary extends VerticalLayout implements View {
     public static final String VIEW_NAME = "Userlibrary";
 
     public Userlibrary() {
-        VerticalLayout aboutContent = new VerticalLayout();
-        aboutContent.setStyleName("about-content");
 
         // you can add Vaadin components in predefined slots in the custom
         // layout
-        aboutContent.addComponent(
-                new Label(FontAwesome.INFO_CIRCLE.getHtml()
-                        + " USerlibrary VIEW "
-                        + Version.getFullVersion(), ContentMode.HTML));
+      
 
         setSizeFull();
         setStyleName("about-view");
-        addComponent(aboutContent);
-        setComponentAlignment(aboutContent, Alignment.MIDDLE_CENTER);
-        aboutContent.addComponent(new Benutzeransicht());
+        setMargin(true);
+        addComponent(new Benutzeransicht());
     }
 
     @Override
