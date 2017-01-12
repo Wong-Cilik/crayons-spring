@@ -1,4 +1,5 @@
 package com.crayons_2_0.dashboard.dummy.authentification;
+import com.crayons_2_0.dashboard.dummy.authentification.LoginScreen.LoginListener;
 
 import java.io.Serializable;
 
