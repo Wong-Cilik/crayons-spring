@@ -2,6 +2,7 @@ package com.crayons_2_0.view;
 
 import com.crayons_2_0.component.CourseEditor;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
+import com.crayons_2_0.component.GraphEditor;
 import com.crayons_2_0.mockup.autorenbereich;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -106,6 +107,22 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         footer.addComponent(CreateCourse);
         footer.setSpacing(true);
         footer.setComponentAlignment(CreateCourse, Alignment.TOP_CENTER);
+        
+        /*GraphEditor graphEditor = new GraphEditor();
+        
+        Button editGraph = new Button("Edit graph");
+        editGraph.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        editGraph.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().addWindow(graphEditor);
+            }
+            
+        });
+        footer.addComponent(editGraph);
+        footer.setSpacing(true);
+        footer.setComponentAlignment(editGraph, Alignment.TOP_CENTER);*/
         return footer;
     }
 
