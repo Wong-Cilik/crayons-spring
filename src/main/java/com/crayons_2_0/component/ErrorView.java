@@ -1,5 +1,8 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
+import com.crayons_2_0.service.LanguageControl;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringUI;
@@ -20,13 +23,15 @@ public class ErrorView extends VerticalLayout implements View {
      * 
      */
     private static final long serialVersionUID = 1L;
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
     private Label explanation;
+    
 
     public ErrorView() {
         setMargin(true);
         setSpacing(true);
 
-        Label header = new Label("The view could not be found");
+        Label header = new Label(lang.getString("TheViewCouldNotBeFound"));
         header.addStyleName(Reindeer.LABEL_H1);
         addComponent(header);
         addComponent(explanation = new Label());
@@ -35,7 +40,7 @@ public class ErrorView extends VerticalLayout implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         explanation.setValue(String.format(
-                "You tried to navigate to a view ('%s') that does not exist.",
+                lang.getString("YouTriedToNavigateToAView('%s')thatDoesNotExist."),
                 event.getViewName()));
     }
 }

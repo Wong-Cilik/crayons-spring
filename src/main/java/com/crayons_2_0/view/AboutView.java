@@ -18,6 +18,8 @@ import com.vaadin.ui.Button.ClickListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import com.crayons_2_0.component.MultipleChoice;
 import com.crayons_2_0.service.DatabaseException;
@@ -64,7 +66,7 @@ public class AboutView extends VerticalLayout implements View {
         sample.addValueChangeListener(e -> Notification.show("Value changed:"));
         aboutContent.addComponent(sample);
         
-      // NEW---------------------------------------------------------------------------------
+      // NEW-DATENBANK----TEST--------------------------------------------------------------------
         Button testDB = new Button("Teste Datenbank");
         testDB.addClickListener(new ClickListener() {
 			
@@ -89,6 +91,30 @@ public class AboutView extends VerticalLayout implements View {
 		});
         aboutContent.addComponent(testDB);
         //-------------------------------------------------------------------------------
+        
+        Locale currentLocale = new Locale("de", "de");
+        Locale switchLocale = new Locale("en", "us");
+        
+        //PFAD:     /crayons-spring/src/main/resources/com/crayons_2_0/language/Buttons_de_de.properties
+        ResourceBundle buttonLang = ResourceBundle.getBundle("com.crayons_2_0.language.Buttons", currentLocale);
+        
+        //String value = buttonLang.getString("ExampleText");
+        
+
+        Button languageButton = new Button(buttonLang.getString("ExampleText"));
+        languageButton.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				//buttonLang.
+				//languageButton.setCaption(buttonLang.getString("Example Text"));;
+				
+			}
+		});
+        
+        aboutContent.addComponent(languageButton);
+        
+        //---------------------------------------------------------------------------------
         
     }
 

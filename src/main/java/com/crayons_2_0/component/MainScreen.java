@@ -1,6 +1,9 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
 import com.crayons_2_0.MyUI;
+import com.crayons_2_0.service.LanguageControl;
 import com.crayons_2_0.view.AboutView;
 import com.crayons_2_0.view.Authorlibrary;
 import com.crayons_2_0.view.Preferences;
@@ -24,6 +27,8 @@ public class MainScreen extends HorizontalLayout {
      */
     private static final long serialVersionUID = 1L;
     private Menu menu;
+    
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
 
     public MainScreen(MyUI ui) {
 
@@ -36,13 +41,13 @@ public class MainScreen extends HorizontalLayout {
         final Navigator navigator = new Navigator(ui, viewContainer);
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
-        menu.addView(new AboutView(), AboutView.VIEW_NAME, AboutView.VIEW_NAME,
+        menu.addView(new AboutView(), AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME),
                 FontAwesome.INFO_CIRCLE);
-        menu.addView(new Authorlibrary(), Authorlibrary.VIEW_NAME, Authorlibrary.VIEW_NAME,
+        menu.addView(new Authorlibrary(), Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
                 FontAwesome.BOOK);
-        menu.addView(new Userlibrary(), Userlibrary.VIEW_NAME, Userlibrary.VIEW_NAME,
+        menu.addView(new Userlibrary(), Userlibrary.VIEW_NAME, lang.getString(Userlibrary.VIEW_NAME),
                 FontAwesome.PENCIL);
-        menu.addView(new Preferences(),Preferences.VIEW_NAME, Preferences.VIEW_NAME,
+        menu.addView(new Preferences(),Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME),
                 FontAwesome.GEAR);
 
         navigator.addViewChangeListener(viewChangeListener);

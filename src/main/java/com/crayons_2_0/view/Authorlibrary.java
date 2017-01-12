@@ -1,8 +1,11 @@
 package com.crayons_2_0.view;
 
+import java.util.ResourceBundle;
+
 import com.crayons_2_0.component.CourseEditor;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
 import com.crayons_2_0.mockup.autorenbereich;
+import com.crayons_2_0.service.LanguageControl;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -31,6 +34,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
      */
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "Authorlibrary";
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
 
     public Authorlibrary() {
         VerticalLayout aboutContent = new VerticalLayout();
@@ -61,7 +65,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         //TODO: Perstenz Kursentitäten usw....
         CourseEditor courseEditor = new CourseEditor(this);
         
-        Button CreateCourse = new Button("Create new course");
+        Button CreateCourse = new Button(lang.getString("CreateNewCourse"));
         CreateCourse.addStyleName(ValoTheme.BUTTON_PRIMARY);
         CreateCourse.addClickListener(new ClickListener() {
             /**

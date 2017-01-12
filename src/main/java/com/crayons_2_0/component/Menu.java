@@ -2,8 +2,9 @@ package com.crayons_2_0.component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-
+import com.crayons_2_0.service.LanguageControl;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
@@ -54,6 +55,9 @@ public class Menu extends CssLayout {
     }
     */
     public Menu(Navigator navigator) {
+    	
+    	ResourceBundle lang = LanguageControl.getInstance().getRes();
+    	
         this.navigator = navigator;
         setPrimaryStyleName(ValoTheme.MENU_ROOT);
         menuPart = new CssLayout();
@@ -76,7 +80,7 @@ public class Menu extends CssLayout {
 
         // logout menu item
         MenuBar logoutMenu = new MenuBar();
-        logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, new Command() {
+        logoutMenu.addItem(lang.getString("Logout"), FontAwesome.SIGN_OUT, new Command() {
 
             /**
              * 
@@ -94,7 +98,7 @@ public class Menu extends CssLayout {
         menuPart.addComponent(logoutMenu);
 
         // button for toggling the visibility of the menu when on a small screen
-        final Button showMenu = new Button("Menu", new ClickListener() {
+        final Button showMenu = new Button(lang.getString("Menu"), new ClickListener() {
             /**
              * 
              */

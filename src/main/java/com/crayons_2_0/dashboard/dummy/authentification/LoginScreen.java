@@ -1,7 +1,9 @@
 package com.crayons_2_0.dashboard.dummy.authentification;
 import com.crayons_2_0.dashboard.dummy.authentification.LoginScreen.LoginListener;
+import com.crayons_2_0.service.LanguageControl;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.event.ShortcutAction;
@@ -29,6 +31,7 @@ public class LoginScreen extends CssLayout {
      * 
      */
     private static final long serialVersionUID = 1L;
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
     private TextField username;
     private PasswordField password;
     private Button login;
@@ -72,16 +75,16 @@ public class LoginScreen extends CssLayout {
         loginForm.setSizeUndefined();
         loginForm.setMargin(false);
 
-        loginForm.addComponent(username = new TextField("Username", "admin"));
+        loginForm.addComponent(username = new TextField(lang.getString("Username"), lang.getString("admin")));
         username.setWidth(15, Unit.EM);
-        loginForm.addComponent(password = new PasswordField("Password"));
+        loginForm.addComponent(password = new PasswordField(lang.getString("Password")));
         password.setWidth(15, Unit.EM);
-        password.setDescription("Write anything");
+        password.setDescription(lang.getString("WriteAnything"));
         CssLayout buttons = new CssLayout();
         buttons.setStyleName("buttons");
         loginForm.addComponent(buttons);
 
-        buttons.addComponent(login = new Button("Login"));
+        buttons.addComponent(login = new Button(lang.getString("Login")));
         login.setDisableOnClick(true);
         login.addClickListener(new Button.ClickListener() {
             /**
@@ -101,7 +104,7 @@ public class LoginScreen extends CssLayout {
         login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         login.addStyleName(ValoTheme.BUTTON_FRIENDLY);
 
-        buttons.addComponent(forgotPassword = new Button("Forgot password?"));
+        buttons.addComponent(forgotPassword = new Button(lang.getString("ForgotPassword?")));
         forgotPassword.addClickListener(new Button.ClickListener() {
             /**
              * 
@@ -110,13 +113,14 @@ public class LoginScreen extends CssLayout {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                showNotification(new Notification("Hint: Try anything"));
+                showNotification(new Notification(lang.getString("HintTryAnything")));
             }
         });
         forgotPassword.addStyleName(ValoTheme.BUTTON_LINK);
         return loginForm;
     }
 
+    // TODO LANGUAGE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private CssLayout buildLoginInformation() {
         CssLayout loginInformation = new CssLayout();
         loginInformation.setStyleName("login-information");
@@ -132,8 +136,8 @@ public class LoginScreen extends CssLayout {
         if (accessControl.signIn(username.getValue(), password.getValue())) {
             loginListener.loginSuccessful();
         } else {
-            showNotification(new Notification("Login failed",
-                    "Please check your username and password and try again.",
+            showNotification(new Notification(lang.getString("LoginFailed"),
+                    lang.getString("PleaseCheckYourUsernameAndPasswordAndTryAgain."),
                     Notification.Type.HUMANIZED_MESSAGE));
             username.focus();
         }

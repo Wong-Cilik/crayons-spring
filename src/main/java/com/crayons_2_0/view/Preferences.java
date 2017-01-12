@@ -1,6 +1,10 @@
 package com.crayons_2_0.view;
 
 
+import java.util.ResourceBundle;
+
+import com.crayons_2_0.service.LanguageControl;
+
 //import org.apache.catalina.realm.JNDIRealm.User;
 
 //import com.vaadin.data.fieldgroup.BeanFieldGroup;
@@ -40,9 +44,11 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 @SpringUI
 public class Preferences extends VerticalLayout implements View {
+	
 
     //public static final String ID = "profilepreferenceswindow";
     public static final String VIEW_NAME = "Preferences";
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
 
    // private final BeanFieldGroup<User> fieldGroup;
     /*
@@ -109,13 +115,13 @@ public class Preferences extends VerticalLayout implements View {
 
     private Component buildPreferencesTab() {
         VerticalLayout root = new VerticalLayout();
-        root.setCaption("Preferences");
+        root.setCaption(lang.getString("Preferences"));
         root.setIcon(FontAwesome.COGS);
         root.setSpacing(true);
         root.setMargin(true);
         root.setSizeFull();
 
-        Label message = new Label("Not implemented in this demo");
+        Label message = new Label(lang.getString("NotImplementedInThisDemo"));
         message.setSizeUndefined();
         message.addStyleName(ValoTheme.LABEL_LIGHT);
         root.addComponent(message);
@@ -126,7 +132,7 @@ public class Preferences extends VerticalLayout implements View {
 
     private Component buildProfileTab() {
         HorizontalLayout root = new HorizontalLayout();
-        root.setCaption("Profile");
+        root.setCaption(lang.getString("Profile"));
         root.setIcon(FontAwesome.USER);
         root.setWidth(100.0f, Unit.PERCENTAGE);
         root.setSpacing(true);
@@ -141,10 +147,10 @@ public class Preferences extends VerticalLayout implements View {
         profilePic.setWidth(100.0f, Unit.PIXELS);
         pic.addComponent(profilePic);
 
-        Button upload = new Button("Change…", new ClickListener() {
+        Button upload = new Button(lang.getString("Change…"), new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                Notification.show("Not implemented in this demo");
+                Notification.show(lang.getString("NotImplementedInThisDemo"));
             }
         });
         upload.addStyleName(ValoTheme.BUTTON_TINY);
@@ -157,46 +163,46 @@ public class Preferences extends VerticalLayout implements View {
         root.addComponent(details);
         root.setExpandRatio(details, 1);
 
-        firstNameField = new TextField("First Name");
+        firstNameField = new TextField(lang.getString("FirstName"));
         details.addComponent(firstNameField);
-        lastNameField = new TextField("Last Name");
+        lastNameField = new TextField(lang.getString("LastName"));
         details.addComponent(lastNameField);
 
-        titleField = new ComboBox("Title");
-        titleField.setInputPrompt("Please specify");
-        titleField.addItem("Mr.");
-        titleField.addItem("Mrs.");
-        titleField.addItem("Ms.");
+        titleField = new ComboBox(lang.getString("Title"));
+        titleField.setInputPrompt(lang.getString("PleaseSpecify"));
+        titleField.addItem(lang.getString("Mr."));
+        titleField.addItem(lang.getString("Mrs."));
+        titleField.addItem(lang.getString("Ms."));
         titleField.setNewItemsAllowed(true);
         details.addComponent(titleField);
 
-        sexField = new OptionGroup("Sex");
+        sexField = new OptionGroup(lang.getString("Sex"));
         sexField.addItem(Boolean.FALSE);
-        sexField.setItemCaption(Boolean.FALSE, "Female");
+        sexField.setItemCaption(Boolean.FALSE, lang.getString("Female"));
         sexField.addItem(Boolean.TRUE);
-        sexField.setItemCaption(Boolean.TRUE, "Male");
+        sexField.setItemCaption(Boolean.TRUE, lang.getString("Male"));
         sexField.addStyleName("horizontal");
         details.addComponent(sexField);
 
-        Label section = new Label("Contact Info");
+        Label section = new Label(lang.getString("ContactInfo"));
         section.addStyleName(ValoTheme.LABEL_H4);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         details.addComponent(section);
 
-        emailField = new TextField("Email");
+        emailField = new TextField(lang.getString("Email"));
         emailField.setWidth("100%");
         emailField.setRequired(true);
         emailField.setNullRepresentation("");
         details.addComponent(emailField);
 
-        locationField = new TextField("Location");
+        locationField = new TextField(lang.getString("Location"));
         locationField.setWidth("100%");
         locationField.setNullRepresentation("");
         locationField.setComponentError(new UserError(
-                "This address doesn't exist"));
+                lang.getString("ThisAddressDoesn'tExist")));
         details.addComponent(locationField);
 
-        phoneField = new TextField("Phone");
+        phoneField = new TextField(lang.getString("Phone"));
         phoneField.setWidth("100%");
         phoneField.setNullRepresentation("");
         details.addComponent(phoneField);
@@ -208,18 +214,18 @@ public class Preferences extends VerticalLayout implements View {
         details.addComponent(newsletterField);
         */
 
-        section = new Label("Additional Info");
+        section = new Label(lang.getString("AdditionalInfo"));
         section.addStyleName(ValoTheme.LABEL_H4);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         details.addComponent(section);
 
-        websiteField = new TextField("Website");
+        websiteField = new TextField(lang.getString("Website"));
         websiteField.setInputPrompt("http://");
         websiteField.setWidth("100%");
         websiteField.setNullRepresentation("");
         details.addComponent(websiteField);
 
-        bioField = new TextArea("Bio");
+        bioField = new TextArea(lang.getString("Bio"));
         bioField.setWidth("100%");
         bioField.setRows(4);
         bioField.setNullRepresentation("");
@@ -233,7 +239,7 @@ public class Preferences extends VerticalLayout implements View {
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
         footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-        Button ok = new Button("OK");
+        Button ok = new Button(lang.getString("OK"));
         ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
         ok.addClickListener(new ClickListener() {
             @Override
@@ -244,9 +250,9 @@ public class Preferences extends VerticalLayout implements View {
                     // not in this demo.
 
                     Notification success = new Notification(
-                            "Profile updated successfully");
+                            lang.getString("ProfileUpdatedSuccessfully"));
                     success.setDelayMsec(2000);
-                    success.setStyleName("bar success small");
+                    success.setStyleName("barSuccessSmall");
                     success.setPosition(Position.BOTTOM_CENTER);
                     success.show(Page.getCurrent());
 

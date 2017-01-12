@@ -1,10 +1,11 @@
 package com.crayons_2_0.component;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
-
+import com.crayons_2_0.service.LanguageControl;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -56,6 +57,7 @@ public final class CourseEditor extends Window {
 
     private final CourseEditorListener listener;
     private final SortableLayout canvas;
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
 
     @SuppressWarnings("deprecation")
     //public CourseEditor(final CoursetEditorListener listener)
@@ -118,14 +120,14 @@ public final class CourseEditor extends Window {
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
         footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-        Button ok = new Button("Save");
+        Button ok = new Button(lang.getString("Save"));
         ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 close();
                 Notification success = new Notification(
-                        "Course saved successfully");
+                        lang.getString("CourseSavedSuccessfully"));
                 success.setDelayMsec(2000);
                 success.setStyleName("bar success small");
                 success.setPosition(Position.BOTTOM_CENTER);
@@ -188,7 +190,7 @@ public final class CourseEditor extends Window {
 
             dropHandler = new ReorderLayoutDropHandler();
 
-            Label l = new Label("Drag items here");
+            Label l = new Label(lang.getString("DragItemsHere"));
             l.setSizeUndefined();
 
             placeholder = new DragAndDropWrapper(l);
@@ -360,6 +362,9 @@ public final class CourseEditor extends Window {
         void titleChanged(String newTitle, CourseEditor editor);
     }
 
+    
+    // TODO Change Language!
+    
     public enum PaletteItemType {
         TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",
                 FontAwesome.CHECK_SQUARE_O), IMAGE("Image",
