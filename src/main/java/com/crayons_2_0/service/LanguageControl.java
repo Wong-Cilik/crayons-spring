@@ -33,6 +33,10 @@ public class LanguageControl {
 		return ResourceBundle.getBundle("com.crayons_2_0.language.Language", currentLocale);
 	}
 	
+	
+	
+	
+	
 
 	// _-------------------   ALT ------------------
 	
@@ -69,6 +73,16 @@ public class LanguageControl {
 		this.currentLocale = currentLocale;
 	}
 	
+	
+	public void setCurrentLocale(Language newLanguage) {
+		
+		if (newLanguage.equals(Language.German)) {
+			this.setCurrentLocale(new Locale("de", "de"));
+		} else if (newLanguage.equals(Language.English)) {
+			this.setCurrentLocale(new Locale("en", "en"));
+		}
+		
+	}
 	
 
 }

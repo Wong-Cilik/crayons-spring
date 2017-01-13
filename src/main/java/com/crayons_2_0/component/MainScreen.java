@@ -50,7 +50,7 @@ public class MainScreen extends HorizontalLayout {
                 FontAwesome.PENCIL);
         menu.addView(new Preferences(),Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME),
                 FontAwesome.GEAR);
-        menu.addView(new LearningGraph(), LearningGraph.VIEW_NAME, LearningGraph.VIEW_NAME, FontAwesome.PLUS);
+        menu.addView(new LearningGraph(), LearningGraph.VIEW_NAME, lang.getString(LearningGraph.VIEW_NAME.replace(" ", "")), FontAwesome.PLUS);
 
         navigator.addViewChangeListener(viewChangeListener);
 

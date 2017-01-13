@@ -4,6 +4,7 @@ package com.crayons_2_0.view;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.shared.Version;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
@@ -12,6 +13,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TwinColSelect;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -25,6 +27,8 @@ import java.util.ResourceBundle;
 import com.crayons_2_0.component.MultipleChoice;
 import com.crayons_2_0.service.DatabaseException;
 import com.crayons_2_0.service.JDBCConnection;
+import com.crayons_2_0.service.Language;
+import com.crayons_2_0.service.LanguageControl;
 
 @SpringUI
 public class AboutView extends VerticalLayout implements View {
@@ -34,6 +38,8 @@ public class AboutView extends VerticalLayout implements View {
      */
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "About";
+    
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
 
     public AboutView() {
         VerticalLayout aboutContent = new VerticalLayout();
@@ -93,27 +99,27 @@ public class AboutView extends VerticalLayout implements View {
         aboutContent.addComponent(testDB);
         //-------------------------------------------------------------------------------
         
-        Locale currentLocale = new Locale("de", "de");
-        Locale switchLocale = new Locale("en", "us");
-        
-        //PFAD:     /crayons-spring/src/main/resources/com/crayons_2_0/language/Buttons_de_de.properties
-        ResourceBundle buttonLang = ResourceBundle.getBundle("com.crayons_2_0.language.Buttons", currentLocale);
-        
-        //String value = buttonLang.getString("ExampleText");
-        
-
-        Button languageButton = new Button(buttonLang.getString("ExampleText"));
-        languageButton.addClickListener(new ClickListener() {
-			
+        Button buttonGerman = new Button(lang.getString("German"));
+        buttonGerman.setIcon(FontAwesome.BEER);
+        buttonGerman.addClickListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//buttonLang.
-				//languageButton.setCaption(buttonLang.getString("Example Text"));;
-				
+				LanguageControl.getInstance().setCurrentLocale(Language.German);
+				Page.getCurrent().reload();
 			}
 		});
+        aboutContent.addComponent(buttonGerman);
         
-        aboutContent.addComponent(languageButton);
+        Button buttonEnglish = new Button(lang.getString("English"));
+        buttonEnglish.setIcon(FontAwesome.COFFEE);
+        buttonEnglish.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				LanguageControl.getInstance().setCurrentLocale(Language.English);
+				Page.getCurrent().reload();
+			}
+		});
+        aboutContent.addComponent(buttonEnglish);
         
         //---------------------------------------------------------------------------------
         
