@@ -7,6 +7,7 @@ import com.crayons_2_0.service.LanguageControl;
 import com.crayons_2_0.view.AboutView;
 import com.crayons_2_0.view.Authorlibrary;
 import com.crayons_2_0.view.LearningGraph;
+import com.crayons_2_0.view.LearningGraph2;
 import com.crayons_2_0.view.Preferences;
 import com.crayons_2_0.view.Userlibrary;
 import com.vaadin.navigator.Navigator;
@@ -50,7 +51,10 @@ public class MainScreen extends HorizontalLayout {
                 FontAwesome.PENCIL);
         menu.addView(new Preferences(),Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME),
                 FontAwesome.GEAR);
-        menu.addView(new LearningGraph(), LearningGraph.VIEW_NAME, lang.getString(LearningGraph.VIEW_NAME.replace(" ", "")), FontAwesome.PLUS);
+        menu.addView(new LearningGraph(), LearningGraph.VIEW_NAME, lang.getString(LearningGraph.VIEW_NAME.replace(" ", "")), 
+        		FontAwesome.PLUS);
+        menu.addView(new LearningGraph2(), LearningGraph2.VIEW_NAME, lang.getString(LearningGraph2.VIEW_NAME), 
+        		FontAwesome.MUSIC);
 
         navigator.addViewChangeListener(viewChangeListener);
 
