@@ -25,6 +25,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+            <groupId>org.vaadin.addons</groupId>
+            <artifactId>refresher</artifactId>
+            <version>1.2.1.7</version>
+        </dependency>
 		<!-- https://mvnrepository.com/artifact/com.hs18.vaadin.addon/graph -->
 		<dependency>
 		    <groupId>com.hs18.vaadin.addon</groupId>
