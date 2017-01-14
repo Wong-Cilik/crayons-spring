@@ -17,10 +17,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-import de.tesis.dynaware.grapheditor.GraphEditor;
-import de.tesis.dynaware.grapheditor.core.DefaultGraphEditor;
-import de.tesis.dynaware.grapheditor.model.GModel;
-import de.tesis.dynaware.grapheditor.model.GraphFactory;
+
 
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
