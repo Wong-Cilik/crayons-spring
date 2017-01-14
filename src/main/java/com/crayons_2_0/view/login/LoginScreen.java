@@ -1,10 +1,11 @@
-package com.crayons_2_0.dashboard.dummy.authentification;
-import com.crayons_2_0.dashboard.dummy.authentification.LoginScreen.LoginListener;
-
+package com.crayons_2_0.view.login;
 import java.io.Serializable;
 
+import com.crayons_2_0.dashboard.dummy.authentification.AccessControl;
 import com.vaadin.annotations.Theme;
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
@@ -35,20 +36,21 @@ public class LoginScreen extends CssLayout {
     private Button forgotPassword;
     private LoginListener loginListener;
     private AccessControl accessControl;
-
-    public LoginScreen(AccessControl accessControl, LoginListener loginListener) {
-        this.loginListener = loginListener;
-        this.accessControl = accessControl;
+    //AccessControl accessControl, LoginListener loginListener
+    public LoginScreen() {
+        //this.loginListener = loginListener;
+        //this.accessControl = accessControl;
         buildUI();
-        username.focus();
+        //username.focus();
     }
 
     private void buildUI() {
         addStyleName("login-screen");
 
         // login form, centered in the available part of the screen
-        Component loginForm = buildLoginForm();
-
+        //Versuch mit Spring 
+        Component loginForm = new LoginForm();
+        //Component loginForm = buildLoginForm();
         // layout to center login form when there is sufficient screen space
         // - see the theme for how this is made responsive for various screen
         // sizes
@@ -60,11 +62,11 @@ public class LoginScreen extends CssLayout {
 
         // information text about logging in
         CssLayout loginInformation = buildLoginInformation();
-
+        //addComponent(loginForm);
         addComponent(centeringLayout);
         addComponent(loginInformation);
     }
-
+    
     private Component buildLoginForm() {
         FormLayout loginForm = new FormLayout();
 
@@ -84,9 +86,6 @@ public class LoginScreen extends CssLayout {
         buttons.addComponent(login = new Button("Login"));
         login.setDisableOnClick(true);
         login.addClickListener(new Button.ClickListener() {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -100,12 +99,9 @@ public class LoginScreen extends CssLayout {
         });
         login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         login.addStyleName(ValoTheme.BUTTON_FRIENDLY);
-
+        
         buttons.addComponent(forgotPassword = new Button("Forgot password?"));
         forgotPassword.addClickListener(new Button.ClickListener() {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -116,6 +112,7 @@ public class LoginScreen extends CssLayout {
         forgotPassword.addStyleName(ValoTheme.BUTTON_LINK);
         return loginForm;
     }
+    
 
     private CssLayout buildLoginInformation() {
         CssLayout loginInformation = new CssLayout();
@@ -149,4 +146,6 @@ public class LoginScreen extends CssLayout {
     public interface LoginListener extends Serializable {
         void loginSuccessful();
     }
+
+    
 }

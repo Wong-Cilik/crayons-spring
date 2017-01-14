@@ -1,18 +1,35 @@
 package com.crayons_2_0;
 
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 
-import com.crayons_2_0.component.MainScreen;
+import org.springframework.context.ApplicationContext;
+//import org.apache.catalina.core.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.crayons_2_0.component.Menu;
 import com.crayons_2_0.dashboard.dummy.authentification.AccessControl;
 import com.crayons_2_0.dashboard.dummy.authentification.BasicAccessControl;
-import com.crayons_2_0.dashboard.dummy.authentification.LoginScreen;
-import com.crayons_2_0.dashboard.dummy.authentification.LoginScreen.LoginListener;
+import com.crayons_2_0.view.AboutView;
+import com.crayons_2_0.view.Authorlibrary;
+import com.crayons_2_0.view.ErrorView;
+import com.crayons_2_0.view.MainScreen;
+import com.crayons_2_0.view.Preferences;
+import com.crayons_2_0.view.Userlibrary;
+import com.crayons_2_0.view.login.LoginScreen;
+import com.crayons_2_0.view.login.LoginScreen.LoginListener;
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Viewport;
+import com.vaadin.navigator.Navigator;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.server.WrappedHttpSession;
+import com.vaadin.server.WrappedSession;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
@@ -26,6 +43,7 @@ import com.vaadin.ui.themes.ValoTheme;
  * layouts.
  */
 @SpringUI
+@PreserveOnRefresh
 @Viewport("user-scalable=no,initial-scale=1.0")
 @Theme("mytheme")
 public class MyUI extends UI {
@@ -35,17 +53,20 @@ public class MyUI extends UI {
      */
     private static final long serialVersionUID = 1L;
     private AccessControl accessControl = new BasicAccessControl();
+    private ApplicationContext applicationContext;
+    
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         Responsive.makeResponsive(this);
-        setLocale(vaadinRequest.getLocale());
-        getPage().setTitle("My");
+        addStyleName(ValoTheme.UI_WITH_MENU);
+        //setLocale(vaadinRequest.getLocale());
+       
+        //showMainView();
+        
+        /*
         if (!accessControl.isUserSignedIn()) {
             setContent(new LoginScreen(accessControl, new LoginListener() {
-                /**
-                 * 
-                 */
                 private static final long serialVersionUID = 1L;
 
                 @Override
@@ -55,30 +76,51 @@ public class MyUI extends UI {
             }));
         } else {
             showMainView();
-        }
-    }
+        }*/
+         
+        WrappedSession session = vaadinRequest.getWrappedSession();
+        HttpSession httpSession = ((WrappedHttpSession) session).getHttpSession();
+        ServletContext servletContext = httpSession.getServletContext();
+        applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+        getPage().setTitle("Crayons");
+        setContent(new LoginScreen());
+        /*
+        Navigator navigator = new Navigator(this, this);
+        navigator.setErrorView(ErrorView.class);
+        
 
-    protected void showMainView() {
+
+        navigator.addView("login", LoginScreen.class);
+        navigator.navigateTo("login");
+        setNavigator(navigator);
+        */
+        
+        
+        
+    }
+    
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+    /*
+    public  void showMainView() {
         addStyleName(ValoTheme.UI_WITH_MENU);
         setContent(new MainScreen(MyUI.this));
         getNavigator().navigateTo(getNavigator().getState());
-    }
+    }*/
 
     public static MyUI get() {
         return (MyUI) UI.getCurrent();
     }
-
+    /*
     public AccessControl getAccessControl() {
         return accessControl;
     }
-
+    /*
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
 
-        /**
-         * 
-         */
         private static final long serialVersionUID = 1L;
-    }
+    }*/
 }

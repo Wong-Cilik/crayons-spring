@@ -76,19 +76,19 @@ public class Menu extends CssLayout {
 
         // logout menu item
         MenuBar logoutMenu = new MenuBar();
+        /*
         logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, new Command() {
 
-            /**
-             * 
-             */
             private static final long serialVersionUID = 1L;
-
+            
             @Override
+            
             public void menuSelected(MenuItem selectedItem) {
                 VaadinSession.getCurrent().getSession().invalidate();
                 Page.getCurrent().reload();
+                
             }
-        });
+        });*/
 
         logoutMenu.addStyleName("user-menu");
         menuPart.addComponent(logoutMenu);
