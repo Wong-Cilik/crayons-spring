@@ -1,22 +1,18 @@
 package com.crayons_2_0.view;
 
+import java.util.ResourceBundle;
+
 import com.crayons_2_0.component.CourseEditor;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
 import com.crayons_2_0.mockup.autorenbereich;
+import com.crayons_2_0.service.LanguageControl;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.shared.Position;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
@@ -31,6 +27,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
      */
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "Authorlibrary";
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
 
     public Authorlibrary() {
         VerticalLayout aboutContent = new VerticalLayout();
@@ -61,7 +58,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         //TODO: Perstenz Kursentitäten usw....
         CourseEditor courseEditor = new CourseEditor(this);
         
-        Button CreateCourse = new Button("Create new course");
+        Button CreateCourse = new Button(lang.getString("CreateNewCourse"));
         CreateCourse.addStyleName(ValoTheme.BUTTON_PRIMARY);
         CreateCourse.addClickListener(new ClickListener() {
             /**
@@ -106,6 +103,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         footer.addComponent(CreateCourse);
         footer.setSpacing(true);
         footer.setComponentAlignment(CreateCourse, Alignment.TOP_CENTER);
+        
         return footer;
     }
 

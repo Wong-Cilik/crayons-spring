@@ -1,5 +1,8 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
+import com.crayons_2_0.service.LanguageControl;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.CheckBox;
@@ -13,6 +16,8 @@ public class MultipleChoice extends VerticalLayout {
     
     
     private static final long serialVersionUID = 1L;
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    
     /**
      * 
      */
@@ -20,10 +25,10 @@ public class MultipleChoice extends VerticalLayout {
     public MultipleChoice(){
         
     
-    OptionGroup sample = new OptionGroup("Multiple Choice Example");
+    OptionGroup sample = new OptionGroup(lang.getString("MultipleChoiceExample"));
     for (int i = 0; i < 5; i++) {
         sample.addItem(i);
-        sample.setItemCaption(i, "Option " + i);
+        sample.setItemCaption(i, lang.getString("Option") + " " + i);
     }
     sample.select(2);
     sample.setNullSelectionAllowed(false);
@@ -31,8 +36,8 @@ public class MultipleChoice extends VerticalLayout {
     sample.setImmediate(true);
 
 
-    final CheckBox disableOptionsCheckBox = new CheckBox(
-            "Some options disabled");
+    final CheckBox disableOptionsCheckBox = new CheckBox(lang.getString(
+            "SomeOptionsDisabled"));
     disableOptionsCheckBox.setImmediate(true);
     disableOptionsCheckBox
             .addValueChangeListener(new ValueChangeListener() {
@@ -46,8 +51,8 @@ public class MultipleChoice extends VerticalLayout {
             });
 
 
-    final CheckBox htmlCaptionsCheckBox = new CheckBox(
-            "Captions with HTML content");
+    final CheckBox htmlCaptionsCheckBox = new CheckBox(lang.getString(
+            "CaptionsWithHTMLContent"));
     htmlCaptionsCheckBox.setImmediate(true);
     htmlCaptionsCheckBox.addValueChangeListener(new ValueChangeListener() {
         /**
@@ -58,7 +63,7 @@ public class MultipleChoice extends VerticalLayout {
         @Override
         public void valueChange(final ValueChangeEvent event) {
             for (int i = 0; i < 5; i++) {
-                sample.setItemCaption(i, "Option " + i);
+                sample.setItemCaption(i, lang.getString("Option ") + i);
             }
 
             if ((Boolean) event.getProperty().getValue()) {
