@@ -4,7 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.crayons_2_0.MyUI;
+import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.view.login.LoginScreen;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
@@ -81,22 +86,20 @@ public class Menu extends CssLayout {
         // logout menu item
         MenuBar logoutMenu = new MenuBar();
 
-        /*
-        logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, new Command() {
-=======
+        
         logoutMenu.addItem(lang.getString("Logout"), FontAwesome.SIGN_OUT, new Command() {
->>>>>>> refs/remotes/origin/master
 
             private static final long serialVersionUID = 1L;
             
             @Override
             
             public void menuSelected(MenuItem selectedItem) {
-                VaadinSession.getCurrent().getSession().invalidate();
-                Page.getCurrent().reload();
+                SecurityContextHolder.clearContext();
+                AuthManager.setHasAuthority(false);
+                MyUI.getCurrent().setContent(new LoginScreen());
                 
             }
-        });*/
+        });
 
         logoutMenu.addStyleName("user-menu");
         menuPart.addComponent(logoutMenu);

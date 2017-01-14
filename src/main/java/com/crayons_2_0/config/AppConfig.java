@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.controller.LoginFormListener;
-import com.crayons_2_0.authentification.AuthManager;
 import com.crayons_2_0.service.UserService;
 
 /**
