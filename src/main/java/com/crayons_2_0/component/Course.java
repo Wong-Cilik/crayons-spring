@@ -4,7 +4,11 @@ import java.util.LinkedList;
 
 public class Course {
 	
-	private String courseTitle;
+	private String title;
+	
+	private String description;
+	
+	private LinkedList<User> authors;
 	
 	private LinkedList<Unit> Units;		// Struktur!!!!! 
 	

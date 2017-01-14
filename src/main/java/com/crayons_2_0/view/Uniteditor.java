@@ -3,7 +3,9 @@ package com.crayons_2_0.view;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 
+import com.crayons_2_0.service.LanguageControl;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 /*
@@ -56,7 +58,8 @@ public final class Uniteditor extends VerticalLayout implements View{
 
     private final ReportEditorListener listener;
     private final SortableLayout canvas;
-
+    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    
     public Uniteditor(final ReportEditorListener listener) {
         this.listener = listener;
         setSizeFull();
@@ -150,7 +153,7 @@ public final class Uniteditor extends VerticalLayout implements View{
 
             dropHandler = new ReorderLayoutDropHandler();
 
-            Label l = new Label("Drag items here");
+            Label l = new Label(lang.getString("Drag items here"));
             l.setSizeUndefined();
 
             placeholder = new DragAndDropWrapper(l);
