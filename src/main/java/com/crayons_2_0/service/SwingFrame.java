@@ -15,6 +15,7 @@ public class SwingFrame extends JFrame {
 	
 	
 	// Klasse Hat Error aber tut auch Nix ;)
+    //habs mal rauskommentiert...
 	// Versuchszombie
     /*
 	public SwingFrame() {
