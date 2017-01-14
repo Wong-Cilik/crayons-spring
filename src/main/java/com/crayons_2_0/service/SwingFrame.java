@@ -13,6 +13,10 @@ import javafx.*;
 
 public class SwingFrame extends JFrame {
 	
+	
+	// Klasse Hat Error aber tut auch Nix ;)
+	// Versuchszombie
+	
 	public SwingFrame() {
 		
 		
