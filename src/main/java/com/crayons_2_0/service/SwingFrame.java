@@ -16,14 +16,13 @@ public class SwingFrame extends JFrame {
 	
 	// Klasse Hat Error aber tut auch Nix ;)
 	// Versuchszombie
-	
+    /*
 	public SwingFrame() {
-		
 		
         super("Swing Frame");
         setLayout(new GridLayout(0, 1));
         JButton swingButton = new JButton("Swing Button");
-         
+        
         // Create JavaFX Container
         JPanel jfxPanel = new JPanel();
          
@@ -37,11 +36,11 @@ public class SwingFrame extends JFrame {
                     setVisible(true);
                 });
         });
-         
+        
         getContentPane().add(swingButton);
         getContentPane().add(jfxPanel);
     }
-     
+	 */
      
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new SwingFrame());
