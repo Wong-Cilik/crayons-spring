@@ -1,4 +1,4 @@
-package com.crayons_2_0.component;
+package com.crayons_2_0.controller;
 
 import java.util.HashMap;
 import java.util.Map;
