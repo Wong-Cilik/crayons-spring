@@ -1,4 +1,4 @@
-package com.crayons_2_0.authentification;
+package com.crayons_2_0.authentication;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.service.UserService;
@@ -40,6 +40,10 @@ public class AuthManager implements AuthenticationManager {
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
         }
         throw new BadCredentialsException("Bad Credentials");
+    }
+
+    public static void setHasAuthority(boolean hasAuthority) {
+        AuthManager.hasAuthority = hasAuthority;
     }
 
     public static boolean isHasAuthority() {

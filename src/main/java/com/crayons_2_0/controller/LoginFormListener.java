@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.MyUI;
-import com.crayons_2_0.authentification.AuthManager;
+import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.view.MainScreen;
 import com.crayons_2_0.view.login.LoginForm;
 import com.vaadin.navigator.Navigator;

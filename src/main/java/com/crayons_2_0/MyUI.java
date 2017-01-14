@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 //import org.apache.catalina.core.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.crayons_2_0.authentification.AuthManager;
+import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.controller.LoginFormListener;
 import com.crayons_2_0.view.MainScreen;
 import com.crayons_2_0.view.login.LoginScreen;
