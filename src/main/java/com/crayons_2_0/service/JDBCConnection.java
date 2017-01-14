@@ -45,7 +45,7 @@ public class JDBCConnection {
 	}
 	
 	
-	public void initConnection() throws DatabaseException {
+	private void initConnection() throws DatabaseException {
 		
 		try {
 			DriverManager.registerDriver(new org.postgresql.Driver());
@@ -57,7 +57,7 @@ public class JDBCConnection {
 		
 	}
 	
-	public void openConnection() throws DatabaseException {
+	private void openConnection() throws DatabaseException {
 		
 		Properties props = new Properties();
 		props.setProperty("user", this.login);
