@@ -1,8 +1,10 @@
 package com.crayons_2_0.view;
 
+import com.crayons_2_0.service.SwingFrame;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.GraphJsNode;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
+
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinRequest;
@@ -14,6 +16,12 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+
+import de.tesis.dynaware.grapheditor.GraphEditor;
+import de.tesis.dynaware.grapheditor.core.DefaultGraphEditor;
+import de.tesis.dynaware.grapheditor.model.GModel;
+import de.tesis.dynaware.grapheditor.model.GraphFactory;
+
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
@@ -24,6 +32,14 @@ import com.vaadin.ui.Button.ClickListener;
  * https://github.com/singhalavi/graph-tree/tree/master/src/main/java/com/hs18/vaadin/addon/graph
  * 
  *  https://vaadin.com/directory#!addon/graph-explorer
+ *  
+ *  
+ *  https://github.com/tesis-dynaware/graph-editor
+ *  
+ *  https://www.informatik-aktuell.de/entwicklung/programmiersprachen/swing-und-javafx-migration-und-rundumerneuerung.html
+ *  
+ *  
+ *  https://vaadin.com/directory#!addon/nodegraphwidget
  */
 
 
@@ -63,10 +79,80 @@ public class LearningGraph2 extends VerticalLayout implements View {
         */
         
         neuesFenster();
+        
+        
+        //---------------------------------------------------------------------------------
+        // Graph-Editor
+        
+        
+        
+        NodeGraphWidget();
+        
+        
+        
+        //----------------------------------------------------------------------------------
        
     }
     
-    private void neuesFenster() {
+    private void NodeGraphWidget() {
+    	
+    	/*
+    	// = Create the model.
+    	final GraphModel graphModel = GraphModelFactory.getGraphModelInstance();
+
+    	// = Support for single click to select nodes.
+    	graphModel.setSingleSelectionSupport(Boolean.TRUE);
+
+    	// = Create some nodes.
+    	Node begin = new BeginNode();
+
+    	Node splitNode = new SplitNode();
+
+    	Node nodeA = new DefaultNode();
+    	nodeA.setLabel("NodeA");
+
+    	Node nodeB = new DefaultNode();
+    	nodeB.setLabel("NodeB");
+
+    	Node processCreation = new ProcessCreationNode();
+    	processCreation.setLabel("Process");
+
+    	Node end = new EndNode();
+
+    	// = Nodes meet nodes!.
+    	final RelationStyle dashedBlue = new DefaultRelationStyle(GraphConstants.DOM.CSS_BLUE_VALUE, 2);
+    	dashedBlue.setDashedStroke(5, 5);
+
+    	final RelationStyle straightRed = new DefaultRelationStyle();
+    	straightRed.strokeColor(GraphConstants.DOM.CSS_RED_VALUE).strokeWidth(3);
+
+    	final RelationStyle defaultNormalBlack = new DefaultRelationStyle();
+
+    	// = Tie all the stuff.
+    	graphModel.connect(begin, splitNode, straightRed);
+    	graphModel.connect(splitNode, nodeA, dashedBlue);
+    	graphModel.connect(splitNode, nodeB, defaultNormalBlack);
+    	graphModel.connect(nodeA, end, RelationTypeEnum.BEZIER);
+    	graphModel.connect(nodeB, processCreation, RelationTypeEnum.BEZIER, new DefaultRelationStyle().strokeColor(GraphConstants.DOM.CSS_GREEN_VALUE));
+    	graphModel.connect(processCreation, end, RelationTypeEnum.LINE);
+
+    	// = Retrive the model from somewhere...
+    	final GraphModel graphModel = getGraphModel ... ;
+
+    	// = Create the component and pass the model on its constructor.
+    	final GraphComponent component = new GraphComponent(graphModel);
+    	component.setSizeFull();
+
+    	// = Add the component to a container...
+    	final VerticalLayout layout = new VerticalLayout();
+    	layout.setMargin(true);
+    	layout.setSpacing(true);
+    	layout.addComponent(component);
+    	*/ 
+		
+	}
+
+	private void neuesFenster() {
     	// Some UI logic to open the sub-window
     	final Button open = new Button("Open Sub-Window");
     	open.addClickListener(new ClickListener() {
@@ -79,6 +165,8 @@ public class LearningGraph2 extends VerticalLayout implements View {
     	});
     	addComponent(open);
 	}
+    
+   
     
     
     // Define a sub-window by inheritance
@@ -129,7 +217,11 @@ public class LearningGraph2 extends VerticalLayout implements View {
                 }
             });
             content.addComponent(ok);
+            
+            SwingFrame swingFrame = new SwingFrame();
+            
         }
+        
     }
     
     
@@ -246,15 +338,12 @@ public class LearningGraph2 extends VerticalLayout implements View {
     	
     }
     
-    
-    
-    
-    
-    
+
+
+
 	@Override
 	public void enter(ViewChangeEvent event) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
