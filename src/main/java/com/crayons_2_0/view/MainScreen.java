@@ -1,7 +1,7 @@
 package com.crayons_2_0.view;
 
 import com.crayons_2_0.MyUI;
-import com.crayons_2_0.component.Menu;
+import com.crayons_2_0.controller.Menu;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FontAwesome;

@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 //import org.apache.catalina.core.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.crayons_2_0.component.Menu;
+import com.crayons_2_0.controller.Menu;
 import com.crayons_2_0.dashboard.dummy.authentification.AccessControl;
 import com.crayons_2_0.dashboard.dummy.authentification.BasicAccessControl;
 import com.crayons_2_0.view.AboutView;
