@@ -1,33 +1,23 @@
 package com.crayons_2_0;
 
 import javax.servlet.ServletContext;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 //import org.apache.catalina.core.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.crayons_2_0.controller.Menu;
+import com.crayons_2_0.authentification.AuthManager;
+import com.crayons_2_0.controller.LoginFormListener;
 import com.crayons_2_0.dashboard.dummy.authentification.AccessControl;
 import com.crayons_2_0.dashboard.dummy.authentification.BasicAccessControl;
-import com.crayons_2_0.view.AboutView;
-import com.crayons_2_0.view.Authorlibrary;
-import com.crayons_2_0.view.ErrorView;
 import com.crayons_2_0.view.MainScreen;
-import com.crayons_2_0.view.Preferences;
-import com.crayons_2_0.view.Userlibrary;
 import com.crayons_2_0.view.login.LoginScreen;
-import com.crayons_2_0.view.login.LoginScreen.LoginListener;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Viewport;
-import com.vaadin.navigator.Navigator;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.WrappedHttpSession;
 import com.vaadin.server.WrappedSession;
 import com.vaadin.spring.annotation.SpringUI;
@@ -83,7 +73,13 @@ public class MyUI extends UI {
         ServletContext servletContext = httpSession.getServletContext();
         applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
         getPage().setTitle("Crayons");
-        setContent(new LoginScreen());
+        
+        
+       
+        if (!AuthManager.isHasAuthority()){
+            setContent(new LoginScreen());
+        }
+        
         /*
         Navigator navigator = new Navigator(this, this);
         navigator.setErrorView(ErrorView.class);
@@ -102,12 +98,12 @@ public class MyUI extends UI {
     public ApplicationContext getApplicationContext() {
         return applicationContext;
     }
-    /*
+    
     public  void showMainView() {
         addStyleName(ValoTheme.UI_WITH_MENU);
         setContent(new MainScreen(MyUI.this));
         getNavigator().navigateTo(getNavigator().getState());
-    }*/
+    }
 
     public static MyUI get() {
         return (MyUI) UI.getCurrent();

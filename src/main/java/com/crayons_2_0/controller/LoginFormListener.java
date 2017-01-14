@@ -39,14 +39,17 @@ public class LoginFormListener implements Button.ClickListener {
             Authentication result = authManager.authenticate(request);
 
             SecurityContextHolder.getContext().setAuthentication(result);
+            
 
-            //showMainView();
+           
 
         } catch (AuthenticationException e) {
             Notification.show("Authentication failed: " + e.getMessage());
         }
 
     }
+
+    
     
     /*
     protected void showMainView() {
