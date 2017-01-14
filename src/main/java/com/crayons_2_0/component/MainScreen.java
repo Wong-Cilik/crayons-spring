@@ -6,6 +6,7 @@ import com.crayons_2_0.MyUI;
 import com.crayons_2_0.service.LanguageControl;
 import com.crayons_2_0.view.AboutView;
 import com.crayons_2_0.view.Authorlibrary;
+import com.crayons_2_0.view.ErrorView;
 import com.crayons_2_0.view.LearningGraph;
 import com.crayons_2_0.view.LearningGraph2;
 import com.crayons_2_0.view.Preferences;
