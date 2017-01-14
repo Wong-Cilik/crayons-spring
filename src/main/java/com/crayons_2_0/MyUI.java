@@ -9,8 +9,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.crayons_2_0.authentification.AuthManager;
 import com.crayons_2_0.controller.LoginFormListener;
-import com.crayons_2_0.dashboard.dummy.authentification.AccessControl;
-import com.crayons_2_0.dashboard.dummy.authentification.BasicAccessControl;
 import com.crayons_2_0.view.MainScreen;
 import com.crayons_2_0.view.login.LoginScreen;
 import com.vaadin.annotations.PreserveOnRefresh;
@@ -42,7 +40,6 @@ public class MyUI extends UI {
      * 
      */
     private static final long serialVersionUID = 1L;
-    private AccessControl accessControl = new BasicAccessControl();
     private ApplicationContext applicationContext;
     
 
