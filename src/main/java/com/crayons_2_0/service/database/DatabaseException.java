@@ -1,4 +1,4 @@
-package com.crayons_2_0.service;
+package com.crayons_2_0.service.database;
 
 public class DatabaseException extends Exception {
 	
