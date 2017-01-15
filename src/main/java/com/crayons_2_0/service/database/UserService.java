@@ -1,4 +1,4 @@
-package com.crayons_2_0.service;
+package com.crayons_2_0.service.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
