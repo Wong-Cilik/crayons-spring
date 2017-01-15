@@ -3,8 +3,6 @@ package com.crayons_2_0.service;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import ch.qos.logback.core.boolex.EventEvaluatorBase;
-
 public class LanguageControl {
 	
 	private static final LanguageControl languageControl = new LanguageControl();
@@ -84,6 +82,16 @@ public class LanguageControl {
 			this.setCurrentLocale(new Locale("en", "en"));
 		}
 		
+	}
+	
+	public Language getLanguage() {
+		if (currentLocale.equals(new Locale("de", "de"))) {
+			return Language.German;
+		} else if (currentLocale.equals(new Locale("en", "en"))) {
+			return Language.English;
+		}
+		
+		return null;
 	}
 	
 

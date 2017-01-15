@@ -3,7 +3,10 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
+import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageControl;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 
 //import org.apache.catalina.realm.JNDIRealm.User;
 
@@ -120,6 +123,33 @@ public class Preferences extends VerticalLayout implements View {
         root.setSpacing(true);
         root.setMargin(true);
         root.setSizeFull();
+        
+        ComboBox selectLanguage = new ComboBox(lang.getString("SelectYourLanguage"));
+        selectLanguage.setInputPrompt(LanguageControl.getInstance().getLanguage().toString());
+        selectLanguage.addItem(Language.German.toString());
+        selectLanguage.addItem(Language.English.toString());
+        selectLanguage.addValueChangeListener(new ValueChangeListener() {
+			
+        	// ToDO Makeup Hardcoded. 
+        	
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				Language newLanguage;
+				String value = selectLanguage.getValue().toString();
+				if (value.equals(Language.German.toString())) {
+					newLanguage = Language.German;
+				} else if (value.equals(Language.English.toString())) {
+					newLanguage = Language.English;
+				} else {
+					newLanguage = null;
+				}
+				LanguageControl.getInstance().setCurrentLocale(newLanguage);
+				Page.getCurrent().reload();
+				Notification.show(lang.getString("LanguageChangedTo") + ": " + value);
+				
+			}
+		});
+        root.addComponent(selectLanguage);
 
         Label message = new Label(lang.getString("NotImplementedInThisDemo"));
         message.setSizeUndefined();

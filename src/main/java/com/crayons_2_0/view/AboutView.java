@@ -12,6 +12,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -29,6 +30,8 @@ import com.crayons_2_0.service.DatabaseException;
 import com.crayons_2_0.service.JDBCConnection;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.database.AddNewUserListener;
+import com.crayons_2_0.service.database.UserDAO;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.mxgraph.swing.mxGraphComponent;
@@ -44,6 +47,7 @@ public class AboutView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "About";
     
     ResourceBundle lang = LanguageControl.getInstance().getRes();
+	private TextField txtUserLabel;
 
     public AboutView() {
         VerticalLayout aboutContent = new VerticalLayout();
@@ -77,7 +81,8 @@ public class AboutView extends VerticalLayout implements View {
         sample.addValueChangeListener(e -> Notification.show("Value changed:"));
         aboutContent.addComponent(sample);
         
-      // NEW-DATENBANK----TEST--------------------------------------------------------------------
+        // NEW-DATENBANK----TEST--------------------------------------------------------------------
+        /*
         Button testDB = new Button("Teste Datenbank");
         testDB.addClickListener(new ClickListener() {
 			
@@ -101,6 +106,22 @@ public class AboutView extends VerticalLayout implements View {
 			}
 		});
         aboutContent.addComponent(testDB);
+        */
+        //--------   DATENBANK NEU ----------------------------------------------------------------------
+     
+        TextField txtUserLabel = new TextField("User label: ");
+        addComponent(txtUserLabel);
+        
+        
+        Button btnAddNewUser = new Button("Add New User");
+        //btnAddNewUser.addClickListener(new AddNewUserListener());
+        addComponent(btnAddNewUser);
+        
+        
+        
+        
+        
+        
         //-------------------------------------------------------------------------------
         
         Button buttonGerman = new Button(lang.getString("German"));
@@ -185,4 +206,8 @@ public class AboutView extends VerticalLayout implements View {
     public void enter(ViewChangeEvent event) {
     }
 
+    
+    public TextField getTxtUserLabel() {
+		return txtUserLabel;
+    }
 }

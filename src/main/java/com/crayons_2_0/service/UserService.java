@@ -1,5 +1,6 @@
 package com.crayons_2_0.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,7 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Service;
+
+import com.crayons_2_0.service.database.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.List;
  */
 public class UserService implements UserDetailsService {
 
+	@Autowired
+    private UserDAO userDAO;
+	
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -34,4 +39,9 @@ public class UserService implements UserDetailsService {
             return null;
         }
     }
+    
+    public List<User> findAll() {
+	    List<User> res = userDAO.findAll();
+	    return res;
+	}
 }
