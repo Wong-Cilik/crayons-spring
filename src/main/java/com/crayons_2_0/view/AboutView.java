@@ -26,11 +26,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.crayons_2_0.component.MultipleChoice;
-import com.crayons_2_0.service.DatabaseException;
-import com.crayons_2_0.service.JDBCConnection;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageControl;
 import com.crayons_2_0.service.database.AddNewUserListener;
+import com.crayons_2_0.service.database.DatabaseException;
+import com.crayons_2_0.service.database.JDBCConnection;
 import com.crayons_2_0.service.database.UserDAO;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
