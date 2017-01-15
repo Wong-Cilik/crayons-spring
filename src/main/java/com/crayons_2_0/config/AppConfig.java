@@ -15,7 +15,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.controller.LoginFormListener;
-import com.crayons_2_0.service.UserService;
+import com.crayons_2_0.service.database.UserService;
 import com.crayons_2_0.service.database.JDBCConnection;
 import com.crayons_2_0.service.database.UserDAO;
 
