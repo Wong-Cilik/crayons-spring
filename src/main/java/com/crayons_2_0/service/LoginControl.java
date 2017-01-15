@@ -4,7 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.crayons_2_0.component.User;
+import org.springframework.security.core.userdetails.User;
+
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 
@@ -34,9 +35,9 @@ public class LoginControl {
 		try {
 			
 			if (set.next()) {
-				user = new User();
-				user.setLogin(set.getString(1));
-				user.setName(set.getString(3));
+				//user = new User();
+				//user.setLogin(set.getString(1));
+				//user.setName(set.getString(3));
 			} else {
 				//ERROR HANDLING NoSuchUserOrPassword
 			}
