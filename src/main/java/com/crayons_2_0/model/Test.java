@@ -1,4 +1,4 @@
-package com.crayons_2_0.component;
+package com.crayons_2_0.model;
 
 import com.mxgraph.view.mxGraph;
 
