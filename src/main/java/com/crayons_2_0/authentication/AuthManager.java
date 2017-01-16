@@ -1,7 +1,7 @@
 package com.crayons_2_0.authentication;
 
 import com.crayons_2_0.MyUI;
-import com.crayons_2_0.service.UserService;
+import com.crayons_2_0.service.database.UserService;
 import com.vaadin.ui.UI;
 
 import org.springframework.beans.factory.annotation.Autowired;

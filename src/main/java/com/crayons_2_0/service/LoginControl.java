@@ -6,6 +6,8 @@ import java.sql.Statement;
 
 import org.springframework.security.core.userdetails.User;
 
+import com.crayons_2_0.service.database.DatabaseException;
+import com.crayons_2_0.service.database.JDBCConnection;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 

@@ -30,6 +30,29 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
+<<<<<<< HEAD
+=======
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import com.crayons_2_0.component.MultipleChoice;
+import com.crayons_2_0.service.Language;
+import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.database.AddNewUserListener;
+import com.crayons_2_0.service.database.DatabaseException;
+import com.crayons_2_0.service.database.JDBCConnection;
+import com.crayons_2_0.service.database.UserDAO;
+import com.hs18.vaadin.addon.graph.GraphJSComponent;
+import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.view.mxGraph;
+>>>>>>> refs/remotes/origin/master
 
 @SpringUI
 public class AboutView extends VerticalLayout implements View {
