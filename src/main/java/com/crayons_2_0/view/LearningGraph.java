@@ -1,16 +1,13 @@
 package com.crayons_2_0.view;
 
-<<<<<<< HEAD
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.component.DeleteVerification;
 import com.vaadin.annotations.Theme;
-=======
 import com.crayons_2_0.component.AddUnitWindow;
 import com.crayons_2_0.component.ConnectWindow;
 import com.crayons_2_0.component.DeleteWindow;
 import com.crayons_2_0.model.graph.GraphCreator;
->>>>>>> branch 'master' of https://github.com/jubusch/crayons-spring.git
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
