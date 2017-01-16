@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -27,10 +28,10 @@ public class AuthManager implements AuthenticationManager {
     private UserService userService;
     private static boolean hasAuthority = false;
 
-    public Authentication authenticate(Authentication auth) throws AuthenticationException {
+    public Authentication authenticate(Authentication auth) throws AuthenticationException, UsernameNotFoundException {
         String username = (String) auth.getPrincipal();
         String password = (String) auth.getCredentials();
-
+        
         UserDetails user = userService.loadUserByUsername(username);
 
         if (user != null && user.getPassword().equals(password)) {
