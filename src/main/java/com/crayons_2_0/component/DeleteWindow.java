@@ -1,6 +1,6 @@
 package com.crayons_2_0.component;
 
-import com.crayons_2_0.service.graph.DeleteUnitListener;
+import com.crayons_2_0.controller.graph.DeleteUnitListener;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;

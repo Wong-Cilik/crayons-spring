@@ -1,4 +1,4 @@
-package com.crayons_2_0.service.graph;
+package com.crayons_2_0.controller.graph;
 
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
@@ -8,13 +8,13 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 
-public class ConnectUnitsListener implements Button.ClickListener {
+public class DeleteConnectionListener  implements Button.ClickListener {
 
     @Override
     public void buttonClick(ClickEvent event) {
         for (Window window: UI.getCurrent().getWindows()) window.close();
         Notification success = new Notification(
-                "Units are connected successfully");
+                "COnnection is deleted successfully");
         success.setDelayMsec(2000);
         success.setStyleName("bar success small");
         success.setPosition(Position.BOTTOM_CENTER);
@@ -22,3 +22,4 @@ public class ConnectUnitsListener implements Button.ClickListener {
     }
 
 }
+

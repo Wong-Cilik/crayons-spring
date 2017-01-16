@@ -1,6 +1,6 @@
 package com.crayons_2_0.component;
 
-import com.crayons_2_0.service.graph.AddNewUnitListener;
+import com.crayons_2_0.controller.graph.AddNewUnitListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
@@ -29,7 +29,7 @@ public final class AddUnitWindow extends Window {
         content.addComponent(title);
         content.setComponentAlignment(title, Alignment.TOP_CENTER);
         
-        Component nameField = buildTitleField();
+        Component nameField = buildTitle();
         content.addComponent(nameField);
         content.setComponentAlignment(nameField, Alignment.MIDDLE_LEFT);
         
@@ -69,12 +69,6 @@ public final class AddUnitWindow extends Window {
         
         unitTypeChoice.addComponents(learningUnit, testUnit);
         return unitTypeChoice;
-    }
-
-    private Component buildTitleField() {
-        TextField titleField = new TextField("Unit title");
-        titleField.setValue("unit title");
-        return titleField;
     }
 
     private Component buildTitle() {

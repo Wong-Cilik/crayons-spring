@@ -1,7 +1,7 @@
 package com.crayons_2_0.component;
 
-import com.crayons_2_0.service.graph.ConnectUnitsListener;
-import com.crayons_2_0.service.graph.DeleteConnectionListener;
+import com.crayons_2_0.controller.graph.ConnectUnitsListener;
+import com.crayons_2_0.controller.graph.DeleteConnectionListener;
 import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
@@ -74,7 +74,7 @@ public class ConnectWindow extends Window {
     }*/
 
     private Component buildTitle() {
-        Label title = new Label("Connect units");
+        Label title = new Label("Manage unit connection");
         title.addStyleName(ValoTheme.LABEL_H2);
         return title;
     }
