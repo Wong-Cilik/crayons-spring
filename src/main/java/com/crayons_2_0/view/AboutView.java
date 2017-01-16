@@ -30,28 +30,6 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.ValoTheme;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import com.crayons_2_0.component.MultipleChoice;
-import com.crayons_2_0.service.Language;
-import com.crayons_2_0.service.LanguageControl;
-import com.crayons_2_0.service.database.AddNewUserListener;
-import com.crayons_2_0.service.database.DatabaseException;
-import com.crayons_2_0.service.database.JDBCConnection;
-import com.crayons_2_0.service.database.UserDAO;
-import com.crayons_2_0.service.graph.DeleteUnitListener;
-import com.hs18.vaadin.addon.graph.GraphJSComponent;
-import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.view.mxGraph;
 
 @SpringUI
 public class AboutView extends VerticalLayout implements View {
@@ -61,27 +39,13 @@ public class AboutView extends VerticalLayout implements View {
      */
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "About";
+    
     ResourceBundle lang = LanguageControl.getInstance().getRes();
-	private TextField txtUserLabel;
+    private TextField txtUserLabel;
 
     public AboutView() {
         VerticalLayout aboutContent = new VerticalLayout();
         aboutContent.setStyleName("about-content");
-        
-        Button ok = new Button("Learning Graph");
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-
-            @Override
-            public void buttonClick(ClickEvent event) {
-                removeAllComponents();
-                addComponent(new LearningGraph());
-            }
-            
-        });
-        ok.focus();
-        addComponent(ok);
-        setComponentAlignment(ok, Alignment.TOP_RIGHT);
 
         // you can add Vaadin components in predefined slots in the custom
         // layout
@@ -117,26 +81,26 @@ public class AboutView extends VerticalLayout implements View {
         /*
         Button testDB = new Button("Teste Datenbank");
         testDB.addClickListener(new ClickListener() {
-			
-			@Override
-			public void buttonClick(ClickEvent event) {
-				
-				try {
-					Statement statement = JDBCConnection.getInstance().getStatement();
-					ResultSet set = statement.executeQuery("SELECT * FROM realm.user");
-					
-					while (set.next()) {
-						Label levin = new Label(set.getString(1));
-				        aboutContent.addComponent(levin);
-					}
-				} catch (DatabaseException | SQLException e1) {
-					e1.printStackTrace();
-				}
-		        Label levin = new Label("Hier müssten die Namen erscheinen");
-		        aboutContent.addComponent(levin);
-		        
-			}
-		});
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                
+                try {
+                    Statement statement = JDBCConnection.getInstance().getStatement();
+                    ResultSet set = statement.executeQuery("SELECT * FROM realm.user");
+                    
+                    while (set.next()) {
+                        Label levin = new Label(set.getString(1));
+                        aboutContent.addComponent(levin);
+                    }
+                } catch (DatabaseException | SQLException e1) {
+                    e1.printStackTrace();
+                }
+                Label levin = new Label("Hier müssten die Namen erscheinen");
+                aboutContent.addComponent(levin);
+                
+            }
+        });
         aboutContent.addComponent(testDB);
         */
         //--------   DATENBANK NEU ----------------------------------------------------------------------
@@ -159,23 +123,23 @@ public class AboutView extends VerticalLayout implements View {
         Button buttonGerman = new Button(lang.getString("German"));
         buttonGerman.setIcon(FontAwesome.BEER);
         buttonGerman.addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				LanguageControl.getInstance().setCurrentLocale(Language.German);
-				Page.getCurrent().reload();
-			}
-		});
+            @Override
+            public void buttonClick(ClickEvent event) {
+                LanguageControl.getInstance().setCurrentLocale(Language.German);
+                Page.getCurrent().reload();
+            }
+        });
         aboutContent.addComponent(buttonGerman);
         
         Button buttonEnglish = new Button(lang.getString("English"));
         buttonEnglish.setIcon(FontAwesome.COFFEE);
         buttonEnglish.addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				LanguageControl.getInstance().setCurrentLocale(Language.English);
-				Page.getCurrent().reload();
-			}
-		});
+            @Override
+            public void buttonClick(ClickEvent event) {
+                LanguageControl.getInstance().setCurrentLocale(Language.English);
+                Page.getCurrent().reload();
+            }
+        });
         aboutContent.addComponent(buttonEnglish);
         
         //---------------------------------------------------------------------------------
@@ -297,6 +261,6 @@ public class AboutView extends VerticalLayout implements View {
 
     
     public TextField getTxtUserLabel() {
-		return txtUserLabel;
+        return txtUserLabel;
     }
 }
