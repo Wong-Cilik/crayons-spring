@@ -21,7 +21,8 @@ public class UserDAO {
     JdbcTemplate jdbcTemplate;
 
     public void createDbTable() {
-        jdbcTemplate.execute("create table if not exists users (id integer, label varchar(100))");
+    	// FALSCH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        jdbcTemplate.execute("create table if not exists users (eMail varchar(100), password varchar(100))");
     }
 
     public List<User> findAll() {
