@@ -45,7 +45,7 @@ public class LoginFormListener implements Button.ClickListener {
 
         } catch (AuthenticationException e) {
             Notification.show("Authentication failed: " + e.getMessage());
-        }
+        } 
 
     }
 
