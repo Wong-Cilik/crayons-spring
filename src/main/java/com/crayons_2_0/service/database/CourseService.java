@@ -18,7 +18,12 @@ public class CourseService {
 	}
 	
 	public Course getCourseByTitle(String courseTitle) {
-		//Todo
+		//TODO
+		return null;
+	}
+	
+	public List<Course> getAllCursesOfUser() {
+		//TODO
 		return null;
 	}
 
