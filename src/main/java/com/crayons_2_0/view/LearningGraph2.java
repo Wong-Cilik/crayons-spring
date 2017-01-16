@@ -249,6 +249,7 @@ public class LearningGraph2 extends VerticalLayout implements View {
 			graphJSComponent.getNodeProperties("mango").put("fill", "yellow");
 			
 			graphJSComponent.addNode("5", "Hapoos", "level 3", null, "mango");//child of mango node
+			graphJSComponent.addParent("5", "watermelon");
 			graphJSComponent.getNodeProperties("5").put("title", "One of the best mangos"); 
 			
 			graphJSComponent.addNode("6", "Green", "level 3", null, "watermelon");//child of watermelon node
