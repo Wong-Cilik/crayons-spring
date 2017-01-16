@@ -18,6 +18,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ValoTheme;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ import com.crayons_2_0.service.database.AddNewUserListener;
 import com.crayons_2_0.service.database.DatabaseException;
 import com.crayons_2_0.service.database.JDBCConnection;
 import com.crayons_2_0.service.database.UserDAO;
+import com.crayons_2_0.service.graph.DeleteUnitListener;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.mxgraph.swing.mxGraphComponent;
@@ -45,13 +47,27 @@ public class AboutView extends VerticalLayout implements View {
      */
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "About";
-    
     ResourceBundle lang = LanguageControl.getInstance().getRes();
 	private TextField txtUserLabel;
 
     public AboutView() {
         VerticalLayout aboutContent = new VerticalLayout();
         aboutContent.setStyleName("about-content");
+        
+        Button ok = new Button("Learning Graph");
+        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        ok.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                removeAllComponents();
+                addComponent(new LearningGraph());
+            }
+            
+        });
+        ok.focus();
+        addComponent(ok);
+        setComponentAlignment(ok, Alignment.TOP_RIGHT);
 
         // you can add Vaadin components in predefined slots in the custom
         // layout

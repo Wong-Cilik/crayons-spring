@@ -3,7 +3,7 @@ package com.crayons_2_0.view;
 import com.crayons_2_0.component.AddUnitWindow;
 import com.crayons_2_0.component.ConnectWindow;
 import com.crayons_2_0.component.DeleteWindow;
-import com.vaadin.annotations.Theme;
+import com.crayons_2_0.model.graph.GraphCreator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -20,16 +20,21 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
-@Theme("graph")
-public class LearningGraph extends VerticalLayout implements View {
+public class LearningGraph extends VerticalLayout {
     
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "Learning Graph";
     
+    
     public LearningGraph() {
         setSizeFull();
         addStyleName("editor");
-
+        
+        // get id's of the current course and user 
+        /*long graphID = 0;
+        long userID = 0;
+        addComponent(GraphCreator.getGraphView(graphID, userID));
+        */
         Component editMenu = buildEditMenu();
         addComponent(editMenu);
         setComponentAlignment(editMenu, Alignment.BOTTOM_LEFT);
@@ -82,9 +87,4 @@ public class LearningGraph extends VerticalLayout implements View {
             return icon;
         }
     }
-    
-    @Override
-    public void enter(ViewChangeEvent event) {
-    }
-
 }
