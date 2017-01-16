@@ -1,4 +1,4 @@
-package com.crayons_2_0.service;
+package com.crayons_2_0.service.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
