@@ -1,8 +1,20 @@
 package com.crayons_2_0.view;
 
 
+import java.util.ResourceBundle;
+
+import com.crayons_2_0.component.MultipleChoice;
+import com.crayons_2_0.service.Language;
+import com.crayons_2_0.service.LanguageControl;
+import com.hs18.vaadin.addon.graph.GraphJSComponent;
+import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.pontus.vizcomponent.VizComponent;
+import com.vaadin.pontus.vizcomponent.VizComponent.EdgeClickEvent;
+import com.vaadin.pontus.vizcomponent.VizComponent.NodeClickEvent;
+import com.vaadin.pontus.vizcomponent.VizComponent.NodeClickListener;
+import com.vaadin.pontus.vizcomponent.model.Graph;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Version;
@@ -10,32 +22,14 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import com.crayons_2_0.component.MultipleChoice;
-import com.crayons_2_0.service.DatabaseException;
-import com.crayons_2_0.service.JDBCConnection;
-import com.crayons_2_0.service.Language;
-import com.crayons_2_0.service.LanguageControl;
-import com.crayons_2_0.service.database.AddNewUserListener;
-import com.crayons_2_0.service.database.UserDAO;
-import com.hs18.vaadin.addon.graph.GraphJSComponent;
-import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.view.mxGraph;
 
 @SpringUI
 public class AboutView extends VerticalLayout implements View {
@@ -55,11 +49,13 @@ public class AboutView extends VerticalLayout implements View {
 
         // you can add Vaadin components in predefined slots in the custom
         // layout
+        aboutContent.addComponent(buildGraph());
         aboutContent.addComponent(new MultipleChoice());
         aboutContent.addComponent(
                 new Label(FontAwesome.INFO_CIRCLE.getHtml()
                         + " This application is using Vaadin "
                         + Version.getFullVersion(), ContentMode.HTML));
+        
 
         setSizeFull();
         setStyleName("about-view");
@@ -201,6 +197,63 @@ public class AboutView extends VerticalLayout implements View {
         //------------------
         
     }
+    
+    private Component buildGraph(){
+        VerticalLayout GraphView = new VerticalLayout();
+        final VizComponent component = new VizComponent();
+        Graph.Node node1 = new Graph.Node("n1");
+        Graph.Node node2 = new Graph.Node("n2");
+
+        Graph graph = new Graph("G", Graph.DIGRAPH);
+        graph.addEdge(node1, node2);
+        graph.addEdge(node2, node1);
+        Graph.Edge edge1 = graph.getEdge(node1, node2);
+        edge1.setParam("color", "red");
+        node1.setParam("shape", "box");
+        node1.setParam("label", "\"First!\"");
+        edge1.setParam("label", "e1");
+
+        component.setWidth("300px");
+        component.setHeight("200px");
+        component.drawGraph(graph);
+
+        Label label = new Label(
+                "In this example there are two nodes. "
+                        + "The color of the nodes and edges is changed when clicking on them. "
+                        + "Note also the tooltip");
+
+        GraphView.setSizeFull();
+        GraphView.addComponent(label);
+        GraphView. addComponent(component);
+        GraphView.setExpandRatio(component, 1);
+        GraphView.setComponentAlignment(component, Alignment.MIDDLE_CENTER);
+
+        component.addClickListener(new NodeClickListener() {
+
+            @Override
+            public void nodeClicked(NodeClickEvent e) {
+                Graph.Node node = e.getNode();
+                component.addCss(node, "stroke", "blue");
+                component.addTextCss(node, "fill", "blue");
+            }
+
+        });
+
+        component.addClickListener(new VizComponent.EdgeClickListener() {
+
+            @Override
+            public void edgeClicked(EdgeClickEvent e) {
+                component.addCss(e.getEdge(), "stroke", "blue");
+                component.addTextCss(e.getEdge(), "fill", "blue");
+
+            }
+
+        });
+        
+        return GraphView;
+    }
+        
+    
 
     @Override
     public void enter(ViewChangeEvent event) {
