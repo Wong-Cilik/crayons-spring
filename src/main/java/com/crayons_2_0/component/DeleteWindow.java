@@ -1,5 +1,6 @@
 package com.crayons_2_0.component;
 
+import com.crayons_2_0.service.graph.DeleteUnitListener;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
@@ -46,19 +47,7 @@ public final class DeleteWindow extends Window {
 
         Button ok = new Button("Delete");
         ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                close();
-                Notification success = new Notification(
-                        "Unit is deleted successfully");
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-
-            }
-        });
+        ok.addClickListener(new DeleteUnitListener());
         ok.focus();
         footer.addComponent(ok);
         footer.setComponentAlignment(ok, Alignment.TOP_CENTER);

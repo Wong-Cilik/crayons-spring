@@ -1,5 +1,7 @@
 package com.crayons_2_0.component;
 
+import com.crayons_2_0.service.graph.ConnectUnitsListener;
+import com.crayons_2_0.service.graph.DeleteConnectionListener;
 import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
@@ -49,24 +51,20 @@ public class ConnectWindow extends Window {
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
         footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-        Button ok = new Button("Connect");
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                close();
-                Notification success = new Notification(
-                        "Units are connected successfully");
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-
-            }
-        });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
+        Button connect = new Button("Connect");
+        connect.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        connect.addClickListener(new ConnectUnitsListener());
+        connect.focus();
+        footer.addComponent(connect);
+        footer.setComponentAlignment(connect, Alignment.TOP_CENTER);
+        
+        Button disconnect = new Button("Delete connection");
+        disconnect.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        disconnect.addClickListener(new DeleteConnectionListener());
+        disconnect.focus();
+        footer.addComponent(disconnect);
+        footer.setComponentAlignment(disconnect, Alignment.TOP_CENTER);
+        
         return footer;
     }
 
