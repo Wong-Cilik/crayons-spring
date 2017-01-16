@@ -26,6 +26,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         // fetch user from e.g. DB
+        
         if ("client".equals(username)) {
             authorities.add(new SimpleGrantedAuthority("CLIENT"));
             User user = new User(username, "pass", true, true, false, false, authorities);
@@ -38,6 +39,18 @@ public class UserService implements UserDetailsService {
         } else {
             return null;
         }
+        
+        
+        // Part 2 mit DATENBANK
+        			/*
+        List<User> users = findAll();
+        for (User tmpUser : users) {
+        	if (tmpUser.equals(username)) {
+        		return tmpUser;
+        	}
+        }
+        throw new UsernameNotFoundException(User " + username + "doesn't exists!");
+        */
     }
     
     public List<User> findAll() {
