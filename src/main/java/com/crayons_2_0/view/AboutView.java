@@ -3,7 +3,7 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.component.MultipleChoice;
+import com.crayons_2_0.model.MultipleChoice;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageControl;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;

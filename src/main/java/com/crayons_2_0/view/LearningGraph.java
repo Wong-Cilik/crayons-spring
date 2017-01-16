@@ -1,5 +1,9 @@
 package com.crayons_2_0.view;
 
+import com.crayons_2_0.component.UnitCreationWindow;
+import com.crayons_2_0.component.UnitConnectionEditor;
+import com.crayons_2_0.component.DeleteVerification;
+import com.vaadin.annotations.Theme;
 import com.crayons_2_0.component.AddUnitWindow;
 import com.crayons_2_0.component.ConnectWindow;
 import com.crayons_2_0.component.DeleteWindow;
@@ -45,9 +49,9 @@ public class LearningGraph extends VerticalLayout {
         editMenuLayout.setSpacing(true);
         editMenuLayout.setWidthUndefined();
 
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.ADD_UNIT, new AddUnitWindow()));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.CONNECT_UNITS, new ConnectWindow()));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.DELETE_UNIT, new DeleteWindow()));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.ADD_UNIT, new UnitCreationWindow()));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.CONNECT_UNITS, new UnitConnectionEditor()));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.DELETE_UNIT, new DeleteVerification()));
         editMenuLayout.setSpacing(true);
         
         return editMenuLayout;
