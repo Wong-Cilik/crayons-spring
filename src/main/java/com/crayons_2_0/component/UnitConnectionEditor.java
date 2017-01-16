@@ -15,8 +15,8 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class ConnectWindow extends Window {
-    public ConnectWindow() {
+public class UnitConnectionEditor extends Window {
+    public UnitConnectionEditor() {
         setSizeFull();
         setModal(true);
         setResizable(false);

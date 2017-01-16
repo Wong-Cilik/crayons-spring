@@ -17,8 +17,8 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings({ "serial" })
-public final class AddUnitWindow extends Window {
-    public AddUnitWindow() {
+public final class UnitCreationWindow extends Window {
+    public UnitCreationWindow() {
         setSizeFull();
         setModal(true);
         setResizable(false);

@@ -14,8 +14,8 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
-public final class DeleteWindow extends Window {
-    public DeleteWindow() {
+public final class DeleteVerification extends Window {
+    public DeleteVerification() {
         setSizeFull();
         setModal(true);
         setResizable(false);
