@@ -41,7 +41,7 @@ public class AboutView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "About";
     
     ResourceBundle lang = LanguageControl.getInstance().getRes();
-	private TextField txtUserLabel;
+    private TextField txtUserLabel;
 
     public AboutView() {
         VerticalLayout aboutContent = new VerticalLayout();
@@ -81,26 +81,26 @@ public class AboutView extends VerticalLayout implements View {
         /*
         Button testDB = new Button("Teste Datenbank");
         testDB.addClickListener(new ClickListener() {
-			
-			@Override
-			public void buttonClick(ClickEvent event) {
-				
-				try {
-					Statement statement = JDBCConnection.getInstance().getStatement();
-					ResultSet set = statement.executeQuery("SELECT * FROM realm.user");
-					
-					while (set.next()) {
-						Label levin = new Label(set.getString(1));
-				        aboutContent.addComponent(levin);
-					}
-				} catch (DatabaseException | SQLException e1) {
-					e1.printStackTrace();
-				}
-		        Label levin = new Label("Hier müssten die Namen erscheinen");
-		        aboutContent.addComponent(levin);
-		        
-			}
-		});
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                
+                try {
+                    Statement statement = JDBCConnection.getInstance().getStatement();
+                    ResultSet set = statement.executeQuery("SELECT * FROM realm.user");
+                    
+                    while (set.next()) {
+                        Label levin = new Label(set.getString(1));
+                        aboutContent.addComponent(levin);
+                    }
+                } catch (DatabaseException | SQLException e1) {
+                    e1.printStackTrace();
+                }
+                Label levin = new Label("Hier müssten die Namen erscheinen");
+                aboutContent.addComponent(levin);
+                
+            }
+        });
         aboutContent.addComponent(testDB);
         */
         //--------   DATENBANK NEU ----------------------------------------------------------------------
@@ -123,23 +123,23 @@ public class AboutView extends VerticalLayout implements View {
         Button buttonGerman = new Button(lang.getString("German"));
         buttonGerman.setIcon(FontAwesome.BEER);
         buttonGerman.addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				LanguageControl.getInstance().setCurrentLocale(Language.German);
-				Page.getCurrent().reload();
-			}
-		});
+            @Override
+            public void buttonClick(ClickEvent event) {
+                LanguageControl.getInstance().setCurrentLocale(Language.German);
+                Page.getCurrent().reload();
+            }
+        });
         aboutContent.addComponent(buttonGerman);
         
         Button buttonEnglish = new Button(lang.getString("English"));
         buttonEnglish.setIcon(FontAwesome.COFFEE);
         buttonEnglish.addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				LanguageControl.getInstance().setCurrentLocale(Language.English);
-				Page.getCurrent().reload();
-			}
-		});
+            @Override
+            public void buttonClick(ClickEvent event) {
+                LanguageControl.getInstance().setCurrentLocale(Language.English);
+                Page.getCurrent().reload();
+            }
+        });
         aboutContent.addComponent(buttonEnglish);
         
         //---------------------------------------------------------------------------------
@@ -261,6 +261,6 @@ public class AboutView extends VerticalLayout implements View {
 
     
     public TextField getTxtUserLabel() {
-		return txtUserLabel;
+        return txtUserLabel;
     }
 }
