@@ -10,13 +10,13 @@ import com.crayons_2_0.model.graph.Graph;
 public class Course {
 	
 	private String title;
-	private CrayonsUser author;
+	private User author;
 	private String description;
 	private Date creationTime;
 	private List<Unit> Units;		// Struktur!!!!! 
 	private Graph graph;
 	
-	public Course(String title, CrayonsUser author) {
+	public Course(String title, User author) {
 	    this.title = title;
 	    this.author = author;
 	}
