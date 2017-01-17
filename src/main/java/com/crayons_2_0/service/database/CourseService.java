@@ -38,7 +38,7 @@ public class CourseService {
 			}
 		}
 		
-		Course newCourse = new Course();
+		//Course newCourse = new Course();
 	
 		return true;
 	}
