@@ -1,5 +1,7 @@
 package com.crayons_2_0.view;
 
+import org.springframework.security.core.userdetails.User;
+
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.component.DeleteVerification;
@@ -7,7 +9,9 @@ import com.vaadin.annotations.Theme;
 import com.crayons_2_0.component.AddUnitWindow;
 import com.crayons_2_0.component.ConnectWindow;
 import com.crayons_2_0.component.DeleteWindow;
-import com.crayons_2_0.model.graph.GraphCreator;
+import com.crayons_2_0.controller.graph.GraphViewCreator;
+import com.crayons_2_0.model.CrayonsUser;
+import com.crayons_2_0.model.graph.Graph;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -34,11 +38,10 @@ public class LearningGraph extends VerticalLayout {
         setSizeFull();
         addStyleName("editor");
         
-        // get id's of the current course and user 
-        /*long graphID = 0;
-        long userID = 0;
-        addComponent(GraphCreator.getGraphView(graphID, userID));
-        */
+        Graph graph = new Graph();
+        User user = new User("a", "a", null);
+        GraphViewCreator gvc = new GraphViewCreator(graph, user);
+        addComponent(gvc.getGraphView());
         Component editMenu = buildEditMenu();
         addComponent(editMenu);
         setComponentAlignment(editMenu, Alignment.BOTTOM_LEFT);
