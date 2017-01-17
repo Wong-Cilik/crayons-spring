@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
+import com.crayons_2_0.model.Course;
 
 import com.crayons_2_0.model.Course;
 
@@ -31,14 +32,15 @@ public class CourseService {
 		
 		// Wenn Kurs kreiert werden kann, erstelle kurs in DB
 		
-		// Checke - Kurs Existiert?
+		// Checke - Kurs Existiert? 
+	    //ECEPTION werfen todo
 		for (Course tmpCourse : courseDAO.findAll()) {
 			if (tmpCourse.getTitle().equals(title)) {
 				return false;
 			}
 		}
 		
-		Course newCourse = new Course();
+		Course newCourse = new Course(title,author);
 	
 		return true;
 	}
