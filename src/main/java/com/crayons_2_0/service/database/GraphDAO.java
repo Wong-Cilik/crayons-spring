@@ -24,15 +24,7 @@ public class GraphDAO {
         return null;
     }
     
-    public List<Graph> findById(long id) {
-        return null;
-    }
-    
-    public boolean insertGraph(Graph graph) {
-        return true;
-    }
-    
-    public boolean deleteGraph(Graph graph) {
-        return true;
+    public void save(Graph graph) {
+        
     }
 }

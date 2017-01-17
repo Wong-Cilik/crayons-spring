@@ -58,11 +58,15 @@ public class UserService implements UserDetailsService {
 	    return res;
 	}
     
+    public boolean insertUser(User user) {
+        return true;
+    }
+    
     public boolean removeUser(User user) {
         return true;
     }
     
-    public User findUserById(long userId) {
+    public User findByUserId(long userId) {
         return null;
     }
     

@@ -23,7 +23,7 @@ public class UnitDAO {
     }
 
     public List<Unit> findAll() {
-        String query = "select * from units";
+        /*String query = "select * from units";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -38,33 +38,18 @@ public class UnitDAO {
 
 			
         };
-        return jdbcTemplate.query(query, mapper);
-    }
-    
-    public Unit findById(long unitId) {
+        return jdbcTemplate.query(query, mapper);*/
         return null;
     }
     
-    public List<Unit> findByName(String unitName) {
-        return null;
-    }
-    
-    public List<Unit> findByGraphId(long graphId) {
-        return null;
-    }
-
-    public boolean insertUnit(Unit unit) {
-        return true;
-    }
-    
-    public boolean removeUnit(Unit unit) {
+    public boolean save(Unit unit) {
         return true;
     }
 
 	/*public void save(Course course) {
         String query = "insert into courses (name) values (?)";
         jdbcTemplate.update(query, new Object[]{course.getTitle()});
-    }*/
+    }
     
     private UnitType createUnitType(String unitType) {
     	// TODO!!!!!!!!!!!!!!!!!!!!!!!! (Ergänzen)
@@ -80,6 +65,6 @@ public class UnitDAO {
     protected Graph getGraphFromAnyway() {
     	// TODO !!!!!!!!!!!!!!!!!!!!!!!!!
 		return null;
-	}
+	}*/
 	
 }
