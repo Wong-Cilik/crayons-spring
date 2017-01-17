@@ -10,15 +10,15 @@ import com.crayons_2_0.model.graph.Graph;
 public class Course {
 	
 	private String title;
+	private User author;
 	private String description;
 	private Date creationTime;
-	private LinkedList<User> authors;
-	//private LinkedList<Unit> Units;		// Struktur!!!!! 
+	private LinkedList<Unit> Units;		// Struktur!!!!! 
 	private Graph graph;
 	
-	public Course(String title, String description) {
+	public Course(String title, User authorName) {
 	    this.title = title;
-	    this.description = description;
+	    this.author = authorName;
 	}
 	
     public String getTitle() {
@@ -37,17 +37,7 @@ public class Course {
         this.description = description;
     }
     
-    public LinkedList<User> getAuthors() {
-        return authors;
-    }
     
-    public void addAuthor(User author) {
-        this.authors.add(author);
-    }
-    
-    public void removeAuthor(User author) {
-        this.authors.remove(author);
-    }
     
     public Graph getGraph() {
         return graph;
