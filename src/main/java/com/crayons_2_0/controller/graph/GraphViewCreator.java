@@ -2,14 +2,16 @@ package com.crayons_2_0.controller.graph;
 
 import java.util.List;
 
-import com.crayons_2_0.model.Unit;
 import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.Unit;
+import com.crayons_2_0.model.graph.Unit.UnitType;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
+
 import org.springframework.security.core.userdetails.User;
 
 public class GraphViewCreator {
-    private List<Unit> units;
+    private List<UnitType> units;
     private User user;
     private List<Integer> horizontalPosition;
     private List<Integer> verticalPosition;
