@@ -1,9 +1,9 @@
 package com.crayons_2_0.service.database;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.MultiValueMap;
 
 import com.crayons_2_0.model.graph.Unit;
 
@@ -12,7 +12,7 @@ public class ConnectionService {
     @Autowired
     private ConnectionDAO connectionDAO;
     
-    public Map<Unit, Unit> findAll() {
+    public MultiValueMap<Unit, Unit> findAll() {
         return null;
     }
     
