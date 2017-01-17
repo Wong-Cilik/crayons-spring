@@ -1,8 +1,8 @@
 package com.crayons_2_0.component;
 
-import java.util.ResourceBundle;
+import java.util.ResourceBundle; 
 
-import com.crayons_2_0.service.LanguageControl;
+
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Button;
@@ -12,9 +12,9 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 
 public class ImportEditor implements Button.ClickListener {
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+   
 
-    Button export = new Button(lang.getString("Export"));
+    Button export = new Button("Export");
    
     @Override
     public void buttonClick(ClickEvent event) {      
