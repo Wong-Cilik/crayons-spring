@@ -1,10 +1,10 @@
 package com.crayons_2_0.service.database;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.crayons_2_0.model.graph.Connection;
 import com.crayons_2_0.model.graph.Unit;
 
 public class ConnectionService {
@@ -12,15 +12,15 @@ public class ConnectionService {
     @Autowired
     private ConnectionDAO connectionDAO;
     
-    public List<Connection> findAll() {
+    public Map<Unit, Unit> findAll() {
         return null;
     }
     
-    public boolean insertConnection(Connection connection) {
+    public boolean insertConnection(Unit from, Unit to) {
         return true;
     }
     
-    public boolean removeConnection(Connection connection) {
+    public boolean removeConnection(Unit from, Unit to) {
         return true;
     }
     
