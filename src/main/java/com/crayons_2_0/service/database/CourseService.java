@@ -18,17 +18,22 @@ public class CourseService {
         return res;
     }
     
-    public Course getCourseByTitle(String courseTitle) {
+    public Course findCourseId(long courseId) {
         //TODO
         return null;
     }
     
-    public List<Course> getAllCursesOfUser() {
+    public Course findCourseByTitle(String courseTitle) {
         //TODO
         return null;
     }
     
-    public boolean createNewCourse(String title, User author) {
+    public List<Course> findAllCoursesOfUser(User user) {
+        //TODO
+        return null;
+    }
+    
+    public boolean insertCourse(String title, User author) {
         
         // Wenn Kurs kreiert werden kann, erstelle kurs in DB
         
@@ -44,5 +49,9 @@ public class CourseService {
     
         return true;
     }   
+    
+    public boolean removeCourse(Course course) {
+        return true;
+    }
 
 }

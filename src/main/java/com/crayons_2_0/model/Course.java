@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.User;
 
 import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.Unit;
 
 public class Course {
 	
@@ -36,8 +37,6 @@ public class Course {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
     
     public Graph getGraph() {
         return graph;

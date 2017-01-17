@@ -25,7 +25,7 @@ public class CourseDAO {
     }
 
     public List<Course> findAll() {
-        String query = "select * from courses";
+        /*String query = "select * from courses";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -37,7 +37,8 @@ public class CourseDAO {
                 return course;
             }
         };
-        return jdbcTemplate.query(query, mapper);
+        return jdbcTemplate.query(query, mapper);*/
+        return null;
     }
 
     public void save(Course course) {
