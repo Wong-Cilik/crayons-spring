@@ -7,9 +7,9 @@ import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.component.DeleteVerification;
 import com.vaadin.annotations.Theme;
-import com.crayons_2_0.component.AddUnitWindow;
-import com.crayons_2_0.component.ConnectWindow;
-import com.crayons_2_0.component.DeleteWindow;
+import com.crayons_2_0.component.UnitCreationWindow;
+import com.crayons_2_0.component.UnitConnectionEditor;
+import com.crayons_2_0.component.DeleteVerification;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
 import com.vaadin.navigator.View;
@@ -28,13 +28,11 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
-public class LearningGraph extends VerticalLayout {
+public class CourseEditorView extends VerticalLayout implements View {
     
-    private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "Learning Graph";
     
-    
-    public LearningGraph() {
+    public CourseEditorView() {
         setSizeFull();
         addStyleName("editor");
         
@@ -93,5 +91,11 @@ public class LearningGraph extends VerticalLayout {
         public FontAwesome getIcon() {
             return icon;
         }
+    }
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+        
     }
 }
