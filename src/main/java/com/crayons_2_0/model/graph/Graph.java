@@ -43,7 +43,7 @@ public class Graph {
         return true;
     }
     
-    public boolean deleteUnit(Unit learningUnit) {
+    public boolean deleteUnit(Unit unit) {
         return true;
     }
     
