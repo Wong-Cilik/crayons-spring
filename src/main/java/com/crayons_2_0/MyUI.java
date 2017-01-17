@@ -39,7 +39,6 @@ public class MyUI extends UI {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
     private ApplicationContext applicationContext;
     
 

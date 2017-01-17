@@ -17,7 +17,6 @@ public class LoginScreen extends CssLayout {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
     //AccessControl accessControl, LoginListener loginListener
     public LoginScreen() {
         //this.loginListener = loginListener;
