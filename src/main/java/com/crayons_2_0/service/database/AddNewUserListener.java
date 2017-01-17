@@ -35,7 +35,7 @@ public class AddNewUserListener implements Button.ClickListener {
         authorities.add(new SimpleGrantedAuthority("CLIENT"));
         User user = new User(value, "pass", true, true, false, false, authorities);;
         
-        userDAO.save(user);
+        userDAO.insertUser(user);
 
         current.getNavigator().navigateTo("users"); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
