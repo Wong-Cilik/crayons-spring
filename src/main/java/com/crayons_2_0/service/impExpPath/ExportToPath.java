@@ -1,4 +1,4 @@
-package com.crayons_2_0.model.impExpPath;
+package com.crayons_2_0.service.impExpPath;
 
 public class ExportToPath {
 
