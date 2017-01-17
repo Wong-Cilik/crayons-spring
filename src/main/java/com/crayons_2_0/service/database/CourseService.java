@@ -38,7 +38,8 @@ public class CourseService {
 			}
 		}
 		
-		Course newCourse = new Course();
+		Course newCourse = new Course(title, "No description");
+		courseDAO.save(newCourse);
 	
 		return true;
 	}

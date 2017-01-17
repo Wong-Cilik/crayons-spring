@@ -26,7 +26,7 @@ public class UserDAO {
     }
 
     public List<User> findAll() {
-        String query = "select * from users";
+        String query = "select * from realm.users";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
