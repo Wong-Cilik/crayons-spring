@@ -3,9 +3,12 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
+import org.springframework.security.core.userdetails.User;
+
 import com.crayons_2_0.model.MultipleChoice;
 import com.crayons_2_0.service.Language;
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.UserService;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.vaadin.navigator.View;
@@ -40,7 +43,7 @@ public class AboutView extends VerticalLayout implements View {
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "About";
     
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
     private TextField txtUserLabel;
 
     public AboutView() {
@@ -114,7 +117,21 @@ public class AboutView extends VerticalLayout implements View {
         addComponent(btnAddNewUser);
         
         
+        // DatenBank ganzNeu
         
+        Button dbTest = new Button("Teste Datenbank");
+        dbTest.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UserService userservice = new UserService();
+				for (User user : userservice.findAll()) {
+					aboutContent.addComponent(new Label(user.getUsername()));
+				}
+				
+			}
+		});
+        aboutContent.addComponent(dbTest);
         
         
         
@@ -125,7 +142,7 @@ public class AboutView extends VerticalLayout implements View {
         buttonGerman.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                LanguageControl.getInstance().setCurrentLocale(Language.German);
+                LanguageService.getInstance().setCurrentLocale(Language.German);
                 Page.getCurrent().reload();
             }
         });
@@ -136,7 +153,7 @@ public class AboutView extends VerticalLayout implements View {
         buttonEnglish.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                LanguageControl.getInstance().setCurrentLocale(Language.English);
+                LanguageService.getInstance().setCurrentLocale(Language.English);
                 Page.getCurrent().reload();
             }
         });

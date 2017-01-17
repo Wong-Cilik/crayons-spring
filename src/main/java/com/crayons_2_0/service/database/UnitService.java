@@ -17,9 +17,24 @@ public class UnitService {
 	    return res;
 	}
 	
-	public Course getUnitByTitle(String unitTitle) {
+	public List<Unit> findUnitByTitle(String unitTitle) {
 		//Todo
 		return null;
 	}
 	
+    public Unit findUnitById(long unitId) {
+        return null;
+    }
+    
+    public List<Unit> findUnitsByGraphId(long graphId) {
+        return null;
+    }
+
+    public boolean insertUnit(Unit unit) {
+        return true;
+    }
+    
+    public boolean removeUnit(Unit unit) {
+        return true;
+    }
 }

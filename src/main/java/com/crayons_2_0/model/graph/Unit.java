@@ -5,12 +5,14 @@ import java.util.Set;
 
 public class Unit {
     private final Graph graph;
+    private String unitTitle;
     private UnitType unitType;
     private boolean availability;
     private Set<Unit> nextUnits;
     // TODO: how to store the content?
     
-    public Unit(UnitType unitType, boolean availability, Graph graph) {
+    public Unit(String unitTitle, UnitType unitType, boolean availability, Graph graph) {
+        this.unitTitle = unitTitle;
         this.unitType = unitType;
         this.availability = availability;
         this.graph = graph;
@@ -19,6 +21,14 @@ public class Unit {
     
     public Graph getGraph() {
         return graph;
+    }
+
+    public String getUnitTitle() {
+        return unitTitle;
+    }
+
+    public void setUnitTitle(String unitTitle) {
+        this.unitTitle = unitTitle;
     }
 
     public UnitType getUnitType() {

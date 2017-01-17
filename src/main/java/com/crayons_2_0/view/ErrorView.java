@@ -2,7 +2,7 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringUI;
@@ -23,7 +23,7 @@ public class ErrorView extends VerticalLayout implements View {
      * 
      */
     private static final long serialVersionUID = 1L;
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
     private Label explanation;
     
 

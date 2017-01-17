@@ -23,33 +23,35 @@ public class UnitDAO {
     }
 
     public List<Unit> findAll() {
-        String query = "select * from units";
+        /*String query = "select * from units";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
                 
             	String title = rs.getString("title");
-                UnitType unitType = createUnityType(rs.getString("unitType"));
+                UnitType unitType = createUnitType(rs.getString("unitType"));
                 Graph graph = getGraphFromAnyway();
 
-                Unit unit = new Unit(unitType, true, graph);
+                Unit unit = new Unit("myunit", unitType, true, graph);
                 return unit;
             }
 
 			
         };
-        return jdbcTemplate.query(query, mapper);
+        return jdbcTemplate.query(query, mapper);*/
+        return null;
+    }
+    
+    public boolean save(Unit unit) {
+        return true;
     }
 
-
-	public void save(Course course) {
+	/*public void save(Course course) {
         String query = "insert into courses (name) values (?)";
         jdbcTemplate.update(query, new Object[]{course.getTitle()});
     }
     
-	
-	
-    private UnitType createUnityType(String unitType) {
+    private UnitType createUnitType(String unitType) {
     	// TODO!!!!!!!!!!!!!!!!!!!!!!!! (Ergänzen)
 		if (unitType.equals(UnitType.START)) {
 			return UnitType.START;
@@ -63,6 +65,6 @@ public class UnitDAO {
     protected Graph getGraphFromAnyway() {
     	// TODO !!!!!!!!!!!!!!!!!!!!!!!!!
 		return null;
-	}
+	}*/
 	
 }
