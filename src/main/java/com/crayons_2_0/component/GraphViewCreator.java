@@ -1,4 +1,4 @@
-package com.crayons_2_0.controller.graph;
+package com.crayons_2_0.component;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import com.vaadin.ui.GridLayout;
 import org.springframework.security.core.userdetails.User;
 
 public class GraphViewCreator {
-    private List<UnitType> units;
+    private List<Unit> units;
     private User user;
     private List<Integer> horizontalPosition;
     private List<Integer> verticalPosition;
@@ -45,7 +45,7 @@ public class GraphViewCreator {
         
     }
     
-    private Button generateButton(Unit unit, boolean availability) {
+    private Button generateButton(Unit unit) {
         return null;
     }
     

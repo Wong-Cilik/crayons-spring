@@ -18,7 +18,7 @@ public class CourseService {
         return res;
     }
     
-    public Course findCourseId(long courseId) {
+    public Course findByCourseId(long courseId) {
         //TODO
         return null;
     }
