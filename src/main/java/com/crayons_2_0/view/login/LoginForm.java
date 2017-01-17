@@ -22,7 +22,6 @@ public class LoginForm extends VerticalLayout {
      * 
      */
 	
-    private static final long serialVersionUID = 1L;
     private ResourceBundle lang = LanguageControl.getInstance().getRes();
     private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
     private PasswordField txtPassword = new PasswordField(lang.getString("Password") + ": ");

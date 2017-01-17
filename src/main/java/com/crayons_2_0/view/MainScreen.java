@@ -22,7 +22,6 @@ public class MainScreen extends HorizontalLayout {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
     private Menu menu;
     
     private ResourceBundle lang = LanguageControl.getInstance().getRes();
