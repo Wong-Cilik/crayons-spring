@@ -1,11 +1,11 @@
 package com.crayons_2_0.service.database;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.crayons_2_0.model.graph.Connection;
+import com.crayons_2_0.model.graph.Unit;
 
 public class ConnectionDAO {
     @Autowired
@@ -15,11 +15,11 @@ public class ConnectionDAO {
         
     }
     
-    public List<Connection> findAll() {
+    public Map<Unit, Unit> findAll() {
         return null;
     }
     
-    public void save(Connection connection) {
+    public void save(Unit from, Unit to) {
         
     }
 }
