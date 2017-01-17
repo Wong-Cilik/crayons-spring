@@ -3,9 +3,12 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
+import org.springframework.security.core.userdetails.User;
+
 import com.crayons_2_0.model.MultipleChoice;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.database.UserService;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.vaadin.navigator.View;
@@ -114,7 +117,21 @@ public class AboutView extends VerticalLayout implements View {
         addComponent(btnAddNewUser);
         
         
+        // DatenBank ganzNeu
         
+        Button dbTest = new Button("Teste Datenbank");
+        dbTest.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UserService userservice = new UserService();
+				for (User user : userservice.findAll()) {
+					aboutContent.addComponent(new Label(user.getUsername()));
+				}
+				
+			}
+		});
+        aboutContent.addComponent(dbTest);
         
         
         
