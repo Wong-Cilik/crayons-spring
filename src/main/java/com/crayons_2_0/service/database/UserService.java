@@ -57,4 +57,24 @@ public class UserService implements UserDetailsService {
 	    List<User> res = userDAO.findAll();
 	    return res;
 	}
+    
+    public boolean insertUser(User user) {
+        return true;
+    }
+    
+    public boolean removeUser(User user) {
+        return true;
+    }
+    
+    public User findByUserId(long userId) {
+        return null;
+    }
+    
+    public User findByEMail(String eMail) {
+        return null;
+    }
+    
+    public List<User> findByName(String firstName, String lastName) {
+        return null;
+    }
 }

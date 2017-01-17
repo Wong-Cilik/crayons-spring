@@ -1,11 +1,12 @@
 package com.crayons_2_0.model;
 
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.security.core.userdetails.User;
 
 import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.Unit;
 
 public class Course {
 	
@@ -13,12 +14,12 @@ public class Course {
 	private User author;
 	private String description;
 	private Date creationTime;
-	private LinkedList<Unit> Units;		// Struktur!!!!! 
+	private List<Unit> Units;		// Struktur!!!!! 
 	private Graph graph;
 	
-	public Course(String title, User authorName) {
+	public Course(String title, User author) {
 	    this.title = title;
-	    this.author = authorName;
+	    this.author = author;
 	}
 	
     public String getTitle() {
@@ -36,8 +37,6 @@ public class Course {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
     
     public Graph getGraph() {
         return graph;

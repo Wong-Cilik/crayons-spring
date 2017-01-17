@@ -47,5 +47,4 @@ public class UserDAO {
         String query = "insert into users (label) values (?)";
         jdbcTemplate.update(query, new Object[]{user.getUsername()});
     }
-
 }

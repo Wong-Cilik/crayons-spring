@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.Menu;
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FontAwesome;
@@ -24,7 +24,7 @@ public class MainScreen extends HorizontalLayout {
      */
     private Menu menu;
     
-    private ResourceBundle lang = LanguageControl.getInstance().getRes();
+    private ResourceBundle lang = LanguageService.getInstance().getRes();
 
     public MainScreen(MyUI ui) {
 
