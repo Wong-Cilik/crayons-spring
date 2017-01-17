@@ -29,10 +29,10 @@ public class UnitDAO {
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
                 
             	String title = rs.getString("title");
-                UnitType unitType = createUnityType(rs.getString("unitType"));
+                UnitType unitType = createUnitType(rs.getString("unitType"));
                 Graph graph = getGraphFromAnyway();
 
-                Unit unit = new Unit(unitType, true, graph);
+                Unit unit = new Unit("myunit", unitType, true, graph);
                 return unit;
             }
 
@@ -40,16 +40,33 @@ public class UnitDAO {
         };
         return jdbcTemplate.query(query, mapper);
     }
-
-
-	public void save(Course course) {
-        String query = "insert into courses (name) values (?)";
-        jdbcTemplate.update(query, new Object[]{course.getTitle()});
+    
+    public Unit findById(long unitId) {
+        return null;
     }
     
-	
-	
-    private UnitType createUnityType(String unitType) {
+    public List<Unit> findByName(String unitName) {
+        return null;
+    }
+    
+    public List<Unit> findByGraphId(long graphId) {
+        return null;
+    }
+
+    public boolean insertUnit(Unit unit) {
+        return true;
+    }
+    
+    public boolean removeUnit(Unit unit) {
+        return true;
+    }
+
+	/*public void save(Course course) {
+        String query = "insert into courses (name) values (?)";
+        jdbcTemplate.update(query, new Object[]{course.getTitle()});
+    }*/
+    
+    private UnitType createUnitType(String unitType) {
     	// TODO!!!!!!!!!!!!!!!!!!!!!!!! (Ergänzen)
 		if (unitType.equals(UnitType.START)) {
 			return UnitType.START;

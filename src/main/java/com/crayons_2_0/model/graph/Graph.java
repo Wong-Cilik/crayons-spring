@@ -10,15 +10,15 @@ public class Graph {
     // create a new graph when a new course is created
     public Graph() {
         this.unitsAvailable = false;
-        this.startUnit = new Unit(UnitType.START, unitsAvailable, this);
-        this.endUnit = new Unit(UnitType.END, unitsAvailable, this);
+        this.startUnit = new Unit("Start", UnitType.START, unitsAvailable, this);
+        this.endUnit = new Unit("End", UnitType.END, unitsAvailable, this);
     }
     
     // initialize a graph using the information from the databases
     public Graph(long graphID) {
         this.unitsAvailable = false;
-        this.startUnit = new Unit(UnitType.START, unitsAvailable, this);
-        this.endUnit = new Unit(UnitType.END, unitsAvailable, this);
+        this.startUnit = new Unit("Start", UnitType.START, unitsAvailable, this);
+        this.endUnit = new Unit("End", UnitType.END, unitsAvailable, this);
     }
     
     public Unit getStartUnit() {
@@ -38,8 +38,8 @@ public class Graph {
     }
     
     // add a new unit and connect to the start
-    public boolean addUnit(UnitType unitType){
-        Unit newUnit = new Unit(unitType, unitsAvailable, this);
+    public boolean addUnit(String unitName, UnitType unitType){
+        Unit newUnit = new Unit(unitName, unitType, unitsAvailable, this);
         return true;
     }
     

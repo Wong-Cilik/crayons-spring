@@ -43,9 +43,25 @@ public class UserDAO {
         return jdbcTemplate.query(query, mapper);
     }
 
-    public void save(User user) {
+    public boolean insertUser(User user) {
         String query = "insert into users (label) values (?)";
         jdbcTemplate.update(query, new Object[]{user.getUsername()});
+        return true;
     }
-
+    
+    public boolean removeUser(User user) {
+        return true;
+    }
+    
+    public User findUserById(long userId) {
+        return null;
+    }
+    
+    public User findByEMail(String eMail) {
+        return null;
+    }
+    
+    public List<User> findByName(String firstName, String lastName) {
+        return null;
+    }
 }
