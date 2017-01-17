@@ -1,4 +1,4 @@
-package com.crayons_2_0.service.graph;
+package com.crayons_2_0.controller.graph;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
