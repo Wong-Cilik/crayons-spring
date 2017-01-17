@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 /*
@@ -58,7 +58,7 @@ public final class Uniteditor extends VerticalLayout implements View{
 
     private final ReportEditorListener listener;
     private final SortableLayout canvas;
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
     
     public Uniteditor(final ReportEditorListener listener) {
         this.listener = listener;

@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.authentication.AuthManager;
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.view.login.LoginScreen;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
@@ -61,7 +61,7 @@ public class Menu extends CssLayout {
     */
     public Menu(Navigator navigator) {
     	
-    	ResourceBundle lang = LanguageControl.getInstance().getRes();
+    	ResourceBundle lang = LanguageService.getInstance().getRes();
     	
         this.navigator = navigator;
         setPrimaryStyleName(ValoTheme.MENU_ROOT);

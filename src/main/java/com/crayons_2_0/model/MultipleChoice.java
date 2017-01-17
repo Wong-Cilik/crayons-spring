@@ -2,7 +2,7 @@ package com.crayons_2_0.model;
 
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.CheckBox;
@@ -16,7 +16,7 @@ public class MultipleChoice extends VerticalLayout {
     
     
     private static final long serialVersionUID = 1L;
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
     
     /**
      * 

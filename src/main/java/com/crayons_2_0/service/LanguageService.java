@@ -3,13 +3,13 @@ package com.crayons_2_0.service;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class LanguageControl {
+public class LanguageService {
 	
-	private static final LanguageControl languageControl = new LanguageControl();
+	private static final LanguageService languageControl = new LanguageService();
 	
 	private Locale currentLocale;
 	
-	private LanguageControl() {
+	private LanguageService() {
 		
 		this.setCurrentLocale(new Locale("de", "de"));
 		// this.setCurrentLocale(new Locale("en", "en"));
@@ -20,7 +20,7 @@ public class LanguageControl {
 	 * Returns the Singleton LanguageControl
 	 * @return
 	 */
-	public static LanguageControl getInstance() {
+	public static LanguageService getInstance() {
 		return languageControl;
 	}
 	
