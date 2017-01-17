@@ -4,7 +4,7 @@ package com.crayons_2_0.view;
 import java.util.ResourceBundle;
 
 import com.crayons_2_0.service.Language;
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 
@@ -51,7 +51,7 @@ public class Preferences extends VerticalLayout implements View {
 
     //public static final String ID = "profilepreferenceswindow";
     public static final String VIEW_NAME = "Preferences";
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
 
    // private final BeanFieldGroup<User> fieldGroup;
     /*
@@ -125,7 +125,7 @@ public class Preferences extends VerticalLayout implements View {
         root.setSizeFull();
         
         ComboBox selectLanguage = new ComboBox(lang.getString("SelectYourLanguage"));
-        selectLanguage.setInputPrompt(LanguageControl.getInstance().getLanguage().toString());
+        selectLanguage.setInputPrompt(LanguageService.getInstance().getLanguage().toString());
         selectLanguage.addItem(Language.German.toString());
         selectLanguage.addItem(Language.English.toString());
         selectLanguage.addValueChangeListener(new ValueChangeListener() {
@@ -143,7 +143,7 @@ public class Preferences extends VerticalLayout implements View {
 				} else {
 					newLanguage = null;
 				}
-				LanguageControl.getInstance().setCurrentLocale(newLanguage);
+				LanguageService.getInstance().setCurrentLocale(newLanguage);
 				Page.getCurrent().reload();
 				Notification.show(lang.getString("LanguageChangedTo") + ": " + value);
 				
