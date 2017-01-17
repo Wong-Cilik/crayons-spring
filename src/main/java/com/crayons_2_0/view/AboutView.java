@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.User;
 
 import com.crayons_2_0.model.MultipleChoice;
 import com.crayons_2_0.service.Language;
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.UserService;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
@@ -43,7 +43,7 @@ public class AboutView extends VerticalLayout implements View {
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "About";
     
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
     private TextField txtUserLabel;
 
     public AboutView() {
@@ -142,7 +142,7 @@ public class AboutView extends VerticalLayout implements View {
         buttonGerman.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                LanguageControl.getInstance().setCurrentLocale(Language.German);
+                LanguageService.getInstance().setCurrentLocale(Language.German);
                 Page.getCurrent().reload();
             }
         });
@@ -153,7 +153,7 @@ public class AboutView extends VerticalLayout implements View {
         buttonEnglish.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                LanguageControl.getInstance().setCurrentLocale(Language.English);
+                LanguageService.getInstance().setCurrentLocale(Language.English);
                 Page.getCurrent().reload();
             }
         });

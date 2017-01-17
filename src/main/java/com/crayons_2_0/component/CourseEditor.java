@@ -1,6 +1,6 @@
 package com.crayons_2_0.component;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -57,7 +57,7 @@ public final class CourseEditor extends Window {
 
     private final CourseEditorListener listener;
     private final SortableLayout canvas;
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
 
     @SuppressWarnings("deprecation")
     //public CourseEditor(final CoursetEditorListener listener)

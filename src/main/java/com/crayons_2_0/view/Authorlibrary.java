@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import com.crayons_2_0.component.CourseEditor;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
 import com.crayons_2_0.mockup.autorenbereich;
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringUI;
@@ -27,7 +27,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
      */
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "Authorlibrary";
-    ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
 
     public Authorlibrary() {
         VerticalLayout aboutContent = new VerticalLayout();

@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.LoginFormListener;
-import com.crayons_2_0.service.LanguageControl;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
@@ -23,7 +23,7 @@ public class LoginForm extends VerticalLayout {
      */
 	
     private static final long serialVersionUID = 1L;
-    private ResourceBundle lang = LanguageControl.getInstance().getRes();
+    private ResourceBundle lang = LanguageService.getInstance().getRes();
     private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
     private PasswordField txtPassword = new PasswordField(lang.getString("Password") + ": ");
     private Button btnLogin = new Button(lang.getString("Login"));
