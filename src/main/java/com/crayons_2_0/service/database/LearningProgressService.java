@@ -16,11 +16,11 @@ public class LearningProgressService {
         return null;
     }
     
-    public boolean insertUnit(User user, Unit unit, boolean available, boolean processed) {
+    public boolean insertUserUnitPair(User user, Unit unit, boolean available, boolean processed) {
         return true;
     }
     
-    public boolean removeUnit(User user, Unit unit) {
+    public boolean removeUserUnitPair(User user, Unit unit) {
         return true;
     }
     
@@ -28,19 +28,19 @@ public class LearningProgressService {
         return true;
     }
     
-    public void setAvailability(User user, Unit unit, boolean available) {
+    public void setUnitAvailability(User user, Unit unit, boolean available) {
         
     }
     
-    public boolean getAvailability(User user, Unit unit) {
+    public boolean getUnitAvailability(User user, Unit unit) {
         return true;
     }
     
-    public void setProgress(User user, Unit unit, boolean processed) {
+    public void setUnitProgress(User user, Unit unit, boolean processed) {
         
     }
     
-    public boolean getProgress(User user, Unit unit) {
+    public boolean getUnitProgress(User user, Unit unit) {
         return true;
     }
 }
