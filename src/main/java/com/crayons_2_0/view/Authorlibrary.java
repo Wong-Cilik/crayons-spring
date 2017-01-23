@@ -2,8 +2,9 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.component.UnitEditor;
-import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
+import com.crayons_2_0.component.CourseEditor;
+import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
+import com.crayons_2_0.component.Uniteditor;
 import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
@@ -11,13 +12,14 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
+import com.crayons_2_0.component.Uniteditor;
 
 @SpringUI
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener{
@@ -56,7 +58,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         
         
         //TODO: Perstenz Kursentitäten usw....
-        UnitEditor courseEditor = new UnitEditor(this);
+        //Uniteditor courseEditor = new Uniteditor(this);
         
         Button CreateCourse = new Button(lang.getString("CreateNewCourse"));
         CreateCourse.addStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -71,7 +73,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                 
 
                 // Add it to the root component
-                UI.getCurrent().addWindow(courseEditor);
+                //UI.getCurrent().addWindow(courseEditor);
                 
                 
                 // fieldGroup.commit();
@@ -111,10 +113,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     public void enter(ViewChangeEvent event) {
     }
 
+
     @Override
-    public void titleChanged(String newTitle, UnitEditor editor) {
+    public void titleChanged(String newTitle, CourseEditor editor) {
         // TODO Auto-generated method stub
         
-    }
-
+    }  
 }

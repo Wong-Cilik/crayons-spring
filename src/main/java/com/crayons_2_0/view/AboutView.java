@@ -15,8 +15,23 @@ import com.crayons_2_0.service.database.UserService;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.vaadin.data.validator.IntegerRangeValidator;
+import java.util.ResourceBundle;
+
+import org.springframework.security.core.userdetails.User;
+
+import com.crayons_2_0.model.MultipleChoice;
+import com.crayons_2_0.service.Language;
+import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.UserService;
+import com.hs18.vaadin.addon.graph.GraphJSComponent;
+import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.pontus.vizcomponent.VizComponent;
+import com.vaadin.pontus.vizcomponent.VizComponent.EdgeClickEvent;
+import com.vaadin.pontus.vizcomponent.VizComponent.NodeClickEvent;
+import com.vaadin.pontus.vizcomponent.VizComponent.NodeClickListener;
+import com.vaadin.pontus.vizcomponent.model.Graph;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Version;
@@ -41,8 +56,7 @@ public class AboutView extends VerticalLayout implements View {
      */
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "About";
-
-    ResourceBundle lang = LanguageService.getInstance().getRes();
+    ResourceBundle  lang = LanguageService.getInstance().getRes();
     private TextField txtUserLabel;
 
     public AboutView() {
@@ -58,11 +72,18 @@ public class AboutView extends VerticalLayout implements View {
 
         // you can add Vaadin components in predefined slots in the custom
         // layout
-        aboutContent.addComponent(buildGraph());
+        aboutContent.addComponent(buildGraph1());
         aboutContent.addComponent(new MultipleChoice());
+
         aboutContent.addComponent(new Label(
                 FontAwesome.INFO_CIRCLE.getHtml() + " This application is using Vaadin " + Version.getFullVersion(),
                 ContentMode.HTML));
+
+        aboutContent.addComponent(
+                new Label(FontAwesome.INFO_CIRCLE.getHtml()
+                        + " This application is using Vaadin "
+                        + Version.getFullVersion(), ContentMode.HTML));
+        
 
         setSizeFull();
         setStyleName("about-view");
@@ -130,6 +151,65 @@ public class AboutView extends VerticalLayout implements View {
 
         // -------------------------------------------------------------------------------
 
+
+        
+        // NEW-DATENBANK----TEST--------------------------------------------------------------------
+        /*
+        Button testDB = new Button("Teste Datenbank");
+        testDB.addClickListener(new ClickListener() {
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                
+                try {
+                    Statement statement = JDBCConnection.getInstance().getStatement();
+                    ResultSet set = statement.executeQuery("SELECT * FROM realm.user");
+                    
+                    while (set.next()) {
+                        Label levin = new Label(set.getString(1));
+                        aboutContent.addComponent(levin);
+                    }
+                } catch (DatabaseException | SQLException e1) {
+                    e1.printStackTrace();
+                }
+                Label levin = new Label("Hier müssten die Namen erscheinen");
+                aboutContent.addComponent(levin);
+                
+            }
+        });
+        aboutContent.addComponent(testDB);
+        */
+        //--------   DATENBANK NEU ----------------------------------------------------------------------
+     
+        TextField txtUserLabel1 = new TextField("User label: ");
+        aboutContent.addComponent(txtUserLabel1);
+        
+        
+        Button btnAddNewUser1 = new Button("Add New User");
+        //btnAddNewUser.addClickListener(new AddNewUserListener());
+        aboutContent.addComponent(btnAddNewUser1);
+        
+        
+        // DatenBank ganzNeu
+        
+        Button dbTest1 = new Button("Teste Datenbank");
+        dbTest1.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UserService userservice = new UserService();
+				for (User user : userservice.findAll()) {
+					aboutContent.addComponent(new Label(user.getUsername()));
+				}
+				
+			}
+		});
+        aboutContent.addComponent(dbTest1);
+        
+        
+        
+        //-------------------------------------------------------------------------------
+        
         Button buttonGerman = new Button(lang.getString("German"));
         buttonGerman.setIcon(FontAwesome.BEER);
         buttonGerman.addClickListener(new ClickListener() {
@@ -251,7 +331,7 @@ public class AboutView extends VerticalLayout implements View {
 
     }
 
-    private Component buildGraph() {
+    private Component buildGraph1() {
         final VerticalLayout layout = new VerticalLayout();
         //Joint.js
         final GraphTry diagram = new GraphTry();
@@ -275,10 +355,68 @@ public class AboutView extends VerticalLayout implements View {
         integerField.setRequired(true);
         integerField.setImmediate(true);
     }
+    
+    private Component buildGraph(){
+        VerticalLayout GraphView = new VerticalLayout();
+        final VizComponent component = new VizComponent();
+        Graph.Node node1 = new Graph.Node("n1");
+        Graph.Node node2 = new Graph.Node("n2");
+
+        Graph graph = new Graph("G", Graph.DIGRAPH);
+        graph.addEdge(node1, node2);
+        graph.addEdge(node2, node1);
+        Graph.Edge edge1 = graph.getEdge(node1, node2);
+        edge1.setParam("color", "red");
+        node1.setParam("shape", "box");
+        node1.setParam("label", "\"First!\"");
+        edge1.setParam("label", "e1");
+
+        component.setWidth("300px");
+        component.setHeight("200px");
+        component.drawGraph(graph);
+
+        Label label = new Label(
+                "In this example there are two nodes. "
+                        + "The color of the nodes and edges is changed when clicking on them. "
+                        + "Note also the tooltip");
+
+        GraphView.setSizeFull();
+        GraphView.addComponent(label);
+        GraphView. addComponent(component);
+        GraphView.setExpandRatio(component, 1);
+        GraphView.setComponentAlignment(component, Alignment.MIDDLE_CENTER);
+
+        component.addClickListener(new NodeClickListener() {
+
+            @Override
+            public void nodeClicked(NodeClickEvent e) {
+                Graph.Node node = e.getNode();
+                component.addCss(node, "stroke", "blue");
+                component.addTextCss(node, "fill", "blue");
+            }
+
+        });
+
+        component.addClickListener(new VizComponent.EdgeClickListener() {
+
+            @Override
+            public void edgeClicked(EdgeClickEvent e) {
+                component.addCss(e.getEdge(), "stroke", "blue");
+                component.addTextCss(e.getEdge(), "fill", "blue");
+
+            }
+
+        });
+        
+        return GraphView;
+    }
+        
+    
 
     @Override
     public void enter(ViewChangeEvent event) {
     }
+
 
     public TextField getTxtUserLabel() {
         return txtUserLabel;

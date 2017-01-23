@@ -1,9 +1,15 @@
 package com.crayons_2_0.component;
+import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
+import com.crayons_2_0.service.LanguageService;
+
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 //import com.vaadin.demo.dashboard.event.DashboardEventBus;
 //import com.vaadin.demo.dashboard.event.DashboardEvent.ProfileUpdatedEvent;
 //import com.vaadin.demo.dashboard.component.InlineTextEditor;
@@ -24,35 +30,38 @@ import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.event.dd.acceptcriteria.SourceIs;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings({ "serial" })
-public final class UnitEditor extends Window {
+public final class CourseEditor extends Window {
 
     private final CourseEditorListener listener;
     private final SortableLayout canvas;
-    //ResourceBundle lang = LanguageControl.getInstance().getRes();
+    ResourceBundle lang = LanguageService.getInstance().getRes();
 
     @SuppressWarnings("deprecation")
-    public UnitEditor(final CourseEditorListener listener) {
+    //public CourseEditor(final CoursetEditorListener listener)
+    public CourseEditor(final CourseEditorListener listener) {
         this.listener = listener;
         setSizeFull();
         addStyleName("editor");
@@ -111,14 +120,14 @@ public final class UnitEditor extends Window {
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
         footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-        Button ok = new Button("Save");
+        Button ok = new Button(lang.getString("Save"));
         ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 close();
                 Notification success = new Notification(
-                       "CourseSavedSuccessfully");
+                        lang.getString("CourseSavedSuccessfully"));
                 success.setDelayMsec(2000);
                 success.setStyleName("bar success small");
                 success.setPosition(Position.BOTTOM_CENTER);
@@ -174,14 +183,14 @@ public final class UnitEditor extends Window {
                         t = " ";
                     }
                     //
-                    listener.titleChanged(t, UnitEditor.this);
+                    listener.titleChanged(t, CourseEditor.this);
                 }
             });
             layout.addComponent(titleLabel);
 
             dropHandler = new ReorderLayoutDropHandler();
 
-            Label l = new Label("DragItemsHere");
+            Label l = new Label(lang.getString("DragItemsHere"));
             l.setSizeUndefined();
 
             placeholder = new DragAndDropWrapper(l);
@@ -263,8 +272,8 @@ public final class UnitEditor extends Window {
 
             @Override
             public AcceptCriterion getAcceptCriterion() {
-                 return new SourceIs();
-                //return AcceptAll.get();
+                 //return new SourceIs()
+                return AcceptAll.get();
             }
 
             @Override
@@ -350,7 +359,7 @@ public final class UnitEditor extends Window {
     }
 
     public interface CourseEditorListener {
-        void titleChanged(String newTitle, UnitEditor editor);
+        void titleChanged(String newTitle, CourseEditor editor);
     }
 
     

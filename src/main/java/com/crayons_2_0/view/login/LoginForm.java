@@ -26,9 +26,7 @@ public class LoginForm extends VerticalLayout {
     private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
     private PasswordField txtPassword = new PasswordField(lang.getString("Password") + ": ");
     private Button btnLogin = new Button(lang.getString("Login"));
-    
- 
-    
+
     public LoginForm() {
         addComponent(txtLogin);
         addComponent(txtPassword);
