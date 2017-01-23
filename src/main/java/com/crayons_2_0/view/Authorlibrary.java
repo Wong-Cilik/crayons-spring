@@ -2,8 +2,8 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.component.CourseEditor;
-import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
+import com.crayons_2_0.component.UnitEditor;
+import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
 import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
@@ -56,7 +56,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         
         
         //TODO: Perstenz Kursentitäten usw....
-        CourseEditor courseEditor = new CourseEditor(this);
+        UnitEditor courseEditor = new UnitEditor(this);
         
         Button CreateCourse = new Button(lang.getString("CreateNewCourse"));
         CreateCourse.addStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -112,7 +112,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     }
 
     @Override
-    public void titleChanged(String newTitle, CourseEditor editor) {
+    public void titleChanged(String newTitle, UnitEditor editor) {
         // TODO Auto-generated method stub
         
     }
