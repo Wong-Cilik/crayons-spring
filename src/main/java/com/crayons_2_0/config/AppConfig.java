@@ -52,6 +52,13 @@ public class AppConfig {
         String url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
         String username = "sa";
         String password = "";
+        
+        /*
+        String driverClassName = "org.postgresql.Driver";				// Siehe:  https://jdbc.postgresql.org/documentation/84/load.html
+        String url = "jdbc:postgresql://localhost:2323/dbCrayons";
+        String username = "postgres";
+        String password = "Schwan";
+        */
 
         DriverManagerDataSource res = new DriverManagerDataSource();
         res.setDriverClassName(driverClassName);

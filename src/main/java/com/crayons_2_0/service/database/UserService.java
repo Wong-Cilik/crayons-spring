@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
         
         
         // Part 2 mit DATENBANK
-        			/*
+        /*
         List<User> users = findAll();
         for (User tmpUser : users) {
         	if (tmpUser.equals(username)) {
