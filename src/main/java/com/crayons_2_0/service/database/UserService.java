@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User;
 
+import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.database.UserDAO;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class UserService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         // fetch user from e.g. DB
         
+        /*
         if ("client".equals(username)) {
             authorities.add(new SimpleGrantedAuthority("CLIENT"));
             User user = new User(username, "pass", true, true, false, false, authorities);
@@ -39,22 +41,18 @@ public class UserService implements UserDetailsService {
         } else {
             return null;
         }
+        */
         
         
         // Part 2 mit DATENBANK
-        /*
-        List<User> users = findAll();
-        for (User tmpUser : users) {
-        	if (tmpUser.equals(username)) {
-        		return tmpUser;
-        	}
-        }
-        throw new UsernameNotFoundException(User " + username + "doesn't exists!");
-        */
+        CrayonsUser user = findUserByMail(username);
+        return user;
+        
+        
     }
     
-    public List<User> findAll() {
-	    List<User> res = userDAO.findAll();
+    public List<CrayonsUser> findAll() {
+	    List<CrayonsUser> res = userDAO.findAll();
 	    return res;
 	}
     
@@ -76,5 +74,17 @@ public class UserService implements UserDetailsService {
     
     public List<User> findByName(String firstName, String lastName) {
         return null;
+    }
+    
+    public CrayonsUser findUserByMail(String eMail) {
+    	
+    	List<CrayonsUser> users = findAll();
+        
+    	for (CrayonsUser tmpUser : users) {
+        	if (tmpUser.geteMail().equals(eMail)) {
+        		return tmpUser;
+        	}
+        }
+        throw new UsernameNotFoundException("User with mail:" + eMail + "doesnt exists!");
     }
 }

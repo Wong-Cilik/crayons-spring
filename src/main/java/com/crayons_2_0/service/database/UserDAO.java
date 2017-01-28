@@ -12,6 +12,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import com.crayons_2_0.model.CrayonsUser;
+
 import java.lang.Object;
 //import org.springframework.security.core.userdetails.User;
 
@@ -25,18 +27,19 @@ public class UserDAO {
         jdbcTemplate.execute("create table if not exists users (eMail varchar(100), password varchar(100))");
     }
 
-    public List<User> findAll() {
-        String query = "select * from users";
+    public List<CrayonsUser> findAll() {
+        String query = "select * from realm.users";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
                 
             	List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
                 String mail = rs.getString("eMail");
+                String password = rs.getString("password");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 authorities.add(new SimpleGrantedAuthority("CLIENT"));
-                User user = new User(firstName + " " + lastName, "pass", true, true, false, false, authorities);;
+                CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, true, true, false, false, authorities);;
                 return user;
             }
         };

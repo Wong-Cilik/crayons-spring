@@ -48,17 +48,19 @@ public class AppConfig {
 
     @Bean
     public DriverManagerDataSource driverManagerDataSource() {
-        String driverClassName = "org.h2.Driver";						//  ANPASSEN !!!!!!!!!!!!!!!!!!!!!!!!!!
+        /*
+    	String driverClassName = "org.h2.Driver";						//  ANPASSEN !!!!!!!!!!!!!!!!!!!!!!!!!!
         String url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
         String username = "sa";
         String password = "";
-        
-        /*
+        */
+    	
+        ///*
         String driverClassName = "org.postgresql.Driver";				// Siehe:  https://jdbc.postgresql.org/documentation/84/load.html
         String url = "jdbc:postgresql://localhost:2323/dbCrayons";
         String username = "postgres";
         String password = "Schwan";
-        */
+        //*/
 
         DriverManagerDataSource res = new DriverManagerDataSource();
         res.setDriverClassName(driverClassName);

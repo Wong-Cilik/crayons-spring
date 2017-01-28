@@ -13,15 +13,23 @@ public class CrayonsUser extends User {
 	
 	private String lastName;
 	
+	private String password;
+	
+	
+
 	private Language language;
 	
 	private String eMail;
 	
-	public CrayonsUser(String username, String password, boolean enabled, boolean accountNonExpired,
+	public CrayonsUser(String firstName, String lastName, String eMail, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
-		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+		super(firstName + " " + lastName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.seteMail(eMail);
+		this.setPassword(password);
 	}
 
 	/**
@@ -30,7 +38,8 @@ public class CrayonsUser extends User {
 	 * @return the eMail
 	 */
 	public String geteMail() {
-		return super.getUsername();
+		//return super.getUsername();
+		return this.eMail;
 	}
 
 	/**
@@ -39,6 +48,43 @@ public class CrayonsUser extends User {
 	public void seteMail(String eMail) {
 		//TODO
 		//super.setUsername(eMail);
+		this.eMail = eMail;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
