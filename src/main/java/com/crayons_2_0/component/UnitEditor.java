@@ -1,5 +1,5 @@
 package com.crayons_2_0.component;
-import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
+import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
 import com.crayons_2_0.service.LanguageService;
 
 import java.text.SimpleDateFormat;
@@ -53,16 +53,16 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings({ "serial" })
-public final class CourseEditor extends Window {
+public final class UnitEditor extends Window {
 
-    private final CourseEditorListener listener;
+    //private final CourseEditorListener listener;
     private final SortableLayout canvas;
     ResourceBundle lang = LanguageService.getInstance().getRes();
 
     @SuppressWarnings("deprecation")
     //public CourseEditor(final CoursetEditorListener listener)
-    public CourseEditor(final CourseEditorListener listener) {
-        this.listener = listener;
+    public UnitEditor() {
+        //this.listener = (CourseEditorListener) clickListener;
         setSizeFull();
         addStyleName("editor");
         addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
@@ -183,7 +183,7 @@ public final class CourseEditor extends Window {
                         t = " ";
                     }
                     //
-                    listener.titleChanged(t, CourseEditor.this);
+                    //listener.titleChanged(t, UnitEditor.this);
                 }
             });
             layout.addComponent(titleLabel);
@@ -359,7 +359,7 @@ public final class CourseEditor extends Window {
     }
 
     public interface CourseEditorListener {
-        void titleChanged(String newTitle, CourseEditor editor);
+        void titleChanged(String newTitle, UnitEditor editor);
     }
 
     

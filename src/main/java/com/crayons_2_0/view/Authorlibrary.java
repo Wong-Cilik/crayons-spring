@@ -2,9 +2,9 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.component.CourseEditor;
-import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
-import com.crayons_2_0.component.Uniteditor;
+import com.crayons_2_0.component.UnitEditor;
+import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
+import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
@@ -19,7 +19,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-import com.crayons_2_0.component.Uniteditor;
 
 @SpringUI
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener{
@@ -32,7 +31,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     ResourceBundle lang = LanguageService.getInstance().getRes();
 
     public Authorlibrary() {
-        VerticalLayout aboutContent = new VerticalLayout();
         //aboutContent.setStyleName("about-content");
 
         // you can add Vaadin components in predefined slots in the custom
@@ -47,10 +45,11 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         //setComponentAlignment(aboutContent, Alignment.MIDDLE_CENTER);
         autorenbereich a = new autorenbereich();
         addComponent(a);
+        
         setExpandRatio(a, 1f);
         addComponent(buildFooter());
     }
-
+  
     private Component buildFooter() {
         HorizontalLayout footer = new HorizontalLayout();
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
@@ -71,9 +70,9 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             @Override
             public void buttonClick(ClickEvent event) {
                 
-
+                //get courseeditor listener from db
                 // Add it to the root component
-                //UI.getCurrent().addWindow(courseEditor);
+                UI.getCurrent().addWindow(new UnitEditor());
                 
                 
                 // fieldGroup.commit();
@@ -115,7 +114,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
 
     @Override
-    public void titleChanged(String newTitle, CourseEditor editor) {
+    public void titleChanged(String newTitle, UnitEditor editor) {
         // TODO Auto-generated method stub
         
     }  
