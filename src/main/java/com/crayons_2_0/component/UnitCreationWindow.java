@@ -28,6 +28,8 @@ public final class UnitCreationWindow extends Window {
         
         VerticalLayout content = new VerticalLayout();
         content.setSizeFull();
+        content.setMargin(true);
+        content.setSpacing(true);
         setContent(content);
         Component title = buildTitle();
         content.addComponent(title);
@@ -39,9 +41,9 @@ public final class UnitCreationWindow extends Window {
         
         //content.addComponent(buildDescription());
         
-        Component unitTypeChoise = buildUnitTypeChoice();
-        content.addComponent(unitTypeChoise);
-        content.setComponentAlignment(unitTypeChoise, Alignment.MIDDLE_LEFT);
+        Component unitTypeChoice = buildUnitTypeChoice();
+        content.addComponent(unitTypeChoice);
+        content.setComponentAlignment(unitTypeChoice, Alignment.MIDDLE_LEFT);
         
         content.addComponent(buildFooter());
     }

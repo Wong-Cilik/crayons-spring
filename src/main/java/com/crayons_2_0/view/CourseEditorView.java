@@ -2,6 +2,7 @@ package com.crayons_2_0.view;
 
 import org.springframework.security.core.userdetails.User;
 
+import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.component.GraphViewCreator;
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
@@ -33,13 +34,47 @@ public class CourseEditorView extends VerticalLayout implements View {
         setSizeFull();
         addStyleName("editor");
         
-        Graph graph = new Graph();
+        /*Graph graph = new Graph();
         User user = new User("a", "a", null);
         GraphViewCreator gvc = new GraphViewCreator(graph, user);
-        addComponent(gvc.getGraphView());
+        addComponent(gvc.getGraphView());*/
+        
+        final Dagre graph = new Dagre();
+        graph.setSizeFull();
+        addComponent(graph);
+        setComponentAlignment(graph, Alignment.TOP_CENTER);
+        
+        Component footer = buildFooter();
+        addComponent(footer);
+        setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+    }
+    
+    private Component buildFooter(){
+        HorizontalLayout footer = new HorizontalLayout();
+        footer.setMargin(true);
+        footer.setSizeFull();
+        footer.setSpacing(true);
+        Component backButton = buildBackButton();
+        footer.addComponent(backButton);
+        footer.setComponentAlignment(backButton, Alignment.BOTTOM_LEFT);
         Component editMenu = buildEditMenu();
-        addComponent(editMenu);
-        setComponentAlignment(editMenu, Alignment.BOTTOM_LEFT);
+        footer.addComponent(editMenu);
+        footer.setComponentAlignment(editMenu, Alignment.BOTTOM_RIGHT);
+        
+        return footer;
+    }
+    
+    private Component buildBackButton() {
+        Button button = new Button("Back");
+        button.setIcon(FontAwesome.ARROW_LEFT);
+        button.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_RIGHT);
+        button.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().getNavigator().navigateTo(Authorlibrary.VIEW_NAME);
+            }
+        });
+        return button;
     }
     
     private Component buildEditMenu() {
