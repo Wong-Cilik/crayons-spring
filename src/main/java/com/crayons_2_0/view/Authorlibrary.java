@@ -5,14 +5,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
-<<<<<<< HEAD
-import com.crayons_2_0.component.CourseEditor;
-import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
-=======
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
-import com.crayons_2_0.component.UnitEditor;
->>>>>>> branch 'master' of https://github.com/jubusch/crayons-spring
 import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
