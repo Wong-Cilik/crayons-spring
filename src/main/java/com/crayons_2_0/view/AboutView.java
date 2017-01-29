@@ -2,12 +2,14 @@ package com.crayons_2_0.view;
 
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import org.springframework.security.core.userdetails.User;
 
 import com.crayons.view.dagred3.Dagre;
 import com.crayons.view.jointjs.GraphTry;
+import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.MultipleChoice;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
@@ -15,6 +17,9 @@ import com.crayons_2_0.service.database.UserService;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.vaadin.data.validator.IntegerRangeValidator;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
+import com.vaadin.event.FieldEvents.TextChangeListener;
+
 import java.util.ResourceBundle;
 
 import org.springframework.security.core.userdetails.User;
@@ -41,9 +46,11 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
@@ -421,4 +428,25 @@ public class AboutView extends VerticalLayout implements View {
     public TextField getTxtUserLabel() {
         return txtUserLabel;
     }
+    
+    // Builds filter textfield
+    public static Component buildFilter() {
+        final TextField filter = new TextField();
+        filter.addTextChangeListener(new TextChangeListener() {
+            @Override
+            public void textChange(final TextChangeEvent event) {
+            	// refresh tabsheet view
+            }
+        });
+        filter.setInputPrompt("Filter");
+        filter.setIcon(FontAwesome.SEARCH);
+        filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+        return filter;
+    }
+    
+	public void refreshTabSheet(TabSheet tabSheet, Iterator<Course> courseList, String search){
+			//Suchlogik 
+	}
+    
+    
 }
