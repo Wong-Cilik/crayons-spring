@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService {
         
         
         // Part 2 mit DATENBANK
-        CrayonsUser user = findUserByMail(username);
+        CrayonsUser user = findByEMail(username);
         return user;
         
         
@@ -56,27 +56,47 @@ public class UserService implements UserDetailsService {
 	    return res;
 	}
     
-    public boolean insertUser(User user) {
+    public boolean insertUser(CrayonsUser user) {
+    	
+    	// Maybe Useless because something could change 
+    	/* 
+    	// Check if Exists, return false if exists
+    	List<CrayonsUser> users = findAll();
+    	for (CrayonsUser tmpUser : users) {
+        	if (tmpUser.geteMail().equals(user.geteMail())) {
+        		return false;
+        	}
+        }
+        */
+    	
+    	// User exists not -> Save
+    	userDAO.save2(user);
+    	return true;
+    }
+    
+    public boolean removeUser(CrayonsUser user) {
         return true;
     }
     
-    public boolean removeUser(User user) {
-        return true;
-    }
     
-    public User findByUserId(long userId) {
+    /*
+    public CrayonsUser findByUserId(long userId) {
+        return null;
+    }
+    */
+    
+    
+    /*
+    public CrayonsUser findByEMail(String eMail) {
+        return null;
+    }
+    */
+    
+    public List<CrayonsUser> findByName(String firstName, String lastName) {
         return null;
     }
     
-    public User findByEMail(String eMail) {
-        return null;
-    }
-    
-    public List<User> findByName(String firstName, String lastName) {
-        return null;
-    }
-    
-    public CrayonsUser findUserByMail(String eMail) {
+    public CrayonsUser findByEMail(String eMail) {
     	
     	List<CrayonsUser> users = findAll();
         

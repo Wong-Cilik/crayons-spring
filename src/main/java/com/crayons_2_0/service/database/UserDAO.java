@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.crayons_2_0.model.CrayonsUser;
 
@@ -24,7 +24,7 @@ public class UserDAO {
 
     public void createDbTable() {
     	// FALSCH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        jdbcTemplate.execute("create table if not exists users (eMail varchar(100), password varchar(100))");
+        jdbcTemplate.execute("create table if not exists users (eMail varchar(100), password varchar(100), firstName varchar(100), lastName varchar(100)");
     }
 
     public List<CrayonsUser> findAll() {
@@ -45,9 +45,36 @@ public class UserDAO {
         };
         return jdbcTemplate.query(query, mapper);
     }
-
-    public void save(User user) {
+    
+    /*
+    // FALSCH
+    public void save(CrayonsUser user) {
         String query = "insert into users (label) values (?)";
         jdbcTemplate.update(query, new Object[]{user.getUsername()});
     }
+    */
+    
+    public void save2(CrayonsUser user2) {
+    	
+    	String mail = user2.geteMail();
+        String password = user2.getPassword();
+        String firstName = user2.getFirstName();
+        String lastName = user2.getLastName();
+        
+        jdbcTemplate.update("Insert into users (eMail, password, firstName, lastName) VALUES(?, ?, ?, ?)", mail, password, firstName, lastName);
+    }
+    
+    
+    // Example: http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
+    public void delete(CrayonsUser user) {
+    	String deleteStatement = "DELETE FROM users WHERE eMAIL=?";
+    	try {
+			jdbcTemplate.update(deleteStatement, user.geteMail());
+		} catch (RuntimeException e) {
+			throw new UsernameNotFoundException("User with mail:" + user.geteMail() + "doesnt exists!");
+		}
+    	
+    }
+    
+    
 }
