@@ -5,22 +5,22 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.util.MultiValueMap;
 
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.Unit;
+import com.crayons_2_0.model.graph.UnitNode;
 
 public class LearningProgressService {
 
     @Autowired
     private LearningProgressDAO learningProgressDAO;
     
-    public MultiValueMap<User, Unit> findAll() {
+    public MultiValueMap<User, UnitNode> findAll() {
         return null;
     }
     
-    public boolean insertUserUnitPair(User user, Unit unit, boolean available, boolean processed) {
+    public boolean insertUserUnitPair(User user, UnitNode unit, boolean available, boolean processed) {
         return true;
     }
     
-    public boolean removeUserUnitPair(User user, Unit unit) {
+    public boolean removeUserUnitPair(User user, UnitNode unit) {
         return true;
     }
     
@@ -28,19 +28,19 @@ public class LearningProgressService {
         return true;
     }
     
-    public void setUnitAvailability(User user, Unit unit, boolean available) {
+    public void setUnitAvailability(User user, UnitNode unit, boolean available) {
         
     }
     
-    public boolean getUnitAvailability(User user, Unit unit) {
+    public boolean getUnitAvailability(User user, UnitNode unit) {
         return true;
     }
     
-    public void setUnitProgress(User user, Unit unit, boolean processed) {
+    public void setUnitProgress(User user, UnitNode unit, boolean processed) {
         
     }
     
-    public boolean getUnitProgress(User user, Unit unit) {
+    public boolean getUnitProgress(User user, UnitNode unit) {
         return true;
     }
 }

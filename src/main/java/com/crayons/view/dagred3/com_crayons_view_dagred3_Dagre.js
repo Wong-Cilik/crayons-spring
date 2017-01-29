@@ -2,11 +2,10 @@
  * 
  */
 window.com_crayons_view_dagred3_Dagre = function() {
-	var myElement = this.getElement();
 	var g = new dagreD3.graphlib.Graph()
 	  .setGraph({})
 	  .setDefaultEdgeLabel(function() { return {}; });
-
+/*
 	// Here we"re setting nodeclass, which is used by our custom drawNodes function
 	// below.
 	g.setNode(0,  { label: "Start",     class: "t" });
@@ -47,13 +46,35 @@ window.com_crayons_view_dagred3_Dagre = function() {
 	g.setEdge(1, 5);
 	g.setEdge(13,14);
 	g.setEdge(1, 13);
-	g.setEdge(0, 1)
+	g.setEdge(0, 1);
 	g.setEdge(4, 15);
 	g.setEdge(7, 15);
 	g.setEdge(10, 15);
 	g.setEdge(12, 15);
 	g.setEdge(14, 15);
-
+*/	
+	var Nodes = this.getState().unitNodes;
+	//create graphNodes
+	for(count=0;count < Nodes.length;count++){
+		var tmp = Nodes[count];
+		g.setNode(tmp,{label:tmp, class: "t"})
+	}
+	g.nodes().forEach(function(v) {
+		  var node = g.node(v);
+		  // Round the corners of the nodes
+		  node.rx = node.ry = 5;
+		});
+	/*
+	for(count=0;count < myArr.length;count++){
+		g.setEdge(myArr[count].getUnitNodeTitle(),myArr[count].getUnitNodeTitle())
+	}
+	*/
+	
+	/*
+	 this.onStateChange = function() {
+	        var coords = this.getState().coords;
+	        d3.selectAll("circle").transition().attr("cx", parseInt(coords[0]));
+	 }*/
 	// Create the renderer
 	var render = new dagreD3.render();
 
@@ -69,6 +90,6 @@ window.com_crayons_view_dagred3_Dagre = function() {
 	svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
 	svg.attr("height", g.graph().height + 40);
 	
-
+	
 
 }

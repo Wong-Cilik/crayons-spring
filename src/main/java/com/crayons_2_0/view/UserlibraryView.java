@@ -37,11 +37,10 @@ public class UserlibraryView extends VerticalLayout implements View {
         setMargin(true);
         
         // ------- View 1 ---------------
-        addComponent(new Benutzeransicht());
+        //addComponent(new Benutzeransicht());
         
         // ------- View 2 ---------------
-        /*
-        CourseService courseService = new CourseService();
+        /*VerticalLayout defaultCourse = new VerticalLayout();
         this.tabSheet = UserBibManager.getCourseTabs(tabSheet);
         addComponent(this.tabSheet);
     	*/

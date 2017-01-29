@@ -5,34 +5,34 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.MultiValueMap;
 
-import com.crayons_2_0.model.graph.Unit;
+import com.crayons_2_0.model.graph.UnitNode;
 
 public class ConnectionService {
     
     @Autowired
     private ConnectionDAO connectionDAO;
     
-    public MultiValueMap<Unit, Unit> findAll() {
+    public MultiValueMap<UnitNode, UnitNode> findAll() {
         return null;
     }
     
-    public boolean insertConnection(Unit from, Unit to) {
+    public boolean insertConnection(UnitNode from, UnitNode to) {
         return true;
     }
     
-    public boolean removeConnection(Unit from, Unit to) {
+    public boolean removeConnection(UnitNode from, UnitNode to) {
         return true;
     }
     
-    public List<Unit> findAllPredecessors(Unit unit) {
+    public List<UnitNode> findAllPredecessors(UnitNode unit) {
         return null;
     }
     
-    public List<Unit> findAllSuccessors(Unit unit) {
+    public List<UnitNode> findAllSuccessors(UnitNode unit) {
         return null;
     }
     
-    public boolean removeAllConnectionsWithUnit(Unit unit) {
+    public boolean removeAllConnectionsWithUnit(UnitNode unit) {
         return true;
     }
 }

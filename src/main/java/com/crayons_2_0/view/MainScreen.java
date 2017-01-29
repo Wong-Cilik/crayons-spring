@@ -45,6 +45,7 @@ public class MainScreen extends HorizontalLayout {
                 FontAwesome.PENCIL);
         menu.addView(new Preferences(),Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME),
                 FontAwesome.GEAR);
+        navigator.addView(CourseEditorView.VIEW_NAME, new CourseEditorView());
 
         navigator.addViewChangeListener(viewChangeListener);
         addComponent(menu);

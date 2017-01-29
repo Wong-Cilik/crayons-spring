@@ -3,15 +3,15 @@ package com.crayons_2_0.component;
 import java.util.List;
 
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.Unit;
-import com.crayons_2_0.model.graph.Unit.UnitType;
+import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.model.graph.UnitNode.UnitType;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 
 import org.springframework.security.core.userdetails.User;
 
 public class GraphViewCreator {
-    private List<Unit> units;
+    private List<UnitNode> units;
     private User user;
     private List<Integer> horizontalPosition;
     private List<Integer> verticalPosition;
@@ -45,15 +45,15 @@ public class GraphViewCreator {
         
     }
     
-    private Button generateButton(Unit unit) {
+    private Button generateButton(UnitNode unit) {
         return null;
     }
     
-    private boolean checkUnitAvailability(Unit unit, User user) {
+    private boolean checkUnitAvailability(UnitNode unit, User user) {
         return true;
     }
     
-    private void addButton(Unit unit, GridLayout layout) {
+    private void addButton(UnitNode unit, GridLayout layout) {
         
     }
 }
