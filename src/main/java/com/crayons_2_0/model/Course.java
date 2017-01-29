@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.User;
 
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.Unit;
+import com.crayons_2_0.model.graph.UnitNode;
 
 public class Course {
 	
@@ -14,7 +14,7 @@ public class Course {
 	private User author;
 	private String description;
 	private Date creationTime;
-	private List<Unit> Units;		// Struktur!!!!! 
+	private List<UnitNode> Units;		// Struktur!!!!! 
 	private Graph graph;
 	
 	public Course(String title, User author) {

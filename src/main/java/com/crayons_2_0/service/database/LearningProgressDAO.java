@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.util.MultiValueMap;
 
-import com.crayons_2_0.model.graph.Unit;
+import com.crayons_2_0.model.graph.UnitNode;
 
 public class LearningProgressDAO {
     
@@ -16,11 +16,11 @@ public class LearningProgressDAO {
         
     }
     
-    public MultiValueMap<User, Unit> findAll() {
+    public MultiValueMap<User, UnitNode> findAll() {
         return null;
     }
     
-    public void save(User user, Unit unit, boolean available, boolean processed) {
+    public void save(User user, UnitNode unit, boolean available, boolean processed) {
         
     }
 }

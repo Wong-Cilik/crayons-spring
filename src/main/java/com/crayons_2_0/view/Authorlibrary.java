@@ -5,8 +5,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
+<<<<<<< HEAD
 import com.crayons_2_0.component.CourseEditor;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
+=======
+import com.crayons_2_0.component.UnitEditor;
+import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
+import com.crayons_2_0.component.UnitEditor;
+>>>>>>> branch 'master' of https://github.com/jubusch/crayons-spring
 import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
@@ -55,6 +61,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         //setComponentAlignment(aboutContent, Alignment.MIDDLE_CENTER);
         autorenbereich a = new autorenbereich();
         addComponent(a);
+        
         setExpandRatio(a, 1f);
         addComponent(buildFooter());
     }*/
@@ -94,7 +101,14 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         addNewCourseTabContent.setIcon(FontAwesome.PLUS);
         return addNewCourseTabContent;
     }
-
+  
+    private Component buildFooter() {
+        HorizontalLayout footer = new HorizontalLayout();
+        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+        footer.setWidth(100.0f, Unit.PERCENTAGE);
+        return footer;
+}
+    //TODO: Kurs aus Datenbank übergeben 
     private Component buildCourseTab(String title) {
         VerticalLayout tabContent = new VerticalLayout();
         tabContent.setCaption(title);
@@ -132,6 +146,35 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         graphEditor.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
+                
+                //get courseeditor listener from db
+                // Add it to the root component
+                //UI.getCurrent().addWindow(new UnitEditor());
+                
+                
+                // fieldGroup.commit();
+                // Updated user should also be persisted to database. But
+                // not in this demo.
+
+               
+                // DashboardEventBus.post(new ProfileUpdatedEvent());
+
+                /*
+                 * try { //fieldGroup.commit(); // Updated user should also be
+                 * persisted to database. But // not in this demo.
+                 * 
+                 * Notification success = new Notification(
+                 * "Profile updated successfully"); success.setDelayMsec(2000);
+                 * success.setStyleName("bar success small");
+                 * success.setPosition(Position.BOTTOM_CENTER);
+                 * success.show(Page.getCurrent());
+                 * 
+                 * //DashboardEventBus.post(new ProfileUpdatedEvent()); close();
+                 * } catch (CommitException e) {
+                 * Notification.show("Error while updating profile",
+                 * Type.ERROR_MESSAGE); }
+                 */
+
                 UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
                 //getUI().getUI().getPage().setLocation(uri);
             }
@@ -160,7 +203,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
 
     @Override
-    public void titleChanged(String newTitle, CourseEditor editor) {
+    public void titleChanged(String newTitle, UnitEditor editor) {
         // TODO Auto-generated method stub
         
     }  

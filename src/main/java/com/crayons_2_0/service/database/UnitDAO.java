@@ -10,8 +10,8 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.Unit;
-import com.crayons_2_0.model.graph.Unit.UnitType;
+import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.model.graph.UnitNode.UnitType;
 
 public class UnitDAO {
 
@@ -22,7 +22,7 @@ public class UnitDAO {
         jdbcTemplate.execute("create table if not exists units (title varchar(100), unitType varchar(100))");
     }
 
-    public List<Unit> findAll() {
+    public List<UnitNode> findAll() {
         /*String query = "select * from units";
         RowMapper mapper = new RowMapper() {
 
@@ -42,7 +42,7 @@ public class UnitDAO {
         return null;
     }
     
-    public boolean save(Unit unit) {
+    public boolean save(UnitNode unit) {
         return true;
     }
 

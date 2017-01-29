@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.MultiValueMap;
 
-import com.crayons_2_0.model.graph.Unit;
+import com.crayons_2_0.model.graph.UnitNode;
 
 public class ConnectionDAO {
     @Autowired
@@ -14,11 +14,11 @@ public class ConnectionDAO {
         
     }
     
-    public MultiValueMap<Unit, Unit> findAll() {
+    public MultiValueMap<UnitNode, UnitNode> findAll() {
         return null;
     }
     
-    public void save(Unit from, Unit to) {
+    public void save(UnitNode from, UnitNode to) {
         
     }
 }

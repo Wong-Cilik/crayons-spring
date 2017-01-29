@@ -57,7 +57,7 @@ public class AppConfig {
     	
         ///*
         String driverClassName = "org.postgresql.Driver";				// Siehe:  https://jdbc.postgresql.org/documentation/84/load.html
-        String url = "jdbc:postgresql://localhost:2323/dbCrayons";
+        String url = "jdbc:postgresql://localhost:5432/dbcrayons";
         String username = "postgres";
         String password = "Schwan";
         //*/
