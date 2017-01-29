@@ -1,4 +1,4 @@
-package com.crayons_2_0.component;
+package com.crayons_2_0.view;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -54,7 +54,9 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
 @SuppressWarnings({ "serial", "unchecked" })
-public final class Uniteditor extends VerticalLayout implements View{
+public class Uniteditor extends VerticalLayout implements View {
+	
+	public static final String VIEW_NAME = "Unit Editor";
 
     private final ReportEditorListener listener;
     private final SortableLayout canvas;

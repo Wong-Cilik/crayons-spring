@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.LoginFormListener;
@@ -27,11 +29,15 @@ import com.vaadin.ui.Label;
 /**
  * @author Ondrej Kvasnovsky
  */
+
 public class LoginForm extends VerticalLayout {
 
     /**
      * 
      */
+	
+	@Autowired
+    private UserService userService;
 	
     private ResourceBundle lang = LanguageService.getInstance().getRes();
     private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
@@ -68,7 +74,7 @@ public class LoginForm extends VerticalLayout {
 				
 				content.addComponent(new Label(""));
 				
-				content.addComponent(new Label("passowrd"));
+				content.addComponent(new Label("password"));
 				TextField textFieldPassoword = new TextField();
 				content.addComponent(textFieldPassoword);
 				
@@ -88,7 +94,7 @@ public class LoginForm extends VerticalLayout {
 				        authorities.add(new SimpleGrantedAuthority("CLIENT"));
 				        CrayonsUser user = new CrayonsUser(firstName, lastName, eMail, password, true, true, false, false, authorities);
 				        
-				        UserService userService = new UserService();
+				        
 				        userService.insertUser(user);
 						
 					}

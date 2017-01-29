@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import com.crayons_2_0.component.CourseEditor;
 import com.crayons_2_0.component.CourseEditor.CourseEditorListener;
-import com.crayons_2_0.component.Uniteditor;
 import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
@@ -29,7 +28,6 @@ import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-import com.crayons_2_0.component.Uniteditor;
 
 @SpringUI
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener{
@@ -141,6 +139,17 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         
         Button courseDescription = new Button("Course description");
         controlButtons.addComponent(courseDescription);
+        
+        Button courseEditor = new Button("Course Editor");
+        courseEditor.addClickListener(new ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
+				
+			}
+		});
+        controlButtons.addComponent(courseEditor);
         
         return controlButtons;
     }
