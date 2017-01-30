@@ -11,10 +11,15 @@ import com.crayons_2_0.model.graph.UnitNode;
 public class Course {
 	
 	private String title;
-	private CrayonsUser author;
 	private String description;
+	
+	private CrayonsUser author;
+	private List<CrayonsUser> coAuthors;
+
 	private Date creationTime;
+	
 	private List<UnitNode> Units;		// Struktur!!!!! 
+	
 	private Graph graph;
 	
 	public Course(String title, CrayonsUser author) {
@@ -76,5 +81,19 @@ public class Course {
 	 */
 	public void setUnits(List<UnitNode> units) {
 		Units = units;
+	}
+
+	/**
+	 * @return the coAuthors
+	 */
+	public List<CrayonsUser> getCoAuthors() {
+		return coAuthors;
+	}
+
+	/**
+	 * @param coAuthors the coAuthors to set
+	 */
+	public void setCoAuthors(List<CrayonsUser> coAuthors) {
+		this.coAuthors = coAuthors;
 	}
 }
