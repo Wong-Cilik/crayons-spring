@@ -14,7 +14,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.crayons_2_0.authentication.AuthManager;
+import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.controller.LoginFormListener;
+import com.crayons_2_0.controller.RegisterFormListener;
 import com.crayons_2_0.service.database.UserService;
 import com.crayons_2_0.service.database.JDBCConnection;
 import com.crayons_2_0.service.database.UserDAO;
@@ -43,6 +45,21 @@ public class AppConfig {
         return new LoginFormListener();
     }
     
+    // Damit Autowired funktioniert
+    @Bean
+    public UserManager userManager() {
+        UserManager res = new UserManager();
+        return res;
+    }
+    
+    // Damit Autowired funktioniert
+    @Bean
+    public RegisterFormListener registerFormListener() {
+        RegisterFormListener res = new RegisterFormListener();
+        return res;
+    }
+    
+    
     @Autowired
     private DriverManagerDataSource dataSource;
 
@@ -57,7 +74,8 @@ public class AppConfig {
     	
         ///*
         String driverClassName = "org.postgresql.Driver";				// Siehe:  https://jdbc.postgresql.org/documentation/84/load.html
-        String url = "jdbc:postgresql://localhost:5432/dbcrayons";
+        //String url = "jdbc:postgresql://localhost:5432/dbcrayons";	// @Julius
+        String url = "jdbc:postgresql://localhost:2323/dbCrayons";		// @Levin
         String username = "postgres";
         String password = "Schwan";
         //*/

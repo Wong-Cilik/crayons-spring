@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.LoginFormListener;
+import com.crayons_2_0.controller.RegisterFormListener;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.AddNewUserListener;
@@ -43,7 +44,11 @@ public class LoginForm extends VerticalLayout {
     private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
     private PasswordField txtPassword = new PasswordField(lang.getString("Password") + ": ");
     private Button btnLogin = new Button(lang.getString("Login"));
+    
+    // Registrate
     private Button btnRegistrate = new Button("Registrieren!!");  //Todo Sprache
+
+	private TextField textFieldPassoword = new TextField();
 
     public LoginForm() {
         addComponent(txtLogin);
@@ -54,10 +59,13 @@ public class LoginForm extends VerticalLayout {
         LoginFormListener loginFormListener = getLoginFormListener();
         btnLogin.addClickListener(loginFormListener);
         
+        RegisterFormListener registerFormListener = getRegisterFormListener();
         createRegisterButton();
     }
     
-    /**
+    
+
+	/**
      * Create Button for registrate new User
      */
     private void createRegisterButton() {
@@ -69,36 +77,19 @@ public class LoginForm extends VerticalLayout {
 				VerticalLayout content = new VerticalLayout();
 				
 				content.addComponent(new Label("eMail:"));
-				TextField textFieldEMail = new TextField(); 
+				 
 				content.addComponent(textFieldEMail);
 				
 				content.addComponent(new Label(""));
 				
 				content.addComponent(new Label("password"));
-				TextField textFieldPassoword = new TextField();
+				
 				content.addComponent(textFieldPassoword);
 				
 				
 				
 				Button btnInsertUser = new Button("Insert/Save User");
-				btnInsertUser.addClickListener(new ClickListener() {
-					
-					@Override
-					public void buttonClick(ClickEvent event) {
-						String eMail = textFieldEMail.getValue();
-						String password = textFieldPassoword.getValue();
-				        String firstName = "firstName";
-				        String lastName = "lastName";
-				        
-				        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-				        authorities.add(new SimpleGrantedAuthority("CLIENT"));
-				        CrayonsUser user = new CrayonsUser(firstName, lastName, eMail, password, true, true, false, false, authorities);
-				        
-				        
-				        userService.insertUser(user);
-						
-					}
-				});
+				btnInsertUser.addClickListener(new RegisterFormListener());
 				content.addComponent(btnInsertUser);
 				
 				window.setContent(content);
@@ -119,6 +110,12 @@ public class LoginForm extends VerticalLayout {
         ApplicationContext context = ui.getApplicationContext();
         return context.getBean(LoginFormListener.class);
     }
+	
+	private RegisterFormListener getRegisterFormListener() {
+		MyUI ui = (MyUI) UI.getCurrent();
+        ApplicationContext context = ui.getApplicationContext();
+        return context.getBean(RegisterFormListener.class);
+	}
 
     public TextField getTxtLogin() {
         return txtLogin;
@@ -127,4 +124,27 @@ public class LoginForm extends VerticalLayout {
     public PasswordField getTxtPassword() {
         return txtPassword;
     }
+    
+    private TextField textFieldEMail = new TextField();
+    public TextField getTextFieldEMail() {
+		return textFieldEMail;
+	}
+
+
+
+	public void setTextFieldEMail(TextField textFieldEMail) {
+		this.textFieldEMail = textFieldEMail;
+	}
+
+
+
+	public TextField getTextFieldPassoword() {
+		return textFieldPassoword;
+	}
+
+
+
+	public void setTextFieldPassoword(TextField textFieldPassoword) {
+		this.textFieldPassoword = textFieldPassoword;
+	}
 }
