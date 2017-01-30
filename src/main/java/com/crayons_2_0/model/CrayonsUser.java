@@ -14,8 +14,6 @@ public class CrayonsUser extends User {
 	private String lastName;
 	
 	private String password;
-	
-	
 
 	private Language language;
 	
@@ -30,6 +28,19 @@ public class CrayonsUser extends User {
 		this.setLastName(lastName);
 		this.seteMail(eMail);
 		this.setPassword(password);
+	}
+	
+	//NEUER
+	public CrayonsUser(String firstName, String lastName, String eMail, String password, String language, boolean enabled, boolean accountNonExpired,
+			boolean credentialsNonExpired, boolean accountNonLocked,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(firstName + " " + lastName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+		
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.seteMail(eMail);
+		this.setPassword(password);
+		this.setLanguage(language);
 	}
 
 	/**
@@ -85,6 +96,33 @@ public class CrayonsUser extends User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the language
+	 */
+	public Language getLanguage() {
+		return language;
+	}
+
+	/**
+	 * @param language the language to set
+	 */
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+	
+	/**
+	 * @param language the language to set
+	 */
+	public void setLanguage(String language) {
+		if (language.equals(Language.German.toString())) {
+			this.setLanguage(Language.German);
+		} else if (language.equals(Language.English.toString())) {
+			this.setLanguage(Language.English);
+		} else {
+			throw new IllegalArgumentException("Language not known");
+		}
 	}
 
 }

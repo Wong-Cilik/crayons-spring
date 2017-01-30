@@ -59,7 +59,6 @@ public class UserService implements UserDetailsService {
     
     public boolean insertUser(CrayonsUser user) {
     	
-    	// Maybe Useless because something could change 
     	/* 
     	// Check if Exists, return false if exists
     	List<CrayonsUser> users = findAll();
@@ -71,7 +70,7 @@ public class UserService implements UserDetailsService {
         */
     	
     	// User exists not -> Save
-    	userDAO.insertUser(user);
+    	userDAO.updateUser(user);
     	return true;
     }
     

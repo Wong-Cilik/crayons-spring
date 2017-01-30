@@ -17,13 +17,18 @@ import com.crayons_2_0.model.CrayonsUser;
 import java.lang.Object;
 //import org.springframework.security.core.userdetails.User;
 
+
+// LINKS:
+// http://docs.spring.io/spring/docs/2.0.x/reference/jdbc.html
+
+
 public class UserDAO {
 	
 	@Autowired
     JdbcTemplate jdbcTemplate;
 
     public void createDbTable() {
-    	// FALSCH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    	// Nicht Vollständig!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         jdbcTemplate.execute("create table if not exists users (eMail varchar(100), password varchar(100), firstName varchar(100), lastName varchar(100)");
     }
 
@@ -75,18 +80,17 @@ public class UserDAO {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         
-        try {
-        	jdbcTemplate.update("update realm.users set password = " + password + " where email = " + mail);
-		} catch (Exception e) {
-			String ex = e.getMessage();
-			System.out.println(ex);
-		}
+        //jdbcTemplate.update("update realm.users set password = " + password + " where email = " + mail);
+        // Returns numer of changed rows
+        jdbcTemplate.update("UPDATE realm.users SET password=?, firstname=?, lastname=? WHERE email=? ", password, firstName, lastName, mail);
+
         
 		
     }
     
     
     // Example: http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
+    
     public void deleteUser(CrayonsUser user) {
     	String deleteStatement = "DELETE FROM realm.users WHERE email=?";
     	try {

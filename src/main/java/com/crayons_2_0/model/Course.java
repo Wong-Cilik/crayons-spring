@@ -19,7 +19,7 @@ public class Course {
 	
 	public Course(String title, CrayonsUser author) {
 	    this.title = title;
-	    this.author = author;
+	    this.setAuthor(author);
 	}
 	
     public String getTitle() {
@@ -49,4 +49,32 @@ public class Course {
     public Date getCreationTime() {
         return creationTime;
     }
+
+	/**
+	 * @return the author
+	 */
+	public CrayonsUser getAuthor() {
+		return author;
+	}
+
+	/**
+	 * @param author the author to set
+	 */
+	public void setAuthor(CrayonsUser author) {
+		this.author = author;
+	}
+
+	/**
+	 * @return the units
+	 */
+	public List<UnitNode> getUnits() {
+		return Units;
+	}
+
+	/**
+	 * @param units the units to set
+	 */
+	public void setUnits(List<UnitNode> units) {
+		Units = units;
+	}
 }
