@@ -17,6 +17,7 @@ import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.controller.LoginFormListener;
 import com.crayons_2_0.controller.RegisterFormListener;
+import com.crayons_2_0.controller.RegisterFormListener2;
 import com.crayons_2_0.service.database.UserService;
 import com.crayons_2_0.service.database.JDBCConnection;
 import com.crayons_2_0.service.database.UserDAO;
@@ -56,6 +57,13 @@ public class AppConfig {
     @Bean
     public RegisterFormListener registerFormListener() {
         RegisterFormListener res = new RegisterFormListener();
+        return res;
+    }
+    
+    // Damit Autowired funktioniert
+    @Bean
+    public RegisterFormListener2 registerFormListener2() {
+        RegisterFormListener2 res = new RegisterFormListener2();
         return res;
     }
     

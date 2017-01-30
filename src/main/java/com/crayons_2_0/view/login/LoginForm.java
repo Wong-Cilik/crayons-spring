@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.LoginFormListener;
 import com.crayons_2_0.controller.RegisterFormListener;
+import com.crayons_2_0.controller.RegisterFormListener2;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.AddNewUserListener;
@@ -47,6 +48,7 @@ public class LoginForm extends VerticalLayout {
     
     // Registrate
     private Button btnRegistrate = new Button("Registrieren!!");  //Todo Sprache
+    private Button btnRegistrate2 = new Button("Registrieren 2!");  //Todo Sprache
 
 	private TextField textFieldPassoword = new TextField();
 
@@ -55,12 +57,18 @@ public class LoginForm extends VerticalLayout {
         addComponent(txtPassword);
         addComponent(btnLogin);
         addComponent(btnRegistrate);
+        addComponent(btnRegistrate2);
 
         LoginFormListener loginFormListener = getLoginFormListener();
         btnLogin.addClickListener(loginFormListener);
         
         RegisterFormListener registerFormListener = getRegisterFormListener();
         createRegisterButton();
+        
+        RegisterFormListener2 registerFormListener2 = getRegisterFormListener2();
+        btnRegistrate2.addClickListener(registerFormListener2);
+        
+        
     }
     
     
@@ -115,6 +123,12 @@ public class LoginForm extends VerticalLayout {
 		MyUI ui = (MyUI) UI.getCurrent();
         ApplicationContext context = ui.getApplicationContext();
         return context.getBean(RegisterFormListener.class);
+	}
+	
+	private RegisterFormListener2 getRegisterFormListener2() {
+		MyUI ui = (MyUI) UI.getCurrent();
+        ApplicationContext context = ui.getApplicationContext();
+        return context.getBean(RegisterFormListener2.class);
 	}
 
     public TextField getTxtLogin() {

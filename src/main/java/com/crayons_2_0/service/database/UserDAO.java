@@ -34,10 +34,10 @@ public class UserDAO {
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
                 
             	List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-                String mail = rs.getString("eMail");
+                String mail = rs.getString("email");
                 String password = rs.getString("password");
-                String firstName = rs.getString("firstName");
-                String lastName = rs.getString("lastName");
+                String firstName = rs.getString("firstname");
+                String lastName = rs.getString("lastname");
                 authorities.add(new SimpleGrantedAuthority("CLIENT"));
                 CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, true, true, false, false, authorities);;
                 return user;
@@ -54,20 +54,41 @@ public class UserDAO {
     }
     */
     
-    public void save2(CrayonsUser user2) {
+    // WICHTIG: realm nicht vergessen, attribute in der sql werden kleingemacht!!
+    
+    
+    public void insertUser(CrayonsUser user) {
     	
-    	String mail = user2.geteMail();
-        String password = user2.getPassword();
-        String firstName = user2.getFirstName();
-        String lastName = user2.getLastName();
+    	String mail = user.geteMail();
+        String password = user.getPassword();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
         
-        jdbcTemplate.update("Insert into users (eMail, password, firstName, lastName) VALUES(?, ?, ?, ?)", mail, password, firstName, lastName);
+        jdbcTemplate.update("insert into realm.users (email, password, firstname, lastname) VALUES (?, ?, ?, ?)", mail, password, firstName, lastName);
+		
+    }
+    
+    public void updateUser(CrayonsUser user) {
+    	
+    	String mail = user.geteMail();
+        String password = user.getPassword();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        
+        try {
+        	jdbcTemplate.update("update realm.users set password = " + password + " where email = " + mail);
+		} catch (Exception e) {
+			String ex = e.getMessage();
+			System.out.println(ex);
+		}
+        
+		
     }
     
     
     // Example: http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
-    public void delete(CrayonsUser user) {
-    	String deleteStatement = "DELETE FROM users WHERE eMAIL=?";
+    public void deleteUser(CrayonsUser user) {
+    	String deleteStatement = "DELETE FROM realm.users WHERE email=?";
     	try {
 			jdbcTemplate.update(deleteStatement, user.geteMail());
 		} catch (RuntimeException e) {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import com.crayons_2_0.model.Course;
-
+import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.Course;
 
 public class CourseService {
@@ -28,12 +28,12 @@ public class CourseService {
         return null;
     }
     
-    public List<Course> findAllCoursesOfUser(User user) {
+    public List<Course> findAllCoursesOfUser(CrayonsUser user) {
         //TODO
         return null;
     }
     
-    public boolean insertCourse(String title, User author) {
+    public boolean insertCourse(String title, CrayonsUser author) {
         
         // Wenn Kurs kreiert werden kann, erstelle kurs in DB
         

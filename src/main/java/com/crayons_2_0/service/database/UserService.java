@@ -13,6 +13,7 @@ import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.database.UserDAO;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -70,12 +71,13 @@ public class UserService implements UserDetailsService {
         */
     	
     	// User exists not -> Save
-    	userDAO.save2(user);
+    	userDAO.insertUser(user);
     	return true;
     }
     
     public boolean removeUser(CrayonsUser user) {
-        return true;
+        userDAO.deleteUser(user);
+    	return true;
     }
     
     
@@ -93,11 +95,19 @@ public class UserService implements UserDetailsService {
     */
     
     public List<CrayonsUser> findByName(String firstName, String lastName) {
-        return null;
+    	List<CrayonsUser> users = findAll();
+        List<CrayonsUser> userWithName = new LinkedList<CrayonsUser>();
+        
+    	for (CrayonsUser tmpUser : users) {
+        	if (tmpUser.getFirstName().equals(firstName) && tmpUser.getLastName().equals(lastName)) {
+        		userWithName.add(tmpUser);
+        	}
+        }
+    	
+    	return userWithName;
     }
     
     public CrayonsUser findByEMail(String eMail) {
-    	
     	List<CrayonsUser> users = findAll();
         
     	for (CrayonsUser tmpUser : users) {
@@ -105,6 +115,6 @@ public class UserService implements UserDetailsService {
         		return tmpUser;
         	}
         }
-        throw new UsernameNotFoundException("User with mail:" + eMail + "doesnt exists!");
+        throw new UsernameNotFoundException("User with mail: " + eMail + " doesnt exists!");
     }
 }

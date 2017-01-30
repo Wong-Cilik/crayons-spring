@@ -11,13 +11,13 @@ import com.crayons_2_0.model.graph.UnitNode;
 public class Course {
 	
 	private String title;
-	private User author;
+	private CrayonsUser author;
 	private String description;
 	private Date creationTime;
 	private List<UnitNode> Units;		// Struktur!!!!! 
 	private Graph graph;
 	
-	public Course(String title, User author) {
+	public Course(String title, CrayonsUser author) {
 	    this.title = title;
 	    this.author = author;
 	}
