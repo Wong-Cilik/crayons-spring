@@ -35,6 +35,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 @SpringUI
 public class CourseEditorView extends VerticalLayout implements View {
     
@@ -55,12 +56,9 @@ public class CourseEditorView extends VerticalLayout implements View {
         Graph dummyGraph = buildExampleGraph();
         
         //put Nodenames in an Array for javascribt
-        ArrayList<String> tmpNodeNameList = new ArrayList<String>();
-        for (Node tmpNode:dummyGraph.getUnitCollection()){
-            tmpNodeNameList.add(tmpNode.getUnitNodeTitle());
-        }
         
-        graph.setNodes(tmpNodeNameList);
+        
+        graph.setGraph(dummyGraph.getNodeNameList(),dummyGraph.getEdgeSequence());
         graph.setSizeFull();
         addComponent(graph);
         setComponentAlignment(graph, Alignment.TOP_CENTER);
