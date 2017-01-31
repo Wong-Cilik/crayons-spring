@@ -4,6 +4,7 @@ import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -25,18 +26,29 @@ public final class DeleteVerification extends Window {
         
         VerticalLayout content = new VerticalLayout();
         content.setSizeFull();
+        content.setMargin(true);
         setContent(content);
+        
         Component title = buildTitle();
         content.addComponent(title);
         content.setComponentAlignment(title, Alignment.TOP_CENTER);
         
-        /*content.addComponent(buildDescription());
+        //content.addComponent(buildDescription());
         
         Component unitChoise = buildUnitChoice();
         content.addComponent(unitChoise);
-        content.setComponentAlignment(unitChoise, Alignment.MIDDLE_LEFT);*/
+        content.setComponentAlignment(unitChoise, Alignment.MIDDLE_LEFT);
         
-        content.addComponent(buildFooter());
+        Component footer = buildFooter();
+        content.addComponent(footer);
+        content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+    }
+    
+    private Component buildUnitChoice() {
+        ComboBox selectUnit = new ComboBox("Select the unit to be deleted");
+        selectUnit.addItem("Node 1");
+        selectUnit.addItem("Node 2");
+        return selectUnit;
     }
 
     private Component buildFooter() {
@@ -64,11 +76,6 @@ public final class DeleteVerification extends Window {
         footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
         return footer;
     }
-
-    /*private Component buildUnitChoice() {
-        VerticalLayout unitTypeChoice = new VerticalLayout();
-        return null;
-    }*/
 
     private Component buildTitle() {
         Label title = new Label("Delete a unit");

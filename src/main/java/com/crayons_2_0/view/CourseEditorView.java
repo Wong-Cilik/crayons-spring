@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.model.Authority;
 import com.crayons_2_0.component.GraphViewCreator;
+import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.component.DeleteVerification;
@@ -139,6 +140,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         editMenuLayout.setWidthUndefined();
 
         editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.ADD_UNIT, new UnitCreationWindow()));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.EDIT_UNIT, new SelectUnitForEditWindow()));
         editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.CONNECT_UNITS, new UnitConnectionEditor()));
         editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.DELETE_UNIT, new DeleteVerification()));
         editMenuLayout.setSpacing(true);
@@ -162,7 +164,7 @@ public class CourseEditorView extends VerticalLayout implements View {
     public enum EditMenuItemType {
         ADD_UNIT("Add", FontAwesome.PLUS), CONNECT_UNITS("Connect",
                 FontAwesome.LINK), DELETE_UNIT("Delete",
-                FontAwesome.TRASH);
+                FontAwesome.TRASH), EDIT_UNIT("Edit", FontAwesome.PENCIL);
         
         private final String title;
         private final FontAwesome icon;
