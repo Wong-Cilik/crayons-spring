@@ -43,8 +43,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     
     public Authorlibrary() {
     	
-    	// ALT
-        VerticalLayout content = new VerticalLayout();
+    	
+    	
+    	// ALT ------ Neu -> Neu und Form verwenden
+    	VerticalLayout content = new VerticalLayout();
 
         setSizeFull();
         setSpacing(true);
@@ -54,6 +56,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         content.addComponent(buildTitle());
         content.addComponent(buildCoursesTabSheet());
         
+    	
     	
     	/*
     	// NEU NEU NEU NEU
@@ -192,4 +195,11 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         // TODO Auto-generated method stub
         
     }  
+    
+    
+    
+    //--------------------------------------
+    
+    
+    
 }
