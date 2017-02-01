@@ -32,7 +32,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
-public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener{
+public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener {
 
     /**
      * 
@@ -40,27 +40,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "Authorlibrary";
     ResourceBundle lang = LanguageService.getInstance().getRes();
-
-    /*public Authorlibrary() {
-        VerticalLayout aboutContent = new VerticalLayout();
-        //aboutContent.setStyleName("about-content");
-
-        // you can add Vaadin components in predefined slots in the custom
-        // layout
-
-        setSizeFull();
-        setStyleName("about-view");
-        setSpacing(true);
-        setMargin(true);
-
-       // addComponent(aboutContent);
-        //setComponentAlignment(aboutContent, Alignment.MIDDLE_CENTER);
-        autorenbereich a = new autorenbereich();
-        addComponent(a);
-        
-        setExpandRatio(a, 1f);
-        addComponent(buildFooter());
-    }*/
     
     public Authorlibrary() {
     	
@@ -68,7 +47,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         VerticalLayout content = new VerticalLayout();
 
         setSizeFull();
-        setStyleName("about-view");
         setSpacing(true);
         setMargin(true);
 
@@ -112,12 +90,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         return addNewCourseTabContent;
     }
   
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
-        return footer;
-}
     //TODO: Kurs aus Datenbank übergeben 
     private Component buildCourseTab(String title) {
         VerticalLayout tabContent = new VerticalLayout();
