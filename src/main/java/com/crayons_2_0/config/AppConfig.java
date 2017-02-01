@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.crayons_2_0.authentication.AuthManager;
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.controller.LoginFormListener;
 import com.crayons_2_0.controller.RegisterFormListener;
@@ -66,6 +67,15 @@ public class AppConfig {
         RegisterFormListener2 res = new RegisterFormListener2();
         return res;
     }
+    
+    
+    // Damit Autowired funktioniert
+    @Bean
+    public CurrentUser currentUser() {
+        CurrentUser res = new CurrentUser();
+        return res;
+    }
+    
     
     
     @Autowired
