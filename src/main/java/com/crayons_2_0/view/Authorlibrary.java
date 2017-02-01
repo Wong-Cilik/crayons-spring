@@ -7,8 +7,10 @@ import java.util.ResourceBundle;
 
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
+import com.crayons_2_0.controller.OpenUnitEditorListener;
 import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.view.authorlib.AuthorlibraryForm;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -61,6 +63,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     }*/
     
     public Authorlibrary() {
+    	
+    	// ALT
         VerticalLayout content = new VerticalLayout();
 
         setSizeFull();
@@ -71,6 +75,18 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         addComponent(content);
         content.addComponent(buildTitle());
         content.addComponent(buildCoursesTabSheet());
+        
+    	
+    	/*
+    	// NEU NEU NEU NEU
+    	AuthorlibraryForm content = new AuthorlibraryForm();
+    	addComponent(content);
+    	
+    	setSizeFull();
+        setStyleName("about-view");
+        setSpacing(true);
+        setMargin(true);
+        */
     }
     
     private Component buildTitle() {
@@ -177,15 +193,18 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         Button courseDescription = new Button("Course description");
         controlButtons.addComponent(courseDescription);
         
-        Button courseEditor = new Button("Course Editor");
+        Button courseEditor = new Button("Unit Editor");
+        /*
         courseEditor.addClickListener(new ClickListener() {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
+				UI.getCurrent().getNavigator().navigateTo(UnitEditorView.VIEW_NAME);
 				
 			}
 		});
+		*/
+        courseEditor.addClickListener(new OpenUnitEditorListener());
         controlButtons.addComponent(courseEditor);
         
         return controlButtons;

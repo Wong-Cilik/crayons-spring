@@ -48,6 +48,7 @@ public class MainScreen extends HorizontalLayout {
         
         // Adds Views to Navigator
         navigator.addView(CourseEditorView.VIEW_NAME, new CourseEditorView());
+        //navigator.addView(UnitEditorView.VIEW_NAME, new UnitEditorView());
         //navigator.addView(UnitEditorView.VIEW_NAME, new Uniteditor(this));
 
         navigator.addViewChangeListener(viewChangeListener);

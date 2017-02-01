@@ -20,7 +20,7 @@ import com.vaadin.ui.Notification;
 
 public class RegisterFormListener2 implements Button.ClickListener {
 	
-	 @Autowired
+	 	@Autowired
 	    private UserManager userManager;
 
 	    @Override

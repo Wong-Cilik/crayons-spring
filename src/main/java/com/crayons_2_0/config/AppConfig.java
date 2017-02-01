@@ -19,8 +19,12 @@ import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.controller.LoginFormListener;
 import com.crayons_2_0.controller.RegisterFormListener;
 import com.crayons_2_0.controller.RegisterFormListener2;
+import com.crayons_2_0.controller.UnitEditor2;
 import com.crayons_2_0.service.database.UserService;
+import com.crayons_2_0.view.authorlib.AuthorlibraryForm;
 import com.crayons_2_0.service.database.JDBCConnection;
+import com.crayons_2_0.service.database.UnitDAO2;
+import com.crayons_2_0.service.database.UnitService2;
 import com.crayons_2_0.service.database.UserDAO;
 
 /**
@@ -76,6 +80,34 @@ public class AppConfig {
         return res;
     }
     
+    // Damit Autowired funktioniert
+    /*
+    @Bean
+    public UnitEditor2 unitEditor() {
+    	UnitEditor2 res = new UnitEditor2();
+        return res;
+    }
+    */
+    
+    // Damit Autowired funktioniert
+    
+    /*
+    @Bean
+    public AuthorlibraryForm authorlibraryForm() {
+    	AuthorlibraryForm res = new AuthorlibraryForm();
+        return res;
+    }
+    */
+    
+    
+    @Bean
+    public UnitService2 unitService() {
+        return new UnitService2 ();
+    }
+    @Bean
+    public UnitDAO2 unitDAO2() {
+        return new UnitDAO2 ();
+    }
     
     
     @Autowired
@@ -92,8 +124,8 @@ public class AppConfig {
     	
         ///*
         String driverClassName = "org.postgresql.Driver";				// Siehe:  https://jdbc.postgresql.org/documentation/84/load.html
-        String url = "jdbc:postgresql://localhost:5432/dbcrayons";	// @Julius
-        //String url = "jdbc:postgresql://localhost:2323/dbCrayons";		// @Levin
+        //String url = "jdbc:postgresql://localhost:5432/dbcrayons";	// @Julius
+        String url = "jdbc:postgresql://localhost:2323/dbCrayons";		// @Levin
         String username = "postgres";
         String password = "Schwan";
         //*/
