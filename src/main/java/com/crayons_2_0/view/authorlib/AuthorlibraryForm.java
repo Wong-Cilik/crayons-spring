@@ -28,7 +28,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 
 
-@org.springframework.stereotype.Component
+//@org.springframework.stereotype.Component
 public class AuthorlibraryForm extends VerticalLayout {
 	
 	
@@ -49,7 +49,7 @@ public class AuthorlibraryForm extends VerticalLayout {
 	@Autowired
     private CourseService courseService;
 	
-	/*
+	
 	public AuthorlibraryForm() {
 		
 		title = buildTitle();
@@ -62,7 +62,7 @@ public class AuthorlibraryForm extends VerticalLayout {
 		addComponent(controlButtons);
 		
 	}
-	*/
+	
 	
 	private Component buildTitle() {
         Label title = new Label("Kursübersicht");
