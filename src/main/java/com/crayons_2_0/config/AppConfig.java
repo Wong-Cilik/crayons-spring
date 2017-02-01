@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,7 @@ import com.crayons_2_0.service.database.UserDAO;
  * @author Ondrej Kvasnovsky
  */
 @Configuration
+@Component
 //@ComponentScan(basePackages = {"com.app.ui" , "com.app.auth", "com.app.service"})
 public class AppConfig {
 

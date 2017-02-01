@@ -40,7 +40,7 @@ import com.vaadin.ui.themes.ValoTheme;
 public class CourseEditorView extends VerticalLayout implements View {
     
     public static final String VIEW_NAME = "Learning Graph";
-    
+    final static Dagre graph = new Dagre();
     public CourseEditorView() {
         setSizeFull();
         addStyleName("editor");
@@ -51,7 +51,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         addComponent(gvc.getGraphView());*/
         
         //JavaScribt Element
-        final Dagre graph = new Dagre();
+        
         //TODO fetch graph from DB, currently using Dummy graph
         Graph dummyGraph = buildExampleGraph();
         
@@ -68,7 +68,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
     }
     //Example Graph for UI Development
-    private Graph buildExampleGraph(){
+    public static Graph buildExampleGraph(){
         
         
         String dummy = "dummy";
@@ -101,6 +101,10 @@ public class CourseEditorView extends VerticalLayout implements View {
         
         
         
+        
+    }
+    public static void refreshGraph(Graph graphTmp){
+        graph.setGraph(graphTmp.getNodeNameList(),graphTmp.getEdgeSequence());
         
     }
     

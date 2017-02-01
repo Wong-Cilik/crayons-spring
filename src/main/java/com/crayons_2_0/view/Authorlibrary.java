@@ -39,7 +39,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     public static final String VIEW_NAME = "Authorlibrary";
     ResourceBundle lang = LanguageService.getInstance().getRes();
 
-    /*public Authorlibrary() {
+  public Authorlibrary() {
         VerticalLayout aboutContent = new VerticalLayout();
         //aboutContent.setStyleName("about-content");
 
@@ -58,8 +58,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         
         setExpandRatio(a, 1f);
         addComponent(buildFooter());
-    }*/
-    
+    }
+    /*
     public Authorlibrary() {
         VerticalLayout content = new VerticalLayout();
 
@@ -72,7 +72,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         content.addComponent(buildTitle());
         content.addComponent(buildCoursesTabSheet());
     }
-    
+    */
     private Component buildTitle() {
         Label title = new Label("Kursübersicht");
         title.addStyleName(ValoTheme.LABEL_H2);

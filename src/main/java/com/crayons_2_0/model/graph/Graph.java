@@ -53,10 +53,7 @@ public class Graph {
                     tmpEdgeSequence.add(currentStartNode.getUnitNodeTitle());
                 }
             }
-
-            if (currentNode.getUnitNodeTitle() == "End") {
-            }
-
+      
             if (currentNode.getNodes().isEmpty() && currentNode.getUnitNodeTitle() != "End") {
                 tmpEdgeSequence.add(currentNode.getUnitNodeTitle());
                 tmpEdgeSequence.add("End");
@@ -94,11 +91,29 @@ public class Graph {
      * public void setUnitsAvailable(boolean unitsAvailable) {
      * this.unitsAvailable = unitsAvailable; }
      */
+    
     // add a new unit and create for all parents a new childNode
-    public boolean addUnit(UnitNode currentNode, Set<Node> set) {
-        for (Node tmpNode : set) {
+    public boolean addUnit(Node currentNode, Set<Node> setParent,Set<UnitNode> setChildren) {
+        for (Node tmpNode : setParent) {
             tmpNode.addNode(currentNode);
         }
+        for (UnitNode tmpNode : setChildren) {
+            tmpNode.addParentNode(currentNode);
+        }
+        this.unitCollection.add(currentNode);
+        return true;
+    }
+    public boolean addUnit(Node currentNode, UnitNode parent, UnitNode child){
+        parent.addNode(currentNode);
+        child.addParentNode(child);
+        this.unitCollection.add(currentNode);
+        return true;
+    }
+    public boolean addUnit(Node currentNode, Set<Node> setParent) {
+        for (Node tmpNode : setParent) {
+            tmpNode.addNode(currentNode);
+        }
+        
         this.unitCollection.add(currentNode);
         return true;
     }

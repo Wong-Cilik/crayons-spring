@@ -43,6 +43,16 @@ public class UnitNode extends Node {
         this.graph = graph;
         //this.nextUnits = new HashSet<UnitNode>();
     }
+    public UnitNode(String unitTitle, UnitNode parent,UnitNode child, Graph graph) {
+        this.unitNodeTitle = unitTitle;
+        // this.unitType = unitType;
+        // this.availability = availability;
+        this.addNode(child);
+        this.addParentNode(parent);
+ 
+        this.graph = graph;
+        //this.nextUnits = new HashSet<UnitNode>();
+    }
     
     public Graph getGraph() {
         return graph;
@@ -58,7 +68,7 @@ public class UnitNode extends Node {
         return parentNodes;
     }
 
-    public void addParentNode(UnitNode parentNode) {
+    public void addParentNode(Node parentNode) {
         this.parentNodes.add(parentNode);
     }
 
