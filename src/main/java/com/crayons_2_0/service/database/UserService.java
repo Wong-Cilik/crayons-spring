@@ -21,8 +21,8 @@ import java.util.List;
  */
 public class UserService implements UserDetailsService {
 
-	@Autowired
-    private UserDAO userDAO;
+
+    private UserDAO userDAO = new UserDAO();
 	
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

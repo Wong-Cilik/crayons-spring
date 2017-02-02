@@ -9,8 +9,8 @@ import com.crayons_2_0.model.graph.UnitNode;
 
 public class ConnectionService {
     
-    @Autowired
-    private ConnectionDAO connectionDAO;
+    
+    private ConnectionDAO connectionDAO = new ConnectionDAO();
     
     public MultiValueMap<UnitNode, UnitNode> findAll() {
         return null;

@@ -9,8 +9,8 @@ import com.crayons_2_0.model.graph.UnitNode;
 
 public class LearningProgressService {
 
-    @Autowired
-    private LearningProgressDAO learningProgressDAO;
+
+    private LearningProgressDAO learningProgressDAO = new LearningProgressDAO();
     
     public MultiValueMap<User, UnitNode> findAll() {
         return null;

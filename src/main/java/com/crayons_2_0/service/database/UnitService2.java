@@ -11,8 +11,8 @@ import com.crayons_2_0.model.graph.UnitNode;
 
 public class UnitService2 {
 	
-	@Autowired
-    private UnitDAO2 unitDAO2;
+	
+    private UnitDAO2 unitDAO2 = new UnitDAO2();
 	
 	public List<Unit> findAll() {
 	    List<Unit> res = unitDAO2.findAll();

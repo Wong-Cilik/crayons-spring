@@ -12,11 +12,11 @@ import com.crayons_2_0.model.Course;
 
 public class CourseService {
     
-    @Autowired
-    private CourseDAO courseDAO;
+ 
+    private CourseDAO courseDAO = new CourseDAO();
     
-    @Autowired
-    private UnitService2 unitService;
+ 
+    private UnitService2 unitService = new UnitService2();
     
     public List<Course> findAll() {
         List<Course> res = courseDAO.findAll();

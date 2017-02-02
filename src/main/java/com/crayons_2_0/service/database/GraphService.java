@@ -8,8 +8,8 @@ import com.crayons_2_0.model.graph.Graph;
 
 public class GraphService {
     
-    @Autowired
-    GraphDAO graphDAO;
+   
+    GraphDAO graphDAO = new GraphDAO();
     
     public List<Graph> findAll() {
         return null;

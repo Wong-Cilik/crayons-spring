@@ -31,7 +31,6 @@ import com.vaadin.ui.themes.ValoTheme;
  * layouts.
  */
 @SpringUI
-@PreserveOnRefresh
 @Viewport("user-scalable=no,initial-scale=1.0")
 @Theme("mytheme")
 public class MyUI extends UI {

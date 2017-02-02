@@ -10,6 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.authentication.UserManager;
@@ -18,10 +19,10 @@ import com.crayons_2_0.view.login.LoginForm;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 
+@Component
 public class RegisterFormListener2 implements Button.ClickListener {
 	
-	 	@Autowired
-	    private UserManager userManager;
+	    private UserManager userManager = new UserManager();
 
 	    @Override
 	    public void buttonClick(Button.ClickEvent event) {
