@@ -24,8 +24,8 @@ import java.util.Collection;
 @Component
 public class AuthManager implements AuthenticationManager {
 
-    
-    private UserService userService = new UserService();
+    @Autowired
+    private UserService userService;
     private static boolean hasAuthority = false;
 
     public Authentication authenticate(Authentication auth) throws AuthenticationException, UsernameNotFoundException {

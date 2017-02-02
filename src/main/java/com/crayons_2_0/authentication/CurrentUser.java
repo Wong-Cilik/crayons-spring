@@ -14,12 +14,12 @@ import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.database.UserService;
 
-
+@Component
 public class CurrentUser {
 	// LINKS:
 	// http://www.baeldung.com/get-user-in-spring-security
-	
-	UserService userService = new UserService();
+	@Autowired
+	UserService userService;
 	
 	
 	public CrayonsUser get2() {

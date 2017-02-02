@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.User;
 
 import com.crayons_2_0.model.CrayonsUser;
@@ -19,10 +20,11 @@ import java.util.List;
 /**
  * @author Ondrej Kvasnovsky
  */
+@Component
 public class UserService implements UserDetailsService {
 
-
-    private UserDAO userDAO = new UserDAO();
+    @Autowired
+    private UserDAO userDAO;
 	
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

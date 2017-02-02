@@ -26,8 +26,8 @@ import com.vaadin.ui.Button.ClickEvent;
 @Component
 public class RegisterFormListener implements Button.ClickListener {
 
-	
-	private UserService userService = new UserService();
+    @Autowired
+	private UserService userService;
 	
 	@Override
 	public void buttonClick(Button.ClickEvent event) {

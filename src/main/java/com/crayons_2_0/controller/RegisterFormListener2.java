@@ -21,8 +21,8 @@ import com.vaadin.ui.Notification;
 
 @Component
 public class RegisterFormListener2 implements Button.ClickListener {
-	
-	    private UserManager userManager = new UserManager();
+        @Autowired
+	    private UserManager userManager;
 
 	    @Override
 	    public void buttonClick(Button.ClickEvent event) {
