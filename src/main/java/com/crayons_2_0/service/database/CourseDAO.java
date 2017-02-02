@@ -25,20 +25,21 @@ public class CourseDAO {
     }
 
     public List<Course> findAll() {
-        /*String query = "select * from courses";
+        String query = "select * from realm.courses";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
                 
             	String title = rs.getString("title");
                 String description = rs.getString("description");
+                String author = rs.getString("author");
 
-                Course course = new Course(title, description);
+                Course course = new Course(title, description, author);
                 return course;
             }
         };
-        return jdbcTemplate.query(query, mapper);*/
-        return null;
+        return jdbcTemplate.query(query, mapper);
+        
     }
 
     public void save(Course course) {

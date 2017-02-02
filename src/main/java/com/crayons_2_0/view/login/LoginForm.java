@@ -62,8 +62,10 @@ public class LoginForm extends VerticalLayout {
         LoginFormListener loginFormListener = getLoginFormListener();
         btnLogin.addClickListener(loginFormListener);
         
+        /*
         RegisterFormListener registerFormListener = getRegisterFormListener();
         createRegisterButton();
+        */
         
         RegisterFormListener2 registerFormListener2 = getRegisterFormListener2();
         btnRegistrate2.addClickListener(registerFormListener2);

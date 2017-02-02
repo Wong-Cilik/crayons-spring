@@ -3,6 +3,9 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
+import org.springframework.boot.ApplicationArguments;
+
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -44,6 +47,8 @@ import com.vaadin.ui.VerticalLayout;
 //import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
+
+
 @SuppressWarnings("serial")
 @SpringUI
 public class Preferences extends VerticalLayout implements View {
@@ -52,6 +57,8 @@ public class Preferences extends VerticalLayout implements View {
     //public static final String ID = "profilepreferenceswindow";
     public static final String VIEW_NAME = "Preferences";
     ResourceBundle lang = LanguageService.getInstance().getRes();
+    
+    
 
    // private final BeanFieldGroup<User> fieldGroup;
     /*
@@ -194,6 +201,7 @@ public class Preferences extends VerticalLayout implements View {
         root.setExpandRatio(details, 1);
 
         firstNameField = new TextField(lang.getString("FirstName"));
+        //firstNameField.setValue(new CurrentUser().get().getFirstName());       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         details.addComponent(firstNameField);
         lastNameField = new TextField(lang.getString("LastName"));
         details.addComponent(lastNameField);

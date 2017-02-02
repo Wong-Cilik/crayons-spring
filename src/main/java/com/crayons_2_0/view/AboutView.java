@@ -1,9 +1,6 @@
 package com.crayons_2_0.view;
 
-import java.awt.List;
 import java.io.File;
-import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -22,21 +19,11 @@ import com.vaadin.data.validator.IntegerRangeValidator;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 
-import java.util.ResourceBundle;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.springframework.security.core.userdetails.User;
-
-import com.crayons_2_0.model.MultipleChoice;
-import com.crayons_2_0.service.Language;
-import com.crayons_2_0.service.LanguageService;
-import com.crayons_2_0.service.database.UserService;
-import com.hs18.vaadin.addon.graph.GraphJSComponent;
-import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.pontus.vizcomponent.VizComponent;
@@ -46,7 +33,6 @@ import com.vaadin.pontus.vizcomponent.VizComponent.NodeClickListener;
 import com.vaadin.pontus.vizcomponent.model.Graph;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Version;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
@@ -74,7 +60,8 @@ public class AboutView extends VerticalLayout implements View {
 	ResourceBundle lang = LanguageService.getInstance().getRes();
 	private TextField txtUserLabel;
 
-	public AboutView() {
+	@SuppressWarnings("serial")
+    public AboutView() {
 		final Dagre graph = new Dagre();
 		addComponent(graph);
 		VerticalLayout aboutContent = new VerticalLayout();
@@ -250,7 +237,8 @@ public class AboutView extends VerticalLayout implements View {
 		String lhtml = "<div id='graph' class='graph' ></div>";// add
 																// style='overflow:scroll'
 																// if required
-		Label graphLabel = new Label(lhtml, Label.CONTENT_XHTML);
+		@SuppressWarnings("deprecation")
+        Label graphLabel = new Label(lhtml, Label.CONTENT_XHTML);
 
 		aboutContent.addComponent(graphLabel);
 		aboutContent.addComponent(graphJSComponent);
