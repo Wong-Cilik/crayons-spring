@@ -11,11 +11,13 @@ import com.crayons_2_0.controller.OpenUnitEditorListener;
 import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.view.authorlib.AuthorlibraryForm;
+import com.crayons_2_0.component.CourseModificationWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -59,7 +61,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         content.addComponent(buildTitle());
         this.tabSheet = buildCoursesTabSheet();
         content.addComponent(this.tabSheet);
-        
+        tabSheet.setSelectedTab(1);
     	
     	
     	
@@ -102,20 +104,26 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         tabContent.setIcon(FontAwesome.PLUS);
         tabContent.setSpacing(true);
         tabContent.setMargin(true);
+        tabContent.setSizeFull();
         
         HorizontalLayout courseTitle = new HorizontalLayout();
         courseTitle.setSpacing(true);
-        Label courseTitleLabel = new Label("Kurstitel");
+        Label courseTitleLabel = new Label();
+        courseTitleLabel.setContentMode(ContentMode.HTML);
+        courseTitleLabel.setValue("<h3>Kurstitel</h3>");
         TextField courseTitleField = new TextField();
         courseTitle.addComponents(courseTitleLabel, courseTitleField);
+        courseTitle.setComponentAlignment(courseTitleLabel, Alignment.MIDDLE_LEFT);
+        courseTitle.setComponentAlignment(courseTitleField, Alignment.MIDDLE_LEFT);
         //courseTitleField.addValueChangeListener();
         tabContent.addComponent(courseTitle);
-        courseTitleField.setImmediate(true); 
+        //courseTitleField.setImmediate(true); 
         
         VerticalLayout couseDescription = new VerticalLayout();
-        couseDescription.setSpacing(true);
         couseDescription.setSizeFull();
-        Label couseDescriptionLabel = new Label("Kursbeschreibung");
+        Label couseDescriptionLabel = new Label();
+        couseDescriptionLabel.setContentMode(ContentMode.HTML);
+        couseDescriptionLabel.setValue("<h3>Kursbeschreibung</h3>");
         TextField couseDescriptionField = new TextField();
         couseDescriptionField.setSizeFull();
         couseDescription.addComponents(couseDescriptionLabel, couseDescriptionField);
@@ -137,7 +145,11 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                 success.setPosition(Position.BOTTOM_CENTER);
                 success.show(Page.getCurrent());
                 String value = (String) courseTitleField.getValue();
-                getTabSheet().addComponent(buildCourseTab(value));
+                Component newTab = buildCourseTab(value);
+                getTabSheet().addComponent(newTab);
+                getTabSheet().setSelectedTab(newTab);
+                courseTitleField.clear();
+                couseDescriptionField.clear();
             }
         });
         
@@ -151,7 +163,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         tabContent.setSpacing(true);
         tabContent.setMargin(true);
         
-        TwinColSelect selectStudents = new TwinColSelect("Select students");
+        TwinColSelect selectStudents = new TwinColSelect();
+        selectStudents.setCaptionAsHtml(true);
+        selectStudents.setCaption("<h3>Select course participants</h3>");
+        
         selectStudents.setRows(10);
         selectStudents.setSizeFull();
         selectStudents.setLeftColumnCaption("List of all students");
@@ -164,12 +179,14 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         selectStudents.setImmediate(true);
         tabContent.addComponent(selectStudents);
         
-        tabContent.addComponent(buildControlButtons());
+        Component controlButtons = buildControlButtons(tabContent, title);
+        tabContent.addComponent(controlButtons);
+        tabContent.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
         
         return tabContent;
     }
     
-    private Component buildControlButtons() {
+    private Component buildControlButtons(Component tab, String title) {
         HorizontalLayout controlButtons = new HorizontalLayout();
         controlButtons.setMargin(true);
         controlButtons.setSpacing(true);
@@ -216,20 +233,26 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             }
         });
         
-        Button courseDescription = new Button("Course description");
-        controlButtons.addComponent(courseDescription);
+        Button modifyCourse = new Button("Modify course");
+        controlButtons.addComponent(modifyCourse);
+        modifyCourse.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().addWindow(new CourseModificationWindow(title, tab, tabSheet));
+            }
+        });
         
         Button courseEditor = new Button("Unit Editor");
         /*
         courseEditor.addClickListener(new ClickListener() {
-			
-			@Override
-			public void buttonClick(ClickEvent event) {
-				UI.getCurrent().getNavigator().navigateTo(UnitEditorView.VIEW_NAME);
-				
-			}
-		});
-		*/
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().getNavigator().navigateTo(UnitEditorView.VIEW_NAME);
+                
+            }
+        });
+        */
         courseEditor.addClickListener(new OpenUnitEditorListener());
         controlButtons.addComponent(courseEditor);
         
