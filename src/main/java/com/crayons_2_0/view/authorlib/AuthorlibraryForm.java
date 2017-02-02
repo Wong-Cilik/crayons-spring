@@ -4,10 +4,9 @@ package com.crayons_2_0.view.authorlib;
 
 import java.util.ResourceBundle;
 
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Controller;
 
 import com.crayons_2_0.config.CurrentUserDummy;
 import com.crayons_2_0.controller.OpenUnitEditorListener;
@@ -27,8 +26,7 @@ import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 
-
-//@org.springframework.stereotype.Component
+@Resource
 public class AuthorlibraryForm extends VerticalLayout {
 	
 	

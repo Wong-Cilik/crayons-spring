@@ -12,7 +12,7 @@ import com.crayons_2_0.service.database.UnitService;
 import com.crayons_2_0.service.database.UnitService2;
 import com.crayons_2_0.view.CurrentCourseDummy;
 
-
+@Component
 public class UnitEditor2 {
 
 	private Course course;
