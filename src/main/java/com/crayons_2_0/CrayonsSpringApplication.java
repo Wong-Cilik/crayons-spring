@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 @Component
+@ComponentScan
+//@Component
 public class CrayonsSpringApplication {
 
 	public static void main(String[] args) throws Exception  {
