@@ -2,6 +2,8 @@ package com.crayons_2_0.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +14,7 @@ import com.crayons_2_0.service.database.UnitService;
 import com.crayons_2_0.service.database.UnitService2;
 import com.crayons_2_0.view.CurrentCourseDummy;
 
-@Component
+@Resource
 public class UnitEditor2 {
 
 	private Course course;
