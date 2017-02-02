@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.crayons_2_0.config.CurrentUserDummy;
 import com.crayons_2_0.controller.OpenUnitEditorListener;
@@ -26,32 +27,38 @@ import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 
-@Resource
+//@org.springframework.stereotype.Component
+// auskommentieren erst wenn findAllCoursesOfUser() implementiert ist.
 public class AuthorlibraryForm extends VerticalLayout {
 	
 	
-	/**
+    @Resource
+    private CourseService courseService;
+    
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
 	
 	
-	private Component title;
-	private TabSheet coursesTabSheet;
+//	private Component title; falsch!!
+	
+	private TabSheet coursesTabSheet = new TabSheet();
+	
+
 	
 	
 	
 	ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	@Autowired
-    private CourseService courseService;
+	
 	
 	
 	public AuthorlibraryForm() {
 		
-		title = buildTitle();
-		addComponent(title);
+//		title = buildTitle();
+//		addComponent(title);
 		
 		createCoursesTabSheet();
 		addComponent(coursesTabSheet);

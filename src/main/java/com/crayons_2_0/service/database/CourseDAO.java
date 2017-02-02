@@ -22,7 +22,7 @@ public class CourseDAO {
     JdbcTemplate jdbcTemplate;
 
     public void createDbTable() {
-        jdbcTemplate.execute("create table if not exists courses (title varchar(100), description varchar(100))");
+        jdbcTemplate.execute("create table if not exists courses (title varchar(100), description varchar(100), author varchar(100))");
     }
 
     public List<Course> findAll() {

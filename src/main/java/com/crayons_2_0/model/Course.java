@@ -1,14 +1,16 @@
 package com.crayons_2_0.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
-
+@Component
 public class Course {
 	
 	private String title;
@@ -26,7 +28,7 @@ public class Course {
 	private List<UnitNode> Units;		// Struktur!!!!! 
 	
 	
-	private List<Unit> units2;
+	private List<Unit> units2 = new ArrayList<Unit>();
 	
 	
 	
@@ -41,7 +43,9 @@ public class Course {
 		
 	}
 	
-	
+	public Course() {
+        // TODO Auto-generated constructor stub
+    }
 	public String getAuthor2() {
 		return author2;
 	}

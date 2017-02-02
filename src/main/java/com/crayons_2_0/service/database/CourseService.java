@@ -16,8 +16,8 @@ public class CourseService {
     @Autowired
     private CourseDAO courseDAO;
     
- 
-    private UnitService2 unitService = new UnitService2();
+    @Autowired
+    private UnitService2 unitService;
     
     public List<Course> findAll() {
         List<Course> res = courseDAO.findAll();
@@ -42,7 +42,6 @@ public class CourseService {
     // -------------------------------------------------------------------
     
     public List<Course> findAllCoursesOfUser(CrayonsUser user) {
-        //TODO
         return null;
     }
     
