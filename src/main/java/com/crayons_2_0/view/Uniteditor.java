@@ -9,6 +9,7 @@ import com.crayons_2_0.component.ImageUploadEditor;
 import com.crayons_2_0.component.InlineTextEditor;
 import com.crayons_2_0.component.MultipleChoiceEditor;
 import com.crayons_2_0.component.TextEditor;
+import com.crayons_2_0.component.UnitTitle;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -117,7 +118,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
         private VerticalLayout layout;
         private final DropHandler dropHandler;
-        private TextField titleLabel;
+        //private TextField titleLabel;
         private DragAndDropWrapper dropArea;
 
         public PageLayout() {
@@ -125,7 +126,7 @@ public class Uniteditor extends VerticalLayout implements View {
             setCompositionRoot(layout);
             layout.addStyleName("canvas-layout"); //TODO(Natalia): read and modify the style
 
-            titleLabel = new TextField();
+            /*titleLabel = new TextField();
             titleLabel.addStyleName("title"); //TODO(Natalia): read and modify the style
            
 
@@ -138,8 +139,10 @@ public class Uniteditor extends VerticalLayout implements View {
                     layout.setComponentAlignment(pageTitle, Alignment.TOP_CENTER); // TODO: fix
                     //TODO: setCompositionRoot
                 }
-            });
-            layout.addComponent(titleLabel);
+            });*/
+            Component unitTitle = new UnitTitle(null);
+            layout.addComponent(unitTitle);
+            layout.setComponentAlignment(unitTitle, Alignment.TOP_CENTER);
 
             dropHandler = new ReorderLayoutDropHandler();
 
