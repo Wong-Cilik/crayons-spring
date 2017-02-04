@@ -10,7 +10,9 @@ import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.shared.Position;
 import com.vaadin.shared.Version;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
@@ -19,7 +21,9 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.ProgressBar;
+import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
@@ -41,6 +45,8 @@ public class UserlibraryView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "Userlibrary";
     ResourceBundle lang = LanguageService.getInstance().getRes();
     
+    private TabSheet coursesTabSheet;
+    
     public UserlibraryView() {
         VerticalLayout content = new VerticalLayout();
 
@@ -60,7 +66,7 @@ public class UserlibraryView extends VerticalLayout implements View {
     }
     
     private Component buildCoursesTabSheet() {
-        TabSheet coursesTabSheet = new TabSheet();
+        this.coursesTabSheet = new TabSheet();
         coursesTabSheet.setSizeFull();
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
@@ -68,49 +74,45 @@ public class UserlibraryView extends VerticalLayout implements View {
         return coursesTabSheet;
     }
   
-    //TODO: Kurs aus Datenbank übergeben 
     private Component buildCourseTab(String title) {
         VerticalLayout tabContent = new VerticalLayout();
         tabContent.setCaption(title);
         tabContent.setSpacing(true);
         tabContent.setMargin(true);
         
-        tabContent.addComponent(getCourseInformation());
-        
-        return tabContent;
-    }
-    
-    private Component getCourseInformation() {
-        VerticalLayout courseInformation = new VerticalLayout();
-        
-        TextArea courseDescription = new TextArea("Kursbeschreibung");
-        courseDescription.setValue("Kursbeschreibung");
+        Label courseDescription = new Label();
+        courseDescription.setContentMode(ContentMode.HTML);
+        courseDescription.setValue("<h3>Course description</h3>\n" 
+                + "<p>This text area contains a course description.</p>");
         courseDescription.setSizeFull();
-        courseInformation.addComponent(courseDescription);
+        tabContent.addComponent(courseDescription);
         
-        Table testResults = new Table("Testergebnisse");
+        Table testResults = new Table();
+        testResults.setCaption("<h3>Testergebnisse</h3>");
+        testResults.setCaptionAsHtml(true);
         testResults.addContainerProperty("Test", String.class, null);
         testResults.addContainerProperty("Score", Integer.class, 0);
         testResults.addItem(new Object[]{"Lektion 1", 100}, 1);
         testResults.addItem(new Object[]{"Lektion 2", 70}, 2);
         testResults.setSizeFull();
         testResults.setPageLength(testResults.size());
-        courseInformation.addComponent(testResults);
+        tabContent.addComponent(testResults);
         
         ProgressBar learningProgressBar = new ProgressBar(0.0f);
         learningProgressBar.setValue(0.3f);
         learningProgressBar.setSizeFull();
-        courseInformation.addComponents(learningProgressBar);
-        learningProgressBar.setCaption("Lernfortschritt");
+        tabContent.addComponents(learningProgressBar);
+        learningProgressBar.setCaptionAsHtml(true);
+        learningProgressBar.setCaption("<h3>Lernfortschritt</h3>");
         
-        Component controlButtons = buildControlButtons();
-        courseInformation.addComponent(controlButtons);
-        courseInformation.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
+        Component controlButtons = buildControlButtons(tabContent);
+        tabContent.addComponent(controlButtons);
+        tabContent.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
         
-        return courseInformation;
+        return tabContent;
     }
     
-    private Component buildControlButtons() {
+    private Component buildControlButtons(Component tab) {
         HorizontalLayout controlButtons = new HorizontalLayout();
         controlButtons.setMargin(true);
         controlButtons.setSpacing(true);
@@ -118,17 +120,24 @@ public class UserlibraryView extends VerticalLayout implements View {
         Button leaveCourse = new Button("Verlassen");
         controlButtons.addComponent(leaveCourse);
         controlButtons.setComponentAlignment(leaveCourse, Alignment.MIDDLE_LEFT);
+        leaveCourse.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                coursesTabSheet.removeComponent(tab);
+                Notification success = new Notification(
+                        "You have leaved the course");
+                success.setDelayMsec(2000);
+                success.setStyleName("bar success small");
+                success.setPosition(Position.BOTTOM_CENTER);
+                success.show(Page.getCurrent());
+            }
+            
+        });
         
         Button study = new Button("Lernen");
         controlButtons.addComponent(study);
         controlButtons.setComponentAlignment(study, Alignment.MIDDLE_RIGHT);
-        
-        /*graphEditor.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
-            }
-        });*/
         
         return controlButtons;
     }

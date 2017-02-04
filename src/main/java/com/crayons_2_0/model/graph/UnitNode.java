@@ -43,7 +43,8 @@ public class UnitNode extends Node {
         this.graph = graph;
         //this.nextUnits = new HashSet<UnitNode>();
     }
-    public UnitNode(String unitTitle, UnitNode parent,UnitNode child, Graph graph) {
+    //just one parent and one child
+    public UnitNode(String unitTitle, Node parent,Node child, Graph graph) {
         this.unitNodeTitle = unitTitle;
         // this.unitType = unitType;
         // this.availability = availability;
@@ -53,6 +54,7 @@ public class UnitNode extends Node {
         this.graph = graph;
         //this.nextUnits = new HashSet<UnitNode>();
     }
+    
     
     public Graph getGraph() {
         return graph;

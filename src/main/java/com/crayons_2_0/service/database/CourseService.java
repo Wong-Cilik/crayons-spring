@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.Course;
-
+@Component
 public class CourseService {
     
     @Autowired
@@ -41,7 +42,6 @@ public class CourseService {
     // -------------------------------------------------------------------
     
     public List<Course> findAllCoursesOfUser(CrayonsUser user) {
-        //TODO
         return null;
     }
     

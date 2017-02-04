@@ -1,7 +1,9 @@
 package com.crayons_2_0.component;
 
-import com.crayons_2_0.model.graph.UnitNode.UnitType;
+import org.springframework.stereotype.Component;
 
+import com.crayons_2_0.model.graph.UnitNode.UnitType;
+@Component
 public class Unit {
 	
 	private String title;
@@ -19,7 +21,9 @@ public class Unit {
 		this.setContent(content);
 	}
 	
-	
+	public Unit() {
+        // TODO Auto-generated constructor stub
+    }
 	
 	
 	

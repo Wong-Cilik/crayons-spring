@@ -14,6 +14,7 @@ public class Graph {
     private final Node endNode;
     // this holds not just the start and end node!
     private Set<Node> unitCollection = new HashSet<Node>();
+    private Set<UnitNode> unitNodeCollection = new HashSet<UnitNode>();
 
     // private boolean unitsAvailable;
 
@@ -43,8 +44,17 @@ public class Graph {
 
     public ArrayList<String> getEdgeSequence() {
         ArrayList<String> tmpEdgeSequence = new ArrayList<String>();
-        Set<Node> markedNodes = this.unitCollection;
-        for (Node currentNode : markedNodes) {
+        // this goes through all the nodes and stores the names of outgoing
+        // edges for each node in an array
+        // after every incrementation the size of tmpEdgeSequence increases by
+        // two: the names of the start and end node of an edge
+        // if a node has no children, then a new edge is added, which connects
+        // it to the end node
+        // later on the edges are added to the javascript render, simply by
+        // incrementing through the array by 2 and connecting the names at even
+        // indices as outgoing
+        // with the odd ones as incoming.
+        for (Node currentNode : this.unitCollection) {
             // assert tmpEdgSequence.size() is even
 
             if (currentNode.getUnitNodeTitle() == "Start") {
@@ -53,7 +63,7 @@ public class Graph {
                     tmpEdgeSequence.add(currentStartNode.getUnitNodeTitle());
                 }
             }
-      
+
             if (currentNode.getNodes().isEmpty() && currentNode.getUnitNodeTitle() != "End") {
                 tmpEdgeSequence.add(currentNode.getUnitNodeTitle());
                 tmpEdgeSequence.add("End");
@@ -66,11 +76,18 @@ public class Graph {
 
                 }
         }
-        for(int i =0;i<tmpEdgeSequence.size();i++){
-        System.out.println(tmpEdgeSequence.get(i));
-        }
+
         return tmpEdgeSequence;
 
+    }
+
+    // TODO Exception fangen
+    public Node getNodeByName(String NodeName) {
+        for (Node tmp : this.unitCollection) {
+            if (NodeName == tmp.getUnitNodeTitle())
+            return tmp;
+        }
+        return null;
     }
 
     public Node getStartUnit() {
@@ -91,9 +108,9 @@ public class Graph {
      * public void setUnitsAvailable(boolean unitsAvailable) {
      * this.unitsAvailable = unitsAvailable; }
      */
-    
+
     // add a new unit and create for all parents a new childNode
-    public boolean addUnit(Node currentNode, Set<Node> setParent,Set<UnitNode> setChildren) {
+    public boolean addUnit(Node currentNode, Set<Node> setParent, Set<UnitNode> setChildren) {
         for (Node tmpNode : setParent) {
             tmpNode.addNode(currentNode);
         }
@@ -103,17 +120,26 @@ public class Graph {
         this.unitCollection.add(currentNode);
         return true;
     }
-    public boolean addUnit(Node currentNode, UnitNode parent, UnitNode child){
+
+    // Used if the start node is parent
+    public boolean addUnit(Node currentNode, Node parent, UnitNode child) {
         parent.addNode(currentNode);
         child.addParentNode(child);
         this.unitCollection.add(currentNode);
         return true;
     }
+    //used for dummygraph
+    public boolean addUnit(Node currentNode, Node parent) {
+        parent.addNode(currentNode);
+        this.unitCollection.add(currentNode);
+        return true;
+    }
+    // used if no ChildNode is specified
     public boolean addUnit(Node currentNode, Set<Node> setParent) {
         for (Node tmpNode : setParent) {
             tmpNode.addNode(currentNode);
         }
-        
+
         this.unitCollection.add(currentNode);
         return true;
     }

@@ -18,7 +18,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
+import org.springframework.stereotype.Component;
+@Component
 public class UnitDAO2 {
 	
 	@Autowired

@@ -5,25 +5,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.model.CrayonsUser;
-
-import java.lang.Object;
-//import org.springframework.security.core.userdetails.User;
 
 
 // LINKS:
 // http://docs.spring.io/spring/docs/2.0.x/reference/jdbc.html
 
-
+@Component
 public class UserDAO {
 	
+    /**
+     *  for Console logging
+     */
+    private static final Logger log = LoggerFactory.getLogger(UserDAO.class);
 	@Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -43,7 +47,7 @@ public class UserDAO {
                 String password = rs.getString("password");
                 String firstName = rs.getString("firstname");
                 String lastName = rs.getString("lastname");
-                String language = rs.getString("language");
+//                String language = rs.getString("language");
                 authorities.add(new SimpleGrantedAuthority("CLIENT"));
                 CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, true, true, false, false, authorities);;
                 return user;
@@ -52,6 +56,8 @@ public class UserDAO {
         return jdbcTemplate.query(query, mapper);
     }
     
+
+
     /*
     // FALSCH
     public void save(CrayonsUser user) {

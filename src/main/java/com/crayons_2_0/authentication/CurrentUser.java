@@ -18,7 +18,6 @@ import com.crayons_2_0.service.database.UserService;
 public class CurrentUser {
 	// LINKS:
 	// http://www.baeldung.com/get-user-in-spring-security
-	
 	@Autowired
 	UserService userService;
 	

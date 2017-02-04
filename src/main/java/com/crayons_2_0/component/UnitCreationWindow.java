@@ -25,7 +25,9 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings({ "serial" })
 public final class UnitCreationWindow extends Window {
     //sollte noch ein set werden
-    UnitNode parent;
+    Node parent;
+    //wird noch ausgebessert
+    Node child1;
     String unitTitle;
     //sollte noch ein set werden
     UnitNode child;
@@ -49,9 +51,13 @@ public final class UnitCreationWindow extends Window {
         content.addComponent(title);
         content.setComponentAlignment(title, Alignment.TOP_CENTER);
         
-        Component nameField = buildTitleField();
-        content.addComponent(nameField);
-        content.setComponentAlignment(nameField, Alignment.MIDDLE_LEFT);
+        
+        TextField titleField = new TextField("Unit title");
+        titleField.setCaption("unit title");
+        unitTitle = titleField.getValue();
+        content.addComponent(titleField);
+        
+        content.setComponentAlignment(titleField, Alignment.MIDDLE_LEFT);
        
         //content.addComponent(buildDescription());
         
@@ -86,9 +92,10 @@ public final class UnitCreationWindow extends Window {
         //predecessors.add(new Node("Node 2"));
         //selectPredecessor.addItems(predecessors);
         for(Node currentNode : dummyGraph.getUnitCollection()){
-            selectPredecessor.addItem(currentNode);
+            if( currentNode.getUnitNodeTitle() != "End")
+            selectPredecessor.addItem(currentNode.getUnitNodeTitle());
             }
-        parent = (UnitNode) selectPredecessor.getValue();
+        parent = dummyGraph.getNodeByName(selectPredecessor.getInputPrompt());
         
         ComboBox selectSuccessor = new ComboBox("Select the next unit");
         comboBoxes.addComponent(selectSuccessor);
@@ -99,18 +106,13 @@ public final class UnitCreationWindow extends Window {
         
         
         for(Node currentNode : dummyGraph.getUnitCollection()){
-        selectSuccessor.addItem(currentNode);
+        selectSuccessor.addItem(currentNode.getUnitNodeTitle());
         }
-        child = (UnitNode) selectSuccessor.getValue();
+        child1 = dummyGraph.getNodeByName((String) selectSuccessor.getValue());
+        
         return comboBoxes;
     }
-    private Component buildTitleField() {
-        TextField titleField = new TextField("Unit title");
-        titleField.setCaption("unit title");
-        unitTitle = titleField.getValue();
-        return titleField;
-    }
-
+    
     private Component buildTitle() {
         Label title = new Label("Create a new unit");
         title.addStyleName(ValoTheme.LABEL_H2);
@@ -142,8 +144,10 @@ public final class UnitCreationWindow extends Window {
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                UnitNode newUnit = new UnitNode(unitTitle,parent,child,dummyGraph);
-                dummyGraph.addUnit(newUnit, parent,child);
+                UnitNode newUnit = new UnitNode(unitTitle,parent,dummyGraph);
+                System.out.println(parent.getUnitNodeTitle());
+                
+                dummyGraph.addUnit(newUnit, parent);
                 CourseEditorView.refreshGraph(dummyGraph);
                 close();
                 Notification success = new Notification(

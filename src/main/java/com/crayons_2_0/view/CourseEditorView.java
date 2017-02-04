@@ -40,6 +40,7 @@ import com.vaadin.ui.themes.ValoTheme;
 public class CourseEditorView extends VerticalLayout implements View {
     
     public static final String VIEW_NAME = "Learning Graph";
+    //javascript element 
     final static Dagre graph = new Dagre();
     public CourseEditorView() {
         setSizeFull();
@@ -57,7 +58,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         
         //put Nodenames in an Array for javascribt
         
-        
+        // sets the state of the javascript element
         graph.setGraph(dummyGraph.getNodeNameList(),dummyGraph.getEdgeSequence());
         graph.setSizeFull();
         addComponent(graph);

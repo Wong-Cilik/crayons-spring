@@ -3,13 +3,14 @@ package com.crayons_2_0.service.database;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.graph.UnitNode;
-
+@Component
 public class UnitService {
 
-	@Autowired
+    @Autowired
     private UnitDAO unitDAO;
 	
 	public List<UnitNode> findAll() {

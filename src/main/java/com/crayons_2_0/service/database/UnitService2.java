@@ -4,11 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.graph.UnitNode;
-
+@Component
 public class UnitService2 {
 	
 	@Autowired

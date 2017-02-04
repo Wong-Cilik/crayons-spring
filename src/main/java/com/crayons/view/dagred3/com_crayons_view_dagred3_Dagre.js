@@ -48,6 +48,7 @@ window.com_crayons_view_dagred3_Dagre = function() {
 	var xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
 	svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
 	svg.attr("height", g.graph().height + 40);
+	
 	 this.onStateChange = function() {
 		 var g = new dagreD3.graphlib.Graph({}).setGraph({});
 			
