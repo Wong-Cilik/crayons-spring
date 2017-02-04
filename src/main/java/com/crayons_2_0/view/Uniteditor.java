@@ -5,22 +5,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import com.crayons_2_0.component.ImageUploadEditor;
+import com.crayons_2_0.component.InlineTextEditor;
+import com.crayons_2_0.component.MultipleChoiceEditor;
+import com.crayons_2_0.component.TextEditor;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-/*
-import com.vaadin.demo.dashboard.component.InlineTextEditor;
-import com.vaadin.demo.dashboard.component.TopSixTheatersChart;
-import com.vaadin.demo.dashboard.component.TopTenMoviesTable;
-import com.vaadin.demo.dashboard.component.TransactionsListing;
-import com.vaadin.demo.dashboard.domain.Transaction;
-import com.vaadin.demo.dashboard.view.reports.ReportEditor;
-import com.vaadin.demo.dashboard.view.reports.ReportEditor.PaletteItemType;
-import com.vaadin.demo.dashboard.view.reports.ReportEditor.ReportEditorListener;
-import com.vaadin.demo.dashboard.view.reports.ReportEditor.SortableLayout;
-import com.vaadin.demo.dashboard.view.reports.ReportEditor.SortableLayout.ReorderLayoutDropHandler;
-import com.vaadin.demo.dashboard.view.reports.ReportEditor.SortableLayout.WrappedComponent;
-*/
 import com.vaadin.event.Transferable;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
@@ -48,58 +39,56 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
-@SuppressWarnings({ "serial", "unchecked" })
+@SuppressWarnings({ "serial"})
 public class Uniteditor extends VerticalLayout implements View {
 	
 	public static final String VIEW_NAME = "Unit Editor";
 
-    private final ReportEditorListener listener;
-    private final SortableLayout canvas;
-    ResourceBundle lang = LanguageService.getInstance().getRes();
-    
-    public Uniteditor(final ReportEditorListener listener) {
-        this.listener = listener;
+	private final PageLayout page;
+
+    public Uniteditor() {
         setSizeFull();
-        addStyleName("editor");
+        addStyleName("editor"); //TODO(Natalia): read and modify the style
         addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
 
-        Component palette = buildPalette();
-        addComponent(palette);
-        setComponentAlignment(palette, Alignment.TOP_CENTER);
+        Component pageItemsPalette = buildPageItemsPalette();
+        addComponent(pageItemsPalette);
+        setComponentAlignment(pageItemsPalette, Alignment.TOP_CENTER);
 
-        canvas = new SortableLayout();
-        canvas.setWidth(100.0f, Unit.PERCENTAGE);
-        canvas.addStyleName("canvas");
-        addComponent(canvas);
-        setExpandRatio(canvas, 1);
+        page = new PageLayout();
+        page.setWidth(100.0f, Unit.PERCENTAGE);
+        page.addStyleName("canvas"); //TODO(Natalia): read and modify the style
+        addComponent(page);
+        setExpandRatio(page, 1);
     }
 
-    public void setTitle(final String title) {
-        canvas.setTitle(title);
-    }
+    /*public void setTitle(final String title) {
+        page.setTitle(title);
+    }*/
 
-    private Component buildPalette() {
+    private Component buildPageItemsPalette() {
         HorizontalLayout paletteLayout = new HorizontalLayout();
         paletteLayout.setSpacing(true);
         paletteLayout.setWidthUndefined();
         paletteLayout.addStyleName("palette");
 
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TEXT));
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TABLE));
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.CHART));
+        paletteLayout.addComponent(buildPaletteItem(PageItemType.TEXT));
+        paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
+        paletteLayout.addComponent(buildPaletteItem(PageItemType.MULTIPLE_CHOICE));
 
         paletteLayout.addLayoutClickListener(new LayoutClickListener() {
             @Override
             public void layoutClick(final LayoutClickEvent event) {
                 if (event.getChildComponent() != null) {
-                    PaletteItemType data = (PaletteItemType) ((DragAndDropWrapper) event
+                    PageItemType data = (PageItemType) ((DragAndDropWrapper) event
                             .getChildComponent()).getData();
-                    addWidget(data, null);
+                    addPageComponent(data, null);
                 }
             }
         });
@@ -107,60 +96,59 @@ public class Uniteditor extends VerticalLayout implements View {
         return paletteLayout;
     }
 
-    private Component buildPaletteItem(final PaletteItemType type) {
-        Label caption = new Label(type.getIcon().getHtml() + type.getTitle(),
+    private Component buildPaletteItem(final PageItemType pageItemType) {
+        Label caption = new Label(pageItemType.getIcon().getHtml() + pageItemType.getTitle(),
                 ContentMode.HTML);
         caption.setSizeUndefined();
 
-        DragAndDropWrapper ddWrap = new DragAndDropWrapper(caption);
-        ddWrap.setSizeUndefined();
-        ddWrap.setDragStartMode(DragStartMode.WRAPPER);
-        ddWrap.setData(type);
-        return ddWrap;
+        DragAndDropWrapper wrapper = new DragAndDropWrapper(caption);
+        wrapper.setSizeUndefined();
+        wrapper.setDragStartMode(DragStartMode.WRAPPER);
+        wrapper.setData(pageItemType);
+        return wrapper;
     }
 
-    public void addWidget(final PaletteItemType paletteItemType,
+    public void addPageComponent(final PageItemType pageItemType,
             final Object prefillData) {
-        canvas.addComponent(paletteItemType, prefillData);
+        page.addComponent(pageItemType, prefillData);
     }
 
-    public final class SortableLayout extends CustomComponent {
+    public final class PageLayout extends CustomComponent {
 
         private VerticalLayout layout;
         private final DropHandler dropHandler;
         private TextField titleLabel;
-        private DragAndDropWrapper placeholder;
+        private DragAndDropWrapper dropArea;
 
-        public SortableLayout() {
+        public PageLayout() {
             layout = new VerticalLayout();
             setCompositionRoot(layout);
-            layout.addStyleName("canvas-layout");
+            layout.addStyleName("canvas-layout"); //TODO(Natalia): read and modify the style
 
             titleLabel = new TextField();
-            titleLabel.addStyleName("title");
-            SimpleDateFormat df = new SimpleDateFormat();
-            df.applyPattern("M/dd/yyyy");
+            titleLabel.addStyleName("title"); //TODO(Natalia): read and modify the style
+           
 
             titleLabel.addValueChangeListener(new ValueChangeListener() {
                 @Override
                 public void valueChange(final ValueChangeEvent event) {
-                    String t = titleLabel.getValue();
-                    if (t == null || t.equals("")) {
-                        t = " ";
-                    }
-                    listener.titleChanged(t, Uniteditor.this);
+                    Label pageTitle = new Label(titleLabel.getValue());
+                    layout.removeComponent(titleLabel);
+                    layout.addComponent(pageTitle, 0);
+                    layout.setComponentAlignment(pageTitle, Alignment.TOP_CENTER); // TODO: fix
+                    //TODO: setCompositionRoot
                 }
             });
             layout.addComponent(titleLabel);
 
             dropHandler = new ReorderLayoutDropHandler();
 
-            Label l = new Label(lang.getString("Drag items here"));
-            l.setSizeUndefined();
+            Label dropAreaLabel = new Label("Drag items here");
+            dropAreaLabel.setSizeUndefined();
 
-            placeholder = new DragAndDropWrapper(l);
-            placeholder.addStyleName("placeholder");
-            placeholder.setDropHandler(new DropHandler() {
+            dropArea = new DragAndDropWrapper(dropAreaLabel);
+            dropArea.addStyleName("placeholder"); //TODO(Natalia): read and modify the style
+            dropArea.setDropHandler(new DropHandler() {
 
                 @Override
                 public AcceptCriterion getAcceptCriterion() {
@@ -176,39 +164,39 @@ public class Uniteditor extends VerticalLayout implements View {
                     if (sourceComponent != layout.getParent()) {
                         Object type = ((AbstractComponent) sourceComponent)
                                 .getData();
-                        addComponent((PaletteItemType) type, null);
+                        addComponent((PageItemType) type, null);
                     }
                 }
             });
-            layout.addComponent(placeholder);
+            layout.addComponent(dropArea);
         }
 
-        public void setTitle(final String title) {
+        /*public void setTitle(final String title) {
             titleLabel.setValue(title);
-        }
+        }*/
 
-        public void addComponent(final PaletteItemType paletteItemType,
+        public void addComponent(final PageItemType pageItemType,
                 final Object prefillData) {
-            if (placeholder.getParent() != null) {
-                layout.removeComponent(placeholder);
+            if (dropArea.getParent() != null) {
+                layout.removeComponent(dropArea);
             }
             layout.addComponent(
-                    new WrappedComponent(createComponentFromPaletteItem(
-                            paletteItemType, prefillData)), 1);
+                    new WrappedPageItem(createComponentFromPageItem(
+                            pageItemType, prefillData)), 1);
         }
 
-        private Component createComponentFromPaletteItem(
-                final PaletteItemType type, final Object prefillData) {
+        private Component createComponentFromPageItem(
+                final PageItemType type, final Object prefillData) {
             Component result = null;
-            /*if (type == PaletteItemType.TEXT) {
-                result = new InlineTextEditor(
+            if (type == PageItemType.TEXT) {
+                result = new TextEditor(
                         prefillData != null ? String.valueOf(prefillData)
                                 : null);
-            } else if (type == PaletteItemType.TABLE) {
-                result = new TopTenMoviesTable();
-            } else if (type == PaletteItemType.CHART) {
-                result = new TopSixTheatersChart();
-            } else if (type == PaletteItemType.TRANSACTIONS) {
+            } else if (type == PageItemType.IMAGE) {
+                result = new ImageUploadEditor();
+            } else if (type == PageItemType.MULTIPLE_CHOICE) {
+                result = new MultipleChoiceEditor();
+            } /*else if (type == PageItemType.TRANSACTIONS) {
                 result = new TransactionsListing(
                         (Collection<Transaction>) prefillData);
             }*/
@@ -216,9 +204,9 @@ public class Uniteditor extends VerticalLayout implements View {
             return result;
         }
 
-        private class WrappedComponent extends DragAndDropWrapper {
+        private class WrappedPageItem extends DragAndDropWrapper {
 
-            public WrappedComponent(final Component content) {
+            public WrappedPageItem(final Component content) {
                 super(content);
                 setDragStartMode(DragStartMode.WRAPPER);
             }
@@ -237,7 +225,8 @@ public class Uniteditor extends VerticalLayout implements View {
                 // return new SourceIs(component)
                 return AcceptAll.get();
             }
-
+            
+            //TODO(Natalia): read it
             @Override
             public void drop(final DragAndDropEvent dropEvent) {
                 Transferable transferable = dropEvent.getTransferable();
@@ -247,12 +236,12 @@ public class Uniteditor extends VerticalLayout implements View {
                 DropTarget target = dropTargetData.getTarget();
 
                 if (sourceComponent.getParent() != layout) {
-                    Object paletteItemType = ((AbstractComponent) sourceComponent)
+                    Object pageItemType = ((AbstractComponent) sourceComponent)
                             .getData();
 
-                    AbstractComponent c = new WrappedComponent(
-                            createComponentFromPaletteItem(
-                                    (PaletteItemType) paletteItemType, null));
+                    AbstractComponent c = new WrappedPageItem(
+                            createComponentFromPageItem(
+                                    (PageItemType) pageItemType, null));
 
                     int index = 0;
                     Iterator<Component> componentIterator = layout.iterator();
@@ -275,7 +264,7 @@ public class Uniteditor extends VerticalLayout implements View {
                     layout.addComponent(c, index);
                 }
 
-                if (sourceComponent instanceof WrappedComponent) {
+                if (sourceComponent instanceof WrappedPageItem) {
                     // find the location where to move the dragged component
                     boolean sourceWasAfterTarget = true;
                     int index = 0;
@@ -320,20 +309,16 @@ public class Uniteditor extends VerticalLayout implements View {
 
     }
 
-    public interface ReportEditorListener {
-        void titleChanged(String newTitle, Uniteditor editor);
-    }
-
-    public enum PaletteItemType {
-        TEXT("Text Block", FontAwesome.FONT), TABLE("Top 10 Movies",
-                FontAwesome.TABLE), CHART("Top 6 Revenue",
-                FontAwesome.BAR_CHART_O), TRANSACTIONS("Latest transactions",
+    public enum PageItemType {
+        TEXT("Text Block", FontAwesome.FONT), IMAGE("Image",
+                FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE("Multiple choice excercise",
+                FontAwesome.CHECK_SQUARE_O), TRANSACTIONS("Latest transactions",
                 null);
 
         private final String title;
         private final FontAwesome icon;
 
-        PaletteItemType(final String title, final FontAwesome icon) {
+        PageItemType(final String title, final FontAwesome icon) {
             this.title = title;
             this.icon = icon;
         }
@@ -350,6 +335,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+        
     }
-
 }
