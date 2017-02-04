@@ -243,17 +243,17 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         });
         
         Button courseEditor = new Button("Unit Editor");
-        /*
+        
         courseEditor.addClickListener(new ClickListener() {
             
             @Override
             public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo(UnitEditorView.VIEW_NAME);
+                UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
                 
             }
         });
-        */
-        courseEditor.addClickListener(new OpenUnitEditorListener());
+        
+        //courseEditor.addClickListener(new OpenUnitEditorListener());
         controlButtons.addComponent(courseEditor);
         
         return controlButtons;

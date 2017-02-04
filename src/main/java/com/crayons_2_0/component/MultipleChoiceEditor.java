@@ -1,5 +1,7 @@
 package com.crayons_2_0.component;
 
-public class MultipleChoiceEditor {
+import com.vaadin.ui.CustomComponent;
 
+public class MultipleChoiceEditor extends CustomComponent {
+    
 }
