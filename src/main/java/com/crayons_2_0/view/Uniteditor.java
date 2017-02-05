@@ -69,10 +69,6 @@ public class Uniteditor extends VerticalLayout implements View {
         setExpandRatio(page, 1);
     }
 
-    /*public void setTitle(final String title) {
-        page.setTitle(title);
-    }*/
-
     private Component buildPageItemsPalette() {
         HorizontalLayout paletteLayout = new HorizontalLayout();
         paletteLayout.setSpacing(true);
@@ -118,7 +114,6 @@ public class Uniteditor extends VerticalLayout implements View {
 
         private VerticalLayout layout;
         private final DropHandler dropHandler;
-        //private TextField titleLabel;
         private DragAndDropWrapper dropArea;
 
         public PageLayout() {
@@ -126,20 +121,6 @@ public class Uniteditor extends VerticalLayout implements View {
             setCompositionRoot(layout);
             layout.addStyleName("canvas-layout"); //TODO(Natalia): read and modify the style
 
-            /*titleLabel = new TextField();
-            titleLabel.addStyleName("title"); //TODO(Natalia): read and modify the style
-           
-
-            titleLabel.addValueChangeListener(new ValueChangeListener() {
-                @Override
-                public void valueChange(final ValueChangeEvent event) {
-                    Label pageTitle = new Label(titleLabel.getValue());
-                    layout.removeComponent(titleLabel);
-                    layout.addComponent(pageTitle, 0);
-                    layout.setComponentAlignment(pageTitle, Alignment.TOP_CENTER); // TODO: fix
-                    //TODO: setCompositionRoot
-                }
-            });*/
             Component unitTitle = new UnitTitle(null);
             layout.addComponent(unitTitle);
             layout.setComponentAlignment(unitTitle, Alignment.TOP_CENTER);
@@ -173,9 +154,9 @@ public class Uniteditor extends VerticalLayout implements View {
             });
             layout.addComponent(dropArea);
         }
-
-        /*public void setTitle(final String title) {
-            titleLabel.setValue(title);
+        
+        /*public Iterator<Component> getComponents() {
+            return layout.iterator();
         }*/
 
         public void addComponent(final PageItemType pageItemType,
@@ -193,12 +174,12 @@ public class Uniteditor extends VerticalLayout implements View {
             Component result = null;
             if (type == PageItemType.TEXT) {
                 result = new TextEditor(
-                        prefillData != null ? String.valueOf(prefillData)
+                        this, prefillData != null ? String.valueOf(prefillData)
                                 : null);
             } else if (type == PageItemType.IMAGE) {
                 result = new ImageUploadEditor();
             } else if (type == PageItemType.MULTIPLE_CHOICE) {
-                result = new MultipleChoiceEditor();
+                result = new MultipleChoiceEditor(null);
             } /*else if (type == PageItemType.TRANSACTIONS) {
                 result = new TransactionsListing(
                         (Collection<Transaction>) prefillData);
@@ -218,7 +199,6 @@ public class Uniteditor extends VerticalLayout implements View {
             public DropHandler getDropHandler() {
                 return dropHandler;
             }
-
         }
 
         private class ReorderLayoutDropHandler implements DropHandler {
@@ -311,6 +291,14 @@ public class Uniteditor extends VerticalLayout implements View {
         }
 
     }
+    
+    /*public void removecomponentfromlayout(component component) {
+        iterator<component> it = page.getcomponents();
+        while (it.hasnext()) {
+            
+            if (it.next().equals(component)) page.removecomponent(component);
+        }
+    }*/
 
     public enum PageItemType {
         TEXT("Text Block", FontAwesome.FONT), IMAGE("Image",
