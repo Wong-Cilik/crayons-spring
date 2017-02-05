@@ -13,6 +13,8 @@ import com.crayons_2_0.component.UnitTitle;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.event.ContextClickEvent;
+import com.vaadin.event.ContextClickEvent.ContextClickListener;
 import com.vaadin.event.Transferable;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
@@ -25,7 +27,9 @@ import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.shared.Position;
 import com.vaadin.shared.Version;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -67,6 +71,10 @@ public class Uniteditor extends VerticalLayout implements View {
         page.addStyleName("canvas"); //TODO(Natalia): read and modify the style
         addComponent(page);
         setExpandRatio(page, 1);
+        
+        Component deleteArea = buildDeleteArea();
+        addComponent(deleteArea);
+        setComponentAlignment(deleteArea, Alignment.BOTTOM_CENTER);
     }
 
     private Component buildPageItemsPalette() {
@@ -91,6 +99,52 @@ public class Uniteditor extends VerticalLayout implements View {
         });
 
         return paletteLayout;
+    }
+    
+    private Component buildDeleteArea() {
+        Label deleteButton = new Label(PageItemType.DELETE_BUTTON.getIcon().getHtml() + PageItemType.DELETE_BUTTON.getTitle(),
+                ContentMode.HTML);
+        deleteButton.setSizeUndefined();
+        deleteButton.setStyleName(ValoTheme.LABEL_LARGE);
+        DragAndDropWrapper dropArea = new DragAndDropWrapper(deleteButton);
+        dropArea.addStyleName("no-vertical-drag-hints");
+        dropArea.addStyleName("no-horizontal-drag-hints");
+        dropArea.setWidthUndefined();
+        HorizontalLayout dropAreaLayout = new HorizontalLayout(dropArea);
+        
+        dropAreaLayout.addLayoutClickListener(new LayoutClickListener() {
+
+            @Override
+            public void layoutClick(final LayoutClickEvent event) {
+                Notification instruction = new Notification(
+                        "Drag and drop the elemenets to be deleted over the button");
+                instruction.setDelayMsec(2000);
+                instruction.setStyleName("bar success small");
+                instruction.setPosition(Position.BOTTOM_CENTER);
+                instruction.show(Page.getCurrent());
+            }
+        });
+        dropArea.setDropHandler(new DropHandler() {
+
+            @Override
+            public void drop(final DragAndDropEvent event) {
+                Transferable transferable = event.getTransferable();
+                Component sourceComponent = transferable
+                        .getSourceComponent();
+                
+
+                page.removeComponent(sourceComponent);
+                if (page.isEmpty())
+                    page.addDropArea();
+            }
+
+            @Override
+            public AcceptCriterion getAcceptCriterion() {
+                return AcceptAll.get();
+            }
+        });
+        
+        return dropAreaLayout;
     }
 
     private Component buildPaletteItem(final PageItemType pageItemType) {
@@ -126,7 +180,11 @@ public class Uniteditor extends VerticalLayout implements View {
             layout.setComponentAlignment(unitTitle, Alignment.TOP_CENTER);
 
             dropHandler = new ReorderLayoutDropHandler();
-
+            
+            addDropArea();
+        }
+        
+        public void addDropArea() {
             Label dropAreaLabel = new Label("Drag items here");
             dropAreaLabel.setSizeUndefined();
 
@@ -153,6 +211,14 @@ public class Uniteditor extends VerticalLayout implements View {
                 }
             });
             layout.addComponent(dropArea);
+        }
+        
+        public void removeComponent(Component component) {
+            layout.removeComponent(component);
+        }
+        
+        public boolean isEmpty() {
+            return (layout.getComponentCount() == 1);
         }
         
         /*public Iterator<Component> getComponents() {
@@ -304,7 +370,7 @@ public class Uniteditor extends VerticalLayout implements View {
         TEXT("Text Block", FontAwesome.FONT), IMAGE("Image",
                 FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE("Multiple choice excercise",
                 FontAwesome.CHECK_SQUARE_O), TRANSACTIONS("Latest transactions",
-                null);
+                null),DELETE_BUTTON("Delete", FontAwesome.TRASH);
 
         private final String title;
         private final FontAwesome icon;
