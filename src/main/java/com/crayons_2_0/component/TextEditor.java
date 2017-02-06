@@ -79,14 +79,14 @@ public class TextEditor extends CustomComponent {
     }
     
     private Component buildTextEditor() {
-        CKEditorConfig config = new CKEditorConfig();
+        /*CKEditorConfig config = new CKEditorConfig();
         config.useCompactTags();
         config.disableElementsPath();
         config.setResizeDir(CKEditorConfig.RESIZE_DIR.HORIZONTAL);
         config.disableSpellChecker();
         config.setWidth("100%");
         
-        /*final CKEditorTextField ckEditorTextField = new CKEditorTextField(config);
+        final CKEditorTextField ckEditorTextField = new CKEditorTextField(config);
         ckEditorTextField.setWidth(100.0f, Unit.PERCENTAGE);
         ckEditorTextField.addAttachListener(new AttachListener() {
             @Override
@@ -99,7 +99,7 @@ public class TextEditor extends CustomComponent {
             public void valueChange(ValueChangeEvent event) {
                 Notification.show("CKEditor v" + ckEditorTextField.getVersion() + " - contents: " + event.getProperty().getValue().toString());
             }
-        });  */  
+        });*/   
         
         final RichTextArea textArea = new RichTextArea(property);
         textArea.setWidth(100.0f, Unit.PERCENTAGE);
