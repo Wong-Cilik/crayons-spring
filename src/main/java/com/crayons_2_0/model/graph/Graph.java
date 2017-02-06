@@ -133,12 +133,22 @@ public class Graph {
         for (UnitNode tmpNode : setParent) {
             tmpNode.addChildNode(currentNode);
         }
-
         this.unitCollection.add(currentNode);
         return true;
     }
+    
+    public boolean addConnection(UnitNode parent, UnitNode child) {
+        for (UnitNode tmp : this.unitCollection) {
+            if (parent.getUnitNodeTitle() == tmp.getUnitNodeTitle())
+            tmp.addChildNode(child);
+            if (child.getUnitNodeTitle() == tmp.getUnitNodeTitle())
+                tmp.addParentNode(parent);
+        }
+        return true;
+    }
 
-    public boolean deleteUnit(UnitNode learningUnit) {
+    public boolean deleteUnit(UnitNode Unit) {
+        this.unitCollection.remove(Unit);
         return true;
     }
 

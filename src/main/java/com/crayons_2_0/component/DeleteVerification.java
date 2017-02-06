@@ -1,5 +1,10 @@
 package com.crayons_2_0.component;
 
+import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.view.CourseEditorView;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
@@ -15,8 +20,20 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 public final class DeleteVerification extends Window {
+ // @DB
+
+    // sollte noch ein set werden
+    UnitNode deleteUnit;
+    // wird noch ausgebessert
+   
+    // TODO von DB holen
+    Graph dummyGraph = CourseEditorView.buildExampleGraph();
+    
     public DeleteVerification() {
+        
+        
         setSizeFull();
         setModal(true);
         setResizable(false);
@@ -46,8 +63,14 @@ public final class DeleteVerification extends Window {
     
     private Component buildUnitChoice() {
         ComboBox selectUnit = new ComboBox("Select the unit to be deleted");
-        selectUnit.addItem("Node 1");
-        selectUnit.addItem("Node 2");
+        for (UnitNode currentNode : dummyGraph.getUnitCollection()) {
+            selectUnit.addItem(currentNode.getUnitNodeTitle());
+        }
+        selectUnit.addValueChangeListener(new ValueChangeListener() {
+            public void valueChange(ValueChangeEvent event) {
+                deleteUnit = dummyGraph.getNodeByName(selectUnit.getValue().toString());
+            }
+        });
         return selectUnit;
     }
 
@@ -61,13 +84,16 @@ public final class DeleteVerification extends Window {
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
+                dummyGraph.deleteUnit(deleteUnit);
+                CourseEditorView.refreshGraph(dummyGraph);
                 close();
                 Notification success = new Notification(
                         "Unit is deleted successfully");
-                success.setDelayMsec(2000);
+                success.setDelayMsec(500);
                 success.setStyleName("bar success small");
                 success.setPosition(Position.BOTTOM_CENTER);
                 success.show(Page.getCurrent());
+                deleteUnit = null;
 
             }
         });
