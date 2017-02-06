@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+import com.vaadin.data.Property;
+import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.server.FileResource;
@@ -14,6 +16,8 @@ import com.vaadin.server.ClientConnector.AttachListener;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
@@ -21,22 +25,27 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.Upload;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Upload.ProgressListener;
 import com.vaadin.ui.Upload.Receiver;
 import com.vaadin.ui.Upload.StartedEvent;
 import com.vaadin.ui.Upload.StartedListener;
 import com.vaadin.ui.Upload.SucceededEvent;
 import com.vaadin.ui.Upload.SucceededListener;
-import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 // Code is based on https://github.com/vaadin/book-examples/blob/master/src/com/vaadin/book/examples/component/UploadExample.java
 
 public class ImageUploadEditor extends CustomComponent {
+    private static final long serialVersionUID = -8880121539345363049L;
+    
     private final Image image = new Image();
+    private final Property<String> imageTitle = new ObjectProperty<String>(
+            "Enter image title here...");
+    private final Property<String> imageSource = new ObjectProperty<String>(
+            "Enter source information here...");
     private final Component selectImageEditor;
     private final Component showImage;
     
@@ -48,26 +57,44 @@ public class ImageUploadEditor extends CustomComponent {
         
         setCompositionRoot(selectImageEditor);
     }
+    
+    public Component getUserView() {
+        VerticalLayout imageLayout = new VerticalLayout();
+        imageLayout.addComponent(image);
+        imageLayout.setComponentAlignment(image, Alignment.TOP_CENTER);
+        return imageLayout;
+    }
 
     private Component showImage() {
         Button editButton = new Button(FontAwesome.EDIT);
         editButton.addStyleName(ValoTheme.BUTTON_SMALL);
         editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
         editButton.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = 7359038534128275984L;
+
             @Override
             public void buttonClick(final ClickEvent event) {
                 setCompositionRoot(selectImageEditor);
             }
         });
         
-        // TODO: set image position -> TOR_CENTER
-        /*VerticalLayout imageLayout = new VerticalLayout();
+        VerticalLayout imageLayout = new VerticalLayout();
+        imageLayout.setSpacing(true);
+        
         imageLayout.addComponent(image);
-        imageLayout.setComponentAlignment(imageLayout, Alignment.TOP_CENTER);*/
-        CssLayout result = new CssLayout(image, editButton);
+        imageLayout.setComponentAlignment(image, Alignment.TOP_CENTER);
+        final Label title = new Label(imageTitle);
+        title.setWidthUndefined();
+        title.setStyleName(ValoTheme.LABEL_LIGHT);
+        imageLayout.addComponent(title);
+        imageLayout.setComponentAlignment(title, Alignment.TOP_CENTER);
+        
+        CssLayout result = new CssLayout(imageLayout, editButton);
         result.addStyleName("text-editor");
         result.setSizeFull();
         result.addLayoutClickListener(new LayoutClickListener() {
+            private static final long serialVersionUID = -8289333071983502304L;
+
             @Override
             public void layoutClick(final LayoutClickEvent event) {
                 if (event.getChildComponent() == image && event.isDoubleClick()) {
@@ -81,17 +108,13 @@ public class ImageUploadEditor extends CustomComponent {
     private VerticalLayout buildSelectImageEditor() {
         final VerticalLayout layout = new VerticalLayout();
         layout.setWidth(100.0f, Unit.PERCENTAGE);
-        /*layout.addAttachListener(new AttachListener() {
-            @Override
-            public void attach(final AttachEvent event) {
-                layout.focus();
-                layout.selectAll();
-            }
-        });*/
+        layout.setSpacing(true);
         
         image.setVisible(false);
         
         class ImageReceiver implements Receiver, SucceededListener {
+            private static final long serialVersionUID = -5899511248623876868L;
+            
             public File file;
             
             @Override
@@ -156,6 +179,30 @@ public class ImageUploadEditor extends CustomComponent {
         });
 
         image.setWidth(400, Unit.PIXELS);
+        
+        final TextField titleField = new TextField(imageTitle);
+        titleField.setWidth(100.0f, Unit.PERCENTAGE);
+        layout.addComponent(titleField);
+        
+        titleField.addAttachListener(new AttachListener() {
+            @Override
+            public void attach(final AttachEvent event) {
+                titleField.focus();
+                titleField.selectAll();
+            }
+        });
+        
+        final TextField sourceField = new TextField(imageSource);
+        sourceField.setWidth(100.0f, Unit.PERCENTAGE);
+        layout.addComponent(sourceField);
+        
+        sourceField.addAttachListener(new AttachListener() {
+            @Override
+            public void attach(final AttachEvent event) {
+                sourceField.focus();
+                sourceField.selectAll();
+            }
+        });
         
         layout.addComponents(upload);
         layout.setComponentAlignment(upload, Alignment.MIDDLE_CENTER);

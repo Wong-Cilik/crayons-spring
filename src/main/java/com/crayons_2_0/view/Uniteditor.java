@@ -1,21 +1,14 @@
 package com.crayons_2_0.view;
 
-import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.ResourceBundle;
 
 import com.crayons_2_0.component.ImageUploadEditor;
-//import com.crayons_2_0.component.InlineTextEditor;
 import com.crayons_2_0.component.MultipleChoiceEditor;
 import com.crayons_2_0.component.TextEditor;
 import com.crayons_2_0.component.UnitTitle;
-import com.crayons_2_0.service.LanguageService;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.event.Transferable;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
+import com.vaadin.event.Transferable;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.DropTarget;
@@ -25,8 +18,8 @@ import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.shared.Version;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
@@ -35,14 +28,11 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
+import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.TwinColSelect;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
@@ -67,18 +57,19 @@ public class Uniteditor extends VerticalLayout implements View {
         page.addStyleName("canvas"); //TODO(Natalia): read and modify the style
         addComponent(page);
         setExpandRatio(page, 1);
+        
+        Component deleteArea = buildDeleteArea();
+        addComponent(deleteArea);
+        setComponentAlignment(deleteArea, Alignment.BOTTOM_CENTER);
     }
-
-    /*public void setTitle(final String title) {
-        page.setTitle(title);
-    }*/
 
     private Component buildPageItemsPalette() {
         HorizontalLayout paletteLayout = new HorizontalLayout();
         paletteLayout.setSpacing(true);
         paletteLayout.setWidthUndefined();
         paletteLayout.addStyleName("palette");
-
+        
+        /*paletteLayout.addComponent(buildPaletteItem(PageItemType.SPLIT));*/
         paletteLayout.addComponent(buildPaletteItem(PageItemType.TEXT));
         paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
         paletteLayout.addComponent(buildPaletteItem(PageItemType.MULTIPLE_CHOICE));
@@ -95,6 +86,52 @@ public class Uniteditor extends VerticalLayout implements View {
         });
 
         return paletteLayout;
+    }
+    
+    private Component buildDeleteArea() {
+        Label deleteButton = new Label(PageItemType.DELETE_BUTTON.getIcon().getHtml() + PageItemType.DELETE_BUTTON.getTitle(),
+                ContentMode.HTML);
+        deleteButton.setSizeUndefined();
+        deleteButton.setStyleName(ValoTheme.LABEL_LARGE);
+        DragAndDropWrapper dropArea = new DragAndDropWrapper(deleteButton);
+        dropArea.addStyleName("no-vertical-drag-hints");
+        dropArea.addStyleName("no-horizontal-drag-hints");
+        dropArea.setWidthUndefined();
+        HorizontalLayout dropAreaLayout = new HorizontalLayout(dropArea);
+        
+        dropAreaLayout.addLayoutClickListener(new LayoutClickListener() {
+
+            @Override
+            public void layoutClick(final LayoutClickEvent event) {
+                Notification instruction = new Notification(
+                        "Drag and drop the elemenets to be deleted over the button");
+                instruction.setDelayMsec(2000);
+                instruction.setStyleName("bar success small");
+                instruction.setPosition(Position.BOTTOM_CENTER);
+                instruction.show(Page.getCurrent());
+            }
+        });
+        dropArea.setDropHandler(new DropHandler() {
+
+            @Override
+            public void drop(final DragAndDropEvent event) {
+                Transferable transferable = event.getTransferable();
+                Component sourceComponent = transferable
+                        .getSourceComponent();
+                
+
+                page.removeComponent(sourceComponent);
+                if (page.isEmpty())
+                    page.addDropArea();
+            }
+
+            @Override
+            public AcceptCriterion getAcceptCriterion() {
+                return AcceptAll.get();
+            }
+        });
+        
+        return dropAreaLayout;
     }
 
     private Component buildPaletteItem(final PageItemType pageItemType) {
@@ -118,7 +155,6 @@ public class Uniteditor extends VerticalLayout implements View {
 
         private VerticalLayout layout;
         private final DropHandler dropHandler;
-        //private TextField titleLabel;
         private DragAndDropWrapper dropArea;
 
         public PageLayout() {
@@ -126,26 +162,20 @@ public class Uniteditor extends VerticalLayout implements View {
             setCompositionRoot(layout);
             layout.addStyleName("canvas-layout"); //TODO(Natalia): read and modify the style
 
-            /*titleLabel = new TextField();
-            titleLabel.addStyleName("title"); //TODO(Natalia): read and modify the style
-           
-
-            titleLabel.addValueChangeListener(new ValueChangeListener() {
-                @Override
-                public void valueChange(final ValueChangeEvent event) {
-                    Label pageTitle = new Label(titleLabel.getValue());
-                    layout.removeComponent(titleLabel);
-                    layout.addComponent(pageTitle, 0);
-                    layout.setComponentAlignment(pageTitle, Alignment.TOP_CENTER); // TODO: fix
-                    //TODO: setCompositionRoot
-                }
-            });*/
             Component unitTitle = new UnitTitle(null);
             layout.addComponent(unitTitle);
             layout.setComponentAlignment(unitTitle, Alignment.TOP_CENTER);
 
             dropHandler = new ReorderLayoutDropHandler();
-
+            
+            addDropArea();
+        }
+        
+        public void addDropArea() {
+            layout.addComponent(buildDropArea());
+        }
+        
+        private Component buildDropArea() {
             Label dropAreaLabel = new Label("Drag items here");
             dropAreaLabel.setSizeUndefined();
 
@@ -171,11 +201,19 @@ public class Uniteditor extends VerticalLayout implements View {
                     }
                 }
             });
-            layout.addComponent(dropArea);
+            return dropArea;
         }
-
-        /*public void setTitle(final String title) {
-            titleLabel.setValue(title);
+        
+        public void removeComponent(Component component) {
+            layout.removeComponent(component);
+        }
+        
+        public boolean isEmpty() {
+            return (layout.getComponentCount() == 1);
+        }
+        
+        /*public Iterator<Component> getComponents() {
+            return layout.iterator();
         }*/
 
         public void addComponent(final PageItemType pageItemType,
@@ -183,23 +221,27 @@ public class Uniteditor extends VerticalLayout implements View {
             if (dropArea.getParent() != null) {
                 layout.removeComponent(dropArea);
             }
-            layout.addComponent(
-                    new WrappedPageItem(createComponentFromPageItem(
-                            pageItemType, prefillData)), 1);
+            /*if (pageItemType == PageItemType.SPLIT) {
+                layout.addComponent(new HorizontalLayout(new WrappedPageItem(buildDropArea()), 
+                        new WrappedPageItem(buildDropArea())));
+            } else {*/
+                layout.addComponent(
+                        new WrappedPageItem(createComponentFromPageItem(
+                                pageItemType, prefillData)), 1);
+            /*}*/
         }
 
         private Component createComponentFromPageItem(
                 final PageItemType type, final Object prefillData) {
             Component result = null;
             if (type == PageItemType.TEXT) {
-                result = new TextEditor(
-                        prefillData != null ? String.valueOf(prefillData)
-                                : null);
+                result = new TextEditor(prefillData != null ? String.valueOf(prefillData) : null);
             } else if (type == PageItemType.IMAGE) {
                 result = new ImageUploadEditor();
             } else if (type == PageItemType.MULTIPLE_CHOICE) {
-                result = new MultipleChoiceEditor();
+                result = new MultipleChoiceEditor(null, null, null);
             } /*else if (type == PageItemType.TRANSACTIONS) {
+            }
                 result = new TransactionsListing(
                         (Collection<Transaction>) prefillData);
             }*/
@@ -218,7 +260,6 @@ public class Uniteditor extends VerticalLayout implements View {
             public DropHandler getDropHandler() {
                 return dropHandler;
             }
-
         }
 
         private class ReorderLayoutDropHandler implements DropHandler {
@@ -316,7 +357,7 @@ public class Uniteditor extends VerticalLayout implements View {
         TEXT("Text Block", FontAwesome.FONT), IMAGE("Image",
                 FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE("Multiple choice excercise",
                 FontAwesome.CHECK_SQUARE_O), TRANSACTIONS("Latest transactions",
-                null);
+                null),DELETE_BUTTON("Delete", FontAwesome.TRASH)/*, SPLIT("Split", FontAwesome.COLUMNS)*/;
 
         private final String title;
         private final FontAwesome icon;

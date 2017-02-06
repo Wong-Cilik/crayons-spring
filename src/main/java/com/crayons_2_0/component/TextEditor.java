@@ -1,36 +1,26 @@
 package com.crayons_2_0.component;
 
-import org.vaadin.openesignforms.ckeditor.CKEditorConfig;
-import org.vaadin.openesignforms.ckeditor.CKEditorTextField;
-
-import com.crayons_2_0.view.CourseEditorView;
-import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.ClientConnector.AttachEvent;
-import com.vaadin.server.ClientConnector.AttachListener;
-import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.shared.ui.Connect;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.RichTextArea;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
 // Code is based on https://github.com/vaadin/dashboard-demo/blob/7.7/src/main/java/com/vaadin/demo/dashboard/component/InlineTextEditor.java
 
 public class TextEditor extends CustomComponent {
+    private static final long serialVersionUID = 4186796136009413559L;
+    
     private final Property<String> property = new ObjectProperty<String>(
             "Enter text here...");
     private final Component textEditor;
@@ -49,6 +39,12 @@ public class TextEditor extends CustomComponent {
         
         setCompositionRoot(textEditor);
     }
+    
+    public Component getUserView() {
+        final Label text = new Label(property);
+        text.setContentMode(ContentMode.HTML);
+        return text;
+    }
 
     private Component buildReadOnly() {
         final Label text = new Label(property);
@@ -58,6 +54,8 @@ public class TextEditor extends CustomComponent {
         editButton.addStyleName(ValoTheme.BUTTON_SMALL);
         editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
         editButton.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -8467021048199100945L;
+
             @Override
             public void buttonClick(final ClickEvent event) {
                 setCompositionRoot(textEditor);
@@ -68,6 +66,8 @@ public class TextEditor extends CustomComponent {
         result.addStyleName("text-editor");
         result.setSizeFull();
         result.addLayoutClickListener(new LayoutClickListener() {
+            private static final long serialVersionUID = 7363639788653598603L;
+
             @Override
             public void layoutClick(final LayoutClickEvent event) {
                 if (event.getChildComponent() == text && event.isDoubleClick()) {
@@ -75,6 +75,7 @@ public class TextEditor extends CustomComponent {
                 }
             }
         });
+        
         return result;
     }
     
@@ -104,6 +105,8 @@ public class TextEditor extends CustomComponent {
         final RichTextArea textArea = new RichTextArea(property);
         textArea.setWidth(100.0f, Unit.PERCENTAGE);
         textArea.addAttachListener(new AttachListener() {
+            private static final long serialVersionUID = 8413778836678316866L;
+
             @Override
             public void attach(final AttachEvent event) {
                 textArea.focus();
@@ -113,13 +116,25 @@ public class TextEditor extends CustomComponent {
        
         Button save = new Button("Save");
         save.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -4688758527425055901L;
+
             @Override
             public void buttonClick(final ClickEvent event) {
                 setCompositionRoot(readOnly);
             }
         });
+        
+        save.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = 6125553410927864047L;
 
+            @Override
+            public void buttonClick(final ClickEvent event) {
+                /*getParent()*/
+            }
+        });
+        
         CssLayout result = new CssLayout(textArea, save);
+
         result.addStyleName("edit");
         result.setSizeFull();
         return result;
