@@ -1,17 +1,11 @@
 package com.crayons_2_0.view;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 
+import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
-import com.crayons_2_0.controller.OpenUnitEditorListener;
-import com.crayons_2_0.mockup.autorenbereich;
 import com.crayons_2_0.service.LanguageService;
-import com.crayons_2_0.view.authorlib.AuthorlibraryForm;
-import com.crayons_2_0.component.CourseModificationWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -36,11 +30,8 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -9161951961270902856L;
+    
     public static final String VIEW_NAME = "Authorlibrary";
     ResourceBundle lang = LanguageService.getInstance().getRes();
     private TabSheet tabSheet;
@@ -136,6 +127,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         tabContent.setComponentAlignment(createCourse, Alignment.BOTTOM_CENTER);
         
         createCourse.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = 1422665458088821660L;
+
             @Override
             public void buttonClick(ClickEvent event) {
                 Notification success = new Notification(
@@ -197,6 +190,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         Button graphEditor = new Button("Graph editor");
         controlButtons.addComponent(graphEditor);
         graphEditor.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -5973844872374695493L;
+
             @Override
             public void buttonClick(ClickEvent event) {
                 
@@ -236,6 +231,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         Button modifyCourse = new Button("Modify course");
         controlButtons.addComponent(modifyCourse);
         modifyCourse.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -1559422159846748318L;
+
             @Override
             public void buttonClick(ClickEvent event) {
                 UI.getCurrent().addWindow(new CourseModificationWindow(title, tab, tabSheet));
@@ -245,7 +242,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         Button courseEditor = new Button("Unit Editor");
         
         courseEditor.addClickListener(new ClickListener() {
-            
+            private static final long serialVersionUID = 2984472344509461262L;
+
             @Override
             public void buttonClick(ClickEvent event) {
                 UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
