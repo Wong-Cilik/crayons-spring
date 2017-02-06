@@ -15,6 +15,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class UnitTitle extends CustomComponent {
@@ -50,6 +51,11 @@ public class UnitTitle extends CustomComponent {
     private Component buildReadOnly() {
         final Label title = new Label(property);
         title.setStyleName(ValoTheme.LABEL_LARGE);
+        title.setWidthUndefined();
+        VerticalLayout titleLayout = new VerticalLayout(title);
+        titleLayout.setSizeFull();
+        titleLayout.setComponentAlignment(title, Alignment.TOP_CENTER);
+        
         Button editButton = new Button(FontAwesome.EDIT);
         editButton.addStyleName(ValoTheme.BUTTON_SMALL);
         editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
@@ -62,7 +68,7 @@ public class UnitTitle extends CustomComponent {
             }
         });
 
-        CssLayout result = new CssLayout(title, editButton);
+        CssLayout result = new CssLayout(titleLayout, editButton);
         result.addStyleName("text-editor");
         result.setSizeFull();
         result.addLayoutClickListener(new LayoutClickListener() {
