@@ -18,7 +18,6 @@ import com.vaadin.annotations.Theme;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.Node;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;

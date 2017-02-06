@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import com.crayons_2_0.component.ImageUploadEditor;
-import com.crayons_2_0.component.InlineTextEditor;
+//import com.crayons_2_0.component.InlineTextEditor;
 import com.crayons_2_0.component.MultipleChoiceEditor;
 import com.crayons_2_0.component.TextEditor;
 import com.crayons_2_0.service.LanguageService;

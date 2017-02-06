@@ -1,10 +1,10 @@
 package com.crayons_2_0.component;
 
-import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.Node;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.view.CourseEditorView;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
@@ -25,9 +25,8 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings({ "serial" })
 public final class UnitCreationWindow extends Window {
     //sollte noch ein set werden
-    Node parent;
+    UnitNode parent;
     //wird noch ausgebessert
-    Node child1;
     String unitTitle;
     //sollte noch ein set werden
     UnitNode child;
@@ -54,7 +53,13 @@ public final class UnitCreationWindow extends Window {
         
         TextField titleField = new TextField("Unit title");
         titleField.setCaption("unit title");
-        unitTitle = titleField.getValue();
+        titleField.addValueChangeListener(new ValueChangeListener() {
+            public void valueChange(ValueChangeEvent event) {
+            unitTitle = titleField.getValue();
+            }
+        });
+        
+        
         content.addComponent(titleField);
         
         content.setComponentAlignment(titleField, Alignment.MIDDLE_LEFT);
@@ -91,11 +96,15 @@ public final class UnitCreationWindow extends Window {
         //predecessors.add(new Node("Node 1"));
         //predecessors.add(new Node("Node 2"));
         //selectPredecessor.addItems(predecessors);
-        for(Node currentNode : dummyGraph.getUnitCollection()){
+        for(UnitNode currentNode : dummyGraph.getUnitCollection()){
             if( currentNode.getUnitNodeTitle() != "End")
             selectPredecessor.addItem(currentNode.getUnitNodeTitle());
             }
-        parent = dummyGraph.getNodeByName(selectPredecessor.getInputPrompt());
+        selectPredecessor.addValueChangeListener(new ValueChangeListener() {
+            public void valueChange(ValueChangeEvent event) {
+                parent = dummyGraph.getNodeByName(selectPredecessor.getValue().toString());
+            }
+        });
         
         ComboBox selectSuccessor = new ComboBox("Select the next unit");
         comboBoxes.addComponent(selectSuccessor);
@@ -105,10 +114,14 @@ public final class UnitCreationWindow extends Window {
         //selectSuccessor.addItems(successors);
         
         
-        for(Node currentNode : dummyGraph.getUnitCollection()){
+        for(UnitNode currentNode : dummyGraph.getUnitCollection()){
         selectSuccessor.addItem(currentNode.getUnitNodeTitle());
         }
-        child1 = dummyGraph.getNodeByName((String) selectSuccessor.getValue());
+        selectSuccessor.addValueChangeListener(new ValueChangeListener() {
+            public void valueChange(ValueChangeEvent event) {
+                child = dummyGraph.getNodeByName(selectSuccessor.getValue().toString());
+            }
+        });
         
         return comboBoxes;
     }
@@ -144,8 +157,8 @@ public final class UnitCreationWindow extends Window {
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                UnitNode newUnit = new UnitNode(unitTitle,parent,dummyGraph);
-                System.out.println(parent.getUnitNodeTitle());
+                UnitNode newUnit = new UnitNode(unitTitle,parent,child,dummyGraph);
+                
                 
                 dummyGraph.addUnit(newUnit, parent);
                 CourseEditorView.refreshGraph(dummyGraph);

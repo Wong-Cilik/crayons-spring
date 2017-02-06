@@ -3,59 +3,38 @@ package com.crayons_2_0.model.graph;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UnitNode extends Node {
-    //the graph for the course
+public class UnitNode {
+    // the graph for the course
     private final Graph graph;
     private String unitNodeTitle;
     // private UnitType unitType;
     // private boolean availability;
-    
-    private Set<Node> parentNodes= new HashSet<Node>();;
+
+    private Set<UnitNode> parentNodes = new HashSet<UnitNode>();
+    private Set<UnitNode> childNodes = new HashSet<UnitNode>();
     // TODO: how to store the content?
-    
-    //Constructor for creating a UnitNode with the StartNode as parent
-    public UnitNode(String unitTitle, Node startNode, Graph graph) {
+
+    // Constructor for Start and EndNodes
+    public UnitNode(String unitTitle, Graph graph) {
         this.unitNodeTitle = unitTitle;
-        // this.unitType = unitType;
-        // this.availability = availability;
         this.graph = graph;
-        this.parentNodes.add(startNode); 
-        
-        }
-    //Constructor for creating a UnitNode with a single parent
-    public UnitNode(String unitTitle, UnitNode Node, Graph graph) {
-        this.unitNodeTitle = unitTitle;
-        // this.unitType = unitType;
-        // this.availability = availability;
-        this.graph = graph;
-        this.parentNodes.add(Node); 
-        
-        }
-    //Constructor for creating a UnitNode with multiple parents
-    public UnitNode(String unitTitle, Set<UnitNode> Nodes, Graph graph) {
-        this.unitNodeTitle = unitTitle;
-        // this.unitType = unitType;
-        // this.availability = availability;
-        for(UnitNode tmpNode:Nodes){
-            this.parentNodes.add(tmpNode); 
-        }
- 
-        this.graph = graph;
-        //this.nextUnits = new HashSet<UnitNode>();
     }
-    //just one parent and one child
-    public UnitNode(String unitTitle, Node parent,Node child, Graph graph) {
+
+    public UnitNode(String unitTitle, UnitNode parent, UnitNode child, Graph graph) {
         this.unitNodeTitle = unitTitle;
-        // this.unitType = unitType;
-        // this.availability = availability;
-        this.addNode(child);
-        this.addParentNode(parent);
- 
         this.graph = graph;
-        //this.nextUnits = new HashSet<UnitNode>();
+        this.parentNodes.add(parent);
+        this.childNodes.add(child);
+
     }
-    
-    
+
+    public UnitNode(String unitTitle, UnitNode parent, Graph graph) {
+        this.unitNodeTitle = unitTitle;
+        this.parentNodes.add(parent);
+        this.graph = graph;
+
+    }
+
     public Graph getGraph() {
         return graph;
     }
@@ -64,56 +43,45 @@ public class UnitNode extends Node {
         return unitNodeTitle;
     }
 
-  
-
-    public Set<Node> getParentNodes() {
+    public Set<UnitNode> getParentNodes() {
         return parentNodes;
     }
 
-    public void addParentNode(Node parentNode) {
+    public Set<UnitNode> getChildNodes() {
+        return childNodes;
+    }
+
+    public void addParentNode(UnitNode parentNode) {
         this.parentNodes.add(parentNode);
     }
 
-    public void setUnitNodeTitle(String unitNodeTitle) {
-        this.unitNodeTitle = unitNodeTitle;
+    public void addChildNode(UnitNode childNode) {
+        this.childNodes.add(childNode);
     }
 
     public void setUnitTitle(String unitTitle) {
         this.unitNodeTitle = unitTitle;
     }
-/*
-    public UnitType getUnitType() {
-        return unitType;
-    }
+    /*
+     * public UnitType getUnitType() { return unitType; }
+     * 
+     * public void setUnitType(UnitType unitType) { this.unitType = unitType; }
+     * public boolean isAvailability() { return availability; }
+     * 
+     * public void setAvailability(boolean availability) { this.availability =
+     * availability; }
+     * 
+     * public Set<UnitNode> getNextUnits() { return nextUnits; }
+     * 
+     * public void addNextUnit(UnitNode unit) { this.nextUnits.add(unit); }
+     * 
+     * public void removeNextUnit(UnitNode unit) { this.nextUnits.remove(unit);
+     * }
+     */
 
-    public void setUnitType(UnitType unitType) {
-        this.unitType = unitType;
-    }
-    public boolean isAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
-    }
-   
-    public Set<UnitNode> getNextUnits() {
-        return nextUnits;
-    }
-
-    public void addNextUnit(UnitNode unit) {
-        this.nextUnits.add(unit);
-    }
-    
-    public void removeNextUnit(UnitNode unit) {
-        this.nextUnits.remove(unit);
-    }
-*/ 
-    
-    
     public enum UnitType {
-        //START, 
-       // END, 
+        // START,
+        // END,
         LEARNING, TEST
     }
 }

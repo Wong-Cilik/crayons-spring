@@ -15,15 +15,15 @@ import com.crayons_2_0.model.CrayonsUser;
 public class GraphTest {
 
 	static Graph graph;
-	static Node start;
+	static UnitNode start;
 	static UnitNode node1;
 	static UnitNode node2;
 	static UnitNode node3;
-	static Set<Node> unitCollection;
+	static Set<UnitNode> unitCollection;
 	
 	@BeforeClass
 	public static void onceExecutedBeforeAll(){
-		unitCollection = new HashSet<Node>();
+		unitCollection = new HashSet<UnitNode>();
 		CrayonsUser user = null;
 		Course course = new Course ("course", user);
 		graph = new Graph(course);

@@ -61,12 +61,38 @@ $v-layout-spacing-vertical: round($v-unit-size / 1.8) !default;
 $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 
 
+@import "views/reports";
 @import "../valo/valo.scss";
 
 
 @mixin mytheme {
-  @include valo;
+  @include valo; 
+  @include uniteditor-view;
 
+    
+  
+
+g.type-TK > rect {
+    fill: #00ffd0;
+  }
+
+
+  text {
+    font-weight: 300;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+    font-size: 14px;
+  }
+
+  .node rect {
+    stroke: #999;
+    fill: #fff;
+    stroke-width: 1.5px;
+  }
+
+  .edgePath path {
+    stroke: #333;
+    stroke-width: 1.5px;
+  }
 
   // login screen - for small screens, see below
   .login-screen {
