@@ -77,7 +77,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         setMargin(true);
 
         addComponent(content);
-        this.filter = buildFilter(tabSheet);
+        this.filter = buildFilter();
         content.addComponent(this.filter);
         content.addComponent(buildTitle());
         this.tabSheet = buildCoursesTabSheet();
@@ -298,26 +298,27 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         
     }  
     
-	public Component buildFilter(TabSheet tabSheet) {
+	public Component buildFilter() {
 		final TextField filter = new TextField();
 		filter.addTextChangeListener(new TextChangeListener() {
 			@Override
 			public void textChange(final TextChangeEvent event) {
-				Iterator it = getTabSheet().getComponentIterator();
+				TabSheet tabs = getTabSheet();
+				Iterator<Component> it = tabs.getComponentIterator();
 				Component comp;
 				if (event.getText().equals("")) {
 					while (it.hasNext()){
-						comp = (Component)it.next();					
+						comp = it.next();					
 						comp.setVisible(true);
 					}
 				}else{
-					((Component) it.next()).setVisible(false);
+					comp = it.next();
 					while (it.hasNext()){
-						comp = (Component) it.next();					
+						comp = it.next();
 						if (comp.getCaption().contains(event.getText())){
-							comp.setVisible(true);
+							tabs.getTab(comp).setVisible(true);
 						} else {
-							comp.setVisible(false);
+							tabs.getTab(comp).setVisible(false);
 						}
 					}
 				}
