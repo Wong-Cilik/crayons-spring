@@ -1,5 +1,6 @@
 package com.crayons_2_0.service.database;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ public class CourseService {
     @Autowired
     private UnitService2 unitService;
     
+    /**
+     * 
+     * @return
+     */
     public List<Course> findAll() {
         List<Course> res = courseDAO.findAll();
         for (Course tmpCourse : res) {
@@ -27,6 +32,11 @@ public class CourseService {
         return res;
     }
     
+    /**
+     * 
+     * @param courseTitle
+     * @return
+     */
     public Course findCourseByTitle(String courseTitle) {
         for (Course tmpCourse : findAll()) {
         	if (tmpCourse.getTitle().equals(courseTitle)) {
@@ -42,33 +52,42 @@ public class CourseService {
     // -------------------------------------------------------------------
     
     public List<Course> findAllCoursesOfUser(CrayonsUser user) {
-        return null;
+    	List<Course> allCourses = courseDAO.findAll();
+    	List<Course> coursesOfUser = new LinkedList<Course>();
+    	
+    	for (Course tmpCourse : allCourses) {
+    		if (tmpCourse.getStudents().contains(user)) {
+    			coursesOfUser.add(tmpCourse);
+    		}
+    	}
+    	
+    	return coursesOfUser;
+    	
     }
     
-    public boolean insertCourse(String title, CrayonsUser author) {
+    
+    public boolean insertCourse(Course course) {
         
         // Wenn Kurs kreiert werden kann, erstelle kurs in DB
         
         // Checke - Kurs Existiert? 
-        //ECEPTION werfen todo
         for (Course tmpCourse : courseDAO.findAll()) {
-            if (tmpCourse.getTitle().equals(title)) {
-                return false;
+            if (tmpCourse.getTitle().equals(course.getTitle())) {
+            	//Course exists -> update;
+                courseDAO.update(tmpCourse);
+            	return true;
             }
         }
-        
-        Course newCourse = new Course(title,author);
     
+        // Course exists not -> insert
+        courseDAO.insert(course);
         return true;
     }   
     
     public boolean removeCourse(Course course) {
+    	//TODO TryCatch!!!
+    	courseDAO.remove(course);
         return true;
-    }
-
-    public List<Course> getAllCursesOfUser() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

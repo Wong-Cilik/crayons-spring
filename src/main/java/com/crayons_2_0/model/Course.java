@@ -17,11 +17,17 @@ public class Course {
 	private String description;
 	
 	private CrayonsUser author;
-	private String author2;
+	//private String authorName;
 	
 
 
+
+
+
+
 	private List<CrayonsUser> coAuthors;
+	
+	private List<CrayonsUser> students;
 
 	private Date creationTime;
 	
@@ -36,24 +42,17 @@ public class Course {
 	
 	// --------------------------------------------------------------
 	
-	public Course (String title, String description, String author) {
+	public Course (String title, String description, CrayonsUser author) {
 		this.setTitle(title);
 		this.setDescription(description);
-		this.setAuthor2(author);
+		this.setAuthor(author);
 		
 	}
 	
 	public Course() {
         // TODO Auto-generated constructor stub
     }
-	public String getAuthor2() {
-		return author2;
-	}
-
-
-	public void setAuthor2(String author2) {
-		this.author2 = author2;
-	}
+	
 	
 	public void setUnits2(List<Unit> units) {
 		this.units2 = units;
@@ -154,4 +153,20 @@ public class Course {
 	public void setCoAuthors(List<CrayonsUser> coAuthors) {
 		this.coAuthors = coAuthors;
 	}
+
+	/**
+	 * @return the students
+	 */
+	public List<CrayonsUser> getStudents() {
+		return students;
+	}
+
+	/**
+	 * @param students the students to set
+	 */
+	public void setStudents(List<CrayonsUser> students) {
+		this.students = students;
+	}
+	
+
 }
