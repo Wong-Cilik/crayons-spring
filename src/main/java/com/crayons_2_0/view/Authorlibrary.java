@@ -321,7 +321,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 						}
 					}
 				}
-				
 			}
 		});
 		filter.setInputPrompt("Suche");
