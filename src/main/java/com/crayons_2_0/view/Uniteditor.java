@@ -26,6 +26,7 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
@@ -45,7 +46,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
     public Uniteditor() {
         setSizeFull();
-        addStyleName("editor"); //TODO(Natalia): read and modify the style
+        //addStyleName("editor"); //TODO(Natalia): read and modify the style
         addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
 
         Component pageItemsPalette = buildPageItemsPalette();
@@ -54,7 +55,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
         page = new PageLayout();
         page.setWidth(100.0f, Unit.PERCENTAGE);
-        page.addStyleName("canvas"); //TODO(Natalia): read and modify the style
+        page.setStyleName("canvas"); //TODO(Natalia): read and modify the style
         addComponent(page);
         setExpandRatio(page, 1);
         
@@ -96,7 +97,7 @@ public class Uniteditor extends VerticalLayout implements View {
         DragAndDropWrapper dropArea = new DragAndDropWrapper(deleteButton);
         dropArea.addStyleName("no-vertical-drag-hints");
         dropArea.addStyleName("no-horizontal-drag-hints");
-        dropArea.setWidthUndefined();
+        dropArea.setSizeFull();
         HorizontalLayout dropAreaLayout = new HorizontalLayout(dropArea);
         
         dropAreaLayout.addLayoutClickListener(new LayoutClickListener() {

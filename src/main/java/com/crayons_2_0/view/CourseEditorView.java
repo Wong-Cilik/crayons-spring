@@ -43,7 +43,6 @@ public class CourseEditorView extends VerticalLayout implements View {
     final static Dagre graph = new Dagre();
     public CourseEditorView() {
         setSizeFull();
-        addStyleName("editor");
         
         /*Graph graph = new Graph();
         User user = new User("a", "a", null);

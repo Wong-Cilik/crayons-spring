@@ -1,15 +1,12 @@
 package com.crayons_2_0.component;
-import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
 import com.crayons_2_0.service.LanguageService;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 //import com.vaadin.demo.dashboard.event.DashboardEventBus;
 //import com.vaadin.demo.dashboard.event.DashboardEvent.ProfileUpdatedEvent;
 //import com.vaadin.demo.dashboard.component.InlineTextEditor;
@@ -27,10 +24,8 @@ import com.vaadin.event.dd.DropTarget;
 import com.vaadin.event.dd.TargetDetails;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
-import com.vaadin.event.dd.acceptcriteria.SourceIs;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -41,7 +36,6 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;

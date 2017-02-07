@@ -30,9 +30,12 @@ import com.vaadin.ui.themes.ValoTheme;
  * mobile devices. Instead of device based scaling (default), using responsive
  * layouts.
  */
+@SuppressWarnings("serial")
 @SpringUI
+
 @Viewport("user-scalable=no,initial-scale=1.0")
 @Theme("mytheme")
+
 public class MyUI extends UI {
 
     /**

@@ -26,6 +26,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.Label;
 
 /**
@@ -39,16 +40,15 @@ public class LoginForm extends VerticalLayout {
      */
 	
 	
-	
     private ResourceBundle lang = LanguageService.getInstance().getRes();
     private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
     private PasswordField txtPassword = new PasswordField(lang.getString("Password") + ": ");
     private Button btnLogin = new Button(lang.getString("Login"));
-    
     // Registrate
     private Button btnRegistrate = new Button("Registrieren!!");  //Todo Sprache
-    private Button btnRegistrate2 = new Button("Registrieren 2!");  //Todo Sprache
-
+    private Button btnRegistrate2 = new Button("Registrieren 2!");
+   //Todo Sprache
+   
 	private TextField textFieldPassoword = new TextField();
 
     public LoginForm() {
@@ -96,6 +96,7 @@ public class LoginForm extends VerticalLayout {
 				
 				
 				Button btnInsertUser = new Button("Insert/Save User");
+				btnInsertUser.addStyleName(ValoTheme.BUTTON_PRIMARY);
 				btnInsertUser.addClickListener(new RegisterFormListener());
 				content.addComponent(btnInsertUser);
 				
