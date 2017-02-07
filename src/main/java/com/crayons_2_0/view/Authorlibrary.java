@@ -1,11 +1,14 @@
 package com.crayons_2_0.view;
 
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
 import com.crayons_2_0.service.LanguageService;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
+import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -13,6 +16,7 @@ import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -57,6 +61,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     }
     */
     private TabSheet tabSheet;
+    private Component filter;
     
     public Authorlibrary() {
     	
@@ -71,6 +76,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         setMargin(true);
 
         addComponent(content);
+        this.filter = buildFilter();
+        content.addComponent(this.filter);
         content.addComponent(buildTitle());
         this.tabSheet = buildCoursesTabSheet();
         content.addComponent(this.tabSheet);
@@ -290,10 +297,36 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         
     }  
     
-    
-    
-    //--------------------------------------
-    
-    
-    
+	public Component buildFilter() {
+		final TextField filter = new TextField();
+		filter.addTextChangeListener(new TextChangeListener() {
+			@Override
+			public void textChange(final TextChangeEvent event) {
+				TabSheet tabs = getTabSheet();
+				Iterator<Component> it = tabs.getComponentIterator();
+				Component comp;
+				if (event.getText().equals("")) {
+					while (it.hasNext()){
+						comp = it.next();					
+						tabs.getTab(comp).setVisible(true);
+					}
+				}else{
+					comp = it.next();
+					while (it.hasNext()){
+						comp = it.next();
+						if (comp.getCaption().toLowerCase().contains(event.getText().toLowerCase())){
+							tabs.getTab(comp).setVisible(true);
+						} else {
+							tabs.getTab(comp).setVisible(false);
+						}
+					}
+				}
+			}
+		});
+		filter.setInputPrompt("Suche");
+		filter.setIcon(FontAwesome.SEARCH);
+		filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+		return filter;
+	}
+	
 }
