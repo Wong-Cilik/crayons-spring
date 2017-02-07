@@ -309,13 +309,13 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 				if (event.getText().equals("")) {
 					while (it.hasNext()){
 						comp = it.next();					
-						comp.setVisible(true);
+						tabs.getTab(comp).setVisible(true);
 					}
 				}else{
 					comp = it.next();
 					while (it.hasNext()){
 						comp = it.next();
-						if (comp.getCaption().contains(event.getText())){
+						if (comp.getCaption().toLowerCase().contains(event.getText().toLowerCase())){
 							tabs.getTab(comp).setVisible(true);
 						} else {
 							tabs.getTab(comp).setVisible(false);
