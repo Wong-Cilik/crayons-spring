@@ -304,9 +304,24 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 			@Override
 			public void textChange(final TextChangeEvent event) {
 				Iterator it = getTabSheet().getComponentIterator();
-				while (it.hasNext()){
-					System.out.println(((Component) it.next()).getCaption());
+				Component comp;
+				if (event.getText().equals("")) {
+					while (it.hasNext()){
+						comp = (Component)it.next();					
+						comp.setVisible(true);
+					}
+				}else{
+					((Component) it.next()).setVisible(false);
+					while (it.hasNext()){
+						comp = (Component) it.next();					
+						if (comp.getCaption().contains(event.getText())){
+							comp.setVisible(true);
+						} else {
+							comp.setVisible(false);
+						}
+					}
 				}
+				
 			}
 		});
 		filter.setInputPrompt("Suche");
