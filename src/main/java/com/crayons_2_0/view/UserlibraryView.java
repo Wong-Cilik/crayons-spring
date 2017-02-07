@@ -1,5 +1,6 @@
 package com.crayons_2_0.view;
 
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import com.crayons_2_0.component.UnitEditor;
@@ -7,6 +8,8 @@ import com.crayons_2_0.controller.UserBibManager;
 import com.crayons_2_0.mockup.Benutzeransicht;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
+import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -46,6 +49,7 @@ public class UserlibraryView extends VerticalLayout implements View {
     ResourceBundle lang = LanguageService.getInstance().getRes();
     
     private TabSheet coursesTabSheet;
+	private Component filter;
     
     public UserlibraryView() {
         VerticalLayout content = new VerticalLayout();
@@ -55,6 +59,8 @@ public class UserlibraryView extends VerticalLayout implements View {
         setMargin(true);
 
         addComponent(content);
+        this.filter = buildFilter();
+        content.addComponent(this.filter);
         content.addComponent(buildTitle());
         content.addComponent(buildCoursesTabSheet());
     }
@@ -63,6 +69,10 @@ public class UserlibraryView extends VerticalLayout implements View {
         Label title = new Label("Kursübersicht");
         title.addStyleName(ValoTheme.LABEL_H2);
         return title;
+    }
+    
+    public TabSheet getTabSheet(){
+    	return this.coursesTabSheet;
     }
     
     private Component buildCoursesTabSheet() {
@@ -145,4 +155,37 @@ public class UserlibraryView extends VerticalLayout implements View {
     @Override
     public void enter(ViewChangeEvent event) {
     }  
+    
+	public Component buildFilter() {
+		final TextField filter = new TextField();
+		filter.addTextChangeListener(new TextChangeListener() {
+			@Override
+			public void textChange(final TextChangeEvent event) {
+				TabSheet tabs = getTabSheet();
+				Iterator<Component> it = tabs.getComponentIterator();
+				Component comp;
+				if (event.getText().equals("")) {
+					while (it.hasNext()){
+						comp = it.next();					
+						tabs.getTab(comp).setVisible(true);
+					}
+				}else{
+					comp = it.next();
+					while (it.hasNext()){
+						comp = it.next();
+						if (comp.getCaption().toLowerCase().contains(event.getText().toLowerCase())){
+							tabs.getTab(comp).setVisible(true);
+						} else {
+							tabs.getTab(comp).setVisible(false);
+						}
+					}
+				}
+				
+			}
+		});
+		filter.setInputPrompt("Suche");
+		filter.setIcon(FontAwesome.SEARCH);
+		filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+		return filter;
+	}
 }
