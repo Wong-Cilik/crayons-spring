@@ -43,9 +43,9 @@ public class ImageUploadEditor extends CustomComponent {
     
     private final Image image = new Image();
     private final Property<String> imageTitle = new ObjectProperty<String>(
-            "Enter image title here...");
+            "");
     private final Property<String> imageSource = new ObjectProperty<String>(
-            "Enter source information here...");
+            "");
     private final Component selectImageEditor;
     private final Component showImage;
     
@@ -180,9 +180,12 @@ public class ImageUploadEditor extends CustomComponent {
 
         image.setWidth(400, Unit.PIXELS);
         
+        final Label titleFieldLabel = new Label("Image title");
         final TextField titleField = new TextField(imageTitle);
         titleField.setWidth(100.0f, Unit.PERCENTAGE);
-        layout.addComponent(titleField);
+        HorizontalLayout titleLayout = new HorizontalLayout(titleFieldLabel, titleField);
+        titleLayout.setSpacing(true);
+        layout.addComponent(titleLayout);
         
         titleField.addAttachListener(new AttachListener() {
             @Override
@@ -192,9 +195,12 @@ public class ImageUploadEditor extends CustomComponent {
             }
         });
         
+        final Label sourceFieldLabel = new Label("Image sourse");
         final TextField sourceField = new TextField(imageSource);
         sourceField.setWidth(100.0f, Unit.PERCENTAGE);
-        layout.addComponent(sourceField);
+        HorizontalLayout sourceLayout = new HorizontalLayout(sourceFieldLabel, sourceField);
+        sourceLayout.setSpacing(true);
+        layout.addComponent(sourceLayout);
         
         sourceField.addAttachListener(new AttachListener() {
             @Override
