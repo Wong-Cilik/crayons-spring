@@ -179,7 +179,6 @@ public class UserlibraryView extends VerticalLayout implements View {
 						}
 					}
 				}
-				
 			}
 		});
 		filter.setInputPrompt("Suche");
