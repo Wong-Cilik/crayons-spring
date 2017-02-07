@@ -26,6 +26,10 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserDAO userDAO;
 	
+    
+    /**
+     * Returns an User by his Username (=eMail)
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -54,25 +58,36 @@ public class UserService implements UserDetailsService {
         
     }
     
+    /**
+     * Returns a List of all CrayonsUser of DB
+     * @return List of all CrayonsUser of DB
+     */
     public List<CrayonsUser> findAll() {
 	    List<CrayonsUser> res = userDAO.findAll();
 	    return res;
 	}
     
+    /**
+     * Insert / update an User
+     * Insert if not exists, update if exists
+     * @param user to insert/update
+     * @return true if successfull, false otherwise
+     */
     public boolean insertUser(CrayonsUser user) {
     	
-    	/* 
+    	 
     	// Check if Exists, return false if exists
     	List<CrayonsUser> users = findAll();
     	for (CrayonsUser tmpUser : users) {
         	if (tmpUser.geteMail().equals(user.geteMail())) {
-        		return false;
+        		//User exists, so -> update
+        		userDAO.updateUser(user);
         	}
         }
-        */
+        
     	
-    	// User exists not -> Save
-    	userDAO.updateUser(user);
+    	// User exists not -> insert
+    	userDAO.insertUser(user);
     	return true;
     }
     
@@ -81,20 +96,12 @@ public class UserService implements UserDetailsService {
     	return true;
     }
     
-    
-    /*
-    public CrayonsUser findByUserId(long userId) {
-        return null;
-    }
-    */
-    
-    
-    /*
-    public CrayonsUser findByEMail(String eMail) {
-        return null;
-    }
-    */
-    
+    /**
+     * Returns an List of User of DB finding by Name (FirstName & LastName)
+     * @param firstName of User
+     * @param lastName of User
+     * @return List of User of DB by FirstName & LastName
+     */
     public List<CrayonsUser> findByName(String firstName, String lastName) {
     	List<CrayonsUser> users = findAll();
         List<CrayonsUser> userWithName = new LinkedList<CrayonsUser>();
@@ -108,6 +115,11 @@ public class UserService implements UserDetailsService {
     	return userWithName;
     }
     
+    /**
+     * Returns an User by his email
+     * @param eMail of User to find
+     * @return User of DB by Email
+     */
     public CrayonsUser findByEMail(String eMail) {
     	List<CrayonsUser> users = findAll();
         
