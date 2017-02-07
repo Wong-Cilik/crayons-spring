@@ -2,6 +2,7 @@ package com.crayons_2_0.controller;
 
 import java.util.List;
 
+import com.crayons_2_0.config.CurrentUserDummy;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.ui.Button;
@@ -27,7 +28,7 @@ public class UserBibManager {
 		
 		CourseService courseService = new CourseService();
 		
-		List<Course> courses = courseService.getAllCursesOfUser();
+		List<Course> courses = courseService.findAllCoursesOfUser(CurrentUserDummy.get()); //DUMMYYYYYYYYYYYYYYYYYYY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
 		for (Course tmpCourse : courses) {
 			VerticalLayout content = createContentForTab(tmpCourse);

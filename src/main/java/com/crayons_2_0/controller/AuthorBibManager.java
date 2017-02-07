@@ -2,8 +2,7 @@ package com.crayons_2_0.controller;
 
 import java.util.List;
 
-
-
+import com.crayons_2_0.config.CurrentUserDummy;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.ui.Button;
@@ -27,7 +26,7 @@ public class AuthorBibManager {
 		TabSheet tabSheet = new TabSheet();
 		
 		
-		List<Course> courses = courseService.getAllCursesOfUser();
+		List<Course> courses = courseService.findAllCoursesOfUser(CurrentUserDummy.get());
 		
 		for (Course tmpCourse : courses) {
 			final VerticalLayout content = new VerticalLayout();
