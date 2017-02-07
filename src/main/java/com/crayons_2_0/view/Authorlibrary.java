@@ -3,7 +3,6 @@ package com.crayons_2_0.view;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.component.CourseFilter;
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;

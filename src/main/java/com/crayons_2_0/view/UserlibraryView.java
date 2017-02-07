@@ -170,7 +170,6 @@ public class UserlibraryView extends VerticalLayout implements View {
 						tabs.getTab(comp).setVisible(true);
 					}
 				}else{
-					comp = it.next();
 					while (it.hasNext()){
 						comp = it.next();
 						if (comp.getCaption().toLowerCase().contains(event.getText().toLowerCase())){
