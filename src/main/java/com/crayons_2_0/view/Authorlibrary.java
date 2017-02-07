@@ -2,6 +2,7 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
+import com.crayons_2_0.component.CourseFilter;
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
@@ -57,6 +58,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     }
     */
     private TabSheet tabSheet;
+    private Component filter;
     
     public Authorlibrary() {
     	
@@ -71,6 +73,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         setMargin(true);
 
         addComponent(content);
+        this.filter = CourseFilter.buildFilter();
+        content.addComponent(filter);
         content.addComponent(buildTitle());
         this.tabSheet = buildCoursesTabSheet();
         content.addComponent(this.tabSheet);
