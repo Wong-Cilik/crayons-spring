@@ -2,6 +2,8 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -38,11 +40,9 @@ public class MainScreen extends HorizontalLayout {
     private MyUI ui;
     
     @Autowired
-    private SpringViewProvider springViewProvider;
-    
-    @Autowired
     Preferences preferences;
 
+    
     public MainScreen() {
 
     	//UI ui = MyUI.get().getCurrent();			// Changed
@@ -54,7 +54,7 @@ public class MainScreen extends HorizontalLayout {
         viewContainer.setSizeFull();
         
         
-        
+        // HIER PROBLEM: UI.getCurrent() oder MyUI.get() oder ... liefern alle null!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         final Navigator navigator = new Navigator(MyUI.get(), viewContainer);
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
