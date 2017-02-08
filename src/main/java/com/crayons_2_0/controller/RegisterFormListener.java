@@ -16,6 +16,7 @@ import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.database.UserService;
 import com.crayons_2_0.view.login.LoginForm;
+import com.crayons_2_0.view.login.RegisterWindow;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
@@ -29,43 +30,29 @@ public class RegisterFormListener implements Button.ClickListener {
     @Autowired
 	private UserService userService;
 	
-	@Override
-	public void buttonClick(Button.ClickEvent event) {
-		try {
+    @Override
+    public void buttonClick(Button.ClickEvent event) {
+        try {
             Button source = event.getButton();
-            VerticalLayout parent = (VerticalLayout) source.getParent();
+            RegisterWindow parent =  (RegisterWindow)source.getParent();
+            String mail = parent.getEmail().getValue();
+            String password = parent.getPassword().getValue();
+            String firstname = parent.getFirstname().getValue();
+            String lastname = parent.getLastname().getValue();
             
-            TextField txtMail = (TextField) parent.getComponent(1);
-            String mail = txtMail.getValue();
-            
-            TextField txtPassword = (TextField) parent.getComponent(4);
-            String password = txtPassword.getValue();
-
-            String firstName = "firstName";
-	        String lastName = "lastName";
-	        
-	        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-	        authorities.add(new SimpleGrantedAuthority("CLIENT"));
-	        CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, true, true, false, false, authorities);
-	        
-	        
-	        //userService.insertUser(user);
-	        UserManager userManager = new UserManager();
-	        userManager.foo(user);
-	        
-	        UI.getCurrent().close();
-
+            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+            authorities.add(new SimpleGrantedAuthority("CLIENT"));
+            CrayonsUser user = new CrayonsUser(firstname ,lastname, mail, password, true, true, false, false,authorities);
+           userService.insertUser(user);
             
 
            
 
         } catch (Exception e) {
-            Notification.show(e.getMessage());
+            Notification.show("Registration failed: " + e.getMessage());
         } 
-		 
-		 
-		
-		
-	}
+
+    }
+
 
 }

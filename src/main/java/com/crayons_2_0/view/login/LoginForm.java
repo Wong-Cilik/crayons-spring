@@ -45,7 +45,7 @@ public class LoginForm extends VerticalLayout {
     private PasswordField txtPassword = new PasswordField(lang.getString("Password") + ": ");
     private Button btnLogin = new Button(lang.getString("Login"));
     // Registrate
-    private Button btnRegistrate = new Button("Registrieren!!");  //Todo Sprache
+    private Button btnRegistrate = new Button("Register");  //Todo Sprache
     private Button btnRegistrate2 = new Button("Registrieren 2!");
    //Todo Sprache
    

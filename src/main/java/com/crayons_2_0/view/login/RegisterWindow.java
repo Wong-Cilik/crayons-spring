@@ -1,58 +1,99 @@
 package com.crayons_2_0.view.login;
 
-import com.crayons_2_0.controller.RegisterFormListener2;
+import com.crayons_2_0.controller.RegisterFormListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-class RegisterWindow extends Window {
+public class RegisterWindow extends Window {
 
-    public RegisterWindow() {
 
-        super("Create a new user"); // Set window caption
-        setWidth(300.0f, Unit.PIXELS);
-        setPositionX(800);
-        // Some basic content for the window
-        VerticalLayout content = new VerticalLayout();
+        /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+        private TextField email = new TextField();
+        private PasswordField password = new PasswordField();
+        private TextField firstname = new TextField();
+        private TextField lastname = new TextField();
 
-        TextField email = new TextField();
-        email.setRequired(true);
-        TextField password = new TextField();
-        password.setRequired(true);
-        TextField firstname = new TextField();
-        firstname.setRequired(true);
-        TextField lastname = new TextField();
-        lastname.setRequired(true);
-        content.addComponent(new Label("first name:"));
+        public RegisterWindow() {
 
-        content.addComponent(firstname);
+            super("Create a new user"); // Set window caption
+            setWidth(300.0f, Unit.PIXELS);
 
-        content.addComponent(new Label("last name:"));
+            // Some basic content for the window
+            VerticalLayout content = new VerticalLayout();
 
-        content.addComponent(lastname);
+            getEmail().setRequired(true);
+            getPassword().setRequired(true);
+            getFirstname().setRequired(true);
+            getLastname().setRequired(true);
+            content.addComponent(new Label("firstname"));
 
-        content.addComponent(new Label("eMail:"));
+            content.addComponent(getFirstname());
 
-        content.addComponent(email);
+            content.addComponent(new Label("lastname"));
 
-        content.addComponent(new Label("password:"));
+            content.addComponent(getLastname());
 
-        content.addComponent(password);
+            content.addComponent(new Label("eMail:"));
 
-        Button btnInsertUser = new Button("create a user");
-        btnInsertUser.addClickListener(new RegisterFormListener2());
-        //
+            content.addComponent(getEmail());
 
-        // Disable the close button
-        setClosable(true);
+            content.addComponent(new Label(""));
 
-        // Trivial logic for closing the sub-window
-        content.setMargin(true);
-        content.setSpacing(true);
-        content.addComponent(btnInsertUser);
-        setContent(content);
+            content.addComponent(new Label("password"));
 
+            content.addComponent(getPassword());
+
+            Button btnInsertUser = new Button("create a user");
+            btnInsertUser.addClickListener(new RegisterFormListener());
+            //
+
+            // Disable the close button
+            setClosable(true);
+
+            // Trivial logic for closing the sub-window
+            content.setMargin(true);
+            content.setSpacing(true);
+            content.addComponent(btnInsertUser);
+            setContent(content);
+
+        }
+
+        public TextField getEmail() {
+            return email;
+        }
+
+        public void setEmail(TextField email) {
+            this.email = email;
+        }
+
+        public PasswordField getPassword() {
+            return password;
+        }
+
+        public void setPassword(PasswordField password) {
+            this.password = password;
+        }
+
+        public TextField getFirstname() {
+            return firstname;
+        }
+
+        public void setFirstname(TextField firstname) {
+            this.firstname = firstname;
+        }
+
+        public TextField getLastname() {
+            return lastname;
+        }
+
+        public void setLastname(TextField lastname) {
+            this.lastname = lastname;
+        }
     }
-}
