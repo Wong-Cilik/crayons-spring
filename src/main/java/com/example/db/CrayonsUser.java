@@ -11,28 +11,23 @@ public class CrayonsUser extends User{
 
     
 
-    public CrayonsUser(Long id,String username, String password,String email, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
-        this.id = id;
-        this.email = email;
+    public CrayonsUser(String email, String password,String firstname,String lastname, Collection<? extends GrantedAuthority> authorities) {
+        super(email, password, authorities);
+        this.firstname= firstname;
+        this.lastname = lastname;
+        
     }
-    private long id;
-    private String email;
+    private String firstname;
+    private String lastname;
+    
    
     private List<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
 
     @Override
     public String toString() {
         return String.format(
-                "User[id=%d, username='%s', password='%s', email='%s']",
-                id, getUsername(), getPassword(), email);
-    }
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+                "User[username= '%s', password= '%s', firstname = '%s', 'lastname = '%s']",
+                 getUsername(), getPassword(), getFirstname(), getLastname());
     }
 
 
@@ -42,11 +37,25 @@ public class CrayonsUser extends User{
     public void setAuth(List<GrantedAuthority> auth) {
         this.auth = auth;
     }
-    public String getEmail() {
-        return email;
+
+
+    public String getLastname() {
+        return lastname;
     }
-    public void setEmail(String email) {
-        this.email = email;
+
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
    

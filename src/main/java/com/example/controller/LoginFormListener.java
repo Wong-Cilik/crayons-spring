@@ -14,6 +14,7 @@ import com.vaadin.ui.Notification;
 
 
 @Component
+
 public class LoginFormListener implements Button.ClickListener {
     
     @Autowired

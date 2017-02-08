@@ -30,6 +30,7 @@ public class AuthManager implements AuthenticationManager {
         String password = (String) auth.getCredentials();
         
         UserDetails user = userService.loadUserByUsername(username);
+        
 
         if (user != null && user.getPassword().equals(password)) {
             Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
