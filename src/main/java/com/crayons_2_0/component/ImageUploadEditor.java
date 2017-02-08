@@ -57,13 +57,6 @@ public class ImageUploadEditor extends CustomComponent {
         
         setCompositionRoot(selectImageEditor);
     }
-    
-    public Component getUserView() {
-        VerticalLayout imageLayout = new VerticalLayout();
-        imageLayout.addComponent(image);
-        imageLayout.setComponentAlignment(image, Alignment.TOP_CENTER);
-        return imageLayout;
-    }
 
     private Component showImage() {
         Button editButton = new Button(FontAwesome.EDIT);

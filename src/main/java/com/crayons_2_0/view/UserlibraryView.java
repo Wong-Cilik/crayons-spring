@@ -154,6 +154,15 @@ public class UserlibraryView extends VerticalLayout implements View {
         controlButtons.addComponent(study);
         controlButtons.setComponentAlignment(study, Alignment.MIDDLE_RIGHT);
         
+        study.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().getNavigator().navigateTo(UnitUserView.VIEW_NAME);
+            }
+            
+        });
+        
         return controlButtons;
     }
 

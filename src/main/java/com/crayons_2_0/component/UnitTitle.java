@@ -38,15 +38,6 @@ public class UnitTitle extends CustomComponent {
         
         setCompositionRoot(titleEditor);
     }
-    
-    public Component getUserView() {
-        Label title = new Label(property);
-        title.setStyleName(ValoTheme.LABEL_LARGE);
-        HorizontalLayout layout = new HorizontalLayout(title);
-        layout.setWidthUndefined();
-        layout.setComponentAlignment(title, Alignment.TOP_CENTER);
-        return layout;
-    }
 
     private Component buildReadOnly() {
         final Label title = new Label(property);

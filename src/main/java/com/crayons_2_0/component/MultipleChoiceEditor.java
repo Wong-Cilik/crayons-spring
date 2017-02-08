@@ -29,43 +29,21 @@ public class MultipleChoiceEditor extends CustomComponent {
             "Enter the question here...");
     private String rightAnswer = "";
     
-    public MultipleChoiceEditor(String questionText, ArrayList<String> questionList, String rightAnswer) {
+    public MultipleChoiceEditor(String questionText, ArrayList<String> answers, String rightAnswer) {
         setWidth(100.0f, Unit.PERCENTAGE);
         addStyleName("inline-text-editor");
         
         if (questionText != null)
             this.questionText.setValue(questionText);
         
-        if (questionList != null)
-            for (String question: questionList)
-                answers.addItem(question);
+        if (answers != null)
+            for (String question: answers)
+                this.answers.addItem(question);
         
         if (rightAnswer != null)
             this.rightAnswer = rightAnswer;
         
         setCompositionRoot(buildMultipleChoiceEditor());
-    }
-    
-    public Component getUserView() {
-        Button checkAnswer = new Button("Check");
-        checkAnswer.addStyleName(ValoTheme.BUTTON_SMALL);
-        checkAnswer.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = -439858117472036615L;
-
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                // TODO: check answer
-            }
-        });
-        Label questionText = new Label(this.questionText);
-        VerticalLayout result = new VerticalLayout(questionText, answers, checkAnswer);
-        result.setComponentAlignment(checkAnswer, Alignment.BOTTOM_RIGHT);
-        // TODO: return unselected!!!
-        return result;
-    }
-    
-    public boolean checkAnswer(String givenAnswer) {
-        return givenAnswer.equals(rightAnswer);
     }
 
     private Component buildReadOnly() {

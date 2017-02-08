@@ -39,12 +39,6 @@ public class TextEditor extends CustomComponent {
         
         setCompositionRoot(textEditor);
     }
-    
-    public Component getUserView() {
-        final Label text = new Label(property);
-        text.setContentMode(ContentMode.HTML);
-        return text;
-    }
 
     private Component buildReadOnly() {
         final Label text = new Label(property);
