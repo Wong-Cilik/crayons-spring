@@ -70,17 +70,22 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     	// ALT ------ Bitte Neu -> Neu und Form verwenden
     	
     	VerticalLayout content = new VerticalLayout();
-
-        setSizeFull();
-        setSpacing(true);
-        setMargin(true);
-
-        addComponent(content);
+    	HorizontalLayout title = new HorizontalLayout();
+    	title.setMargin(true);
+        //setSizeFull();
+        title.setSpacing(true);
+        title.setSizeFull();
+        setMargin(false);
+        title.addComponent(buildTitle());
         this.filter = buildFilter();
-        content.addComponent(this.filter);
-        content.addComponent(buildTitle());
+        title.addComponent(this.filter);
+        title.setComponentAlignment(this.filter,Alignment.MIDDLE_RIGHT);
+        content.addComponent(title);
+        addComponent(content);
+        content.setMargin(false);
         this.tabSheet = buildCoursesTabSheet();
         content.addComponent(this.tabSheet);
+        content.setSizeFull();
     }
         
  //       tabSheet.setSelectedTab(1);
@@ -111,6 +116,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     private TabSheet buildCoursesTabSheet() {
         TabSheet coursesTabSheet = new TabSheet();
         coursesTabSheet.setSizeFull();
+        coursesTabSheet.setHeight("100%");
         coursesTabSheet.addTab(buildAddNewCourseTab());
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
@@ -324,7 +330,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 			}
 		});
 		filter.setInputPrompt("Suche");
-		filter.setIcon(FontAwesome.SEARCH);
+		//filter.setIcon(FontAwesome.SEARCH);
 		filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 		return filter;
 	}
