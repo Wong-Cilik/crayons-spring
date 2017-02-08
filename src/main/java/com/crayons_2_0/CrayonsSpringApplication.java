@@ -8,10 +8,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Component;
 
+@ComponentScan(basePackages="com.crayons_2_0")
 @SpringBootApplication
 public class CrayonsSpringApplication {
 
 	public static void main(String[] args) throws Exception  {
+		
 		SpringApplication.run(CrayonsSpringApplication.class, args);
 	}
 }

@@ -18,9 +18,13 @@ import com.crayons_2_0.service.database.UserService;
 public class CurrentUser {
 	// LINKS:
 	// http://www.baeldung.com/get-user-in-spring-security
+	
+	/*
 	@Autowired
 	UserService userService;
+	*/
 	
+	UserService userService;
 	
 	public CrayonsUser get2() {
 		
@@ -34,6 +38,7 @@ public class CurrentUser {
 	}
 	
 	public CrayonsUser get() {
+		userService = new UserService();
 		createDummy();
 		String mail = "dani@web.de";
 		return userService.findByEMail(mail);
@@ -43,9 +48,13 @@ public class CurrentUser {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		CrayonsUser dummy = new CrayonsUser("Daniela", "Katzenberger", "dani@web.de", "blond", Language.German.toString(), true, true, false, false, authorities);
 		
+		/*
 		if (userService.findByEMail("dani@web.de") == null) {
 			userService.insertUser(dummy);
 		}
+		*/
+		
+		userService.insertUser(dummy);
 		
 	}
 

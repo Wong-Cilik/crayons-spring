@@ -3,6 +3,7 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 
 import com.crayons_2_0.authentication.CurrentUser;
@@ -27,6 +28,7 @@ import com.vaadin.server.UserError;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -48,9 +50,9 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 
-
+//@org.springframework.stereotype.Component
 @SuppressWarnings("serial")
-@SpringUI
+@SpringView
 public class Preferences extends VerticalLayout implements View {
 	
 
@@ -88,6 +90,9 @@ public class Preferences extends VerticalLayout implements View {
     private TextField websiteField;
     @PropertyId("bio")
     private TextArea bioField;
+    
+    @Autowired 
+    CurrentUser currentUser;
     
     //public Preferences(final User user)
     public Preferences() {
@@ -201,7 +206,7 @@ public class Preferences extends VerticalLayout implements View {
         root.setExpandRatio(details, 1);
 
         firstNameField = new TextField(lang.getString("FirstName"));
-        //firstNameField.setValue(new CurrentUser().get().getFirstName());       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        firstNameField.setValue(currentUser.get().getFirstName());       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         details.addComponent(firstNameField);
         lastNameField = new TextField(lang.getString("LastName"));
         details.addComponent(lastNameField);

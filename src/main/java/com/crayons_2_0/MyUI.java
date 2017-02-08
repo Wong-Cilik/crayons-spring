@@ -3,6 +3,7 @@ package com.crayons_2_0;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 //import org.apache.catalina.core.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -14,11 +15,13 @@ import com.crayons_2_0.view.login.LoginScreen;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Viewport;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.WrappedHttpSession;
 import com.vaadin.server.WrappedSession;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -43,6 +46,15 @@ public class MyUI extends UI {
      */
     private ApplicationContext applicationContext;
     
+    
+    @Autowired
+    MainScreen mainScreen;
+    
+    @Autowired
+    private SpringViewProvider viewProvider;
+    
+    
+    private Navigator navigator;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -98,13 +110,27 @@ public class MyUI extends UI {
     }
     
     public  void showMainView() {
+    	
+    	
         addStyleName(ValoTheme.UI_WITH_MENU);
-        setContent(new MainScreen(MyUI.this));
+        //setContent(new MainScreen(MyUI.this));
+        //mainScreen.setUI(MyUI.this);
+        setContent(mainScreen);
         getNavigator().navigateTo(getNavigator().getState());
+        
+    	/*
+    	Navigator navigator = new Navigator(this, this);
+    	navigator.addProvider(viewProvider);
+    	
+    	// Navigate to start view
+        navigator.navigateTo(navigator.getState());
+        */
     }
 
     public static MyUI get() {
         return (MyUI) UI.getCurrent();
+    	//return (MyUI) getCurrent();
+    	//return MyUI.this;
     }
     /*
     public AccessControl getAccessControl() {
