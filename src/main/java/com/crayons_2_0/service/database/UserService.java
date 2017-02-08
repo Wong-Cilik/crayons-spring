@@ -86,7 +86,7 @@ public class UserService implements UserDetailsService {
         }
         
     	
-    	// User exists not -> insert
+    	// User doesn't exist -> insert
     	userDAO.insertUser(user);
     	return true;
     }

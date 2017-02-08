@@ -77,39 +77,14 @@ public class LoginForm extends VerticalLayout {
      */
     private void createRegisterButton() {
 		btnRegistrate.addClickListener(new ClickListener() {
-			
+		private RegisterWindow window = new RegisterWindow();
 			@Override
-			public void buttonClick(ClickEvent event) {
-				Window window = new Window("Registrate User");
-				VerticalLayout content = new VerticalLayout();
-				
-				content.addComponent(new Label("eMail:"));
-				 
-				content.addComponent(textFieldEMail);
-				
-				content.addComponent(new Label(""));
-				
-				content.addComponent(new Label("password"));
-				
-				content.addComponent(textFieldPassoword);
-				
-				
-				
-				Button btnInsertUser = new Button("Insert/Save User");
-				btnInsertUser.addStyleName(ValoTheme.BUTTON_PRIMARY);
-				btnInsertUser.addClickListener(new RegisterFormListener());
-				content.addComponent(btnInsertUser);
-				
-				window.setContent(content);
-				window.setSizeFull();
-				
+			public void buttonClick(ClickEvent event) {	
 				UI.getCurrent().addWindow(window);
 				
-				
 			}
-			
-			
 		});
+		
 		
 	}
 
