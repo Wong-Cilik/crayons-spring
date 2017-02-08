@@ -1,6 +1,10 @@
 package com.crayons_2_0.component;
 
+import org.vaadin.openesignforms.ckeditor.CKEditorConfig;
+import org.vaadin.openesignforms.ckeditor.CKEditorTextField;
+
 import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
@@ -13,6 +17,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -74,7 +79,7 @@ public class TextEditor extends CustomComponent {
     }
     
     private Component buildTextEditor() {
-        /*CKEditorConfig config = new CKEditorConfig();
+        CKEditorConfig config = new CKEditorConfig();
         config.useCompactTags();
         config.disableElementsPath();
         config.setResizeDir(CKEditorConfig.RESIZE_DIR.HORIZONTAL);
@@ -94,8 +99,8 @@ public class TextEditor extends CustomComponent {
             public void valueChange(ValueChangeEvent event) {
                 Notification.show("CKEditor v" + ckEditorTextField.getVersion() + " - contents: " + event.getProperty().getValue().toString());
             }
-        });*/   
-        
+        });
+        /*
         final RichTextArea textArea = new RichTextArea(property);
         textArea.setWidth(100.0f, Unit.PERCENTAGE);
         textArea.addAttachListener(new AttachListener() {
@@ -107,7 +112,7 @@ public class TextEditor extends CustomComponent {
                 textArea.selectAll();
             }
         });
-       
+       */
         Button save = new Button("Save");
         save.addClickListener(new ClickListener() {
             private static final long serialVersionUID = -4688758527425055901L;
@@ -127,7 +132,7 @@ public class TextEditor extends CustomComponent {
             }
         });
         
-        CssLayout result = new CssLayout(textArea, save);
+        CssLayout result = new CssLayout(ckEditorTextField, save);
 
         result.addStyleName("edit");
         result.setSizeFull();
