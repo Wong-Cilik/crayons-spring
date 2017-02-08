@@ -24,7 +24,7 @@ import com.vaadin.ui.VerticalLayout;
 public class MultipleChoiceEditor extends CustomComponent {
     private static final long serialVersionUID = 5884398958435787340L;
     
-    private final OptionGroup questionsList = new OptionGroup();
+    private final OptionGroup answers = new OptionGroup();
     private final Property<String> questionText = new ObjectProperty<String>(
             "Enter the question here...");
     private String rightAnswer = "";
@@ -38,7 +38,7 @@ public class MultipleChoiceEditor extends CustomComponent {
         
         if (questionList != null)
             for (String question: questionList)
-                questionsList.addItem(question);
+                answers.addItem(question);
         
         if (rightAnswer != null)
             this.rightAnswer = rightAnswer;
@@ -58,7 +58,7 @@ public class MultipleChoiceEditor extends CustomComponent {
             }
         });
         Label questionText = new Label(this.questionText);
-        VerticalLayout result = new VerticalLayout(questionText, questionsList, checkAnswer);
+        VerticalLayout result = new VerticalLayout(questionText, answers, checkAnswer);
         result.setComponentAlignment(checkAnswer, Alignment.BOTTOM_RIGHT);
         // TODO: return unselected!!!
         return result;
@@ -83,7 +83,7 @@ public class MultipleChoiceEditor extends CustomComponent {
             }
         });
         
-        CssLayout result = new CssLayout(questionText, questionsList, editButton);
+        CssLayout result = new CssLayout(questionText, answers, editButton);
         result.addStyleName("text-editor");
         result.setSizeFull();
         return result;
@@ -105,7 +105,7 @@ public class MultipleChoiceEditor extends CustomComponent {
         final TextField textField = new TextField();
         textField.setWidth(100.0f, Unit.PERCENTAGE);
         
-        questionsList.addValueChangeListener(new ValueChangeListener() {
+        answers.addValueChangeListener(new ValueChangeListener() {
             private static final long serialVersionUID = 8103764137753316059L;
 
             @Override
@@ -120,7 +120,7 @@ public class MultipleChoiceEditor extends CustomComponent {
 
             @Override
             public void buttonClick(final ClickEvent event) {
-                questionsList.addItem((String) textField.getValue());
+                answers.addItem((String) textField.getValue());
                 textField.clear();
             }
         });
@@ -140,8 +140,8 @@ public class MultipleChoiceEditor extends CustomComponent {
         });
         
         VerticalLayout result = new VerticalLayout(questionText);
-        if (questionsList != null)
-            result.addComponent(questionsList);
+        if (answers != null)
+            result.addComponent(answers);
         HorizontalLayout controlButtons = new HorizontalLayout(addQuestion, save);
         controlButtons.setSpacing(true);
         result.addComponent(controlButtons);
