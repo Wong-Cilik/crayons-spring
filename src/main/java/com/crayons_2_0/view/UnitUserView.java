@@ -84,7 +84,7 @@ public class UnitUserView extends VerticalLayout implements View {
         setExpandRatio(page, 7);
         
         // Test input
-        addTextField("The future, present and past may not be as different as we think, " +
+        addTextField("<h1>The future, present and past</h1> may not be as different as we think, " +
                 "says science writer and astrophysicist Adam Becker. He explains this " +
                 "mind-bending idea to BBC Earth's Michael Marshall and Melissa Hogenboom, " +
                 "with help from the animators at Pomona Pictures.");
@@ -117,6 +117,7 @@ public class UnitUserView extends VerticalLayout implements View {
     
     private Component buildTextField(String text) {
         Label textField = new Label(text);
+        textField.setCaptionAsHtml(true);
         textField.setContentMode(ContentMode.HTML);
         return textField;
     }
