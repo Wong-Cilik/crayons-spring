@@ -70,6 +70,11 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   @include uniteditor-view;
 
   
+  .search{
+    
+    right:-200px;
+
+  }
 
     .canvas.v-slot {
       border: 1px solid rgba(122,122,122,.1);

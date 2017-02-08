@@ -53,16 +53,21 @@ public class UserlibraryView extends VerticalLayout implements View {
     
     public UserlibraryView() {
         VerticalLayout content = new VerticalLayout();
-
-        setSizeFull();
+        HorizontalLayout header = new HorizontalLayout();
         setSpacing(true);
-        setMargin(true);
-
-        addComponent(content);
+        setMargin(false);
         this.filter = buildFilter();
-        content.addComponent(this.filter);
-        content.addComponent(buildTitle());
+        header.setSizeFull();
+        header.setWidth("100%");
+        header.setSpacing(false);
+        header.addComponent(buildTitle());
+        header.addComponent(this.filter);
+        header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
+        header.setMargin(true);
+        
         content.addComponent(buildCoursesTabSheet());
+        addComponent(header);
+        addComponent(content);
     }
     
     private Component buildTitle() {
@@ -157,6 +162,12 @@ public class UserlibraryView extends VerticalLayout implements View {
     }  
     
 	public Component buildFilter() {
+	    //hack damit die lupe richtig angezeigt werden kann...
+	    VerticalLayout search = new VerticalLayout();
+	    search.setStyleName("search");
+	    search.setMargin(false);
+	    
+	    
 		final TextField filter = new TextField();
 		filter.addTextChangeListener(new TextChangeListener() {
 			@Override
@@ -184,6 +195,8 @@ public class UserlibraryView extends VerticalLayout implements View {
 		filter.setInputPrompt("Suche");
 		filter.setIcon(FontAwesome.SEARCH);
 		filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
-		return filter;
+		search.addComponent(filter);
+		search.setComponentAlignment(filter, Alignment.MIDDLE_RIGHT);
+		return search;
 	}
 }
