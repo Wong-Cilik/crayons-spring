@@ -2,6 +2,7 @@ package com.crayons_2_0.component;
 
 import org.vaadin.openesignforms.ckeditor.CKEditorConfig;
 import org.vaadin.openesignforms.ckeditor.CKEditorTextField;
+import org.vaadin.openesignforms.ckeditor.widgetset.client.ui.CKEditor;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -85,7 +86,6 @@ public class TextEditor extends CustomComponent {
         config.setResizeDir(CKEditorConfig.RESIZE_DIR.HORIZONTAL);
         config.disableSpellChecker();
         config.setWidth("100%");
-        
         final CKEditorTextField ckEditorTextField = new CKEditorTextField(config);
         ckEditorTextField.setWidth(100.0f, Unit.PERCENTAGE);
         ckEditorTextField.addAttachListener(new AttachListener() {
@@ -119,6 +119,7 @@ public class TextEditor extends CustomComponent {
 
             @Override
             public void buttonClick(final ClickEvent event) {
+            	property.setValue(ckEditorTextField.getValue());
                 setCompositionRoot(readOnly);
             }
         });
