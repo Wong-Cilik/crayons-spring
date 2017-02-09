@@ -2,6 +2,8 @@ package com.crayons_2_0.view;
 
 import java.util.Iterator;
 
+import com.crayons_2_0.component.CourseModificationWindow;
+import com.crayons_2_0.component.EvaluationWindow;
 import com.crayons_2_0.component.ImageUploadEditor;
 import com.crayons_2_0.component.MultipleChoiceEditor;
 import com.crayons_2_0.component.TextEditor;
@@ -19,16 +21,22 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -57,11 +65,13 @@ public class Uniteditor extends VerticalLayout implements View {
         page.setWidth(100.0f, Unit.PERCENTAGE);
         page.setStyleName("canvas"); //TODO(Natalia): read and modify the style
         addComponent(page);
-        setExpandRatio(page, 1);
+        setExpandRatio(page, 8);
         
-        Component deleteArea = buildDeleteArea();
-        addComponent(deleteArea);
-        setComponentAlignment(deleteArea, Alignment.BOTTOM_CENTER);
+        Component footer = buildFooter();
+        footer.setSizeFull();
+        addComponent(footer);
+        setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
+        setExpandRatio(footer, 1);
     }
 
     private Component buildPageItemsPalette() {
@@ -89,7 +99,7 @@ public class Uniteditor extends VerticalLayout implements View {
         return paletteLayout;
     }
     
-    private Component buildDeleteArea() {
+    private Component buildFooter() {
         Label deleteButton = new Label(PageItemType.DELETE_BUTTON.getIcon().getHtml() + PageItemType.DELETE_BUTTON.getTitle(),
                 ContentMode.HTML);
         deleteButton.setSizeUndefined();
@@ -97,10 +107,49 @@ public class Uniteditor extends VerticalLayout implements View {
         DragAndDropWrapper dropArea = new DragAndDropWrapper(deleteButton);
         dropArea.addStyleName("no-vertical-drag-hints");
         dropArea.addStyleName("no-horizontal-drag-hints");
-        dropArea.setSizeFull();
-        HorizontalLayout dropAreaLayout = new HorizontalLayout(dropArea);
+        dropArea.setSizeUndefined();
         
-        dropAreaLayout.addLayoutClickListener(new LayoutClickListener() {
+        Button saveButton = new Button("Save", FontAwesome.CHECK);
+        saveButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
+        saveButton.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                Notification savedSuccessful = new Notification(
+                        "Learning unit saved successfully");
+                savedSuccessful.setDelayMsec(1000);
+                savedSuccessful.setStyleName("bar success small");
+                savedSuccessful.setPosition(Position.BOTTOM_CENTER);
+                savedSuccessful.show(Page.getCurrent());
+            }
+            
+        });
+
+        Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
+        backButton.setStyleName(ValoTheme.BUTTON_DANGER);
+        backButton.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                //if (unit was modified)
+                UI.getCurrent().addWindow(new UnsavedChangesWindow());
+                //else
+                //UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
+            }
+            
+        });
+        
+        HorizontalLayout controlButtons = new HorizontalLayout(backButton, saveButton);
+        controlButtons.setSpacing(true);
+        
+        HorizontalLayout footer = new HorizontalLayout(controlButtons, dropArea);
+        footer.setSpacing(true);
+        footer.setMargin(true);
+        footer.setSizeFull();
+        footer.setComponentAlignment(controlButtons, Alignment.MIDDLE_LEFT);
+        footer.setComponentAlignment(dropArea, Alignment.MIDDLE_RIGHT);
+        
+        footer.addLayoutClickListener(new LayoutClickListener() {
 
             @Override
             public void layoutClick(final LayoutClickEvent event) {
@@ -112,6 +161,7 @@ public class Uniteditor extends VerticalLayout implements View {
                 instruction.show(Page.getCurrent());
             }
         });
+        
         dropArea.setDropHandler(new DropHandler() {
 
             @Override
@@ -132,7 +182,7 @@ public class Uniteditor extends VerticalLayout implements View {
             }
         });
         
-        return dropAreaLayout;
+        return footer;
     }
 
     private Component buildPaletteItem(final PageItemType pageItemType) {
@@ -376,6 +426,79 @@ public class Uniteditor extends VerticalLayout implements View {
             return icon;
         }
 
+    }
+    
+    private class UnsavedChangesWindow extends Window {
+        public UnsavedChangesWindow() {
+            setSizeFull();
+            setModal(true);
+            setResizable(false);
+            setClosable(false);
+            setHeight(20.0f, Unit.PERCENTAGE);
+            setWidth(40.0f, Unit.PERCENTAGE);
+
+            VerticalLayout content = new VerticalLayout();
+            content.setSizeFull();
+            content.setMargin(true);
+            setContent(content);
+
+            Component title = buildTitle();
+            title.setSizeFull();
+            content.addComponent(title);
+            content.setComponentAlignment(title, Alignment.MIDDLE_CENTER);
+            content.setExpandRatio(title, 2);
+
+            Component footer = buildFooter();
+            content.addComponent(footer);
+            content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+            content.setExpandRatio(footer, 1);
+        }
+
+        private Component buildFooter() {
+            Button yesButton = new Button("Yes");
+            yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+            yesButton.focus();
+            yesButton.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                   close();
+                   //TODO: save changes
+                   UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
+                }
+            });
+            
+            Button noButton = new Button("No");
+            noButton.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                   close();
+                   //TODO: discard changes
+                   UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
+                }
+            });
+            
+            Button cancelButton = new Button("Cancel");
+            
+            cancelButton.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                   close();
+                }
+            });
+
+            HorizontalLayout layout = new HorizontalLayout(yesButton, noButton, cancelButton);
+            layout.setSpacing(true);
+            return layout;
+        }
+
+        private Component buildTitle() {
+            Label title = new Label("The learning unit was modified. Do you want to save changes?");
+            title.addStyleName(ValoTheme.LABEL_H3);
+            HorizontalLayout layout = new HorizontalLayout(title);
+            layout.setSizeUndefined();
+            layout.setComponentAlignment(title, Alignment.MIDDLE_CENTER);
+            return layout;
+        }
     }
 
     @Override
