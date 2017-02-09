@@ -126,7 +126,6 @@ public class Uniteditor extends VerticalLayout implements View {
         });
 
         Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
-        backButton.setStyleName(ValoTheme.BUTTON_DANGER);
         backButton.addClickListener(new ClickListener() {
 
             @Override
