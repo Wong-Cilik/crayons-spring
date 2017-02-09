@@ -36,6 +36,10 @@ public class CurrentUser {
 	}
 	
 	public CrayonsUser get() {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		//CrayonsUser dummy = new CrayonsUser("Daniela", "Katzenberger", "dani@web.de", "blond", Language.German.toString(), true, true, false, false, authorities);
+		CrayonsUser dummy = new CrayonsUser("Ali", "TestCurrent", "userali", "alipassword", Language.German.toString(), true, true, false, false, authorities);
+		userService.insertUser(dummy);
 		
 		String mail = "userali";
 		return userService.findByEMail(mail);
