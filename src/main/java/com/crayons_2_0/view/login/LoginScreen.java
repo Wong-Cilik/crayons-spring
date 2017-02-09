@@ -1,7 +1,5 @@
 package com.crayons_2_0.view.login;
 
-import javax.annotation.PostConstruct;
-
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -31,15 +29,10 @@ public class LoginScreen extends CssLayout implements View{
     public LoginScreen() {
         //this.loginListener = loginListener;
         //this.accessControl = accessControl;
-       
+        buildUI();
         //username.focus();
     }
-    
-    @PostConstruct
-    void init(){
-        buildUI(); 
-        
-    }
+
     private void buildUI() {
         addStyleName("login-screen");
 

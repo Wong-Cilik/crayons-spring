@@ -23,7 +23,7 @@ import com.vaadin.ui.UI;
 
 @SpringUI
 @SpringViewDisplay
-@Theme("valo")
+@Theme("mytheme")
 public class MyUI extends UI {
 
     /**
@@ -39,7 +39,7 @@ public class MyUI extends UI {
     protected void init(VaadinRequest request) {
 
         httpSession(request);
-        getPage().setTitle("Demo");
+        getPage().setTitle("Crayons");
 
         
         getUI().getNavigator().navigateTo("");
