@@ -3,6 +3,8 @@ package com.crayons_2_0.view;
 
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 
@@ -27,8 +29,11 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.server.UserError;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.MarginInfo;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -51,8 +56,9 @@ import com.vaadin.ui.themes.ValoTheme;
 
 
 //@org.springframework.stereotype.Component
-@SuppressWarnings("serial")
-@SpringView
+@SpringView(name = Preferences.VIEW_NAME)
+@ViewScope
+@SpringComponent
 public class Preferences extends VerticalLayout implements View {
 	
 
@@ -96,7 +102,13 @@ public class Preferences extends VerticalLayout implements View {
     
     //public Preferences(final User user)
     public Preferences() {
-        //addStyleName("profile-window");
+        
+    }
+    
+    @PostConstruct
+    void init(){
+        
+      //addStyleName("profile-window");
         //setId(ID);
         Responsive.makeResponsive(this);
 
@@ -206,7 +218,7 @@ public class Preferences extends VerticalLayout implements View {
         root.setExpandRatio(details, 1);
 
         firstNameField = new TextField(lang.getString("FirstName"));
-        firstNameField.setValue(currentUser.get().getFirstName());       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        firstNameField.setValue(currentUser.get().getLastName());       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         details.addComponent(firstNameField);
         lastNameField = new TextField(lang.getString("LastName"));
         details.addComponent(lastNameField);

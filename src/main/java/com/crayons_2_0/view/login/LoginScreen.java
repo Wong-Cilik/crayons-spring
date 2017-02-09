@@ -1,7 +1,14 @@
 package com.crayons_2_0.view.login;
 
+import javax.annotation.PostConstruct;
+
 import com.vaadin.annotations.Theme;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
@@ -12,7 +19,10 @@ import com.vaadin.ui.VerticalLayout;
  * UI content when the user is not logged in yet.
  */
 @Theme("mytheme")
-public class LoginScreen extends CssLayout {
+@SpringView(name = LoginScreen.VIEW_NAME)
+@ViewScope
+public class LoginScreen extends CssLayout implements View{
+    public static final String VIEW_NAME = "";
 
     /**
      * 
@@ -21,10 +31,15 @@ public class LoginScreen extends CssLayout {
     public LoginScreen() {
         //this.loginListener = loginListener;
         //this.accessControl = accessControl;
-        buildUI();
+       
         //username.focus();
     }
-
+    
+    @PostConstruct
+    void init(){
+        buildUI(); 
+        
+    }
     private void buildUI() {
         addStyleName("login-screen");
 
@@ -59,6 +74,12 @@ public class LoginScreen extends CssLayout {
                 ContentMode.HTML);
         loginInformation.addComponent(loginInfoText);
         return loginInformation;
+    }
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+        
     }
 
 

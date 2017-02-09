@@ -13,17 +13,15 @@ import org.springframework.stereotype.Component;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.database.UserService;
+import com.vaadin.spring.annotation.SpringComponent;
 
-@Component
+@SpringComponent
 public class CurrentUser {
 	// LINKS:
 	// http://www.baeldung.com/get-user-in-spring-security
 	
-	/*
-	@Autowired
-	UserService userService;
-	*/
 	
+	@Autowired
 	UserService userService;
 	
 	public CrayonsUser get2() {
@@ -38,24 +36,23 @@ public class CurrentUser {
 	}
 	
 	public CrayonsUser get() {
-		userService = new UserService();
-		createDummy();
-		String mail = "dani@web.de";
+		
+		String mail = "userali";
 		return userService.findByEMail(mail);
 	}
 
-	private void createDummy() {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		CrayonsUser dummy = new CrayonsUser("Daniela", "Katzenberger", "dani@web.de", "blond", Language.German.toString(), true, true, false, false, authorities);
-		
-		/*
-		if (userService.findByEMail("dani@web.de") == null) {
-			userService.insertUser(dummy);
-		}
-		*/
-		
-		userService.insertUser(dummy);
-		
-	}
+//	private void createDummy() {
+//		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+//		CrayonsUser dummy = new CrayonsUser("Daniela", "Katzenberger", "dani@web.de", "blond", Language.German.toString(), true, true, false, false, authorities);
+//		
+//		/*
+//		if (userService.findByEMail("dani@web.de") == null) {
+//			userService.insertUser(dummy);
+//		}
+//		*/
+//		
+//		userService.insertUser(dummy);
+//		
+//	}
 
 }

@@ -12,14 +12,19 @@ import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.Menu;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * Content of the UI when the user is logged in.
@@ -27,9 +32,18 @@ import com.vaadin.ui.UI;
  * 
  */
 //@SpringUI
-@Component
-@UIScope
-public class MainScreen extends HorizontalLayout {
+@ViewScope
+@SpringView(name = MainScreen.VIEW_NAME)
+
+public class MainScreen extends HorizontalLayout  implements View {
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    public static final String VIEW_NAME = "mainScreen";
+    
     /**
      * 
      */
@@ -45,8 +59,15 @@ public class MainScreen extends HorizontalLayout {
     
     public MainScreen() {
 
-    	//UI ui = MyUI.get().getCurrent();			// Changed
-    	//MyUI ui2 = MyUI.get();
+        
+    }
+
+    @PostConstruct
+    void init(){
+        
+
+        //UI ui = MyUI.get().getCurrent();          // Changed
+        //MyUI ui2 = MyUI.get();
         setStyleName("main-screen");
 
         CssLayout viewContainer = new CssLayout();
@@ -82,9 +103,7 @@ public class MainScreen extends HorizontalLayout {
         addComponent(viewContainer);
         setExpandRatio(viewContainer, 1);
         setSizeFull();
-        
     }
-
     // notify the view menu about view changes so that it can display which view
     // is currently active
     ViewChangeListener viewChangeListener = new ViewChangeListener() {
@@ -110,4 +129,10 @@ public class MainScreen extends HorizontalLayout {
 		ui = myUI;
 		
 	}
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+        
+    }
 }

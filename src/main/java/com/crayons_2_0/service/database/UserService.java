@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.database.UserDAO;
+import com.vaadin.spring.annotation.SpringComponent;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * @author Ondrej Kvasnovsky
  */
-@Component
+@SpringComponent
 public class UserService implements UserDetailsService {
 
     @Autowired
