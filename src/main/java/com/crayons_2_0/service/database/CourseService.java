@@ -27,7 +27,7 @@ public class CourseService {
     public List<Course> findAll() {
         List<Course> res = courseDAO.findAll();
         for (Course tmpCourse : res) {
-        	tmpCourse.setUnits2(unitService.findUnitsOfCourse(tmpCourse));
+        	tmpCourse.setUnits(unitService.findUnitsOfCourse(tmpCourse));
         }
         return res;
     }
@@ -56,7 +56,7 @@ public class CourseService {
     	List<Course> coursesOfUser = new LinkedList<Course>();
     	
     	for (Course tmpCourse : allCourses) {
-    		if (tmpCourse.getStudents().contains(user)) {
+    		if (tmpCourse.getUsers().contains(user)) {
     			coursesOfUser.add(tmpCourse);
     		}
     	}

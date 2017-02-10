@@ -93,7 +93,7 @@ public class UnitEditorView extends VerticalLayout implements View {
 		ComboBox comboBox = new ComboBox("Select your Unit");
 		comboBox.setInputPrompt(unitEditor.getCurrentUnit().getTitle());
 		
-		for (com.crayons_2_0.component.Unit tmpUnit : unitEditor.getCourse().getUnits2()) {
+		for (com.crayons_2_0.component.Unit tmpUnit : unitEditor.getCourse().getUnits()) {
 			comboBox.addItem(tmpUnit.getTitle());
 		}
 		//TODO REACTION
