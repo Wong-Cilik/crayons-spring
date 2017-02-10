@@ -41,7 +41,7 @@ public class CurrentUser {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
 		SecureRandom random = new SecureRandom();
-		CrayonsUser dummy = new CrayonsUser(new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), Language.German.toString(), true, true, false, false, authorities);
+		CrayonsUser dummy = new CrayonsUser(new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), "German", true, true, false, false, authorities);
 		userService.insertUser(dummy);
 		
 		String mail = "userali";

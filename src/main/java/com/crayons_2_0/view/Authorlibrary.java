@@ -164,12 +164,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-            	
-            	CrayonsUser x = CurrentUserDummy.get();
-            	x.setFirstName("aaaaaaaaaaa");
-            	courseService.insertCourse(new Course("srgs", "segtsTG2", x));
-            	
-            	/*
                 Notification success = new Notification("Course created successfully");
                 success.setDelayMsec(2000);
                 success.setStyleName("bar success small");
@@ -181,7 +175,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                 getTabSheet().setSelectedTab(newTab);
                 courseTitleField.clear();
                 couseDescriptionField.clear();
-                */
             }
         });
 

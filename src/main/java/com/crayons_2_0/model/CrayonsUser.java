@@ -68,12 +68,14 @@ public class CrayonsUser extends User {
 	}
 	
 	public void setLanguage(String language) {
+		if(language != null){
 		if (language.equals(Language.German.toString())) {
 			this.setLanguage(Language.German);
 		} else if (language.equals(Language.English.toString())) {
 			this.setLanguage(Language.English);
 		} else {
 			throw new IllegalArgumentException("Language not known");
+		}
 		}
 	}
 

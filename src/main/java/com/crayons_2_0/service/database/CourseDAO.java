@@ -25,16 +25,6 @@ public class CourseDAO {
 
     public void createDbTable() {
         jdbcTemplate.execute("create table if not exists courses (title varchar(100), description varchar(100), author varchar(100))");
-
-           String sql = "CREATE TABLE REGISTRATION " +
-                        "(id INTEGER not NULL, " +
-                        " first VARCHAR(255), " + 
-                        " last VARCHAR(255), " + 
-                        " age INTEGER, " + 
-                        " PRIMARY KEY ( id ))"; 
-
-           jdbcTemplate.execute(sql);
-           System.out.println("srgSRG22");
     }
 
     public List<Course> findAll() {
