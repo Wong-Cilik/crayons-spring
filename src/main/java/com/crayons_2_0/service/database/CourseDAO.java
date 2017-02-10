@@ -55,6 +55,7 @@ public class CourseDAO {
     }
     
     public void update(Course course) {
+    	
     	String title = course.getTitle();
     	String description = course.getDescription();
     	String author = course.getAuthor().geteMail();

@@ -6,7 +6,12 @@ import java.util.ResourceBundle;
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
+import com.crayons_2_0.config.CurrentUserDummy;
+import com.crayons_2_0.model.Course;
+import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.CourseDAO;
+import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
@@ -155,7 +160,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             @Override
             public void buttonClick(ClickEvent event) {
             	
-            	
+            	CourseService x = new CourseService();
+            	x.insertCourse(new Course ("titel", "beschreibung", CurrentUserDummy.get()));
             	
             	/*
                 Notification success = new Notification("Course created successfully");
