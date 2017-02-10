@@ -13,7 +13,7 @@ public class CurrentUserDummy {
 		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
-		CrayonsUser user = new CrayonsUser("Levin", "Schickle", "levin@web.de", "Schwan", true, true, false, false, authorities);;
+		CrayonsUser user = new CrayonsUser("Levin", "Schickle", "levin@web.de", "Schwan", "deutsch", true, true, false, false, authorities);;
 		
 		return user;
 	}

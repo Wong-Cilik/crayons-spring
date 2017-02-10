@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
-import com.vaadin.spring.annotation.SpringComponent;
 @Component
 public class Course {
 	//checked

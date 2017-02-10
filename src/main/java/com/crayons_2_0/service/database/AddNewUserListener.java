@@ -35,10 +35,11 @@ public class AddNewUserListener implements Button.ClickListener {
         String password = "password";
         String firstName = "firstName";
         String lastName = "lastName";
+        String language = "language";
         
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("CLIENT"));
-        CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, true, true, false, false, authorities);
+        CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, language, true, true, false, false, authorities);
         userDAO.insertUser(user);
 
         current.getNavigator().navigateTo("users"); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
