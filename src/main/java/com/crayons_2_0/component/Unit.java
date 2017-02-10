@@ -3,7 +3,8 @@ package com.crayons_2_0.component;
 import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.model.graph.UnitNode.UnitType;
-@Component
+import com.vaadin.spring.annotation.SpringComponent;
+@SpringComponent
 public class Unit {
 	
 	private String title;
