@@ -1,23 +1,25 @@
 package com.crayons_2_0.view;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import com.crayons_2_0.component.EvaluationWindow;
+import com.crayons_2_0.model.SaveUnit;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -32,11 +34,11 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class UnitUserView extends VerticalLayout implements View {
+public class UnitUserView extends VerticalLayout implements View{
     
     public static final String VIEW_NAME = "Unit User View";
     
-    private final VerticalLayout page;
+    private SaveUnit page;
     private final Button doneButton;
     private final Button cancelButton;
     private final Map<String, Boolean> responces;
@@ -62,7 +64,7 @@ public class UnitUserView extends VerticalLayout implements View {
             @Override
             public void buttonClick(ClickEvent event) {
                 // TODO: are you sure?
-                
+
             }
             
         });
@@ -75,7 +77,7 @@ public class UnitUserView extends VerticalLayout implements View {
         setComponentAlignment(pageTitle, Alignment.TOP_CENTER);
         setExpandRatio(pageTitle, 1);
         
-        page = new VerticalLayout();
+        page = new SaveUnit();
         page.setSpacing(true);
         page.setMargin(true);
         page.setWidth(100.0f, Unit.PERCENTAGE);
@@ -84,10 +86,7 @@ public class UnitUserView extends VerticalLayout implements View {
         setExpandRatio(page, 7);
         
         // Test input
-        addTextField("<h1>The future, present and past</h1> may not be as different as we think, " +
-                "says science writer and astrophysicist Adam Becker. He explains this " +
-                "mind-bending idea to BBC Earth's Michael Marshall and Melissa Hogenboom, " +
-                "with help from the animators at Pomona Pictures.");
+        addTextField("<h1>qweqweqweqweq");
         Image image = new Image();
         image.setSource(new FileResource(new File("/src/main/resources/com/crayons_2_0/images/architecture-detailed-hi.png")));
         image.setWidth(400, Unit.PIXELS);
@@ -99,6 +98,8 @@ public class UnitUserView extends VerticalLayout implements View {
         addComponent(controlButtons);
         setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
         setExpandRatio(controlButtons, 1);
+        
+        
     }
     
     private Component buildTitle(String unitName) {
