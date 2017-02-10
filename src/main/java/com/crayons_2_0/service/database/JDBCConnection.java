@@ -2,12 +2,9 @@ package com.crayons_2_0.service.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.logging.Level;
-
 import org.apache.log4j.Logger;
 
 // Link:     https://vimeo.com/123438169

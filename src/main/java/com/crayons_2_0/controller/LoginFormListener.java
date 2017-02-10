@@ -7,15 +7,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import com.crayons_2_0.MyUI;
 import com.crayons_2_0.authentication.AuthManager;
-import com.crayons_2_0.view.MainScreen;
 import com.crayons_2_0.view.login.LoginForm;
-import com.vaadin.navigator.Navigator;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * @author Ondrej Kvasnovsky

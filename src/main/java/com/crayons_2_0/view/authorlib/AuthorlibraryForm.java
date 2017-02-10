@@ -6,9 +6,6 @@ import java.util.ResourceBundle;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.crayons_2_0.config.CurrentUserDummy;
 import com.crayons_2_0.controller.OpenUnitEditorListener;
 import com.crayons_2_0.model.Course;

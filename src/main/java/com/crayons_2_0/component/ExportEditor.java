@@ -1,7 +1,5 @@
 package com.crayons_2_0.component;
 
-import java.util.ResourceBundle;
-
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Button;
