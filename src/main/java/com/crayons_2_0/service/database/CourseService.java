@@ -72,13 +72,14 @@ public class CourseService {
         // Wenn Kurs kreiert werden kann, erstelle kurs in DB
     	courseDAO.createDbTable();
         // Checke - Kurs Existiert? 
+    	/*
         for (Course tmpCourse : courseDAO.findAll()) {
             if (tmpCourse.getTitle().equals(course.getTitle())) {
             	//Course exists -> update;
                 courseDAO.update(tmpCourse);
             	return true;
             }
-        }
+        }*/
     
         // Course exists not -> insert
         courseDAO.insert(course);

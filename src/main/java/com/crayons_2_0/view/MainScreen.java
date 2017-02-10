@@ -56,6 +56,8 @@ public class MainScreen extends HorizontalLayout  implements View {
     @Autowired
     Preferences preferences;
 
+    @Autowired
+    Authorlibrary authorlibrary;
     
     public MainScreen() {
 
@@ -81,7 +83,7 @@ public class MainScreen extends HorizontalLayout  implements View {
         menu = new Menu(navigator);
         menu.addView(new AboutView(), AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME),
                 FontAwesome.INFO_CIRCLE);
-        menu.addView(new Authorlibrary(), Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
+        menu.addView(authorlibrary, Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
                 FontAwesome.BOOK);
         menu.addView(new UserlibraryView(), UserlibraryView.VIEW_NAME, lang.getString(UserlibraryView.VIEW_NAME),
                 FontAwesome.PENCIL);
