@@ -24,6 +24,7 @@
         <!-- Easy to use Vaadin version setting -->
         <vaadin.version>7.7.0.alpha3</vaadin.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <start-class>com.crayons_2_0.CrayonsSpringApplication</start-class>
     </properties>
     
     <repositories>
@@ -88,6 +89,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+			<groupId>org.peimari</groupId>
+			<artifactId>maddon</artifactId>
+			<version>1.15</version>
+		</dependency>
        
 
         <dependency>
@@ -98,7 +104,6 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
