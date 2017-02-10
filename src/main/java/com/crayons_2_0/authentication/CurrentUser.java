@@ -1,5 +1,7 @@
 package com.crayons_2_0.authentication;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +39,9 @@ public class CurrentUser {
 	
 	public CrayonsUser get() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		//CrayonsUser dummy = new CrayonsUser("Daniela", "Katzenberger", "dani@web.de", "blond", Language.German.toString(), true, true, false, false, authorities);
-		CrayonsUser dummy = new CrayonsUser("Ali", "TestCurrent", "userali", "alipassword", Language.German.toString(), true, true, false, false, authorities);
+
+		SecureRandom random = new SecureRandom();
+		CrayonsUser dummy = new CrayonsUser(new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), new BigInteger(20, random).toString(32), Language.German.toString(), true, true, false, false, authorities);
 		userService.insertUser(dummy);
 		
 		String mail = "userali";
