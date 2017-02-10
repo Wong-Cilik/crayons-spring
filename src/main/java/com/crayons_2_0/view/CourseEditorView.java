@@ -22,6 +22,7 @@ import com.crayons_2_0.model.graph.UnitNode;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -29,6 +30,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -113,6 +115,9 @@ public class CourseEditorView extends VerticalLayout implements View {
         footer.setSizeFull();
         footer.setSpacing(true);
         Component backButton = buildBackButton();
+        
+        
+
         footer.addComponent(backButton);
         footer.setComponentAlignment(backButton, Alignment.BOTTOM_LEFT);
         Component editMenu = buildEditMenu();
@@ -123,16 +128,19 @@ public class CourseEditorView extends VerticalLayout implements View {
     }
     
     private Component buildBackButton() {
-        Button button = new Button("Back");
-        button.setIcon(FontAwesome.ARROW_LEFT);
-        button.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_RIGHT);
-        button.addClickListener(new ClickListener() {
+        Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
+        backButton.addClickListener(new ClickListener() {
+
             @Override
             public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo(Authorlibrary.VIEW_NAME);
+                //if (unit was modified)
+                UI.getCurrent().addWindow(new UnsavedChangesWindow());
+                //else
+                //UI.getCurrent().getNavigator().navigateTo(Authorlibrary.VIEW_NAME);
             }
+            
         });
-        return button;
+        return backButton;
     }
     
     private Component buildEditMenu() {
@@ -183,6 +191,79 @@ public class CourseEditorView extends VerticalLayout implements View {
             return icon;
         }
     }
+    
+    private class UnsavedChangesWindow extends Window {
+        public UnsavedChangesWindow() {
+            setSizeFull();
+            setModal(true);
+            setResizable(false);
+            setClosable(false);
+            setHeight(20.0f, Unit.PERCENTAGE);
+            setWidth(40.0f, Unit.PERCENTAGE);
+
+            VerticalLayout content = new VerticalLayout();
+            content.setSizeFull();
+            content.setMargin(true);
+            setContent(content);
+
+            Component title = buildTitle();
+            title.setSizeFull();
+            content.addComponent(title);
+            content.setComponentAlignment(title, Alignment.MIDDLE_CENTER);
+            content.setExpandRatio(title, 2);
+
+            Component footer = buildFooter();
+            content.addComponent(footer);
+            content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+            content.setExpandRatio(footer, 1);
+        }
+
+        private Component buildFooter() {
+            Button yesButton = new Button("Yes");
+            yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+            yesButton.focus();
+            yesButton.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                   close();
+                   //TODO: save changes
+                   UI.getCurrent().getNavigator().navigateTo(Authorlibrary.VIEW_NAME);
+                }
+            });
+            
+            Button noButton = new Button("No");
+            noButton.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                   close();
+                   //TODO: discard changes
+                   UI.getCurrent().getNavigator().navigateTo(Authorlibrary.VIEW_NAME);
+                }
+            });
+            
+            Button cancelButton = new Button("Cancel");
+            
+            cancelButton.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                   close();
+                }
+            });
+
+            HorizontalLayout layout = new HorizontalLayout(yesButton, noButton, cancelButton);
+            layout.setSpacing(true);
+            return layout;
+        }
+
+        private Component buildTitle() {
+            Label title = new Label("The graph was modified. Do you want to save changes?");
+            title.addStyleName(ValoTheme.LABEL_H3);
+            HorizontalLayout layout = new HorizontalLayout(title);
+            layout.setSizeUndefined();
+            layout.setComponentAlignment(title, Alignment.MIDDLE_CENTER);
+            return layout;
+        }
+    }
 
     @Override
     public void enter(ViewChangeEvent event) {
@@ -190,3 +271,4 @@ public class CourseEditorView extends VerticalLayout implements View {
         
     }
 }
+
