@@ -37,7 +37,7 @@ public class UserDAO {
     }
 
     public List<CrayonsUser> findAll() {
-        String query = "select * from realm.users";
+        String query = "select * from users";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -77,7 +77,7 @@ public class UserDAO {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         
-        jdbcTemplate.update("insert into realm.users (email, password, firstname, lastname) VALUES (?, ?, ?, ?)", mail, password, firstName, lastName);
+        jdbcTemplate.update("insert into users (email, password, firstname, lastname) VALUES (?, ?, ?, ?)", mail, password, firstName, lastName);
 		
     }
     
@@ -88,9 +88,9 @@ public class UserDAO {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         
-        //jdbcTemplate.update("update realm.users set password = " + password + " where email = " + mail);
+        //jdbcTemplate.update("update users set password = " + password + " where email = " + mail);
         // Returns numer of changed rows
-        jdbcTemplate.update("UPDATE realm.users SET password=?, firstname=?, lastname=? WHERE email=? ", password, firstName, lastName, mail);
+        jdbcTemplate.update("UPDATE users SET password=?, firstname=?, lastname=? WHERE email=? ", password, firstName, lastName, mail);
 
         
 		
@@ -100,7 +100,7 @@ public class UserDAO {
     // Example: http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
     
     public void deleteUser(CrayonsUser user) {
-    	String deleteStatement = "DELETE FROM realm.users WHERE email=?";
+    	String deleteStatement = "DELETE FROM users WHERE email=?";
     	try {
 			jdbcTemplate.update(deleteStatement, user.geteMail());
 		} catch (RuntimeException e) {

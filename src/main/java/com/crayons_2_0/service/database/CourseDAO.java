@@ -28,7 +28,7 @@ public class CourseDAO {
     }
 
     public List<Course> findAll() {
-        String query = "select * from realm.courses";
+        String query = "select * from courses";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -52,7 +52,7 @@ public class CourseDAO {
     	String description = course.getDescription();
     	String author = course.getAuthor().geteMail();
         
-        jdbcTemplate.update("insert into realm.courses (title, description, author) VALUES (?, ?, ?)", title, description, author);
+        jdbcTemplate.update("insert into courses (title, description, author) VALUES (?, ?, ?)", title, description, author);
     }
     
     public void update(Course course) {
@@ -61,12 +61,12 @@ public class CourseDAO {
     	String description = course.getDescription();
     	String author = course.getAuthor().geteMail();
     	
-        jdbcTemplate.update("UPDATE realm.courses SET description=?, author=? WHERE title=? ", description, author, title);
+        jdbcTemplate.update("UPDATE courses SET description=?, author=? WHERE title=? ", description, author, title);
     }
 
     
     public void remove(Course course) {
-    	String deleteStatement = "DELETE FROM realm.courses WHERE title=?";
+    	String deleteStatement = "DELETE FROM courses WHERE title=?";
     	try {
 			jdbcTemplate.update(deleteStatement, course.getTitle());
 		} catch (RuntimeException e) {

@@ -113,7 +113,7 @@ public class AboutView extends VerticalLayout implements View {
 		 * 
 		 * try { Statement statement =
 		 * JDBCConnection.getInstance().getStatement(); ResultSet set =
-		 * statement.executeQuery("SELECT * FROM realm.user");
+		 * statement.executeQuery("SELECT * FROM user");
 		 * 
 		 * while (set.next()) { Label levin = new Label(set.getString(1));
 		 * aboutContent.addComponent(levin); } } catch (DatabaseException |
@@ -160,7 +160,7 @@ public class AboutView extends VerticalLayout implements View {
 		 * 
 		 * try { Statement statement =
 		 * JDBCConnection.getInstance().getStatement(); ResultSet set =
-		 * statement.executeQuery("SELECT * FROM realm.user");
+		 * statement.executeQuery("SELECT * FROM user");
 		 * 
 		 * while (set.next()) { Label levin = new Label(set.getString(1));
 		 * aboutContent.addComponent(levin); } } catch (DatabaseException |

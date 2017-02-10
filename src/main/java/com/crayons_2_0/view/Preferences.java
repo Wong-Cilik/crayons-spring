@@ -6,15 +6,13 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 
-//import org.apache.catalina.realm.JNDIRealm.User;
+//import org.apache.catalina.JNDIUser;
 
 //import com.vaadin.data.fieldgroup.BeanFieldGroup;
 //import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
@@ -30,9 +28,7 @@ import com.vaadin.server.UserError;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;

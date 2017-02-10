@@ -121,7 +121,7 @@ public class JDBCConnection {
 		
 		Statement st;
 		st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM realm.user ");
+		ResultSet rs = st.executeQuery("SELECT * FROM user ");
 		
 		while (rs.next()) {
 			System.out.println("Login:" + rs.getString(1));

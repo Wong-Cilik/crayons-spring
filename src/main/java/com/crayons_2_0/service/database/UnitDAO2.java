@@ -30,7 +30,7 @@ public class UnitDAO2 {
     }
 
     public List<Unit> findAll() {
-        String query = "select * from realm.units";
+        String query = "select * from units";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
