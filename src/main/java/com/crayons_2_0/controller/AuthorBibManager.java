@@ -2,7 +2,9 @@ package com.crayons_2_0.controller;
 
 import java.util.List;
 
-import com.crayons_2_0.config.CurrentUserDummy;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.ui.Button;
@@ -16,17 +18,14 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class AuthorBibManager {
 	
-	/**
-	 * Generates Tabs for the View
-	 * @param listener
-	 * @return
-	 */
+	@Autowired
+	CurrentUser user;
+	
 	public Component getCourseTabs(CourseService courseService) {
 		
 		TabSheet tabSheet = new TabSheet();
 		
-		
-		List<Course> courses = courseService.findAllCoursesOfUser(CurrentUserDummy.get());
+		List<Course> courses = courseService.findAllCoursesOfUser(user.get());
 		
 		for (Course tmpCourse : courses) {
 			final VerticalLayout content = new VerticalLayout();

@@ -6,8 +6,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.vaadin.annotations.Theme;
@@ -24,15 +22,10 @@ import com.vaadin.ui.UI;
 @Theme("mytheme")
 public class MyUI extends UI {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     private ApplicationContext applicationContext;
     
-    
-
     @Override
     protected void init(VaadinRequest request) {
 
@@ -52,8 +45,6 @@ public class MyUI extends UI {
         getUI().getNavigator().navigateTo("mainScreen");
     }
     
-
-    
     public ApplicationContext getApplicationContext() {
         return applicationContext;
     }
@@ -64,6 +55,4 @@ public class MyUI extends UI {
         ServletContext servletContext = httpSession.getServletContext();
         applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
     }
-
-   
 }

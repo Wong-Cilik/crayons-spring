@@ -18,9 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collection;
 
-/**
- * @author Ondrej Kvasnovsky
- */
 @SpringComponent
 public class AuthManager implements AuthenticationManager {
 

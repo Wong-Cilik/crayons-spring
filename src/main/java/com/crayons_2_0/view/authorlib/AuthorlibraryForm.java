@@ -6,28 +6,33 @@ import java.util.ResourceBundle;
 
 import javax.annotation.Resource;
 
-import com.crayons_2_0.config.CurrentUserDummy;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.controller.OpenUnitEditorListener;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.view.CourseEditorView;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
 
 //@org.springframework.stereotype.Component
 // auskommentieren erst wenn findAllCoursesOfUser() implementiert ist.
 public class AuthorlibraryForm extends VerticalLayout {
 	
+
+	@Autowired
+	CurrentUser user;
 	
     @Resource
     private CourseService courseService;
@@ -76,7 +81,7 @@ public class AuthorlibraryForm extends VerticalLayout {
 	private void createCoursesTabSheet() {
 		coursesTabSheet = new TabSheet();
 		
-		for (Course tmpCourse : courseService.findAllCoursesOfUser(CurrentUserDummy.get())) {
+		for (Course tmpCourse : courseService.findAllCoursesOfUser(user.get())) {
 		
 			VerticalLayout tabContent = new VerticalLayout();
 			tabContent.setCaption(tmpCourse.getTitle());

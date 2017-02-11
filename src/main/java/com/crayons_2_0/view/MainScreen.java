@@ -5,8 +5,6 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.Menu;
 import com.crayons_2_0.service.LanguageService;
