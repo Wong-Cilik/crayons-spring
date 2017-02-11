@@ -15,13 +15,6 @@ public class JDBCConnection {
 	
 	private static JDBCConnection connection = null;
 	
-	/*
-	private String url = "jdbc:postgresql://dumbo.inf.fh-bonn-rhein-sieg.de/salda2m";
-	private Connection conn;
-	private String login = "salda2m";
-	private String password = "xxx";
-	*/
-	
 	private String url = "jdbc:postgresql://localhost:2323/dbCrayons";
 	private Connection conn;
 	private String login = "postgres";

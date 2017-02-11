@@ -119,7 +119,7 @@ public class UserService implements UserDetailsService {
      */
     public CrayonsUser findByEMail(String eMail) {
     	List<CrayonsUser> users = findAll();
-        
+
     	for (CrayonsUser tmpUser : users) {
         	if (tmpUser.geteMail().equals(eMail)) {
         		return tmpUser;

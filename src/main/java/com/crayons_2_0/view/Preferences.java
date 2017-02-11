@@ -51,7 +51,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 
-//@org.springframework.stereotype.Component
 @SpringView(name = Preferences.VIEW_NAME)
 @ViewScope
 @SpringComponent
@@ -96,7 +95,6 @@ public class Preferences extends VerticalLayout implements View {
     @Autowired 
     CurrentUser currentUser;
     
-    //public Preferences(final User user)
     public Preferences() {
         
     }
@@ -214,7 +212,7 @@ public class Preferences extends VerticalLayout implements View {
         root.setExpandRatio(details, 1);
 
         firstNameField = new TextField(lang.getString("FirstName"));
-        firstNameField.setValue(currentUser.get().getFirstName());       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        firstNameField.setValue(currentUser.get().getFirstName());
         details.addComponent(firstNameField);
         lastNameField = new TextField(lang.getString("LastName"));
         details.addComponent(lastNameField);

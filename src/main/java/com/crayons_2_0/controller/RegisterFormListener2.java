@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.view.login.LoginForm;
@@ -26,7 +27,7 @@ public class RegisterFormListener2 implements Button.ClickListener {
 	            LoginForm parent = (LoginForm) source.getParent();
 	            String mail = parent.getTxtLogin().getValue();
 	            String password = parent.getTxtPassword().getValue();
-	            
+
 	            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		        authorities.add(new SimpleGrantedAuthority("CLIENT"));
 

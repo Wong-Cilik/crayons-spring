@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentUser;
@@ -21,7 +23,10 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -37,6 +42,8 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
+@ViewScope
+@SpringComponent
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener {
 	@Autowired
 	CourseService courseService;
@@ -70,14 +77,18 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     private TabSheet tabSheet;
     private Component filter;
     private List<Course> authorCoursesList;
-    private CurrentUser currentUser;
 
-    public Authorlibrary() {
-
-        // ALT ------ Bitte Neu -> Neu und Form verwenden
+    @PostConstruct
+    void init(){
     	
-    	//insert all Author courses into the list
-    	authorCoursesList = courseService.findAllAuthorCoursesOfUser(currentUser.get());
+    }
+    
+    //die Klasse preferences benutzt ohne probleme die get() methode aus currentUser
+    //ein unterschied zwischen den beiden Klassen besteht darin, dass preferences "get()" nicht im konstruktor verwendet
+    //die logic muss in die Methose init() über diesem Kommentar
+    
+    public Authorlibrary() {
+    	authorCoursesList = courseService.findAllAuthorCoursesOfUser(c.get());
         VerticalLayout content = new VerticalLayout();
         HorizontalLayout title = new HorizontalLayout();
         title.setMargin(true);
@@ -174,10 +185,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-            	
-            	c.get();
-            	
-            	
+
             	/*
                 Notification success = new Notification("Course created successfully");
                 success.setDelayMsec(2000);

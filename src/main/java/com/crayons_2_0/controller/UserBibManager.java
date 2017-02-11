@@ -31,7 +31,6 @@ public class UserBibManager {
 		//TabSheet tabSheet = new TabSheet();
 		
 		CourseService courseService = new CourseService();
-		
 		List<Course> courses = courseService.findAllCoursesOfUser(user.get());
 		
 		for (Course tmpCourse : courses) {

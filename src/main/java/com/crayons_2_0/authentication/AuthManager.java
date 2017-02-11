@@ -24,7 +24,6 @@ public class AuthManager implements AuthenticationManager {
     @Autowired
     private UserService userService;
     private static boolean hasAuthority = false;
-    public static SecurityContext context;
     
     public Authentication authenticate(Authentication auth) throws AuthenticationException, UsernameNotFoundException {
         String username = (String) auth.getPrincipal();
@@ -35,7 +34,6 @@ public class AuthManager implements AuthenticationManager {
         if (user != null && user.getPassword().equals(password)) {
             Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
             hasAuthority = true;
-            context = SecurityContextHolder.getContext();
             MyUI.get().showMainView();
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
         }
@@ -49,9 +47,4 @@ public class AuthManager implements AuthenticationManager {
     public static boolean isHasAuthority() {
         return hasAuthority;
     }
-
-    public static SecurityContext getContext () {
-    	return context;
-    }
-    
 }

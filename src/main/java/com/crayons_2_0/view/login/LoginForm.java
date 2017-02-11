@@ -16,10 +16,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-/**
- * @author Ondrej Kvasnovsky
- */
-
 public class LoginForm extends VerticalLayout {
 
     /**

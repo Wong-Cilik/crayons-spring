@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.authentication.AuthManager;
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.view.login.LoginForm;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
@@ -26,6 +27,7 @@ public class LoginFormListener implements Button.ClickListener {
             String username = parent.getTxtLogin().getValue();
             String password = parent.getTxtPassword().getValue();
 
+            CurrentUser.getInstance().seteMail(username);
             UsernamePasswordAuthenticationToken request = new UsernamePasswordAuthenticationToken(username, password);
 
             Authentication result = authManager.authenticate(request);
