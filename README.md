@@ -13,19 +13,23 @@ All the rights belong to Fraunhofer Institute.
 
 Running the App
 ==
-Configure a database using PgAdmin: https://www.pgadmin.org/
+Configure a database using [PgAdmin](https://www.pgadmin.org/)
 
-Password: <Schwan>
-Port: <5432>
+Password: <Schwan>  <br />
+Port: <5432>  <br />
 
-Run $ mvn spring-boot:run. Then open in localhost:8080
-<TODO> Test Config
+Run $ mvn spring-boot:run. Then open in localhost:8080  
+
+<TODO> Test Configuration will be added
 
 Licenses
 ==
-The source code is released under <TODO>
+The source code is released under <TODO>(will be added)
 
-The application uses the following licenses:
-[Vaadin TestBench AddOn](https://vaadin.com/charts) add-on, which is released under the Commercial Vaadin Addon License: https://vaadin.com/license/cval-3
-[DagreD3 Library](https://github.com/cpettitt/dagre-d3) java script API, which is released under the  MIT License (https://github.com/cpettitt/dagre-d3/blob/master/LICENSE)
+The application uses the following licenses:  
+  
+[Vaadin TestBench](https://vaadin.com/add-ons/testbench) add-on, which is released under the [Commercial Vaadin Addon License] (https://vaadin.com/license/cval-3) <br />
+<br />
+[DagreD3 Library](https://github.com/cpettitt/dagre-d3) java script API, which is released under the  [MIT License] (https://github.com/cpettitt/dagre-d3/blob/master/LICENSE) <br />
+<br />
 [CK Editor](http://ckeditor.com/) Open source text editor, which is released under the GPL License.
