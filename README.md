@@ -9,7 +9,7 @@ It is possible to create alternate learningpaths in order to achieve the best le
 
 The App is developed by a team of students during the practical software engenineering course "PSE" at the Karlsruhe Institute of Technology (KIT),
 while it is supervised by the Fraunhofer Institute IOSB. 
-All the rights belong to Fraunhofer Institute.
+All rights belong to Fraunhofer Institute.
 
 Running the App
 ==
