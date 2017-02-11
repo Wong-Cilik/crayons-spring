@@ -62,6 +62,22 @@ public class CourseService {
     }
     
     
+    public List<Course> findAllAuthorCoursesOfUser(CrayonsUser user) {
+    	List<Course> allCourses = courseDAO.findAll();
+    	List<Course> authorCoursesOfUser = new LinkedList<Course>();
+    	
+    	//TODO hier equals richtig ??
+    	for (Course tmpCourse : allCourses) {
+    		if (tmpCourse.getAuthor().equals(user)) {
+    			authorCoursesOfUser.add(tmpCourse);
+    		}
+    	}
+    	
+    	return authorCoursesOfUser;
+    	
+    }
+    
+    
     public boolean insertCourse(Course course) {
         
         // Wenn Kurs kreiert werden kann, erstelle kurs in DB

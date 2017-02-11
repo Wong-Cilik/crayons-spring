@@ -1,6 +1,7 @@
 package com.crayons_2_0.view;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,11 @@ import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
+import com.crayons_2_0.model.Course;
+import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
+import com.crayons_2_0.service.database.UserService;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
@@ -42,6 +46,9 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 	
 	@Autowired
 	CurrentUser c;
+
+	@Autowired
+	UserService userService;
 	
     private static final long serialVersionUID = -9161951961270902856L;
 
@@ -65,11 +72,15 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
      */
     private TabSheet tabSheet;
     private Component filter;
+    private List<Course> authorCoursesList;
+    private CurrentUser currentUser;
 
     public Authorlibrary() {
 
         // ALT ------ Bitte Neu -> Neu und Form verwenden
-
+    	
+    	//insert all Author courses into the list
+    	authorCoursesList = courseService.findAllAuthorCoursesOfUser(currentUser.get());
         VerticalLayout content = new VerticalLayout();
         HorizontalLayout title = new HorizontalLayout();
         title.setMargin(true);
@@ -84,7 +95,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         content.addComponent(title);
         addComponent(content);
         content.setMargin(false);
-        this.tabSheet = buildCoursesTabSheet();
+        //for every author course adding a tab
+        for(Course tmpCourse: authorCoursesList) {
+            this.tabSheet = buildCoursesTabSheet(tmpCourse);
+        }
         content.addComponent(this.tabSheet);
         content.setSizeFull();
     }
@@ -110,14 +124,14 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         return title;
     }
 
-    private TabSheet buildCoursesTabSheet() {
+    private TabSheet buildCoursesTabSheet(Course course) {
         TabSheet coursesTabSheet = new TabSheet();
         coursesTabSheet.setSizeFull();
         coursesTabSheet.setHeight("100%");
         coursesTabSheet.addTab(buildAddNewCourseTab());
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-        coursesTabSheet.addComponent(buildCourseTab("Lineare Algebra"));
+        coursesTabSheet.addComponent(buildCourseTab(course.getTitle()));
         return coursesTabSheet;
     }
 
@@ -201,10 +215,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         selectStudents.setSizeFull();
         selectStudents.setLeftColumnCaption("List of all students");
         selectStudents.setRightColumnCaption("Participants");
-
-        String nonParticipants[] = { "Heidi Klum", "Kate Moss", "Natalia Vodianova", "Cara Delevingne" };
-        for (int i = 0; i < nonParticipants.length; i++)
-            selectStudents.addItem(nonParticipants[i]);
+        //adding all users to the select Student Table
+        List<CrayonsUser> allUsers = userService.findAll();
+        for (int i = 0; i < allUsers.size(); i++)
+            selectStudents.addItem(allUsers.get(i));
 
         selectStudents.setImmediate(true);
         tabContent.addComponent(selectStudents);
