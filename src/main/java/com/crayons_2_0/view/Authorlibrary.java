@@ -1,5 +1,7 @@
 package com.crayons_2_0.view;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -76,6 +78,9 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         addComponent(content);
         content.setMargin(false);
         this.tabSheet = buildCoursesTabSheet();
+        if (tabSheet.getComponentCount() > 1) {
+            tabSheet.setSelectedTab(1);
+        }
         content.addComponent(this.tabSheet);
         content.setSizeFull();
     }
@@ -186,13 +191,18 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         selectStudents.setSizeFull();
         selectStudents.setLeftColumnCaption("List of all students");
         selectStudents.setRightColumnCaption("Participants");
-
+        
+        // TODO: select ALL students (everybody!!!)
         String nonParticipants[] = { "Heidi Klum", "Kate Moss", "Natalia Vodianova", "Cara Delevingne" };
         for (int i = 0; i < nonParticipants.length; i++)
             selectStudents.addItem(nonParticipants[i]);
 
         selectStudents.setImmediate(true);
         tabContent.addComponent(selectStudents);
+        
+        // TODO: select all students - participants of the course
+        selectStudents.setValue(new HashSet<String>(
+                Arrays.asList("Heidi Klum", "Kate Moss")));
 
         Component controlButtons = buildControlButtons(tabContent, title);
         tabContent.addComponent(controlButtons);
@@ -205,11 +215,24 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         HorizontalLayout controlButtons = new HorizontalLayout();
         controlButtons.setMargin(true);
         controlButtons.setSpacing(true);
+        
+        Button modifyCourse = new Button("Modify course");
+        controlButtons.addComponent(modifyCourse);
+        modifyCourse.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -1559422159846748318L;
 
-        Button studentView = new Button("Student view");
-        controlButtons.addComponent(studentView);
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().addWindow(new CourseModificationWindow(title, tab, tabSheet));
+            }
+        });
+
+        // TODO: is it necessary here?
+        /*Button studentView = new Button("Student view");
+        controlButtons.addComponent(studentView);*/
 
         Button graphEditor = new Button("Graph editor");
+        graphEditor.setStyleName(ValoTheme.BUTTON_PRIMARY);
         controlButtons.addComponent(graphEditor);
         graphEditor.addClickListener(new ClickListener() {
             private static final long serialVersionUID = -5973844872374695493L;
@@ -248,31 +271,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             }
         });
 
-        Button modifyCourse = new Button("Modify course");
-        controlButtons.addComponent(modifyCourse);
-        modifyCourse.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = -1559422159846748318L;
 
-            @Override
-            public void buttonClick(ClickEvent event) {
-                UI.getCurrent().addWindow(new CourseModificationWindow(title, tab, tabSheet));
-            }
-        });
-
-        Button courseEditor = new Button("Unit Editor");
-
-        courseEditor.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = 2984472344509461262L;
-
-            @Override
-            public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
-
-            }
-        });
-
-        // courseEditor.addClickListener(new OpenUnitEditorListener());
-        controlButtons.addComponent(courseEditor);
 
         return controlButtons;
     }

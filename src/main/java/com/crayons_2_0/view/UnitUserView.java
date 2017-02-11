@@ -64,7 +64,7 @@ public class UnitUserView extends VerticalLayout implements View{
             @Override
             public void buttonClick(ClickEvent event) {
                 // TODO: are you sure?
-
+                UI.getCurrent().getNavigator().navigateTo(CourseUserView.VIEW_NAME);
             }
             
         });
@@ -81,7 +81,7 @@ public class UnitUserView extends VerticalLayout implements View{
         page.setSpacing(true);
         page.setMargin(true);
         page.setWidth(100.0f, Unit.PERCENTAGE);
-        page.setStyleName("canvas"); //TODO(Natalia): read and modify the style
+        page.setStyleName("canvas");
         addComponent(page);
         setExpandRatio(page, 7);
         

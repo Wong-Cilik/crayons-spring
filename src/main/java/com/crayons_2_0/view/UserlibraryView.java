@@ -158,7 +158,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo(UnitUserView.VIEW_NAME);
+                UI.getCurrent().getNavigator().navigateTo(CourseUserView.VIEW_NAME);
             }
             
         });

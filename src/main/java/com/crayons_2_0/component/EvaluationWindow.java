@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.view.CourseEditorView;
+import com.crayons_2_0.view.CourseUserView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.FontAwesome;
@@ -64,7 +65,7 @@ public class EvaluationWindow extends Window {
             @Override
             public void buttonClick(ClickEvent event) {
                close();
-                //TODO: return - where? Graph view?
+               UI.getCurrent().getNavigator().navigateTo(CourseUserView.VIEW_NAME);
             }
         });
         ok.focus();

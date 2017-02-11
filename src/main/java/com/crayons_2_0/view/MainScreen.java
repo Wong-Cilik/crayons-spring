@@ -53,6 +53,7 @@ public class MainScreen extends HorizontalLayout {
         //navigator.addView(UnitEditorView.VIEW_NAME, new UnitEditorView());
         navigator.addView(Uniteditor.VIEW_NAME, new Uniteditor());
         navigator.addView(UnitUserView.VIEW_NAME, new UnitUserView("Test unit"));
+        navigator.addView(CourseUserView.VIEW_NAME, new CourseUserView());
 
         navigator.addViewChangeListener(viewChangeListener);
         addComponent(menu);

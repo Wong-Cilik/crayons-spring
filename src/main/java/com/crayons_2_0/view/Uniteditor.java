@@ -138,15 +138,16 @@ public class Uniteditor extends VerticalLayout implements View {
             
         });
         
-        HorizontalLayout controlButtons = new HorizontalLayout(backButton, saveButton);
-        controlButtons.setSpacing(true);
+        /*HorizontalLayout controlButtons = new HorizontalLayout(backButton, saveButton);
+        controlButtons.setSpacing(true);*/
         
-        HorizontalLayout footer = new HorizontalLayout(controlButtons, dropArea);
+        HorizontalLayout footer = new HorizontalLayout(backButton, dropArea, saveButton);
         footer.setSpacing(true);
         footer.setMargin(true);
         footer.setSizeFull();
-        footer.setComponentAlignment(controlButtons, Alignment.MIDDLE_LEFT);
-        footer.setComponentAlignment(dropArea, Alignment.MIDDLE_RIGHT);
+        footer.setComponentAlignment(backButton, Alignment.MIDDLE_LEFT);
+        footer.setComponentAlignment(dropArea, Alignment.MIDDLE_CENTER);
+        footer.setComponentAlignment(saveButton, Alignment.MIDDLE_RIGHT);
         
         footer.addLayoutClickListener(new LayoutClickListener() {
 

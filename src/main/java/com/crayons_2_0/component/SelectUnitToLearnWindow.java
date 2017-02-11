@@ -1,16 +1,14 @@
 package com.crayons_2_0.component;
 
+import com.crayons_2_0.view.UnitUserView;
 import com.crayons_2_0.view.Uniteditor;
-import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -18,8 +16,10 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class SelectUnitForEditWindow extends Window {
-    public SelectUnitForEditWindow() {
+public class SelectUnitToLearnWindow extends Window {
+    
+    //TODO: put user and course as parameters to get information from db
+    public SelectUnitToLearnWindow(/*User user, Course course*/) {
         setSizeFull();
         setModal(true);
         setResizable(false);
@@ -48,9 +48,13 @@ public class SelectUnitForEditWindow extends Window {
     }
     
     private Component buildUnitChoice() {
-        ComboBox selectUnit = new ComboBox("Select the unit for edit");
-        selectUnit.addItem("Node 1");
-        selectUnit.addItem("Node 2");
+        ComboBox selectUnit = new ComboBox("Select unit");
+        /* for (all units of the user in the course which are available) {
+         *  selectUnit.addItem("unit name");
+         * }
+         */
+        selectUnit.addItem("Unit 1");
+        selectUnit.addItem("Unit 2");
         return selectUnit;
     }
 
@@ -59,24 +63,33 @@ public class SelectUnitForEditWindow extends Window {
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
         footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-        Button edit = new Button("Edit");
-        edit.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        edit.addClickListener(new ClickListener() {
+        Button learn = new Button("Learn");
+        learn.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        learn.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 close();
-                UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
-
+                //TODO: return selected unit 
+                UI.getCurrent().getNavigator().navigateTo(UnitUserView.VIEW_NAME);
             }
         });
-        edit.focus();
-        footer.addComponent(edit);
-        footer.setComponentAlignment(edit, Alignment.TOP_CENTER);
+        learn.focus();
+        
+        Button cancel = new Button("Cancel");
+        cancel.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                close();
+            }
+        });
+        footer.addComponents(cancel, learn);
+        footer.setComponentAlignment(cancel, Alignment.MIDDLE_LEFT);
+        footer.setComponentAlignment(learn, Alignment.MIDDLE_RIGHT);
         return footer;
     }
 
     private Component buildTitle() {
-        Label title = new Label("Open the unit editor");
+        Label title = new Label("Open a learning unit");
         title.addStyleName(ValoTheme.LABEL_H2);
         return title;
     }
