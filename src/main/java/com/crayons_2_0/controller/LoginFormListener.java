@@ -12,9 +12,6 @@ import com.crayons_2_0.view.login.LoginForm;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 
-/**
- * @author Ondrej Kvasnovsky
- */
 @Component
 public class LoginFormListener implements Button.ClickListener {
 
@@ -32,24 +29,10 @@ public class LoginFormListener implements Button.ClickListener {
             UsernamePasswordAuthenticationToken request = new UsernamePasswordAuthenticationToken(username, password);
 
             Authentication result = authManager.authenticate(request);
-
             SecurityContextHolder.getContext().setAuthentication(result);
             
-
-           
-
         } catch (AuthenticationException e) {
             Notification.show("Authentication failed: " + e.getMessage());
         } 
-
     }
-
-    
-    
-    /*
-    protected void showMainView() {
-        setContent(new MainScreen(MyUI.get());
-        getNavigator().navigateTo(getNavigator().getState());
-    }
-    */
 }

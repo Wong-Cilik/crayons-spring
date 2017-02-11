@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.Menu;
 import com.crayons_2_0.service.LanguageService;
@@ -29,16 +31,10 @@ import com.vaadin.ui.HorizontalLayout;
 
 public class MainScreen extends HorizontalLayout  implements View {
     
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     public static final String VIEW_NAME = "mainScreen";
     
-    /**
-     * 
-     */
     private Menu menu;
     
     private ResourceBundle lang = LanguageService.getInstance().getRes();
@@ -58,8 +54,7 @@ public class MainScreen extends HorizontalLayout  implements View {
     AboutView aboutView;
     
     public MainScreen() {
-
-        
+    	
     }
 
     @PostConstruct

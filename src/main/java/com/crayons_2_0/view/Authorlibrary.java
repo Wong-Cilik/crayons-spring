@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
@@ -38,6 +39,9 @@ import com.vaadin.ui.themes.ValoTheme;
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener {
 	@Autowired
 	CourseService courseService;
+	
+	@Autowired
+	CurrentUser c;
 	
     private static final long serialVersionUID = -9161951961270902856L;
 
@@ -159,6 +163,11 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
+            	
+            	c.get();
+            	
+            	
+            	/*
                 Notification success = new Notification("Course created successfully");
                 success.setDelayMsec(2000);
                 success.setStyleName("bar success small");
@@ -170,6 +179,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                 getTabSheet().setSelectedTab(newTab);
                 courseTitleField.clear();
                 couseDescriptionField.clear();
+                */
             }
         });
 

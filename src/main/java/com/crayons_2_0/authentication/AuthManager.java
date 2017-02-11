@@ -3,6 +3,7 @@ package com.crayons_2_0.authentication;
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.service.database.UserService;
 import com.vaadin.spring.annotation.SpringComponent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,8 +11,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import java.util.Collection;
 
 /**
@@ -23,7 +27,8 @@ public class AuthManager implements AuthenticationManager {
     @Autowired
     private UserService userService;
     private static boolean hasAuthority = false;
-
+    public static SecurityContext context;
+    
     public Authentication authenticate(Authentication auth) throws AuthenticationException, UsernameNotFoundException {
         String username = (String) auth.getPrincipal();
         String password = (String) auth.getCredentials();
@@ -33,6 +38,7 @@ public class AuthManager implements AuthenticationManager {
         if (user != null && user.getPassword().equals(password)) {
             Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
             hasAuthority = true;
+            context = SecurityContextHolder.getContext();
             MyUI.get().showMainView();
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
         }
@@ -47,6 +53,8 @@ public class AuthManager implements AuthenticationManager {
         return hasAuthority;
     }
 
-    
+    public static SecurityContext getContext () {
+    	return context;
+    }
     
 }

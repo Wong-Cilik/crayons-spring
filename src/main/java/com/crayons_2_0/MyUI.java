@@ -6,6 +6,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.vaadin.annotations.Theme;
@@ -47,7 +49,6 @@ public class MyUI extends UI {
     }
 
     public void showMainView() {
-        
         getUI().getNavigator().navigateTo("mainScreen");
     }
     
