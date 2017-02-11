@@ -26,6 +26,7 @@ import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -44,8 +45,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-@SpringUI
-@SuppressWarnings({ "serial"})
+@SpringView(name = Uniteditor.VIEW_NAME)
 public class Uniteditor extends VerticalLayout implements View {
 	
 	public static final String VIEW_NAME = "Unit Editor";

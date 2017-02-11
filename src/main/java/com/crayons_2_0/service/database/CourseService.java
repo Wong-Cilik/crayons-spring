@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.crayons_2_0.model.Course;
-@Component
+@SpringComponent
 public class CourseService {
     
     @Autowired

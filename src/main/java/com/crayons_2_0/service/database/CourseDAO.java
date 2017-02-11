@@ -16,7 +16,8 @@ import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
-@Component
+import com.vaadin.spring.annotation.SpringComponent;
+@SpringComponent
 public class CourseDAO {
 
 

@@ -18,6 +18,7 @@ import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -34,7 +35,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-@SpringUI
+@SpringView(name = Authorlibrary.VIEW_NAME)
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener {
     private static final long serialVersionUID = -9161951961270902856L;
 

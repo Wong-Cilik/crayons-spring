@@ -19,6 +19,7 @@ public class RegisterWindow extends Window {
         private PasswordField password = new PasswordField();
         private TextField firstname = new TextField();
         private TextField lastname = new TextField();
+        private TextField Language = new TextField();
 
         public RegisterWindow() {
 
@@ -95,5 +96,13 @@ public class RegisterWindow extends Window {
 
         public void setLastname(TextField lastname) {
             this.lastname = lastname;
+        }
+
+        public TextField getLanguage() {
+            return Language;
+        }
+
+        public void setLanguage(TextField language) {
+            Language = language;
         }
     }

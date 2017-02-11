@@ -9,7 +9,12 @@ import com.crayons_2_0.service.Language;
 
 public class CrayonsUser extends User {
 
-	private String firstName;
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    private String firstName;
 	
 	private String lastName;
 	
@@ -19,27 +24,18 @@ public class CrayonsUser extends User {
 	
 	private String eMail;
 	
-	public CrayonsUser(String firstName, String lastName, String eMail, String password, boolean enabled, boolean accountNonExpired,
-			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities) {
-		super(firstName + " " + lastName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-		
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.seteMail(eMail);
-		this.setPassword(password);
-	}
+
 	
 	//NEUER
 	public CrayonsUser(String firstName, String lastName, String eMail, String password, String language, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
-		super(firstName + " " + lastName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+		super(eMail, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.seteMail(eMail);
-		this.setPassword(password);
+		this.setPassword(password);   
 		this.setLanguage(language);
 	}
 
@@ -57,7 +53,6 @@ public class CrayonsUser extends User {
 	 * @param eMail the eMail to set
 	 */
 	public void seteMail(String eMail) {
-		//TODO
 		//super.setUsername(eMail);
 		this.eMail = eMail;
 	}
@@ -125,4 +120,10 @@ public class CrayonsUser extends User {
 		}
 	}
 
+	@Override
+    public String toString() {
+        return String.format(
+                "User[username= '%s', password= '%s', firstname = '%s', 'lastname = '%s', 'language = '%s']",
+                 getUsername(), getPassword(), getFirstName(), getLastName(), getLanguage().toString());
+    }
 }

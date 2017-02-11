@@ -19,11 +19,13 @@ import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.service.Language;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -36,8 +38,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
-@SuppressWarnings("serial")
-@SpringUI
+@SpringView(name = CourseEditorView.VIEW_NAME)
 public class CourseEditorView extends VerticalLayout implements View {
     
     public static final String VIEW_NAME = "Learning Graph";
@@ -75,7 +76,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         String dummy = "dummy";
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         //CrayonsUser dummyUser = new User(dummy, "pass", true, true, false, false, authorities);
-        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", true, true, false, false, authorities);
+        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", Language.German.toString(), true, true, false, false, authorities);
         Course dummyCourse = new Course(dummy,dummyUser);
         Graph dummyGraph = new Graph(dummyCourse);
         

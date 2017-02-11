@@ -6,6 +6,7 @@ import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
@@ -16,12 +17,13 @@ import com.vaadin.ui.themes.Reindeer;
  * 
  * 
  */
-@SpringUI
+@SpringView(name = ErrorView.VIEW_NAME)
 public class ErrorView extends VerticalLayout implements View {
 
     /**
      * 
      */
+    public static final String VIEW_NAME = "Error view";
     private static final long serialVersionUID = 1L;
     ResourceBundle lang = LanguageService.getInstance().getRes();
     private Label explanation;

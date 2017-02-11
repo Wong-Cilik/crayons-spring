@@ -16,10 +16,11 @@ import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.view.login.LoginForm;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 
-@Component
+@SpringComponent
 public class RegisterFormListener2 implements Button.ClickListener {
         @Autowired
 	    private UserManager userManager;
@@ -31,10 +32,10 @@ public class RegisterFormListener2 implements Button.ClickListener {
 	            LoginForm parent = (LoginForm) source.getParent();
 	            String mail = parent.getTxtLogin().getValue();
 	            String password = parent.getTxtPassword().getValue();
-	            
+	           
 	            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		        authorities.add(new SimpleGrantedAuthority("CLIENT"));
-		        CrayonsUser user = new CrayonsUser("first", "last", mail, password, true, true, false, false, authorities);
+		        CrayonsUser user = new CrayonsUser("first", "last", mail, password,"language", true, true, false, false, authorities);
 
 	            userManager.foo(user);
 	            
