@@ -18,6 +18,7 @@ import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.AddNewUserListener;
 import com.crayons_2_0.service.database.UserService;
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
@@ -60,7 +61,7 @@ public class LoginForm extends VerticalLayout {
 
         LoginFormListener loginFormListener = getLoginFormListener();
         btnLogin.addClickListener(loginFormListener);
-        
+        btnLogin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         RegisterFormListener registerFormListener = getRegisterFormListener();
         createRegisterButton();
         
