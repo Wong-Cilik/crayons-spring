@@ -71,8 +71,6 @@ public class UserService implements UserDetailsService {
      * @return true if successfull, false otherwise
      */
     public boolean insertUser(CrayonsUser user) {
-    	
-    	 
     	// Check if Exists, return false if exists
     	List<CrayonsUser> users = findAll();
     	for (CrayonsUser tmpUser : users) {
@@ -87,6 +85,12 @@ public class UserService implements UserDetailsService {
     	userDAO.insertUser(user);
     	return true;
     }
+    
+    
+    public boolean updateUser(CrayonsUser user, String eMail, String firstName,String lastName) {
+    	return userDAO.updateUser(user, eMail, firstName, lastName);
+    }
+    
     
     public boolean removeUser(CrayonsUser user) {
         userDAO.deleteUser(user);
