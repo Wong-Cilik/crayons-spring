@@ -12,9 +12,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.vaadin.spring.annotation.SpringComponent;
 
-@Component("service1")
-@Qualifier("service2")
+
+@SpringComponent
 public class UserService implements UserDetailsService {
 
     @Autowired

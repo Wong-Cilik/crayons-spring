@@ -3,28 +3,35 @@ package com.example;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.example.view.Login;
-import com.example.view.MainView;
-import com.example.view.RegisterView;
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.WrappedHttpSession;
 import com.vaadin.server.WrappedSession;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringViewDisplay;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.themes.ValoTheme;
 
 
 @SpringUI
+@SpringViewDisplay
 @Theme("valo")
 public class MyUI extends UI {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     private ApplicationContext applicationContext;
+    
+    
 
     @Override
     protected void init(VaadinRequest request) {
@@ -32,7 +39,8 @@ public class MyUI extends UI {
         httpSession(request);
         getPage().setTitle("Demo");
 
-        setContent(new Login());
+        
+        getUI().getNavigator().navigateTo("");
 
     }
 
@@ -42,15 +50,14 @@ public class MyUI extends UI {
 
     public void showMainView() {
         
-        setContent(new MainView(MyUI.this));
+        getUI().getNavigator().navigateTo("mainView");
     }
     
     
 
     public void showRegisterView(){
         
-        setContent(new RegisterView(MyUI.this));
-        getNavigator().navigateTo(getNavigator().getState());
+       getUI().getNavigator().navigateTo("registerView");
     }
     
     public ApplicationContext getApplicationContext() {
@@ -63,4 +70,6 @@ public class MyUI extends UI {
         ServletContext servletContext = httpSession.getServletContext();
         applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
     }
+
+   
 }

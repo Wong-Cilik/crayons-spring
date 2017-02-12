@@ -13,6 +13,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.vaadin.spring.annotation.SpringComponent;
+
 
 
 
@@ -20,7 +22,7 @@ import org.springframework.stereotype.Repository;
  * @author Windows VM
  *
  */
-@Component
+@SpringComponent
 public class UserDAO implements CommandLineRunner {
 
     /**
@@ -34,7 +36,7 @@ public class UserDAO implements CommandLineRunner {
         log.info("@@ Creating tables");
         jdbcTemplate.execute("DROP TABLE IF EXISTS realm.users");
         jdbcTemplate.execute("CREATE TABLE realm.users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL)");
-        jdbcTemplate.execute("insert into realm.users(email, password, firstname, lastname) values('userali','pass','ali', 'akil')");
+        jdbcTemplate.execute("insert into realm.users(email, password, firstname, lastname) values('user','pass','ali', 'akil')");
 //        jdbcTemplate.execute("insert into realm.users(email, password, firstname, lastname) values('user','pass','lala','kram')");
         log.info("@@ > Done.");
     }

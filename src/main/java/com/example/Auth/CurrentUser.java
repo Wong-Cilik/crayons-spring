@@ -12,9 +12,10 @@ import org.springframework.stereotype.Component;
 
 import com.example.db.CrayonsUser;
 import com.example.db.UserService;
+import com.vaadin.spring.annotation.SpringComponent;
 
 
-@Component
+@SpringComponent
 public class CurrentUser {
 	// LINKS:
 	// http://www.baeldung.com/get-user-in-spring-security
@@ -36,7 +37,7 @@ public class CurrentUser {
 	public CrayonsUser get() {
 //		createDummy();
 //		String mail = "dani@web.de";
-		return userService.findUserByMail("userali");
+		return userService.findUserByMail("user");
 	}
 
 //	private void createDummy() {

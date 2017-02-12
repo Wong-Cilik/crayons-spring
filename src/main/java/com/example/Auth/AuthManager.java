@@ -2,6 +2,7 @@ package com.example.Auth;
 
 import com.example.MyUI; 
 import com.example.db.UserService;
+import com.vaadin.spring.annotation.SpringComponent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +20,8 @@ import java.util.Collection;
 /**
  * @author Ondrej Kvasnovsky
  */
-@Component
+
+@SpringComponent
 public class AuthManager implements AuthenticationManager {
 
     @Autowired
@@ -31,11 +33,12 @@ public class AuthManager implements AuthenticationManager {
         
         UserDetails user = userService.loadUserByUsername(username);
         
-
+       
         if (user != null && user.getPassword().equals(password)) {
             Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
           
             MyUI.get().showMainView();
+            auth.isAuthenticated();
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
         }
         throw new BadCredentialsException("Bad Credentials");

@@ -16,16 +16,15 @@ import com.example.view.RegisterView;
 import com.example.view.RegisterWindow;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
-
 @Component
 public class RegisterFormListener implements Button.ClickListener {
        
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
     
-    @Resource
+    private static final long serialVersionUID = 1L;
+    @Autowired
 	private UserService userService;
 	    @Override
 	    public void buttonClick(Button.ClickEvent event) {

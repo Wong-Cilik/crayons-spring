@@ -1,18 +1,26 @@
 package com.example.view;
 
-import com.example.controller.RegisterFormListener; 
+import com.example.controller.RegisterFormListener;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+@SpringView(name = RegisterWindow.VIEW_NAME)
+@UIScope
 
-public class RegisterWindow extends Window {
+public class RegisterWindow extends Window implements View{
     
     /**
      * 
      */
+    public static final String VIEW_NAME = "registerWindow";
     private static final long serialVersionUID = 1L;
     private TextField email = new TextField();
     private PasswordField password = new PasswordField();
@@ -95,5 +103,11 @@ public class RegisterWindow extends Window {
 
     public void setLastname(TextField lastname) {
         this.lastname = lastname;
+    }
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+        
     }
 }

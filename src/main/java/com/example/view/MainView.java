@@ -1,5 +1,6 @@
 package com.example.view;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,36 +8,43 @@ import org.springframework.stereotype.Component;
 
 import com.example.MyUI;
 import com.example.db.UserService;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+@ViewScope
+@SpringView(name = MainView.VIEW_NAME)
 
-@Component
-@SpringUI
-public class MainView extends VerticalLayout  {
+public class MainView extends VerticalLayout  implements View{
 
    
-    @Resource
-    UserService userService2;
+    public static final String VIEW_NAME = "mainView";
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-
-    public MainView(MyUI ui) {
-     
-        this.mainViewBuilder();
-    }
     
+    @Autowired
+    private UserService userService2;
+    @PostConstruct
+    void init() {
+        this.mainViewBuilder(); 
+        
+    }
     private void mainViewBuilder() {
       TextField field = new TextField();
       final TextField field2 = new TextField();
       field.setCaption("vField");
-      field2.setCaption(userService2.testService());
+      field2.setCaption(userService2.findUserByMail("user").getLastname());
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       Button button = new Button("vClick");
       Button button2 = new Button("hClick2");
@@ -47,7 +55,18 @@ public class MainView extends VerticalLayout  {
       hlayout.setMargin(true);
       hlayout.addComponents(field2, button2);
       hlayout.setComponentAlignment(button2, Alignment.BOTTOM_RIGHT);
+      addComponents(hlayout,(new Button("Logout", event -> logout())));
+    }
 
-      addComponents(hlayout);
+    private void logout() {
+        MyUI.get().getPage().reload();
+      
+        MyUI.get().getSession().close();
+    }
+    
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+        
     }
 }
