@@ -7,8 +7,10 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.authentication.CurrentUser;
+import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.UserService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 
@@ -60,6 +62,8 @@ public class Preferences extends VerticalLayout implements View {
     //public static final String ID = "profilepreferenceswindow";
     public static final String VIEW_NAME = "Preferences";
     ResourceBundle lang = LanguageService.getInstance().getRes();
+    @Autowired
+    UserService userService;
     
     
 
@@ -215,8 +219,8 @@ public class Preferences extends VerticalLayout implements View {
         firstNameField.setValue(currentUser.get().getFirstName());
         details.addComponent(firstNameField);
         lastNameField = new TextField(lang.getString("LastName"));
+        lastNameField.setValue(currentUser.get().getLastName());
         details.addComponent(lastNameField);
-
         titleField = new ComboBox(lang.getString("Title"));
         titleField.setInputPrompt(lang.getString("PleaseSpecify"));
         titleField.addItem(lang.getString("Mr."));
@@ -239,6 +243,8 @@ public class Preferences extends VerticalLayout implements View {
         details.addComponent(section);
 
         emailField = new TextField(lang.getString("Email"));
+        emailField.setValue(currentUser.get().geteMail());
+        
         emailField.setWidth("100%");
         emailField.setRequired(true);
         emailField.setNullRepresentation("");
@@ -294,16 +300,21 @@ public class Preferences extends VerticalLayout implements View {
             @Override
             public void buttonClick(ClickEvent event) {
                 
-                    //fieldGroup.commit();
+                    // fieldGroup.commit();
                     // Updated user should also be persisted to database. But
                     // not in this demo.
-
-                    Notification success = new Notification(
-                            lang.getString("ProfileUpdatedSuccessfully"));
-                    success.setDelayMsec(2000);
-                    success.setStyleName("barSuccessSmall");
-                    success.setPosition(Position.BOTTOM_CENTER);
-                    success.show(Page.getCurrent());
+            	if(currentUser.get().getUsername() != emailField.getValue() ||
+            			currentUser.get().getFirstName() != firstNameField.getValue() ||
+            			currentUser.get().getLastName() != lastNameField.getValue()) {
+            		if(userService.updateUser(currentUser.get(), emailField.getValue(), firstNameField.getValue(), lastNameField.getValue())) {
+            			Notification success = new Notification(
+                                lang.getString("ProfileUpdatedSuccessfully"));
+                        success.setDelayMsec(2000);
+                        success.setStyleName("barSuccessSmall");
+                        success.setPosition(Position.BOTTOM_CENTER);
+                        success.show(Page.getCurrent());
+            		}
+            	}
 
                     //DashboardEventBus.post(new ProfileUpdatedEvent());
                
