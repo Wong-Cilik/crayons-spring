@@ -77,6 +77,8 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     private TabSheet tabSheet;
     private Component filter;
     private List<Course> authorCoursesList;
+    
+    //TODO bug: author got no course, gets a course he doesnt have
 
     @PostConstruct
     void init(){
