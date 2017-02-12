@@ -96,6 +96,20 @@ public class UserDAO {
 		
     }
     
+    /**
+     * 
+     * @param user CurrentUser
+     * @param eMail	New Email to be saved
+     * @param firstName New first name to be saved
+     * @param lastName	New last name o be saved
+     * @return true if successfully inserted, false if not
+     */
+    public boolean updateUser(CrayonsUser user, String eMail, String firstName,String lastName) {
+    	//TODO bad SQL grammar [UPDATE users SET firstname=?, lastname=? WHERE email=? ]; nested exception is org.postgresql.util.PSQLException: FEHLER: Spalte »firstname« von Relation »users« existiert nicht
+        jdbcTemplate.update("UPDATE users SET email=?, firstname=?, lastname=? WHERE email=? ", eMail, firstName, lastName, user.geteMail());
+		return true;
+    }
+    
     
     // Example: http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
     
