@@ -39,7 +39,6 @@ public class CourseService {
         		return tmpCourse;
         	}
         }
-        
         return null;
     }
     
@@ -102,5 +101,14 @@ public class CourseService {
     	courseDAO.remove(course);
         return true;
     }
-
+    /**
+     * 
+     * @param courseTitle 	Old course title
+     * @param value			new course title
+     * @param value2		new description
+     */
+	public void update(Course course) {
+		courseDAO.update(course);
+		//TODO rückmeldung success failed
+	}
 }

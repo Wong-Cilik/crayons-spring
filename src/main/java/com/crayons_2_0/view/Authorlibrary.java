@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.component.CourseModificationWindow;
@@ -25,7 +26,6 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -80,14 +80,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
     @PostConstruct
     void init(){
-    	
-    }
-    
-    //die Klasse preferences benutzt ohne probleme die get() methode aus currentUser
-    //ein unterschied zwischen den beiden Klassen besteht darin, dass preferences "get()" nicht im konstruktor verwendet
-    //die logic muss in die Methose init() über diesem Kommentar
-    
-    public Authorlibrary() {
     	authorCoursesList = courseService.findAllAuthorCoursesOfUser(c.get());
         VerticalLayout content = new VerticalLayout();
         HorizontalLayout title = new HorizontalLayout();
@@ -104,24 +96,34 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         addComponent(content);
         content.setMargin(false);
         //for every author course adding a tab
-        for(Course tmpCourse: authorCoursesList) {
-            this.tabSheet = buildCoursesTabSheet(tmpCourse);
-        }
+        this.tabSheet = buildCoursesTabSheet();
         content.addComponent(this.tabSheet);
         content.setSizeFull();
+    	
+    }
+    
+    //die Klasse preferences benutzt ohne probleme die get() methode aus currentUser
+    //ein unterschied zwischen den beiden Klassen besteht darin, dass preferences "get()" nicht im konstruktor verwendet
+    //die logic muss in die Methose init() über diesem Kommentar
+    
+    public Authorlibrary() {
+    	
     }
 
     // tabSheet.setSelectedTab(1);
 
     // NEU NEU NEU NEU
-    /*
+    /* 
      * AuthorlibraryForm content = new AuthorlibraryForm();
      * addComponent(content);
      * 
      * setSizeFull(); setStyleName("about-view"); setSpacing(true);
      * setMargin(true);
      */
-
+    /**
+     * 
+     * @return TabSheet
+     */
     private TabSheet getTabSheet() {
         return this.tabSheet;
     }
@@ -132,18 +134,20 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         return title;
     }
 
-    private TabSheet buildCoursesTabSheet(Course course) {
+    private TabSheet buildCoursesTabSheet() {
+    	
         TabSheet coursesTabSheet = new TabSheet();
         coursesTabSheet.setSizeFull();
         coursesTabSheet.setHeight("100%");
+        for (Course tmpCourse: authorCoursesList) {
+            coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
+            coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
+            coursesTabSheet.addComponent(buildCourseTab(tmpCourse.getTitle()));
+        }
         coursesTabSheet.addTab(buildAddNewCourseTab());
-        coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
-        coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-        coursesTabSheet.addComponent(buildCourseTab(course.getTitle()));
-        return coursesTabSheet;
+		return coursesTabSheet;
     }
 
-    // TODO: layout with a "constructor" to build a new course
     private Component buildAddNewCourseTab() {
         VerticalLayout tabContent = new VerticalLayout();
         tabContent.setIcon(FontAwesome.PLUS);
@@ -185,27 +189,19 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-
-            	/*
-                Notification success = new Notification("Course created successfully");
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-                String value = (String) courseTitleField.getValue();
-                Component newTab = buildCourseTab(value);
-                getTabSheet().addComponent(newTab);
-                getTabSheet().setSelectedTab(newTab);
-                courseTitleField.clear();
-                couseDescriptionField.clear();
-                */
+                	courseService.insertCourse(new Course(courseTitleField.getValue(), couseDescriptionField.getValue(), c.getUser()));
+                	String title = (String) courseTitleField.getValue();
+                    Component newTab = buildCourseTab(title);
+                    getTabSheet().addComponent(newTab);
+                    getTabSheet().setSelectedTab(newTab);
+                    courseTitleField.clear();		
+                    couseDescriptionField.clear();
             }
         });
 
         return tabContent;
     }
 
-    // TODO: Kurs aus Datenbank übergeben
     private Component buildCourseTab(String title) {
         VerticalLayout tabContent = new VerticalLayout();
         tabContent.setCaption(title);
@@ -222,9 +218,9 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         selectStudents.setRightColumnCaption("Participants");
         //adding all users to the select Student Table
         List<CrayonsUser> allUsers = userService.findAll();
-        for (int i = 0; i < allUsers.size(); i++)
-            selectStudents.addItem(allUsers.get(i));
-
+        for (int i = 0; i < allUsers.size(); i++) {
+            selectStudents.addItem(allUsers.get(i).getFirstName() + " " + allUsers.get(i).getLastName() ) ;
+        }
         selectStudents.setImmediate(true);
         tabContent.addComponent(selectStudents);
 
@@ -317,8 +313,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
     @Override
     public void titleChanged(String newTitle, UnitEditor editor) {
-        // TODO Auto-generated method stub
-
+    	//TODO auto generated
     }
 
     public Component buildFilter() {
