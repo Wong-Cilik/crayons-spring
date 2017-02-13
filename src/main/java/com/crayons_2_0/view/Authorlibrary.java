@@ -216,6 +216,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
         TwinColSelect selectStudents = new TwinColSelect();
         selectStudents.setCaptionAsHtml(true);
+        selectStudents.setMultiSelect(true);
         selectStudents.setCaption("<h3>Select course participants</h3>");
 
         selectStudents.setRows(10);
@@ -225,10 +226,32 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         //adding all users to the select Student Table
         List<CrayonsUser> allUsers = userService.findAll();
         for (int i = 0; i < allUsers.size(); i++) {
-            selectStudents.addItem(allUsers.get(i).getFirstName() + " " + allUsers.get(i).getLastName() ) ;
+        	String[] emailOfStudentsInCourse = courseService.getStudents();
+        	for(String emailOfStudentInCourse: emailOfStudentsInCourse) {
+        		if(emailOfStudentInCourse != allUsers.get(i).geteMail()) {
+        			selectStudents.addItem(allUsers.get(i).geteMail());
+        		} else {
+        			selectStudents.setValue(emailOfStudentInCourse);
+        		}
+        	}
         }
+        
+        
+        Button saveStudents = new Button("Save Students");
+        saveStudents.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -1559422159846748318L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                for(String tmp: (String[])selectStudents.getValue()) {
+                	courseService.insertStudents(tmp);
+                }
+            }
+        });
+        
         selectStudents.setImmediate(true);
         tabContent.addComponent(selectStudents);
+        tabContent.addComponent(saveStudents);
         Component controlButtons = buildControlButtons(tabContent, title);
         tabContent.addComponent(controlButtons);
         tabContent.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
@@ -295,7 +318,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                 // getUI().getUI().getPage().setLocation(uri);
             }
         });
-
 
 
         return controlButtons;

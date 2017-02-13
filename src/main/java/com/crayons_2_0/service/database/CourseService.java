@@ -112,4 +112,14 @@ public class CourseService {
 		courseDAO.update(course);
 		//TODO rückmeldung success failed
 	}
+
+	public void insertStudents(String tmp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String[] getStudents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
