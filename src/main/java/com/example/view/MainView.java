@@ -1,6 +1,6 @@
 package com.example.view;
 
-import javax.annotation.PostConstruct;
+import javax.annotation.PostConstruct; 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.example.MyUI;
 import com.example.db.UserService;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -41,10 +39,16 @@ public class MainView extends VerticalLayout  implements View{
         
     }
     private void mainViewBuilder() {
+        
+        addComponent(new Button("Navigate to user view", event -> {
+            MyUI.getCurrent().getNavigator().navigateTo("userView");
+        })); 
+        
+        
       TextField field = new TextField();
       final TextField field2 = new TextField();
       field.setCaption("vField");
-      field2.setCaption(userService2.findUserByMail("user").getLastname());
+      field2.setCaption(userService2.findUserByMail("user").getRole());
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       Button button = new Button("vClick");
       Button button2 = new Button("hClick2");
@@ -55,13 +59,13 @@ public class MainView extends VerticalLayout  implements View{
       hlayout.setMargin(true);
       hlayout.addComponents(field2, button2);
       hlayout.setComponentAlignment(button2, Alignment.BOTTOM_RIGHT);
-      addComponents(hlayout,(new Button("Logout", event -> logout())));
+      addComponents(hlayout,new RegisterButton(),(new Button("Logout", event -> logout())));
     }
 
     private void logout() {
         MyUI.get().getPage().reload();
-      
         MyUI.get().getSession().close();
+        
     }
     
     @Override

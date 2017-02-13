@@ -11,12 +11,15 @@ public class CrayonsUser extends User{
 
     
 
-    public CrayonsUser(String email, String password,String firstname,String lastname, Collection<? extends GrantedAuthority> authorities) {
+    public CrayonsUser(String email, String password,String firstname,String lastname,String role, Collection<? extends GrantedAuthority> authorities) {
         super(email, password, authorities);
         this.firstname= firstname;
         this.lastname = lastname;
+        this.role = role;
         
     }
+    
+    private String role;
     private String firstname;
     private String lastname;
     
@@ -26,8 +29,8 @@ public class CrayonsUser extends User{
     @Override
     public String toString() {
         return String.format(
-                "User[username= '%s', password= '%s', firstname = '%s', 'lastname = '%s']",
-                 getUsername(), getPassword(), getFirstname(), getLastname());
+                "User[username= '%s', password= '%s', firstname = '%s', 'lastname = '%s', 'role= %s']",
+                 getUsername(), getPassword(), getFirstname(), getLastname(), getRole());
     }
 
 
@@ -56,6 +59,16 @@ public class CrayonsUser extends User{
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+
+
+    public String getRole() {
+        return role;
+    }
+
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
    

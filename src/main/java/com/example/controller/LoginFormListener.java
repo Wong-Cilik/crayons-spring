@@ -46,8 +46,8 @@ public class LoginFormListener implements Button.ClickListener {
             
             // Now when the session is reinitialized, we can enable websocket communication. Or we could have just
             // used WEBSOCKET_XHR and skipped this step completely.
-            myUI.getPushConfiguration().setTransport(Transport.WEBSOCKET);
-            myUI.getPushConfiguration().setPushMode(PushMode.AUTOMATIC);
+//            myUI.getPushConfiguration().setTransport(Transport.WEBSOCKET);
+//            myUI.getPushConfiguration().setPushMode(PushMode.AUTOMATIC);
            
 
         } catch (AuthenticationException e) {

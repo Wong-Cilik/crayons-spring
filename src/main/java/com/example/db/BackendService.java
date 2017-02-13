@@ -1,4 +1,4 @@
-package com.example.Auth;
+package com.example.db;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;

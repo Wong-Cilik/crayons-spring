@@ -24,7 +24,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
+   
         CrayonsUser user = findUserByMail(username);
         return user;
     }
@@ -40,6 +40,8 @@ public class UserService implements UserDetailsService {
         }
         throw new UsernameNotFoundException("User with mail:" + username + "doesnt exists!");
     }
+    
+    
     
     public boolean insertUser(CrayonsUser user) {
         

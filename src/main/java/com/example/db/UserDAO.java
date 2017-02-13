@@ -34,16 +34,15 @@ public class UserDAO implements CommandLineRunner {
 
     private void insertUser() {
         log.info("@@ Creating tables");
-        jdbcTemplate.execute("DROP TABLE IF EXISTS realm.users");
-        jdbcTemplate.execute("CREATE TABLE realm.users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL)");
-        jdbcTemplate.execute("insert into realm.users(email, password, firstname, lastname) values('user','pass','ali', 'akil')");
+      
+        jdbcTemplate.execute("insert into realm.users(email, password, firstname, lastname, role) values('user','pass','ali', 'akil', 'user')");
 //        jdbcTemplate.execute("insert into realm.users(email, password, firstname, lastname) values('user','pass','lala','kram')");
         log.info("@@ > Done.");
     }
     
   public void createTable() {
     jdbcTemplate.execute("DROP TABLE IF EXISTS realm.users");
-    jdbcTemplate.execute("CREATE TABLE realm.users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL)");
+    jdbcTemplate.execute("CREATE TABLE realm.users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, role VARCHAR(100)  NOT NULL)");
       
   }
   public void insertUser(CrayonsUser user) {
@@ -52,8 +51,9 @@ public class UserDAO implements CommandLineRunner {
         String password = user.getPassword();
         String firstName = user.getFirstname();
         String lastName = user.getLastname();
+        String role = user.getRole();
         
-        jdbcTemplate.update("insert into realm.users (email, password, firstname, lastname) VALUES (?, ?, ?, ?)", mail, password, firstName, lastName);
+        jdbcTemplate.update("insert into realm.users (email, password, firstname, lastname, role) VALUES (?, ?, ?, ?, ?)", mail, password, firstName, lastName, role);
         
     }
 
@@ -63,10 +63,11 @@ public class UserDAO implements CommandLineRunner {
         String password = user.getPassword();
         String firstName = user.getFirstname();
         String lastName = user.getLastname();
+        String role = user.getRole();
         
         //jdbcTemplate.update("update realm.users set password = " + password + " where email = " + mail);
         // Returns numer of changed rows
-        jdbcTemplate.update("UPDATE realm.users SET password=?, firstname=?, lastname=? WHERE email=? ", password, firstName, lastName, mail);
+        jdbcTemplate.update("UPDATE realm.users SET password=?, firstname=?, lastname=? role=? WHERE email=? ", password, firstName, lastName, mail, role);
 
         
         
@@ -86,7 +87,7 @@ public class UserDAO implements CommandLineRunner {
         jdbcTemplate
                 .query("SELECT * FROM realm.users",
                         new Object[] {}, (rs, row) -> new CrayonsUser(rs.getString("email"),
-                                rs.getString("password"), rs.getString("firstname"), rs.getString("lastname"), authorities))
+                                rs.getString("password"), rs.getString("firstname"), rs.getString("lastname"),rs.getString("role"), authorities))
                 .forEach(entry -> entries.add(entry));
         log.info("> Done.");
         return entries;

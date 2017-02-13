@@ -5,7 +5,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
-@SpringView
+@SpringView(name="adminView")
 public class AdminView extends VerticalLayout implements View {
 
     public AdminView() {
