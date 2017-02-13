@@ -3,10 +3,9 @@ package com.crayons_2_0.service.database;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.crayons_2_0.model.graph.Graph;
-@Component
+import com.vaadin.spring.annotation.SpringComponent;
+@SpringComponent
 public class GraphService {
     
     @Autowired

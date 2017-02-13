@@ -2,15 +2,11 @@ package com.crayons_2_0.service.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +28,7 @@ public class CourseDAO {
     }
 
     public List<Course> findAll() {
-        String query = "select * from realm.courses";
+        String query = "select * from courses";
         RowMapper mapper = new RowMapper() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -56,20 +52,21 @@ public class CourseDAO {
     	String description = course.getDescription();
     	String author = course.getAuthor().geteMail();
         
-        jdbcTemplate.update("insert into realm.courses (title, description, author) VALUES (?, ?, ?)", title, description, author);
+        jdbcTemplate.update("insert into courses (title, description, author) VALUES (?, ?, ?)", title, description, author);
     }
     
     public void update(Course course) {
+    	
     	String title = course.getTitle();
     	String description = course.getDescription();
     	String author = course.getAuthor().geteMail();
     	
-        jdbcTemplate.update("UPDATE realm.courses SET description=?, author=? WHERE title=? ", description, author, title);
+        jdbcTemplate.update("UPDATE courses SET description=?, author=? WHERE title=? ", description, author, title);
     }
 
     
     public void remove(Course course) {
-    	String deleteStatement = "DELETE FROM realm.courses WHERE title=?";
+    	String deleteStatement = "DELETE FROM courses WHERE title=?";
     	try {
 			jdbcTemplate.update(deleteStatement, course.getTitle());
 		} catch (RuntimeException e) {

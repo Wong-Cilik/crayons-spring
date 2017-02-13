@@ -1,7 +1,5 @@
 package com.crayons_2_0.view;
 
-import com.crayons_2_0.config.CurrentUserDummy;
-
 public class CurrentCourseDummy {
 
 	private static final CurrentCourseDummy dummy = new CurrentCourseDummy();

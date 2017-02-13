@@ -2,7 +2,6 @@ package com.crayons_2_0.component;
 
 import org.vaadin.openesignforms.ckeditor.CKEditorConfig;
 import org.vaadin.openesignforms.ckeditor.CKEditorTextField;
-import org.vaadin.openesignforms.ckeditor.widgetset.client.ui.CKEditor;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -19,7 +18,6 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.themes.ValoTheme;
 
 // Code is based on https://github.com/vaadin/dashboard-demo/blob/7.7/src/main/java/com/vaadin/demo/dashboard/component/InlineTextEditor.java

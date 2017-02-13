@@ -23,9 +23,9 @@ public class LoginControl {
 			// DB Zugriff
 			Statement statement = JDBCConnection.getInstance().getStatement();
 			set = statement.executeQuery("SELECT * "
-					+ "FROM realm.user "
-					+ "WHERE realm.user.login = \' " + login + "\'"
-					+ "AND realm.user.password = \'" + password + "\'");
+					+ "FROM user "
+					+ "WHERE user.login = \' " + login + "\'"
+					+ "AND user.password = \'" + password + "\'");
 		
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -1,12 +1,11 @@
 package com.crayons_2_0.authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.database.UserService;
+import com.vaadin.spring.annotation.SpringComponent;
 
-@Component
+@SpringComponent
 public class UserManager {
 	
 	@Autowired

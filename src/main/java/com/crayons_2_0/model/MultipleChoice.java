@@ -6,11 +6,8 @@ import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.CheckBox;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.VerticalLayout;
-
-import ch.qos.logback.core.subst.Token.Type;
 
 public class MultipleChoice extends VerticalLayout {
     

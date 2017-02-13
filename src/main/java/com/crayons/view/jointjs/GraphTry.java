@@ -1,8 +1,5 @@
 package com.crayons.view.jointjs;
 
-import java.awt.List;
-import java.util.ArrayList;
-
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.ui.AbstractJavaScriptComponent;
 

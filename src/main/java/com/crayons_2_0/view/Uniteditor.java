@@ -31,7 +31,6 @@ import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.UI;
@@ -137,17 +136,16 @@ public class Uniteditor extends VerticalLayout implements View {
             }
             
         });
+
+        HorizontalLayout controlButtons = new HorizontalLayout(backButton, saveButton);
+        controlButtons.setSpacing(true);
         
-        /*HorizontalLayout controlButtons = new HorizontalLayout(backButton, saveButton);
-        controlButtons.setSpacing(true);*/
-        
-        HorizontalLayout footer = new HorizontalLayout(backButton, dropArea, saveButton);
+        HorizontalLayout footer = new HorizontalLayout(controlButtons, dropArea);
         footer.setSpacing(true);
         footer.setMargin(true);
         footer.setSizeFull();
-        footer.setComponentAlignment(backButton, Alignment.MIDDLE_LEFT);
-        footer.setComponentAlignment(dropArea, Alignment.MIDDLE_CENTER);
-        footer.setComponentAlignment(saveButton, Alignment.MIDDLE_RIGHT);
+        footer.setComponentAlignment(controlButtons, Alignment.MIDDLE_LEFT);
+        footer.setComponentAlignment(dropArea, Alignment.MIDDLE_RIGHT);
         
         footer.addLayoutClickListener(new LayoutClickListener() {
 

@@ -6,19 +6,13 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
 
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.UserService;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-
-//import org.apache.catalina.realm.JNDIRealm.User;
-
-//import com.vaadin.data.fieldgroup.BeanFieldGroup;
-//import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
-import com.vaadin.data.fieldgroup.PropertyId;
 //import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -30,9 +24,7 @@ import com.vaadin.server.UserError;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -53,9 +45,13 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 //import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
+//import org.apache.catalina.JNDIUser;
+//import com.vaadin.data.fieldgroup.BeanFieldGroup;
+//import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.fieldgroup.PropertyId;
 
 
-//@org.springframework.stereotype.Component
+
 @SpringView(name = Preferences.VIEW_NAME)
 @ViewScope
 @SpringComponent
@@ -65,6 +61,8 @@ public class Preferences extends VerticalLayout implements View {
     //public static final String ID = "profilepreferenceswindow";
     public static final String VIEW_NAME = "Preferences";
     ResourceBundle lang = LanguageService.getInstance().getRes();
+    @Autowired
+    UserService userService;
     
     
 
@@ -100,7 +98,6 @@ public class Preferences extends VerticalLayout implements View {
     @Autowired 
     CurrentUser currentUser;
     
-    //public Preferences(final User user)
     public Preferences() {
         
     }
@@ -218,11 +215,11 @@ public class Preferences extends VerticalLayout implements View {
         root.setExpandRatio(details, 1);
 
         firstNameField = new TextField(lang.getString("FirstName"));
-        firstNameField.setValue(currentUser.get().getFirstName());       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        firstNameField.setValue(currentUser.get().getFirstName());
         details.addComponent(firstNameField);
         lastNameField = new TextField(lang.getString("LastName"));
+        lastNameField.setValue(currentUser.get().getLastName());
         details.addComponent(lastNameField);
-
         titleField = new ComboBox(lang.getString("Title"));
         titleField.setInputPrompt(lang.getString("PleaseSpecify"));
         titleField.addItem(lang.getString("Mr."));
@@ -245,6 +242,8 @@ public class Preferences extends VerticalLayout implements View {
         details.addComponent(section);
 
         emailField = new TextField(lang.getString("Email"));
+        emailField.setValue(currentUser.get().geteMail());
+        
         emailField.setWidth("100%");
         emailField.setRequired(true);
         emailField.setNullRepresentation("");
@@ -300,16 +299,21 @@ public class Preferences extends VerticalLayout implements View {
             @Override
             public void buttonClick(ClickEvent event) {
                 
-                    //fieldGroup.commit();
+                    // fieldGroup.commit();
                     // Updated user should also be persisted to database. But
                     // not in this demo.
-
-                    Notification success = new Notification(
-                            lang.getString("ProfileUpdatedSuccessfully"));
-                    success.setDelayMsec(2000);
-                    success.setStyleName("barSuccessSmall");
-                    success.setPosition(Position.BOTTOM_CENTER);
-                    success.show(Page.getCurrent());
+            	if(currentUser.get().getUsername() != emailField.getValue() ||
+            			currentUser.get().getFirstName() != firstNameField.getValue() ||
+            			currentUser.get().getLastName() != lastNameField.getValue()) {
+            		if(userService.updateUser(currentUser.get(), emailField.getValue(), firstNameField.getValue(), lastNameField.getValue())) {
+            			Notification success = new Notification(
+                                lang.getString("ProfileUpdatedSuccessfully"));
+                        success.setDelayMsec(2000);
+                        success.setStyleName("barSuccessSmall");
+                        success.setPosition(Position.BOTTOM_CENTER);
+                        success.show(Page.getCurrent());
+            		}
+            	}
 
                     //DashboardEventBus.post(new ProfileUpdatedEvent());
                

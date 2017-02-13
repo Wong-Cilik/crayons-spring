@@ -2,12 +2,9 @@ package com.crayons_2_0.service.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.logging.Level;
-
 import org.apache.log4j.Logger;
 
 // Link:     https://vimeo.com/123438169
@@ -17,13 +14,6 @@ public class JDBCConnection {
 	// Als Singleton realisiert:
 	
 	private static JDBCConnection connection = null;
-	
-	/*
-	private String url = "jdbc:postgresql://dumbo.inf.fh-bonn-rhein-sieg.de/salda2m";
-	private Connection conn;
-	private String login = "salda2m";
-	private String password = "xxx";
-	*/
 	
 	private String url = "jdbc:postgresql://localhost:2323/dbCrayons";
 	private Connection conn;
@@ -121,7 +111,7 @@ public class JDBCConnection {
 		
 		Statement st;
 		st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM realm.user ");
+		ResultSet rs = st.executeQuery("SELECT * FROM user ");
 		
 		while (rs.next()) {
 			System.out.println("Login:" + rs.getString(1));

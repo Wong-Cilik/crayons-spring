@@ -1,8 +1,10 @@
 package com.crayons_2_0.component;
 
-import com.vaadin.server.FontAwesome;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crayons_2_0.model.Course;
+import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -21,6 +23,8 @@ public class CourseModificationWindow extends Window {
     private TabSheet tabSheet;
     private Component tab;
     private String courseTitle;
+    @Autowired
+	CourseService courseService;
     
     public CourseModificationWindow(String courseTitle, Component tab, TabSheet tabSheet) {
         this.courseTitle = courseTitle;
@@ -86,8 +90,10 @@ public class CourseModificationWindow extends Window {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                //TODO: save modifications
+                //TODO: check why null at CourseDAO findAll()
+                courseService.update(courseService.findCourseByTitle(courseTitle));
                 tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
+                tabSheet.getTab(tab).setDescription(couseDescriptionField.getValue());
                 close();
                 Notification success = new Notification(
                         "Course is modified successfully");

@@ -1,38 +1,22 @@
 package com.crayons_2_0.view.login;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.LoginFormListener;
 import com.crayons_2_0.controller.RegisterFormListener;
 import com.crayons_2_0.controller.RegisterFormListener2;
-import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
-import com.crayons_2_0.service.database.AddNewUserListener;
-import com.crayons_2_0.service.database.UserService;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.themes.ValoTheme;
-import com.vaadin.ui.Label;
-
-/**
- * @author Ondrej Kvasnovsky
- */
 
 public class LoginForm extends VerticalLayout {
 

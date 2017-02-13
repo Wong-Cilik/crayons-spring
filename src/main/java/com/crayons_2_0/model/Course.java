@@ -4,43 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.UnitNode;
 @Component
 public class Course {
-	
+	//checked
 	private String title;
 	private String description;
-	
 	private CrayonsUser author;
-	//private String authorName;
-	
-
-
-
-
-
-
-	private List<CrayonsUser> coAuthors;
-	
-	private List<CrayonsUser> students;
-
+	private List<CrayonsUser> users;
+	private List<Unit> units = new ArrayList<Unit>();
 	private Date creationTime;
-	
-	private List<UnitNode> Units;		// Struktur!!!!! 
-	
-	
-	private List<Unit> units2 = new ArrayList<Unit>();
-	
-	
-	
-	
-	
-	// --------------------------------------------------------------
+	private Graph graph;
 	
 	public Course (String title, String description, CrayonsUser author) {
 		this.setTitle(title);
@@ -52,37 +29,13 @@ public class Course {
 	public Course() {
         // TODO Auto-generated constructor stub
     }
-	
-	
-	public void setUnits2(List<Unit> units) {
-		this.units2 = units;
-	}
-	
-	public List<Unit> getUnits2() {
-		return units2;
-	}
-	
-	// --------------------------------------------------------------
-	
-	
-	
-	
-	
-	public List<String> getUnitsTitle() {
-		//TODO
-		return null; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	}
-	
-	
-	
-	
 
-	private Graph graph;
-	
 	public Course(String title, CrayonsUser author) {
 	    this.title = title;
 	    this.setAuthor(author);
+	    creationTime = new Date();
 	}
+	
 	
     public String getTitle() {
         return title;
@@ -111,62 +64,32 @@ public class Course {
     public Date getCreationTime() {
         return creationTime;
     }
+    
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
 
-	/**
-	 * @return the author
-	 */
 	public CrayonsUser getAuthor() {
 		return author;
 	}
 
-	/**
-	 * @param author the author to set
-	 */
 	public void setAuthor(CrayonsUser author) {
 		this.author = author;
 	}
 
-	/**
-	 * @return the units
-	 */
-	public List<UnitNode> getUnits() {
-		return Units;
+	public List<Unit> getUnits() {
+		return units;
 	}
 
-	/**
-	 * @param units the units to set
-	 */
-	public void setUnits(List<UnitNode> units) {
-		Units = units;
+	public void setUnits(List<Unit> units) {
+		this.units = units;
 	}
 
-	/**
-	 * @return the coAuthors
-	 */
-	public List<CrayonsUser> getCoAuthors() {
-		return coAuthors;
+	public List<CrayonsUser> getUsers() {
+		return users;
 	}
 
-	/**
-	 * @param coAuthors the coAuthors to set
-	 */
-	public void setCoAuthors(List<CrayonsUser> coAuthors) {
-		this.coAuthors = coAuthors;
+	public void setUsers(List<CrayonsUser> users) {
+		this.users = users;
 	}
-
-	/**
-	 * @return the students
-	 */
-	public List<CrayonsUser> getStudents() {
-		return students;
-	}
-
-	/**
-	 * @param students the students to set
-	 */
-	public void setStudents(List<CrayonsUser> students) {
-		this.students = students;
-	}
-	
-
 }

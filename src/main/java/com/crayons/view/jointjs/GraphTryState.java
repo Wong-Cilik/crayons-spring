@@ -1,6 +1,5 @@
 package com.crayons.view.jointjs;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import com.vaadin.shared.ui.JavaScriptComponentState;

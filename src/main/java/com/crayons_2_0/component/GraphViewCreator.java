@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
-import com.crayons_2_0.model.graph.UnitNode.UnitType;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 

@@ -2,11 +2,12 @@ package com.crayons_2_0.controller;
 
 import java.util.List;
 
-import com.crayons_2_0.config.CurrentUserDummy;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
@@ -16,6 +17,9 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 public class UserBibManager {
+	
+	@Autowired
+	static CurrentUser user;
 	
 	/**
 	 * Generates Tabs for the View
@@ -27,12 +31,10 @@ public class UserBibManager {
 		//TabSheet tabSheet = new TabSheet();
 		
 		CourseService courseService = new CourseService();
-		
-		List<Course> courses = courseService.findAllCoursesOfUser(CurrentUserDummy.get()); //DUMMYYYYYYYYYYYYYYYYYYY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		List<Course> courses = courseService.findAllCoursesOfUser(user.get());
 		
 		for (Course tmpCourse : courses) {
 			VerticalLayout content = createContentForTab(tmpCourse);
-			// ShortTitle Einführen?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			tabSheet.addTab(content, tmpCourse.getTitle());
 		}
 		

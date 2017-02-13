@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.crayons_2_0.model.Course;
-import com.crayons_2_0.model.CrayonsUser;
-import com.crayons_2_0.model.graph.UnitNode.UnitType;
 
 public class Graph {
     private final Course course;

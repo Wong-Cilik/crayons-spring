@@ -29,16 +29,11 @@ import com.vaadin.ui.HorizontalLayout;
 
 public class MainScreen extends HorizontalLayout  implements View {
     
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 1L;
 
-    public static final String VIEW_NAME = "MainScreen";
+    public static final String VIEW_NAME = "mainScreen";
     
-    /**
-     * 
-     */
     private Menu menu;
     
     private ResourceBundle lang = LanguageService.getInstance().getRes();
@@ -48,26 +43,28 @@ public class MainScreen extends HorizontalLayout  implements View {
     @Autowired
     Preferences preferences;
 
+    @Autowired
+    Authorlibrary authorlibrary;
+    
+    @Autowired
+    UserlibraryView userlibraryView;
+    
+    @Autowired
+    AboutView aboutView;
     
     public MainScreen() {
-
-        
+    	
     }
-
+        
     @PostConstruct
     void init(){
         
-
-        //UI ui = MyUI.get().getCurrent();          // Changed
-        //MyUI ui2 = MyUI.get();
         setStyleName("main-screen");
 
         CssLayout viewContainer = new CssLayout();
         viewContainer.addStyleName("valo-content");
         viewContainer.setSizeFull();
         
-        
-        // HIER PROBLEM: UI.getCurrent() oder MyUI.get() oder ... liefern alle null!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         final Navigator navigator = new Navigator(MyUI.get(), viewContainer);
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
@@ -82,7 +79,14 @@ public class MainScreen extends HorizontalLayout  implements View {
         
         menu.addView(preferences, Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
         
-        // Adds Views to Navigator
+        menu.addView(aboutView, AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME),
+                FontAwesome.INFO_CIRCLE);
+        menu.addView(authorlibrary, Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
+                FontAwesome.BOOK);
+        menu.addView(userlibraryView, UserlibraryView.VIEW_NAME, lang.getString(UserlibraryView.VIEW_NAME),
+                FontAwesome.PENCIL);        
+        menu.addView(preferences, Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
+        
         navigator.addView(CourseEditorView.VIEW_NAME, new CourseEditorView());
         //navigator.addView(UnitEditorView.VIEW_NAME, new UnitEditorView());
         navigator.addView(Uniteditor.VIEW_NAME, new Uniteditor());
@@ -96,6 +100,7 @@ public class MainScreen extends HorizontalLayout  implements View {
         setExpandRatio(viewContainer, 1);
         setSizeFull();
     }
+    
     // notify the view menu about view changes so that it can display which view
     // is currently active
     ViewChangeListener viewChangeListener = new ViewChangeListener() {

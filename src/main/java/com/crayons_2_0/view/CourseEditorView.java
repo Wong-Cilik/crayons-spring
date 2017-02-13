@@ -1,31 +1,22 @@
 package com.crayons_2_0.view;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-
 import com.crayons.view.dagred3.Dagre;
-import com.crayons_2_0.model.Authority;
-import com.crayons_2_0.component.GraphViewCreator;
 import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.component.DeleteVerification;
-import com.vaadin.annotations.Theme;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
-import com.crayons_2_0.service.Language;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -38,7 +29,8 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
-@SpringView(name = CourseEditorView.VIEW_NAME)
+@SuppressWarnings("serial")
+@SpringUI
 public class CourseEditorView extends VerticalLayout implements View {
     
     public static final String VIEW_NAME = "Learning Graph";
@@ -76,7 +68,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         String dummy = "dummy";
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         //CrayonsUser dummyUser = new User(dummy, "pass", true, true, false, false, authorities);
-        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", Language.German.toString(), true, true, false, false, authorities);
+        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", "German", true, true, false, false, authorities);
         Course dummyCourse = new Course(dummy,dummyUser);
         Graph dummyGraph = new Graph(dummyCourse);
         
