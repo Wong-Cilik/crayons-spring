@@ -24,7 +24,6 @@ public class CourseService {
     public List<Course> findAll() {
         List<Course> res = courseDAO.findAll();
         for (Course tmpCourse : res) {
-        	System.out.println(tmpCourse.getTitle());
         	tmpCourse.setUnits(unitService.findUnitsOfCourse(tmpCourse));
         }
         return res;
@@ -37,7 +36,6 @@ public class CourseService {
      */
     public Course findCourseByTitle(String courseTitle) {
         for (Course tmpCourse : findAll()) {
-        	System.out.println(tmpCourse.getTitle());
         	if (tmpCourse.getTitle().equals(courseTitle)) {
         		return tmpCourse;
         	}
