@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
+import com.crayons_2_0.view.Preferences;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
+import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
@@ -62,12 +66,11 @@ public class CourseModificationWindow extends Window {
         VerticalLayout couseDescription = new VerticalLayout();
         couseDescription.setSizeFull();
         Label couseDescriptionLabel = new Label("Kursbeschreibung");
-        //TODO: get a course description
         TextField couseDescriptionField = new TextField();
         couseDescriptionField.setSizeFull();
+        couseDescriptionField.setValue(courseService.findCourseByTitle(this.courseTitle).getDescription());
         couseDescription.addComponents(couseDescriptionLabel, couseDescriptionField);
         couseDescription.setSizeFull();
-        //couseDescriptionField.addValueChangeListener();
         courseDescription.addComponent(couseDescription);
         
         Component controlButtons = buildControlButtons(courseTitleField, couseDescriptionField);

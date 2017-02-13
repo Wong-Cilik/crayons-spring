@@ -113,16 +113,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         content.setSizeFull();
     	
     }
-    
-    //die Klasse preferences benutzt ohne probleme die get() methode aus currentUser
-    //ein unterschied zwischen den beiden Klassen besteht darin, dass preferences "get()" nicht im konstruktor verwendet
-    //die logic muss in die Methose init() über diesem Kommentar
-    
     public Authorlibrary() {
     	
     }
 
-    // tabSheet.setSelectedTab(1);
 
     // NEU NEU NEU NEU
     /* 
@@ -201,12 +195,12 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-                	courseService.insertCourse(new Course(courseTitleField.getValue(), couseDescriptionField.getValue(), c.getUser()));
+                	courseService.insertCourse(new Course(courseTitleField.getValue(), couseDescriptionField.getValue(), c.get()));
                 	String title = (String) courseTitleField.getValue();
                     Component newTab = buildCourseTab(title);
                     getTabSheet().addComponent(newTab);
                     getTabSheet().setSelectedTab(newTab);
-                    courseTitleField.clear();		
+                    courseTitleField.clear();
                     couseDescriptionField.clear();
             }
         });
@@ -235,11 +229,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         }
         selectStudents.setImmediate(true);
         tabContent.addComponent(selectStudents);
-        
-        // TODO: select all students - participants of the course
-        selectStudents.setValue(new HashSet<String>(
-                Arrays.asList("Heidi Klum", "Kate Moss")));
-
         Component controlButtons = buildControlButtons(tabContent, title);
         tabContent.addComponent(controlButtons);
         tabContent.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
