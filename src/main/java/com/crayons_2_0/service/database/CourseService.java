@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.TextField;
 @SpringComponent
 public class CourseService {
     
@@ -102,5 +103,10 @@ public class CourseService {
 	public String[] getStudents() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void deleteCourse(TextField courseTitleField) {
+		// TODO Auto-generated method stub
+		
 	}
 }

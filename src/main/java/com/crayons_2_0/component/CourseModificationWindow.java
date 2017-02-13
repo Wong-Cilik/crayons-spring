@@ -120,14 +120,15 @@ public class CourseModificationWindow extends Window {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                tabSheet.removeComponent(tab);
+            	courseService.deleteCourse(courseTitleField);
+                /*tabSheet.removeComponent(tab);
                 close();
                 Notification success = new Notification(
                         "Course is deleted successfully");
                 success.setDelayMsec(2000);
                 success.setStyleName("bar success small");
                 success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
+                success.show(Page.getCurrent());*/
             }
             
         });
