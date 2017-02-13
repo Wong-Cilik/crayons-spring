@@ -95,7 +95,6 @@ public class CourseService {
 	}
 
 	public void insertStudent(String tmp) {
-		// TODO Auto-generated method stub
 		
 	}
 

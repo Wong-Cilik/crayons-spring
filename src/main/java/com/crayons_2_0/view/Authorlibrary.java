@@ -1,7 +1,5 @@
 package com.crayons_2_0.view;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -9,7 +7,6 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.component.CourseModificationWindow;
@@ -29,10 +26,7 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.AbstractComponent;
-
 import com.vaadin.spring.annotation.ViewScope;
-
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
