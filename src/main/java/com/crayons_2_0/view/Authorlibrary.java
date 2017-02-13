@@ -224,16 +224,20 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         selectStudents.setRightColumnCaption("Participants");
         //adding all users to the select Student Table
         List<CrayonsUser> allUsers = userService.findAll();
-        for (int i = 0; i < allUsers.size(); i++) {
-        	String[] emailOfStudentsInCourse = courseService.getStudents();
-        	if (emailOfStudentsInCourse != null){
-        	for(String emailOfStudentInCourse: emailOfStudentsInCourse) {
-        		if(emailOfStudentInCourse != allUsers.get(i).geteMail()) {
-        			selectStudents.addItem(allUsers.get(i).geteMail());
-        		} else {
-        			selectStudents.setValue(emailOfStudentInCourse);
-        		}
-        	}
+    	String[] emailOfStudentsInCourse = courseService.getStudents();
+    	if (emailOfStudentsInCourse != null){
+    		for (int i = 0; i < allUsers.size(); i++) {
+        		for(String emailOfStudentInCourse: emailOfStudentsInCourse) {
+        			if(emailOfStudentInCourse == allUsers.get(i).geteMail()) {
+        				selectStudents.setValue(emailOfStudentInCourse);
+        			} else {
+        				selectStudents.addItem(allUsers.get(i).geteMail());
+        			}
+        		} 
+        	} 
+        } else {
+        	for (int i = 0; i < allUsers.size(); i++) {
+        		selectStudents.addItem(allUsers.get(i).geteMail());
         	}
         }
         
