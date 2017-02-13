@@ -111,7 +111,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         }
         content.addComponent(this.tabSheet);
         content.setSizeFull();
-    	
     }
     public Authorlibrary() {
     	
@@ -271,7 +270,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-                UI.getCurrent().addWindow(new CourseModificationWindow(title, tab, tabSheet));
+                UI.getCurrent().addWindow(new CourseModificationWindow(courseService.findCourseByTitle(title), tab, tabSheet));
             }
         });
 

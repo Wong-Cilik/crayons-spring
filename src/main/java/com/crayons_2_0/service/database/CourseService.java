@@ -43,10 +43,6 @@ public class CourseService {
         return null;
     }
     
-    
-    
-    // -------------------------------------------------------------------
-    
     public List<Course> findAllCoursesOfUser(CrayonsUser user) {
     	List<Course> allCourses = courseDAO.findAll();
     	List<Course> coursesOfUser = new LinkedList<Course>();
@@ -60,7 +56,6 @@ public class CourseService {
     	return coursesOfUser;
     	
     }
-    
     
     public List<Course> findAllAuthorCoursesOfUser(CrayonsUser user) {
     	List<Course> allCourses = courseDAO.findAll();
@@ -80,8 +75,6 @@ public class CourseService {
     
     public boolean insertCourse(Course course) {
         
-        // Wenn Kurs kreiert werden kann, erstelle kurs in DB
-    	courseDAO.createDbTable();
         // Checke - Kurs Existiert? 
     	/*
         for (Course tmpCourse : courseDAO.findAll()) {
