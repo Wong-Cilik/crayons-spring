@@ -93,4 +93,14 @@ public class CourseService {
 	public void update(Course course) {
 		courseDAO.update(course);
 	}
+
+	public void insertStudent(String tmp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String[] getStudents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
