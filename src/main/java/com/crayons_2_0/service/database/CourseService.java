@@ -95,9 +95,9 @@ public class CourseService {
 		courseDAO.update(course);
 	}
 
-	public void insertStudent(String[] newStudentsInCourse) {
-		// TODO Auto-generated method stub
-		
+
+	public void insertStudent(String[] newStudentsInCourse, String title) {
+		courseDAO.updateStudents(newStudentsInCourse, title);
 	}
 
 	public String[] getStudents() {
