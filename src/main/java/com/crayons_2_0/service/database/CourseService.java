@@ -94,7 +94,8 @@ public class CourseService {
 		courseDAO.update(course);
 	}
 
-	public void insertStudent(String tmp) {
+
+	public void insertStudent(String[] newStudentsInCourse) {
 		
 	}
 
