@@ -106,7 +106,7 @@ public class CourseService {
 		//TODO rückmeldung success failed
 	}
 
-	public void insertStudent(String tmp) {
+	public void insertStudent(String[] newStudentsInCourse) {
 		// TODO Auto-generated method stub
 		
 	}
