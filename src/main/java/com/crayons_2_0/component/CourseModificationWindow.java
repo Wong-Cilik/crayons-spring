@@ -2,11 +2,13 @@ package com.crayons_2_0.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.view.Preferences;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
@@ -22,15 +24,18 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
+@SpringUI
+@ViewScope
+@SpringComponent
 public class CourseModificationWindow extends Window {
     private TabSheet tabSheet;
     private Component tab;
-    private String courseTitle;
+	private Course course;
     @Autowired
 	CourseService courseService;
     
-    public CourseModificationWindow(String courseTitle, Component tab, TabSheet tabSheet) {
-        this.courseTitle = courseTitle;
+    public CourseModificationWindow(Course course, Component tab, TabSheet tabSheet) {
+        this.course = course;
         this.tab = tab;
         this.tabSheet = tabSheet;
         setModal(true);
@@ -53,13 +58,13 @@ public class CourseModificationWindow extends Window {
         courseDescription.setSpacing(true);
         courseDescription.setMargin(true);
         
-        HorizontalLayout courseTitle = new HorizontalLayout();
-        courseTitle.setSpacing(true);
+        HorizontalLayout course = new HorizontalLayout();
+        course.setSpacing(true);
         Label courseTitleLabel = new Label("Kurstitel");
-        TextField courseTitleField = new TextField(null, this.courseTitle);
-        courseTitle.addComponents(courseTitleLabel, courseTitleField);
+        TextField courseTitleField = new TextField(null, this.course.getTitle());
+        course.addComponents(courseTitleLabel, courseTitleField);
         //courseTitleField.addValueChangeListener();
-        courseDescription.addComponent(courseTitle);
+        courseDescription.addComponent(course);
         courseTitleField.setImmediate(true); 
         
         VerticalLayout couseDescription = new VerticalLayout();
@@ -67,7 +72,10 @@ public class CourseModificationWindow extends Window {
         Label couseDescriptionLabel = new Label("Kursbeschreibung");
         TextField couseDescriptionField = new TextField();
         couseDescriptionField.setSizeFull();
-        couseDescriptionField.setValue(courseService.findCourseByTitle(this.courseTitle).getDescription());
+        
+        System.out.println(this.course.getTitle());
+        
+        couseDescriptionField.setValue(this.course.getTitle());
         couseDescription.addComponents(couseDescriptionLabel, couseDescriptionField);
         couseDescription.setSizeFull();
         courseDescription.addComponent(couseDescription);
@@ -93,7 +101,7 @@ public class CourseModificationWindow extends Window {
             @Override
             public void buttonClick(ClickEvent event) {
                 //TODO: check why null at CourseDAO findAll()
-                courseService.update(courseService.findCourseByTitle(courseTitle));
+                courseService.update(courseService.findCourseByTitle(course.getTitle()));
                 tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
                 tabSheet.getTab(tab).setDescription(couseDescriptionField.getValue());
                 close();
