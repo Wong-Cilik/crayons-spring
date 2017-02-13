@@ -238,7 +238,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-                	courseService.insertStudent((String[])selectStudents.getValue());
+                	courseService.insertStudent((String[])selectStudents.getValue(), title);
             }
         });
         

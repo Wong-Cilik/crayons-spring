@@ -74,5 +74,9 @@ public class CourseDAO {
 			throw new UsernameNotFoundException("Course with Title:" + course.getTitle() + "doesnt exists!");
 		}
     }
+    
+    public void updateStudents(String[] students, String course) {
+    	jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ", students, course);
+    }
 	
 }
