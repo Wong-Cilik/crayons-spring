@@ -68,17 +68,7 @@ public class MainScreen extends HorizontalLayout  implements View {
         final Navigator navigator = new Navigator(MyUI.get(), viewContainer);
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
-        menu.addView(new AboutView(), AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME),
-                FontAwesome.INFO_CIRCLE);
-        menu.addView(new Authorlibrary(), Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
-                FontAwesome.BOOK);
-        menu.addView(new UserlibraryView(), UserlibraryView.VIEW_NAME, lang.getString(UserlibraryView.VIEW_NAME),
-                FontAwesome.PENCIL);
-        //menu.addView(new Preferences(),Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME),
-        // FontAwesome.GEAR);
-        
-        menu.addView(preferences, Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
-        
+
         menu.addView(aboutView, AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME),
                 FontAwesome.INFO_CIRCLE);
         menu.addView(authorlibrary, Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
