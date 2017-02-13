@@ -80,8 +80,6 @@ public class CourseService {
     
     public boolean insertCourse(Course course) {
         
-        // Wenn Kurs kreiert werden kann, erstelle kurs in DB
-    	courseDAO.createDbTable();
         // Checke - Kurs Existiert? 
     	/*
         for (Course tmpCourse : courseDAO.findAll()) {

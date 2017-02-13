@@ -2,7 +2,6 @@ package com.crayons_2_0.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;

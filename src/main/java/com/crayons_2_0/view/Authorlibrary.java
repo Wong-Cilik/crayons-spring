@@ -111,7 +111,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         }
         content.addComponent(this.tabSheet);
         content.setSizeFull();
-    	
     }
     
     //die Klasse preferences benutzt ohne probleme die get() methode aus currentUser
@@ -201,7 +200,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-                	courseService.insertCourse(new Course(courseTitleField.getValue(), couseDescriptionField.getValue(), c.getUser()));
+                	courseService.insertCourse(new Course(courseTitleField.getValue(), couseDescriptionField.getValue(), c.get()));
                 	String title = (String) courseTitleField.getValue();
                     Component newTab = buildCourseTab(title);
                     getTabSheet().addComponent(newTab);
