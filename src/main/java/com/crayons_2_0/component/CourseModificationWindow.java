@@ -73,8 +73,6 @@ public class CourseModificationWindow extends Window {
         TextField couseDescriptionField = new TextField();
         couseDescriptionField.setSizeFull();
         
-        System.out.println(this.course.getTitle());
-        
         couseDescriptionField.setValue(this.course.getTitle());
         couseDescription.addComponents(couseDescriptionLabel, couseDescriptionField);
         couseDescription.setSizeFull();

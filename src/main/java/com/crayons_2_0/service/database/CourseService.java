@@ -17,10 +17,6 @@ public class CourseService {
     @Autowired
     private UnitService2 unitService;
     
-    /**
-     * 
-     * @return
-     */
     public List<Course> findAll() {
         List<Course> res = courseDAO.findAll();
         for (Course tmpCourse : res) {
@@ -29,11 +25,6 @@ public class CourseService {
         return res;
     }
     
-    /**
-     * 
-     * @param courseTitle
-     * @return
-     */
     public Course findCourseByTitle(String courseTitle) {
         for (Course tmpCourse : findAll()) {
         	if (tmpCourse.getTitle().equals(courseTitle)) {
@@ -54,7 +45,6 @@ public class CourseService {
     	}
     	
     	return coursesOfUser;
-    	
     }
     
     public List<Course> findAllAuthorCoursesOfUser(CrayonsUser user) {
@@ -85,7 +75,6 @@ public class CourseService {
             }
         }*/
     
-        // Course exists not -> insert
         courseDAO.insert(course);
         return true;
     }   
@@ -103,6 +92,5 @@ public class CourseService {
      */
 	public void update(Course course) {
 		courseDAO.update(course);
-		//TODO rückmeldung success failed
 	}
 }
