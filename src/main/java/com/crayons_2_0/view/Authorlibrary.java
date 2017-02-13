@@ -226,12 +226,14 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         List<CrayonsUser> allUsers = userService.findAll();
         for (int i = 0; i < allUsers.size(); i++) {
         	String[] emailOfStudentsInCourse = courseService.getStudents();
+        	if (emailOfStudentsInCourse != null){
         	for(String emailOfStudentInCourse: emailOfStudentsInCourse) {
         		if(emailOfStudentInCourse != allUsers.get(i).geteMail()) {
         			selectStudents.addItem(allUsers.get(i).geteMail());
         		} else {
         			selectStudents.setValue(emailOfStudentInCourse);
         		}
+        	}
         	}
         }
         
