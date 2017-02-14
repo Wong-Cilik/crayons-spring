@@ -2,9 +2,8 @@ package com.crayons_2_0.view;
 
 import java.util.Iterator;
 
-import com.crayons_2_0.component.CourseModificationWindow;
-import com.crayons_2_0.component.EvaluationWindow;
 import com.crayons_2_0.component.ImageUploadEditor;
+import com.crayons_2_0.component.ImportEditor;
 import com.crayons_2_0.component.MultipleChoiceEditor;
 import com.crayons_2_0.component.TextEditor;
 import com.crayons_2_0.component.UnitTitle;
@@ -21,11 +20,9 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
@@ -44,6 +41,11 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+/**
+ * Unit editor view consists of representation of a learning unit and different editing tools.
+ * It allows an author to modify the learning unit using drag and drop editor. 
+ *
+ */
 @SpringView(name = Uniteditor.VIEW_NAME)
 public class Uniteditor extends VerticalLayout implements View {
 	
@@ -51,9 +53,12 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	private final PageLayout page;
 
+	/**
+	 * Builds together several components of the unit editor view. 
+	 */
     public Uniteditor() {
         setSizeFull();
-        //addStyleName("editor"); //TODO(Natalia): read and modify the style
+        //addStyleName("editor");
         addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
 
         Component pageItemsPalette = buildPageItemsPalette();
@@ -62,7 +67,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
         page = new PageLayout();
         page.setWidth(100.0f, Unit.PERCENTAGE);
-        page.setStyleName("canvas"); //TODO(Natalia): read and modify the style
+        page.setStyleName("canvas"); 
         addComponent(page);
         setExpandRatio(page, 8);
         
@@ -72,18 +77,24 @@ public class Uniteditor extends VerticalLayout implements View {
         setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
         setExpandRatio(footer, 1);
     }
-
+    
+    /**
+     * Builds a horizontal menu with 3 items: Text, Image, and Multiple Choice. 
+     * The items can be added to the page via drag-and-drop. The menu is located on the top of the unit editor.
+     * 
+     * @return the drag and drop menu
+     */
     private Component buildPageItemsPalette() {
         HorizontalLayout paletteLayout = new HorizontalLayout();
         paletteLayout.setSpacing(true);
         paletteLayout.setWidthUndefined();
         paletteLayout.addStyleName("palette");
         
-        /*paletteLayout.addComponent(buildPaletteItem(PageItemType.SPLIT));*/
         paletteLayout.addComponent(buildPaletteItem(PageItemType.TEXT));
         paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
         paletteLayout.addComponent(buildPaletteItem(PageItemType.MULTIPLE_CHOICE));
 
+        // Click listener implements drag and drop functionality of the items 
         paletteLayout.addLayoutClickListener(new LayoutClickListener() {
             @Override
             public void layoutClick(final LayoutClickEvent event) {
@@ -98,6 +109,11 @@ public class Uniteditor extends VerticalLayout implements View {
         return paletteLayout;
     }
     
+    /**
+     * Builds a footer which includes primary control buttons, import/export and delete buttons.
+     * 
+     * @return the footer component which will be placed on the bottom of the unit editor
+     */
     private Component buildFooter() {
         Label deleteButton = new Label(PageItemType.DELETE_BUTTON.getIcon().getHtml() + PageItemType.DELETE_BUTTON.getTitle(),
                 ContentMode.HTML);
@@ -107,6 +123,40 @@ public class Uniteditor extends VerticalLayout implements View {
         dropArea.addStyleName("no-vertical-drag-hints");
         dropArea.addStyleName("no-horizontal-drag-hints");
         dropArea.setSizeUndefined();
+        dropArea.setDropHandler(new DropHandler() {
+
+            @Override
+            public void drop(final DragAndDropEvent event) {
+                Transferable transferable = event.getTransferable();
+                Component sourceComponent = transferable
+                        .getSourceComponent();
+                
+
+                page.removeComponent(sourceComponent);
+                if (page.isEmpty())
+                    page.addDropArea();
+            }
+
+            @Override
+            public AcceptCriterion getAcceptCriterion() {
+                return AcceptAll.get();
+            }
+        });
+        
+        HorizontalLayout dropAreaLayout = new HorizontalLayout(dropArea);
+        dropAreaLayout.setSizeUndefined();
+        dropAreaLayout.addLayoutClickListener(new LayoutClickListener() {
+
+            @Override
+            public void layoutClick(final LayoutClickEvent event) {
+                Notification instruction = new Notification(
+                        "Drag and drop the elemenets to be deleted over the button");
+                instruction.setDelayMsec(2000);
+                instruction.setStyleName("bar success small");
+                instruction.setPosition(Position.BOTTOM_CENTER);
+                instruction.show(Page.getCurrent());
+            }
+        });
         
         Button saveButton = new Button("Save", FontAwesome.CHECK);
         saveButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
@@ -114,6 +164,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
+                // TODO: save changes in the learning unit
                 Notification savedSuccessful = new Notification(
                         "Learning unit saved successfully");
                 savedSuccessful.setDelayMsec(1000);
@@ -136,53 +187,51 @@ public class Uniteditor extends VerticalLayout implements View {
             }
             
         });
+        
+        Button importButton = new Button("Import", FontAwesome.DOWNLOAD);
+        importButton.addClickListener(new ClickListener() {
 
-        HorizontalLayout controlButtons = new HorizontalLayout(backButton, saveButton);
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().addWindow(new ImportEditor());
+            }
+            
+        });
+        
+        Button exportButton = new Button("Export", FontAwesome.UPLOAD);
+        exportButton.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+               // TODO: download learning unit
+                Notification success = new Notification("File is exported successfully");
+                success.setDelayMsec(2000);
+                success.setStyleName("bar success small");
+                success.setPosition(Position.BOTTOM_CENTER);
+                success.show(Page.getCurrent());
+            }
+            
+        });
+
+        HorizontalLayout controlButtons = new HorizontalLayout(backButton, saveButton, importButton, exportButton);
         controlButtons.setSpacing(true);
         
-        HorizontalLayout footer = new HorizontalLayout(controlButtons, dropArea);
+        HorizontalLayout footer = new HorizontalLayout(controlButtons, dropAreaLayout);
         footer.setSpacing(true);
         footer.setMargin(true);
         footer.setSizeFull();
         footer.setComponentAlignment(controlButtons, Alignment.MIDDLE_LEFT);
-        footer.setComponentAlignment(dropArea, Alignment.MIDDLE_RIGHT);
-        
-        footer.addLayoutClickListener(new LayoutClickListener() {
-
-            @Override
-            public void layoutClick(final LayoutClickEvent event) {
-                Notification instruction = new Notification(
-                        "Drag and drop the elemenets to be deleted over the button");
-                instruction.setDelayMsec(2000);
-                instruction.setStyleName("bar success small");
-                instruction.setPosition(Position.BOTTOM_CENTER);
-                instruction.show(Page.getCurrent());
-            }
-        });
-        
-        dropArea.setDropHandler(new DropHandler() {
-
-            @Override
-            public void drop(final DragAndDropEvent event) {
-                Transferable transferable = event.getTransferable();
-                Component sourceComponent = transferable
-                        .getSourceComponent();
-                
-
-                page.removeComponent(sourceComponent);
-                if (page.isEmpty())
-                    page.addDropArea();
-            }
-
-            @Override
-            public AcceptCriterion getAcceptCriterion() {
-                return AcceptAll.get();
-            }
-        });
-        
+        footer.setComponentAlignment(dropAreaLayout, Alignment.MIDDLE_RIGHT);
+ 
         return footer;
     }
 
+    /**
+     * Builds a label with given icon and title and wraps it in a DragAndDropWrapper.
+     * 
+     * @param pageItemType defines icon and title or the palette item
+     * @return palette item wrapped in a DragAndDropWrapper
+     */
     private Component buildPaletteItem(final PageItemType pageItemType) {
         Label caption = new Label(pageItemType.getIcon().getHtml() + pageItemType.getTitle(),
                 ContentMode.HTML);
@@ -194,12 +243,24 @@ public class Uniteditor extends VerticalLayout implements View {
         wrapper.setData(pageItemType);
         return wrapper;
     }
-
+    
+    /**
+     * 
+     * 
+     * @param pageItemType
+     * @param prefillData
+     */
     public void addPageComponent(final PageItemType pageItemType,
             final Object prefillData) {
         page.addComponent(pageItemType, prefillData);
     }
 
+    /**
+     * Content of a learning unit represented as a vertical layout. 
+     * Consists of the unit title and drag and drop area where the elements of the learning unit 
+     * such as text, image, and multiple choice test are located.
+     * 
+     */
     public final class PageLayout extends CustomComponent {
 
         private VerticalLayout layout;
@@ -209,7 +270,7 @@ public class Uniteditor extends VerticalLayout implements View {
         public PageLayout() {
             layout = new VerticalLayout();
             setCompositionRoot(layout);
-            layout.addStyleName("canvas-layout"); //TODO(Natalia): read and modify the style
+            layout.addStyleName("canvas-layout");
 
             Component unitTitle = new UnitTitle(null);
             layout.addComponent(unitTitle);
@@ -229,7 +290,7 @@ public class Uniteditor extends VerticalLayout implements View {
             dropAreaLabel.setSizeUndefined();
 
             dropArea = new DragAndDropWrapper(dropAreaLabel);
-            dropArea.addStyleName("placeholder"); //TODO(Natalia): read and modify the style
+            dropArea.addStyleName("placeholder");
             dropArea.setDropHandler(new DropHandler() {
 
                 @Override
@@ -260,24 +321,15 @@ public class Uniteditor extends VerticalLayout implements View {
         public boolean isEmpty() {
             return (layout.getComponentCount() == 1);
         }
-        
-        /*public Iterator<Component> getComponents() {
-            return layout.iterator();
-        }*/
 
         public void addComponent(final PageItemType pageItemType,
                 final Object prefillData) {
             if (dropArea.getParent() != null) {
                 layout.removeComponent(dropArea);
             }
-            /*if (pageItemType == PageItemType.SPLIT) {
-                layout.addComponent(new HorizontalLayout(new WrappedPageItem(buildDropArea()), 
-                        new WrappedPageItem(buildDropArea())));
-            } else {*/
-                layout.addComponent(
-                        new WrappedPageItem(createComponentFromPageItem(
-                                pageItemType, prefillData)), 1);
-            /*}*/
+            layout.addComponent(
+                    new WrappedPageItem(createComponentFromPageItem(
+                            pageItemType, prefillData)), 1);
         }
 
         private Component createComponentFromPageItem(
@@ -289,11 +341,7 @@ public class Uniteditor extends VerticalLayout implements View {
                 result = new ImageUploadEditor();
             } else if (type == PageItemType.MULTIPLE_CHOICE) {
                 result = new MultipleChoiceEditor(null, null, null);
-            } /*else if (type == PageItemType.TRANSACTIONS) {
             }
-                result = new TransactionsListing(
-                        (Collection<Transaction>) prefillData);
-            }*/
 
             return result;
         }
@@ -402,11 +450,14 @@ public class Uniteditor extends VerticalLayout implements View {
 
     }
 
+    /**
+     * 
+     */
     public enum PageItemType {
         TEXT("Text Block", FontAwesome.FONT), IMAGE("Image",
                 FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE("Multiple choice excercise",
                 FontAwesome.CHECK_SQUARE_O), TRANSACTIONS("Latest transactions",
-                null),DELETE_BUTTON("Delete", FontAwesome.TRASH)/*, SPLIT("Split", FontAwesome.COLUMNS)*/;
+                null),DELETE_BUTTON("Delete", FontAwesome.TRASH);
 
         private final String title;
         private final FontAwesome icon;
@@ -426,6 +477,11 @@ public class Uniteditor extends VerticalLayout implements View {
 
     }
     
+    /**
+     * Dialog window which checks if the changes in the learning unit should be saved or not.
+     * Is called by a click on the back button.
+     * 
+     */
     private class UnsavedChangesWindow extends Window {
         public UnsavedChangesWindow() {
             setSizeFull();
