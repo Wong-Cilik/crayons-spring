@@ -77,6 +77,7 @@ public class CourseDAO {
     }
     
     public void updateStudents(String tmp, String course) {
+    	System.out.println(tmp);
     	jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ", tmp, course);
     }
 	

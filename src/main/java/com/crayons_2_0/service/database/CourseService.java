@@ -98,11 +98,11 @@ public class CourseService {
 
 
 	public void insertStudent(String[] students, String title) {
-		String tmp = students[0];
-		for (int i = 1; i < students.length; i++) {
-			tmp = " " + students[i];
+		String tmp2 = "";
+		for (String tmp: students) {
+			tmp2 = tmp2 + "/" + tmp ;
 		}
-		courseDAO.updateStudents(tmp, title);
+		courseDAO.updateStudents(tmp2, title);
 	}
 
 	public String[] getStudents() {
