@@ -1,5 +1,6 @@
 package com.crayons_2_0.service.database;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -96,8 +97,12 @@ public class CourseService {
 	}
 
 
-	public void insertStudent(String[] newStudentsInCourse, String title) {
-		courseDAO.updateStudents(newStudentsInCourse, title);
+	public void insertStudent(String[] students, String title) {
+		String tmp = students[0];
+		for (int i = 1; i < students.length; i++) {
+			tmp = " " + students[i];
+		}
+		courseDAO.updateStudents(tmp, title);
 	}
 
 	public String[] getStudents() {

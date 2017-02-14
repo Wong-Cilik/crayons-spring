@@ -2,6 +2,7 @@ package com.crayons_2_0.service.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +76,8 @@ public class CourseDAO {
 		}
     }
     
-    public void updateStudents(String[] students, String course) {
-    	jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ", students, course);
+    public void updateStudents(String tmp, String course) {
+    	jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ", tmp, course);
     }
 	
 }

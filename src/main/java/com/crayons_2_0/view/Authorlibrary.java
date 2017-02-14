@@ -1,5 +1,6 @@
 package com.crayons_2_0.view;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -242,7 +243,9 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-                	courseService.insertStudent((String[])selectStudents.getValue(), title);
+            	@SuppressWarnings("unchecked")
+				Collection<String> tmp = (Collection<String>) selectStudents.getValue();
+                	courseService.insertStudent(tmp.toArray(new String[0]), title);
             }
         });
         
