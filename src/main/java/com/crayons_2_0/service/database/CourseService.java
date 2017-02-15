@@ -112,7 +112,6 @@ public class CourseService {
 	 */
 	public String[] getStudents(String title) {
 		String students = findCourseByTitle(title).getStudents();
-		System.out.println("Im Kurs:"+ title + "sind die Studenten:"+students);
 		String[] studentsArray = students.split("/");
 		if(!students.equals("")) {
 			return studentsArray;
