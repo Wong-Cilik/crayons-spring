@@ -31,9 +31,10 @@ public class UnitConnectionEditor extends Window {
     // sollte noch ein set werden
     UnitNode child;
     // TODO von DB holen
-    Graph dummyGraph = CourseEditorView.buildExampleGraph();
+    Graph graph;
 
-    public UnitConnectionEditor() {
+    public UnitConnectionEditor(Graph graphData) {
+    	graph = graphData;
         setSizeFull();
         setModal(true);
         setResizable(false);
@@ -73,12 +74,12 @@ public class UnitConnectionEditor extends Window {
         // predecessors.add(new Node("Node 1"));
         // predecessors.add(new Node("Node 2"));
         // selectPredecessor.addItems(predecessors);
-        for (UnitNode currentNode : dummyGraph.getUnitCollection()) {
+        for (UnitNode currentNode : graph.getUnitCollection()) {
             selectPredecessor.addItem(currentNode.getUnitNodeTitle());
         }
         selectPredecessor.addValueChangeListener(new ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
-                parent = dummyGraph.getNodeByName(selectPredecessor.getValue().toString());
+                parent = graph.getNodeByName(selectPredecessor.getValue().toString());
             }
         });
 
@@ -88,12 +89,12 @@ public class UnitConnectionEditor extends Window {
         // successors.add(new Node("Node 3"));
         // successors.add(new Node("Node 4"));
         // selectSuccessor.addItems(successors);
-        for (UnitNode currentNode : dummyGraph.getUnitCollection()) {
+        for (UnitNode currentNode : graph.getUnitCollection()) {
             selectSuccessor.addItem(currentNode.getUnitNodeTitle());
         }
         selectSuccessor.addValueChangeListener(new ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
-                child = dummyGraph.getNodeByName(selectSuccessor.getValue().toString());
+                child = graph.getNodeByName(selectSuccessor.getValue().toString());
             }
         });
         return comboBoxes;
@@ -109,8 +110,8 @@ public class UnitConnectionEditor extends Window {
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                dummyGraph.addConnection(parent, child);
-                CourseEditorView.refreshGraph(dummyGraph);
+            	graph.addConnection(parent, child);
+                CourseEditorView.refreshGraph(graph);
                 close();
                 Notification success = new Notification("Units are connected successfully");
                 success.setDelayMsec(1000);

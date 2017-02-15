@@ -34,15 +34,17 @@ public final class UnitCreationWindow extends Window {
     // sollte noch ein set werden
     UnitNode child;
     // TODO von DB holen
-    Graph dummyGraph = CourseEditorView.buildExampleGraph();
+    Graph graph;
 
-    public UnitCreationWindow() {
+    public UnitCreationWindow(Graph graphData) {
         setSizeFull();
         setModal(true);
         setResizable(false);
         setClosable(true);
         setHeight(50.0f, Unit.PERCENTAGE);
         setWidth(40.0f, Unit.PERCENTAGE);
+        
+        graph = graphData;
 
         VerticalLayout content = new VerticalLayout();
         content.setSizeFull();
@@ -94,13 +96,13 @@ public final class UnitCreationWindow extends Window {
         // predecessors.add(new Node("Node 1"));
         // predecessors.add(new Node("Node 2"));
         // selectPredecessor.addItems(predecessors);
-        for (UnitNode currentNode : dummyGraph.getUnitCollection()) {
+        for (UnitNode currentNode : graph.getUnitCollection()) {
             if (currentNode.getUnitNodeTitle() != "End")
                 selectPredecessor.addItem(currentNode.getUnitNodeTitle());
         }
         selectPredecessor.addValueChangeListener(new ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
-                parent = dummyGraph.getNodeByName(selectPredecessor.getValue().toString());
+                parent = graph.getNodeByName(selectPredecessor.getValue().toString());
             }
         });
 
@@ -111,12 +113,12 @@ public final class UnitCreationWindow extends Window {
         // successors.add(new Node("Node 4"));
         // selectSuccessor.addItems(successors);
 
-        for (UnitNode currentNode : dummyGraph.getUnitCollection()) {
+        for (UnitNode currentNode : graph.getUnitCollection()) {
             selectSuccessor.addItem(currentNode.getUnitNodeTitle());
         }
         selectSuccessor.addValueChangeListener(new ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
-                child = dummyGraph.getNodeByName(selectSuccessor.getValue().toString());
+                child = graph.getNodeByName(selectSuccessor.getValue().toString());
             }
         });
 
@@ -155,10 +157,10 @@ public final class UnitCreationWindow extends Window {
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                UnitNode newUnit = new UnitNode(unitTitle, parent, child, dummyGraph);
+                UnitNode newUnit = new UnitNode(unitTitle, parent, child, graph);
 
-                dummyGraph.addUnit(newUnit, parent);
-                CourseEditorView.refreshGraph(dummyGraph);
+                graph.addUnit(newUnit, parent);
+                CourseEditorView.refreshGraph(graph);
                 close();
                 Notification success = new Notification("Unit created successfully");
                 success.setDelayMsec(1000);

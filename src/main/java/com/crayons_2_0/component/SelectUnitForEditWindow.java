@@ -1,5 +1,7 @@
 package com.crayons_2_0.component;
 
+import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.view.Uniteditor;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -15,7 +17,10 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class SelectUnitForEditWindow extends Window {
-    public SelectUnitForEditWindow() {
+	
+	Graph graph;
+    public SelectUnitForEditWindow(Graph graphData) {
+    	graph = graphData;
         setSizeFull();
         setModal(true);
         setResizable(false);
@@ -45,8 +50,9 @@ public class SelectUnitForEditWindow extends Window {
     
     private Component buildUnitChoice() {
         ComboBox selectUnit = new ComboBox("Select the unit for edit");
-        selectUnit.addItem("Node 1");
-        selectUnit.addItem("Node 2");
+        for(UnitNode tmp: graph.getUnitCollection()) {
+        	selectUnit.addItem(tmp.getUnitNodeTitle());
+        }
         return selectUnit;
     }
 
