@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
-import com.crayons_2_0.view.Preferences;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;

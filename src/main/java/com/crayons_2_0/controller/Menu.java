@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.service.LanguageService;
-import com.crayons_2_0.view.login.LoginScreen;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;

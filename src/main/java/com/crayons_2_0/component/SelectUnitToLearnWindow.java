@@ -1,8 +1,6 @@
 package com.crayons_2_0.component;
 
 import com.crayons_2_0.view.UnitUserView;
-import com.crayons_2_0.view.Uniteditor;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;

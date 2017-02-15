@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
-
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.database.UserService;
 import com.crayons_2_0.view.login.RegisterWindow;

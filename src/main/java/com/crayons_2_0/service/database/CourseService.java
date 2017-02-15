@@ -1,6 +1,5 @@
 package com.crayons_2_0.service.database;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.TextField;
 @SpringComponent
 public class CourseService {
     
