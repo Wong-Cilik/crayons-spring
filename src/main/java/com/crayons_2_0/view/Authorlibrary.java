@@ -246,7 +246,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         Button saveStudents = new Button("Save Students");
         saveStudents.addClickListener(new ClickListener() {
             private static final long serialVersionUID = -1559422159846748318L;
-
+        	//TODO known bugg: after adding yourself to a course need to update the userlibrary
             @Override
             public void buttonClick(ClickEvent event) {
             	@SuppressWarnings("unchecked")
@@ -294,10 +294,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                 UI.getCurrent().addWindow(new CourseModificationWindow(courseService.findCourseByTitle(title), tab, tabSheet));
             }
         });
-
-        // TODO: is it necessary here?
-        /*Button studentView = new Button("Student view");
-        controlButtons.addComponent(studentView);*/
 
         Button graphEditor = new Button("Graph editor");
         graphEditor.setStyleName(ValoTheme.BUTTON_PRIMARY);
