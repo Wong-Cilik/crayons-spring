@@ -3,7 +3,12 @@ package com.crayons_2_0.view;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crayons_2_0.authentication.CurrentUser;
+import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
@@ -37,6 +42,11 @@ public class UserlibraryView extends VerticalLayout implements View {
     private static final long serialVersionUID = 1L;
     public static final String VIEW_NAME = "Userlibrary";
     ResourceBundle lang = LanguageService.getInstance().getRes();
+    
+    @Autowired
+    CourseService courseService;
+    @Autowired
+    CurrentUser c;
     
     private TabSheet coursesTabSheet;
 	private Component filter;
@@ -75,7 +85,9 @@ public class UserlibraryView extends VerticalLayout implements View {
         coursesTabSheet.setSizeFull();
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-        coursesTabSheet.addComponent(buildCourseTab("Lineare Algebra"));
+        for ( Course tmp: courseService.findAllCoursesOfUser(c.get())) {
+            coursesTabSheet.addComponent(buildCourseTab(tmp.getTitle()));
+        }
         return coursesTabSheet;
     }
   
