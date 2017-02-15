@@ -148,7 +148,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
-            	courseService.removeStudent(title);
+            	courseService.removeStudent(title, c.get().getEmail());
                 coursesTabSheet.removeComponent(tab);
             }
             

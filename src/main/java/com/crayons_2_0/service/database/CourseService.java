@@ -177,8 +177,15 @@ public class CourseService {
 		//return new Graph(findCourseByTitle(title));
 	}
 
-	public void removeStudent(String title) {
-		// TODO
+	public void removeStudent(String title, String user) {
+		String updatedStudents = "";
+		String[] tmp = getStudents(title);
+		for(int i = 1; i < tmp.length ; i++) {
+			if(!tmp[i].equals(user)) {
+				updatedStudents = updatedStudents + "/" + tmp[i];
+			}
+		}
+		courseDAO.updateStudents(updatedStudents, title);
 		
 	}
 }
