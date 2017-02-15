@@ -79,10 +79,8 @@ public class MainScreen extends HorizontalLayout  implements View {
 
         menu.addView(aboutView, AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME),
                 FontAwesome.INFO_CIRCLE);
-        if (userService.findByEMail("x").getFirstName().equals("r")){
         menu.addView(authorlibrary, Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
                 FontAwesome.BOOK);
-        }
         menu.addView(userlibraryView, UserlibraryView.VIEW_NAME, lang.getString(UserlibraryView.VIEW_NAME),
                 FontAwesome.PENCIL);        
         menu.addView(preferences, Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
