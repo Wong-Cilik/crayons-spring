@@ -99,6 +99,7 @@ public class CourseModificationWindow extends Window {
             @Override
             public void buttonClick(ClickEvent event) {
                 //TODO: check why null at CourseDAO findAll()
+            	System.out.println(courseService.findCourseByTitle(course.getTitle()));
                 courseService.update(courseService.findCourseByTitle(course.getTitle()));
                 tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
                 tabSheet.getTab(tab).setDescription(couseDescriptionField.getValue());
@@ -120,16 +121,9 @@ public class CourseModificationWindow extends Window {
 
             @Override
             public void buttonClick(ClickEvent event) {
-            	System.out.println("posrjgpiserjghpjrshgpijsr" + courseTitleField.getValue());
-            	courseService.removeCourse(courseService.findCourseByTitle(courseTitleField.getValue()));
-                /*tabSheet.removeComponent(tab);
-                close();
-                Notification success = new Notification(
-                        "Course is deleted successfully");
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());*/
+            	courseService.removeCourse(course);
+            	close();
+            	//TODO notification
             }
             
         });
