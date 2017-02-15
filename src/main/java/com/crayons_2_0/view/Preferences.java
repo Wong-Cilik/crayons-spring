@@ -242,7 +242,7 @@ public class Preferences extends VerticalLayout implements View {
         details.addComponent(section);
 
         emailField = new TextField(lang.getString("Email"));
-        emailField.setValue(currentUser.get().geteMail());
+        emailField.setValue(currentUser.get().getEmail());
         
         emailField.setWidth("100%");
         emailField.setRequired(true);

@@ -49,7 +49,7 @@ public class CourseDAO {
         
     	String title = course.getTitle();
     	String description = course.getDescription();
-    	String author = course.getAuthor().geteMail();
+    	String author = course.getAuthor().getEmail();
     	String students = "";
         
         jdbcTemplate.update("insert into courses (title, description, author, students) VALUES (?, ?, ?, ?)", title, description, author, students);
@@ -59,7 +59,7 @@ public class CourseDAO {
     	
     	String title = course.getTitle();
     	String description = course.getDescription();
-    	String author = course.getAuthor().geteMail();
+    	String author = course.getAuthor().getEmail();
     	
         jdbcTemplate.update("UPDATE courses SET description=?, author=? WHERE title=? ", description, author, title);
     }

@@ -13,26 +13,26 @@ public class CrayonsUser extends User {
 	private String lastName;
 	private String password;
 	private Language language;
-	private String eMail;
+	public String email;
 	
-	public CrayonsUser(String firstName, String lastName, String eMail, String password, String language, boolean enabled, boolean accountNonExpired,
+	public CrayonsUser(String firstName, String lastName, String email, String password, String language, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
-		super(eMail, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+		super(email, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
-		this.seteMail(eMail);
+		this.setEmail(email);
 		this.setPassword(password);   
 		this.setLanguage(language);
 	}
 
-	public String geteMail() {
-		return this.eMail;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getFirstName() {

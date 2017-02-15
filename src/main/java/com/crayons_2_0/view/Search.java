@@ -75,7 +75,7 @@ public final class Search extends VerticalLayout implements View {
 		        collection.removeAll(collection);
 		        SearchAlgo x = new SearchAlgo();
 		        collection.addAll(x.getSeachResult(""));
-		        table.setContainerDataSource(new TempTransactionsContainer(collection));
+		        table.setContainerDataSource(new TempContainer(collection));
 			}
 
         });
@@ -102,7 +102,7 @@ public final class Search extends VerticalLayout implements View {
         
         CourseDisplay trans = new CourseDisplay(null, "", "", "");
         collection.add(trans);
-        table.setContainerDataSource(new TempTransactionsContainer(collection));
+        table.setContainerDataSource(new TempContainer(collection));
         table.setSortContainerPropertyId("Release");
         table.setSortAscending(false);
 
@@ -126,10 +126,10 @@ public final class Search extends VerticalLayout implements View {
     public void enter(final ViewChangeEvent event) {
     }
 
-    private class TempTransactionsContainer extends
+    private class TempContainer extends
             ListContainer<CourseDisplay> {
 
-        public TempTransactionsContainer(final Collection<CourseDisplay> collection) {
+        public TempContainer(final Collection<CourseDisplay> collection) {
             super(collection);
         }
 

@@ -74,7 +74,7 @@ public class UserService implements UserDetailsService {
     	// Check if Exists, return false if exists
     	List<CrayonsUser> users = findAll();
     	for (CrayonsUser tmpUser : users) {
-        	if (tmpUser.geteMail().equals(user.geteMail())) {
+        	if (tmpUser.getEmail().equals(user.getEmail())) {
         		//User exists, so -> update
         		userDAO.updateUser(user);
         	}
@@ -125,7 +125,7 @@ public class UserService implements UserDetailsService {
     	List<CrayonsUser> users = findAll();
 
     	for (CrayonsUser tmpUser : users) {
-        	if (tmpUser.geteMail().equals(eMail)) {
+        	if (tmpUser.getEmail().equals(eMail)) {
         		return tmpUser;
         	}
         }

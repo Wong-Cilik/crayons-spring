@@ -225,16 +225,16 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     	if (emailOfStudentsInCourse != null){
     		for (int i = 0; i < allUsers.size(); i++) {
         		for(int j=1; j < emailOfStudentsInCourse.length; j++) {
-        			if(!emailOfStudentsInCourse[j].equals(allUsers.get(i).geteMail())) {
-                    	selectStudents.addItems(allUsers.get(i).geteMail());
+        			if(!emailOfStudentsInCourse[j].equals(allUsers.get(i).getEmail())) {
+                    	selectStudents.addItems(allUsers.get(i).getEmail());
         			} else {
-                		rightColumn.add(allUsers.get(i).geteMail());
+                		rightColumn.add(allUsers.get(i).getEmail());
         			}
         		}
         	} 
         } else {
         	for (int i = 0; i < allUsers.size(); i++) {
-            	selectStudents.addItems(allUsers.get(i).geteMail());
+            	selectStudents.addItems(allUsers.get(i).getEmail());
         	}
         }
     	selectStudents.setValue(rightColumn);

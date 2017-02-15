@@ -72,7 +72,7 @@ public class UserDAO implements CommandLineRunner{
     
     public void insertUser(CrayonsUser user) {
         
-        String mail = user.geteMail();
+        String mail = user.getEmail();
         String password = user.getPassword();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
@@ -83,7 +83,7 @@ public class UserDAO implements CommandLineRunner{
         
     public void updateUser(CrayonsUser user) {
         
-        String mail = user.geteMail();
+        String mail = user.getEmail();
         String password = user.getPassword();
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
@@ -105,7 +105,7 @@ public class UserDAO implements CommandLineRunner{
      */
     public boolean updateUser(CrayonsUser user, String eMail, String firstName,String lastName) {
     	//TODO bad SQL grammar [UPDATE users SET firstname=?, lastname=? WHERE email=? ]; nested exception is org.postgresql.util.PSQLException: FEHLER: Spalte »firstname« von Relation »users« existiert nicht
-        jdbcTemplate.update("UPDATE users SET email=?, firstname=?, lastname=? WHERE email=? ", eMail, firstName, lastName, user.geteMail());
+        jdbcTemplate.update("UPDATE users SET email=?, firstname=?, lastname=? WHERE email=? ", eMail, firstName, lastName, user.getEmail());
 		return true;
     }
     
@@ -121,9 +121,9 @@ public class UserDAO implements CommandLineRunner{
     public void deleteUser(CrayonsUser user) {
     	String deleteStatement = "DELETE FROM users WHERE email=?";
     	try {
-			jdbcTemplate.update(deleteStatement, user.geteMail());
+			jdbcTemplate.update(deleteStatement, user.getEmail());
 		} catch (RuntimeException e) {
-			throw new UsernameNotFoundException("User with mail:" + user.geteMail() + "doesnt exists!");
+			throw new UsernameNotFoundException("User with mail:" + user.getEmail() + "doesnt exists!");
 		}
     }
 

@@ -60,6 +60,9 @@ public class MainScreen extends HorizontalLayout  implements View {
     @Autowired
     Search search;
     
+    @Autowired
+    AdminView adminView;
+    
     public MainScreen() {
     	
     }
@@ -85,11 +88,11 @@ public class MainScreen extends HorizontalLayout  implements View {
                 FontAwesome.PENCIL);        
         menu.addView(preferences, Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
         menu.addView(search, Search.VIEW_NAME, lang.getString(Search.VIEW_NAME), FontAwesome.SEARCH);
+        menu.addView(adminView, AdminView.VIEW_NAME, lang.getString(AdminView.VIEW_NAME), FontAwesome.USERS);
         
         navigator.addView(CourseEditorView.VIEW_NAME, new CourseEditorView());
-        //navigator.addView(UnitEditorView.VIEW_NAME, new UnitEditorView());
+        
         navigator.addView(Uniteditor.VIEW_NAME, new Uniteditor());
-        //navigator.addView(UnitUserView.VIEW_NAME, new UnitUserView("Test unit")); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         navigator.addViewChangeListener(viewChangeListener);
         
