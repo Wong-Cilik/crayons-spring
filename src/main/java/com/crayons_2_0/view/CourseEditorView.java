@@ -115,7 +115,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         HorizontalLayout editMenuLayout = new HorizontalLayout();
         editMenuLayout.setSpacing(true);
         editMenuLayout.setWidthUndefined();
-
+        //TODO change every window if changes where made to the graph that there is a currentgraph so not every time there is a db query
         editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.ADD_UNIT, new UnitCreationWindow(graphData)));
         editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.EDIT_UNIT, new SelectUnitForEditWindow(graphData)));
         editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.CONNECT_UNITS, new UnitConnectionEditor(graphData)));
