@@ -28,7 +28,7 @@ public class CourseDAO {
 	UserService userService;
 
     public void createDbTable() {
-        jdbcTemplate.execute("create table if not exists courses (title varchar(100), description varchar(100), author varchar(100))");
+        jdbcTemplate.execute("create table if not exists courses (title varchar(100), description varchar(100), author varchar(100), students varchar(1000))");
     }
 
     public List<Course> findAll() {
