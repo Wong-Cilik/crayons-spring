@@ -101,13 +101,15 @@ public final class AdminView extends VerticalLayout implements View {
         table.addListener(new ItemClickListener(){
 			@Override
 			public void itemClick(ItemClickEvent event) {
+		        System.out.println(event.getItemId().toString());
+		        System.out.println(event.getItemId().toString());
+		        System.out.println(event.getItemId().toString());
 				Notification fail = new Notification("//TODO");
 				fail.setDelayMsec(2000);
 				fail.setStyleName("bar fail small");
 				fail.setPosition(Position.BOTTOM_CENTER);
 				fail.show(Page.getCurrent());
 			}
-
 		});
 		return table;
 	}
