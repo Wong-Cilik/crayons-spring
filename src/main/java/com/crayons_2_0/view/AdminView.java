@@ -81,8 +81,15 @@ public final class AdminView extends VerticalLayout implements View {
         table.setColumnReorderingAllowed(true);
         
         for (CrayonsUser tmpUser : userService.findAll()) {
-        	
-        	collection.add(new UserDisplay(tmpUser.getEmail(), tmpUser.getFirstName() + " " + tmpUser.getLastName(), "Admin", courseService.findAllAuthorCoursesOfUser(tmpUser).size(), courseService.findAllCoursesOfUser(tmpUser).size()));
+        	String permission = "Fehler beim ermitteln der Rechte";
+        	if (tmpUser.getPermission() == 2) {
+        		permission = "Admin";
+        	} else if (tmpUser.getPermission() == 1) {
+        		permission = "Autor";
+        	} else if (tmpUser.getPermission() == 0) {
+        		permission = "Schüler";
+        	}
+        	collection.add(new UserDisplay(tmpUser.getEmail(), tmpUser.getFirstName() + " " + tmpUser.getLastName(), permission, courseService.findAllAuthorCoursesOfUser(tmpUser).size(), courseService.findAllCoursesOfUser(tmpUser).size()));
         }
         table.setSortContainerPropertyId("email");
         table.setSortAscending(false);

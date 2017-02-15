@@ -48,9 +48,10 @@ public class UserDAO implements CommandLineRunner{
                 String firstName = rs.getString("firstname");
                 String lastName = rs.getString("lastname");
                 String language = rs.getString("language");
+                int permission = rs.getInt("permission");
                 authorities.add(new SimpleGrantedAuthority("CLIENT"));
 
-				CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, language, true, true, false, false, authorities);;
+				CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, language, permission, true, true, false, false, authorities);
                 return user;
             }
         };

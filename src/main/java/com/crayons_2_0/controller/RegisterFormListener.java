@@ -29,11 +29,12 @@ public class RegisterFormListener implements Button.ClickListener {
             String firstname = parent.getFirstname().getValue();
             String lastname = parent.getLastname().getValue();
             String language = parent.getLanguage().getValue();
+            int permission = 0;
 
             
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             authorities.add(new SimpleGrantedAuthority("CLIENT"));
-            CrayonsUser user = new CrayonsUser(firstname ,lastname, mail, password, language, true, true, false, false,authorities);
+            CrayonsUser user = new CrayonsUser(firstname ,lastname, mail, password, language, permission, true, true, false, false,authorities);
             userService.insertUser(user);
             
 

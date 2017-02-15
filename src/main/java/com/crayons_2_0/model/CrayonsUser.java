@@ -13,9 +13,10 @@ public class CrayonsUser extends User {
 	private String lastName;
 	private String password;
 	private Language language;
-	public String email;
+	private String email;
+	private int permission;
 	
-	public CrayonsUser(String firstName, String lastName, String email, String password, String language, boolean enabled, boolean accountNonExpired,
+	public CrayonsUser(String firstName, String lastName, String email, String password, String language, int permission, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(email, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
@@ -25,6 +26,7 @@ public class CrayonsUser extends User {
 		this.setEmail(email);
 		this.setPassword(password);   
 		this.setLanguage(language);
+		this.setPermission(permission);
 	}
 
 	public String getEmail() {
@@ -85,4 +87,12 @@ public class CrayonsUser extends User {
                 "User[username= '%s', password= '%s', firstname = '%s', 'lastname = '%s', 'language = '%s']",
                  getUsername(), getPassword(), getFirstName(), getLastName(), getLanguage().toString());
     }
+
+	public int getPermission() {
+		return permission;
+	}
+
+	public void setPermission(int permission) {
+		this.permission = permission;
+	}
 }

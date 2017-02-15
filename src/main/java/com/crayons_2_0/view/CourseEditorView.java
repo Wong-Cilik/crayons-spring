@@ -68,7 +68,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         String dummy = "dummy";
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         //CrayonsUser dummyUser = new User(dummy, "pass", true, true, false, false, authorities);
-        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", "German", true, true, false, false, authorities);
+        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", "German", 2, true, true, false, false, authorities);
         Course dummyCourse = new Course(dummy,dummyUser);
         Graph dummyGraph = new Graph(dummyCourse);
         
