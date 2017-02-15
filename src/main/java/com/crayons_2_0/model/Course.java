@@ -1,5 +1,6 @@
 package com.crayons_2_0.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
 @Component
-public class Course {
+public class Course implements Serializable{
 	//checked
 	private String title;
 	private String description;

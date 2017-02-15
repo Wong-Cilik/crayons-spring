@@ -1,5 +1,11 @@
 package com.crayons_2_0.service.database;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,6 +13,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -80,14 +87,31 @@ public class CourseDAO {
 			//throw new CourseTitleNotFoundException("Course with Title:" + course.getTitle() + "doesnt exists!");
 			throw new UsernameNotFoundException("Course with Title:" + course.getTitle() + "doesnt exists!");
 		}
-    }
-    
-    public void updateStudents(String tmp, String course) {
-    	jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ", tmp, course);
-    }
+	}
+
+	public void updateStudents(String tmp, String course) {
+		jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
+				tmp, course);
+	}
+
+	public void saveData(File file, String title) throws IOException {
+		jdbcTemplate.update("UPDATE courses SET data=? WHERE title=?",
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						try {
+							FileInputStream fis = new FileInputStream(file);
+							ps.setBinaryStream(1, fis, (int) file.length());
+							ps.setString(2, title);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+	}
 
 	public void getData() {
-		return ;
+
 	}
 	
 }

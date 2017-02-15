@@ -1,9 +1,10 @@
 package com.crayons_2_0.model.graph;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UnitNode {
+public class UnitNode implements Serializable{
     // the graph for the course
     private final Graph graph;
     private String unitNodeTitle;

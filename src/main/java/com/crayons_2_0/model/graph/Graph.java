@@ -151,6 +151,11 @@ public class Graph implements Serializable{
         return true;
     }
 
+
+	public Course getCourse() {
+		return course;
+	}
+
     /*
      * // remove an old connection if exist (alert?) and add a new one public
      * boolean addConnection(UnitNode from, UnitNode to) { return true; }

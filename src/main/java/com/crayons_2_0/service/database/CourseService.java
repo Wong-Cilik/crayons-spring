@@ -1,5 +1,12 @@
 package com.crayons_2_0.service.database;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.sql.PreparedStatement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -118,6 +125,25 @@ public class CourseService {
 			return null;
 		}
 	}
+	
+	public void saveCourseGraph(Graph data) {
+		System.out.print(data.getStartUnit());
+		System.out.print(data.getEndUnit());
+		System.out.print(data.getCourse());
+		
+		File file = new File ("tmp.bin");
+		ObjectOutputStream out;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream(file));
+            out.writeObject(data);
+            courseDAO.saveData(file, data.getCourse().getTitle());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+      }
+	
 
 	public Graph getCourseGraph(String title) {
 		courseDAO.getData();

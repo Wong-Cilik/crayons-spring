@@ -3,8 +3,11 @@ package com.crayons_2_0.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+
 import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitCreationWindow;
@@ -18,7 +21,9 @@ import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -33,6 +38,8 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 @SpringUI
+@ViewScope
+@SpringComponent
 public class CourseEditorView extends VerticalLayout implements View {
 	
 	@Autowired
@@ -41,7 +48,10 @@ public class CourseEditorView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "Learning Graph";
     //javascript element 
     final static Dagre graph = new Dagre();
-    public CourseEditorView() {
+    
+
+    @PostConstruct
+    void init(){
         setSizeFull();
         
         Graph dummyGraph = buildExampleGraph();
@@ -57,6 +67,10 @@ public class CourseEditorView extends VerticalLayout implements View {
         Component footer = buildFooter();
         addComponent(footer);
         setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+    }
+    
+    public CourseEditorView() {
+
     }
     
     
@@ -139,6 +153,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
+            	courseService.saveCourseGraph(buildExampleGraph());
                 //if (unit was modified)
                 UI.getCurrent().addWindow(new UnsavedChangesWindow());
                 //else

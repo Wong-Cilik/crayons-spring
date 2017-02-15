@@ -63,6 +63,9 @@ public class MainScreen extends HorizontalLayout  implements View {
     @Autowired
     AdminView adminView;
     
+    @Autowired
+    CourseEditorView courseEditorView;
+    
     public MainScreen() {
     	
     }
@@ -90,7 +93,7 @@ public class MainScreen extends HorizontalLayout  implements View {
         menu.addView(search, Search.VIEW_NAME, lang.getString(Search.VIEW_NAME), FontAwesome.SEARCH);
         menu.addView(adminView, AdminView.VIEW_NAME, lang.getString(AdminView.VIEW_NAME), FontAwesome.USERS);
         
-        navigator.addView(CourseEditorView.VIEW_NAME, new CourseEditorView());
+        navigator.addView(CourseEditorView.VIEW_NAME, courseEditorView);
         
         navigator.addView(Uniteditor.VIEW_NAME, new Uniteditor());
 
