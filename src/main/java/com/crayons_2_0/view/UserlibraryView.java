@@ -92,7 +92,8 @@ public class UserlibraryView extends VerticalLayout implements View {
         coursesTabSheet.setSizeFull();
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-        for ( Course tmp: courseService.findAllCoursesOfUser(c.get())) {
+        for (Course tmp: courseService.findAllCoursesOfUser(c.get())) {
+        	System.out.println(tmp.getTitle());
             coursesTabSheet.addComponent(buildCourseTab(tmp));
         }
         return coursesTabSheet;
@@ -106,8 +107,7 @@ public class UserlibraryView extends VerticalLayout implements View {
         
         Label courseDescription = new Label();
         courseDescription.setContentMode(ContentMode.HTML);
-        courseDescription.setValue("<h3>Course description</h3>\n" 
-                + "<p>This text area contains a course description.</p>");
+        courseDescription.setValue("<h3>Course description</h3>\n" + course.getDescription());
         courseDescription.setSizeFull();
         tabContent.addComponent(courseDescription);
         
@@ -148,7 +148,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
-            	courseService.removeStudent(title);
+            	courseService.removeStudent(title, c.get().getEmail());
                 coursesTabSheet.removeComponent(tab);
             }
             
