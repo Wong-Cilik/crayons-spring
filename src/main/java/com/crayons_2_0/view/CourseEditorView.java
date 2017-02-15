@@ -41,9 +41,8 @@ public class CourseEditorView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "Learning Graph";
     //javascript element 
     final static Dagre graph = new Dagre();
-    public CourseEditorView(String title) {
+    public CourseEditorView() {
         setSizeFull();
-        courseService.getData(title);
         
         Graph dummyGraph = buildExampleGraph();
         
@@ -59,6 +58,20 @@ public class CourseEditorView extends VerticalLayout implements View {
         addComponent(footer);
         setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
     }
+    
+    
+    public CourseEditorView(String title) {
+        Graph graphData = courseService.getCourseGraph(title);
+        graph.setGraph(graphData.getNodeNameList(),graphData.getEdgeSequence());
+        graph.setSizeFull();
+        addComponent(graph);
+        setComponentAlignment(graph, Alignment.TOP_CENTER);
+        
+        Component footer = buildFooter();
+        addComponent(footer);
+        setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+    }
+    
     //Example Graph for UI Development
     public static Graph buildExampleGraph(){
         
@@ -95,6 +108,8 @@ public class CourseEditorView extends VerticalLayout implements View {
         
         
     }
+    
+    
     public static void refreshGraph(Graph graphTmp){
         graph.setGraph(graphTmp.getNodeNameList(),graphTmp.getEdgeSequence());
         

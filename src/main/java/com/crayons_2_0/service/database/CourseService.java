@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
+import com.crayons_2_0.model.graph.Graph;
 import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class CourseService {
@@ -118,7 +119,9 @@ public class CourseService {
 		}
 	}
 
-	public void getData(String title) {
+	public Graph getCourseGraph(String title) {
 		courseDAO.getData();
+		//TODO change the data from binary file to the Graph and return it
+		return null;
 	}
 }
