@@ -2,12 +2,14 @@ package com.crayons_2_0.service.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -36,8 +38,13 @@ public class CourseDAO {
                 String students = rs.getString("students");
                 //String authorMail = rs.getString("author");
                 CrayonsUser author = userService.findByEMail(rs.getString("author"));
-
+        		String[] studentsArray = students.split("/");
                 Course course = new Course(title, description, author, students);
+                List<CrayonsUser> users = new ArrayList<>();
+                for (int i = 1; i < studentsArray.length; i++){
+                	users.add(userService.findByEMail(studentsArray[i]));
+                }
+				course.setUsers(users);
                 return course;
             }
         };

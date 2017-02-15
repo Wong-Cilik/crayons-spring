@@ -37,10 +37,8 @@ public class CourseService {
     public List<Course> findAllCoursesOfUser(CrayonsUser user) {
     	List<Course> allCourses = courseDAO.findAll();
     	List<Course> coursesOfUser = new LinkedList<Course>();
-    	System.out.println(user == null);
 
     	for (Course tmpCourse : allCourses) {
-        	System.out.println(tmpCourse.getUsers() == null);
     		if (tmpCourse.getUsers().contains(user)) {
     			coursesOfUser.add(tmpCourse);
     		}
