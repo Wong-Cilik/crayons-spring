@@ -1,5 +1,6 @@
 package com.crayons_2_0.view;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -220,6 +221,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         //adding all users to the select Student Table
         List<CrayonsUser> allUsers = userService.findAll();
     	String[] emailOfStudentsInCourse = courseService.getStudents(title);
+    	List<String> rightColumn = new ArrayList<String>();
     	if (emailOfStudentsInCourse != null){
     		System.out.println("Course ist nicht null:" + title);
     		for (int i = 0; i < allUsers.size(); i++) {
@@ -228,10 +230,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             		System.out.println("wird verglichen mit:" + allUsers.get(i).geteMail());
         			if(!emailOfStudentsInCourse[j].equals(allUsers.get(i).geteMail())) {
         				System.out.println("Diese Email wird links gespeichert :"+ allUsers.get(i).geteMail());
-        				selectStudents.addItem(allUsers.get(i).geteMail());
+                    	selectStudents.addItems(allUsers.get(i).geteMail());
         			} else {
                 		System.out.println("Diese Email wird rechts gespeichert :"+ allUsers.get(i).geteMail());
-        				selectStudents.setValue(allUsers.get(i).geteMail());
+                		rightColumn.add(allUsers.get(i).geteMail());
         			}
         			System.out.println();
         		}
@@ -239,10 +241,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         } else {
     		System.out.println("Course ist null:" + title);
         	for (int i = 0; i < allUsers.size(); i++) {
-        		selectStudents.addItem(allUsers.get(i).geteMail());
+            	selectStudents.addItems(allUsers.get(i).geteMail());
         	}
         }
-        
+    	selectStudents.setValue(rightColumn);
         
         Button saveStudents = new Button("Save Students");
         saveStudents.addClickListener(new ClickListener() {
