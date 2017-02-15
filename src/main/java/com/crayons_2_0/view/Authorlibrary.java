@@ -37,6 +37,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.UI;
@@ -265,6 +266,20 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         HorizontalLayout controlButtons = new HorizontalLayout();
         controlButtons.setMargin(true);
         controlButtons.setSpacing(true);
+        
+        Button deleteCourse = new Button("Delete course");
+        controlButtons.addComponent(deleteCourse);
+        controlButtons.setComponentAlignment(deleteCourse, Alignment.BOTTOM_RIGHT);
+        deleteCourse.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+            	courseService.removeCourse(courseService.findCourseByTitle(title));
+            	getTabSheet().removeTab(getTabSheet().getTab(getTabSheet().getSelectedTab()));
+            	//TODO notification
+            }
+            
+        });
         
         Button modifyCourse = new Button("Modify course");
         controlButtons.addComponent(modifyCourse);
