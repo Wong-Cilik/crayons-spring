@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -111,7 +112,7 @@ public class CourseDAO {
 	}
 
 	public void getData() {
-
+		byte[] b = this.jdbcTemplate.queryForObject("select data from courses where title = ?", byte[].class, "werwer");
+		System.out.println(b.length);
 	}
-	
 }
