@@ -219,18 +219,25 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         selectStudents.setRightColumnCaption("Participants");
         //adding all users to the select Student Table
         List<CrayonsUser> allUsers = userService.findAll();
-    	String[] emailOfStudentsInCourse = courseService.getStudents();
+    	String[] emailOfStudentsInCourse = courseService.getStudents(title);
     	if (emailOfStudentsInCourse != null){
+    		System.out.println("Course ist nicht null:" + title);
     		for (int i = 0; i < allUsers.size(); i++) {
-        		for(String emailOfStudentInCourse: emailOfStudentsInCourse) {
-        			if(emailOfStudentInCourse == allUsers.get(i).geteMail()) {
-        				selectStudents.setValue(emailOfStudentInCourse);
-        			} else {
+        		for(int j=1; j < emailOfStudentsInCourse.length; j++) {
+            		System.out.println("EMail von student im course:"+emailOfStudentsInCourse[j]);
+            		System.out.println("wird verglichen mit:" + allUsers.get(i).geteMail());
+        			if(!emailOfStudentsInCourse[j].equals(allUsers.get(i).geteMail())) {
+        				System.out.println("Diese Email wird links gespeichert :"+ emailOfStudentsInCourse[j]);
         				selectStudents.addItem(allUsers.get(i).geteMail());
+        			} else {
+                		System.out.println("Diese Email wird rechts gespeichert :"+ emailOfStudentsInCourse[j]);
+        				selectStudents.setValue(allUsers.get(i).geteMail());
         			}
-        		} 
+        			System.out.println();
+        		}
         	} 
         } else {
+    		System.out.println("Course ist null:" + title);
         	for (int i = 0; i < allUsers.size(); i++) {
         		selectStudents.addItem(allUsers.get(i).geteMail());
         	}

@@ -2,12 +2,15 @@ package com.crayons_2_0.service.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -36,10 +39,11 @@ public class CourseDAO {
                 
             	String title = rs.getString("title");
                 String description = rs.getString("description");
+                String students = rs.getString("students");
                 //String authorMail = rs.getString("author");
                 CrayonsUser author = userService.findByEMail(rs.getString("author"));
 
-                Course course = new Course(title, description, author);
+                Course course = new Course(title, description, author, students);
                 return course;
             }
         };
@@ -77,7 +81,6 @@ public class CourseDAO {
     }
     
     public void updateStudents(String tmp, String course) {
-    	System.out.println(tmp);
     	jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ", tmp, course);
     }
 	

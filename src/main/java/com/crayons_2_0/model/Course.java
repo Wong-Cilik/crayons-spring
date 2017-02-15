@@ -13,6 +13,7 @@ public class Course {
 	//checked
 	private String title;
 	private String description;
+	private String students;
 	private CrayonsUser author;
 	private List<CrayonsUser> users;
 	private List<Unit> units = new ArrayList<Unit>();
@@ -26,6 +27,14 @@ public class Course {
 		
 	}
 	
+	public Course (String title, String description, CrayonsUser author, String students) {
+		this.setTitle(title);
+		this.setDescription(description);
+		this.setAuthor(author);
+		this.setStudents(students);
+		
+	}
+	
 	public Course() {
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +45,13 @@ public class Course {
 	    creationTime = new Date();
 	}
 	
+	public String getStudents() {
+        return students;
+    }
+    
+    public void setStudents(String students) {
+        this.students = students;
+    }
 	
     public String getTitle() {
         return title;

@@ -104,10 +104,19 @@ public class CourseService {
 		}
 		courseDAO.updateStudents(tmp2, title);
 	}
-
-	public String[] getStudents() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	/**
+	 * 
+	 * @param title of course
+	 * @return String[] with students in course
+	 */
+	public String[] getStudents(String title) {
+		String students = findCourseByTitle(title).getStudents();
+		if(students != null) {
+			return students.split("/");
+		} else {
+			return null;
+		}
 	}
 
 	public void deleteCourse(TextField courseTitleField) {
