@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.crayons_2_0.component.EvaluationWindow;
-import com.crayons_2_0.model.SaveUnit;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.navigator.View;
@@ -34,7 +33,7 @@ public class UnitUserView extends VerticalLayout implements View{
     
     public static final String VIEW_NAME = "Unit User View";
     
-    private SaveUnit page;
+    private VerticalLayout page;
     private final Button doneButton;
     private final Button cancelButton;
     private final Map<String, Boolean> responces;
@@ -73,7 +72,7 @@ public class UnitUserView extends VerticalLayout implements View{
         setComponentAlignment(pageTitle, Alignment.TOP_CENTER);
         setExpandRatio(pageTitle, 1);
         
-        page = new SaveUnit();
+        page = new VerticalLayout();
         page.setSpacing(true);
         page.setMargin(true);
         page.setWidth(100.0f, Unit.PERCENTAGE);

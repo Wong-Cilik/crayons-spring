@@ -1,12 +1,13 @@
 package com.crayons_2_0.model.graph;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.crayons_2_0.model.Course;
 
-public class Graph {
+public class Graph implements Serializable{
     private final Course course;
     private final UnitNode startNode;
     private final UnitNode endNode;

@@ -5,11 +5,11 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.crayons_2_0.model.SaveUnit;
+import com.crayons_2_0.model.graph.Graph;
 
-public class ExportImport {
+public class GraphExpImp {
     
-    public static void save(SaveUnit data) {
+    public static void save(Graph data) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("test.bin"))) {
             out.writeObject(data);
 
@@ -21,11 +21,11 @@ public class ExportImport {
         }
       }
      
-     public static SaveUnit load() {
-    	    SaveUnit x = new SaveUnit();
+     public static Graph load() {
+    	 Graph x = null;
 
     	    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("test.bin"))) {
-    	      x = (SaveUnit) in.readObject();
+    	      x = (Graph) in.readObject();
 
     	      System.out.println("Deserialization succeeded");
     	      System.out.println();
