@@ -86,14 +86,14 @@ public class UserlibraryView extends VerticalLayout implements View {
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
         for ( Course tmp: courseService.findAllCoursesOfUser(c.get())) {
-            coursesTabSheet.addComponent(buildCourseTab(tmp.getTitle()));
+            coursesTabSheet.addComponent(buildCourseTab(tmp));
         }
         return coursesTabSheet;
     }
   
-    private Component buildCourseTab(String title) {
+    private Component buildCourseTab(Course course) {
         VerticalLayout tabContent = new VerticalLayout();
-        tabContent.setCaption(title);
+        tabContent.setCaption(course.getTitle());
         tabContent.setSpacing(true);
         tabContent.setMargin(true);
         
@@ -122,14 +122,14 @@ public class UserlibraryView extends VerticalLayout implements View {
         learningProgressBar.setCaptionAsHtml(true);
         learningProgressBar.setCaption("<h3>Lernfortschritt</h3>");
         
-        Component controlButtons = buildControlButtons(tabContent);
+        Component controlButtons = buildControlButtons(tabContent, course.getTitle());
         tabContent.addComponent(controlButtons);
         tabContent.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
         
         return tabContent;
     }
     
-    private Component buildControlButtons(Component tab) {
+    private Component buildControlButtons(Component tab, String title) {
         HorizontalLayout controlButtons = new HorizontalLayout();
         controlButtons.setMargin(true);
         controlButtons.setSpacing(true);
@@ -141,13 +141,8 @@ public class UserlibraryView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
+            	courseService.removeStudent(title);
                 coursesTabSheet.removeComponent(tab);
-                Notification success = new Notification(
-                        "You have leaved the course");
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
             }
             
         });
@@ -160,7 +155,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
-
+            	
             }
             
         });

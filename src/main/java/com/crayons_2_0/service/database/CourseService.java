@@ -55,7 +55,6 @@ public class CourseService {
     	List<Course> allCourses = courseDAO.findAll();
     	List<Course> authorCoursesOfUser = new LinkedList<Course>();
     	
-    	//TODO hier equals richtig ??
     	for (Course tmpCourse : allCourses) {
     		if (tmpCourse.getAuthor().equals(user)) {
     			authorCoursesOfUser.add(tmpCourse);
@@ -84,7 +83,6 @@ public class CourseService {
     }   
     
     public boolean removeCourse(Course course) {
-    	//TODO TryCatch!!!
     	courseDAO.remove(course);
         return true;
     }
@@ -153,5 +151,10 @@ public class CourseService {
         
         return dummyGraph;
 		//return new Graph(findCourseByTitle(title));
+	}
+
+	public void removeStudent(String title) {
+		// TODO
+		
 	}
 }
