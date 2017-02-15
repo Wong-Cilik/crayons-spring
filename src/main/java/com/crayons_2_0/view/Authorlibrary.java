@@ -190,7 +190,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-                	courseService.insertCourse(new Course(courseTitleField.getValue(), couseDescriptionField.getValue(), c.get()));
+                	courseService.insertCourse(new Course(courseTitleField.getValue(), couseDescriptionField.getValue(), c.get(), ""));
                 	String title = (String) courseTitleField.getValue();
                     Component newTab = buildCourseTab(title);
                     getTabSheet().addComponent(newTab);
@@ -223,7 +223,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     	String[] emailOfStudentsInCourse = courseService.getStudents(title);
     	List<String> rightColumn = new ArrayList<String>();
     	if (emailOfStudentsInCourse != null){
-    		System.out.println("Course ist nicht null:" + title);
     		for (int i = 0; i < allUsers.size(); i++) {
         		for(int j=1; j < emailOfStudentsInCourse.length; j++) {
         			if(!emailOfStudentsInCourse[j].equals(allUsers.get(i).geteMail())) {
@@ -231,11 +230,9 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         			} else {
                 		rightColumn.add(allUsers.get(i).geteMail());
         			}
-        			System.out.println();
         		}
         	} 
         } else {
-    		System.out.println("Course ist null:" + title);
         	for (int i = 0; i < allUsers.size(); i++) {
             	selectStudents.addItems(allUsers.get(i).geteMail());
         	}

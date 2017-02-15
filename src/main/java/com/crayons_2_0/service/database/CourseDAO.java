@@ -56,8 +56,9 @@ public class CourseDAO {
     	String title = course.getTitle();
     	String description = course.getDescription();
     	String author = course.getAuthor().geteMail();
+    	String students = "";
         
-        jdbcTemplate.update("insert into courses (title, description, author) VALUES (?, ?, ?)", title, description, author);
+        jdbcTemplate.update("insert into courses (title, description, author, students) VALUES (?, ?, ?, ?)", title, description, author, students);
     }
     
     public void update(Course course) {
