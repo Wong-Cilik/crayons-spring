@@ -1,20 +1,21 @@
 package com.crayons_2_0.service.database;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.UnitNode;
 import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class CourseService {
@@ -59,7 +60,6 @@ public class CourseService {
     	List<Course> allCourses = courseDAO.findAll();
     	List<Course> authorCoursesOfUser = new LinkedList<Course>();
     	
-    	//TODO hier equals richtig ??
     	for (Course tmpCourse : allCourses) {
     		if (tmpCourse.getAuthor().equals(user)) {
     			authorCoursesOfUser.add(tmpCourse);
@@ -88,7 +88,6 @@ public class CourseService {
     }   
     
     public boolean removeCourse(Course course) {
-    	//TODO TryCatch!!!
     	courseDAO.remove(course);
         return true;
     }
@@ -146,8 +145,40 @@ public class CourseService {
 	
 
 	public Graph getCourseGraph(String title) {
-		courseDAO.getData();
-		//TODO change the data from binary file to the Graph and return it
-		return null;
+		//courseDAO.getData();
+		
+		String dummy = "dummy";
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        //CrayonsUser dummyUser = new User(dummy, "pass", true, true, false, false, authorities);
+        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", "German", 2, true, true, false, false, authorities);
+        Course dummyCourse = new Course(dummy,dummyUser);
+        Graph dummyGraph = new Graph(dummyCourse);
+        
+        //@DB UnitNodes will be created and added to their courses in the UnitCreationWindow
+        UnitNode one = new UnitNode("one", dummyGraph.getStartUnit(), dummyGraph);
+        UnitNode two = new UnitNode("two", dummyGraph.getStartUnit(), dummyGraph);
+        UnitNode three = new UnitNode("three", two, dummyGraph);
+        UnitNode four = new UnitNode("four", two, dummyGraph);
+        UnitNode five = new UnitNode("five", three, dummyGraph);
+        UnitNode six = new UnitNode("six", four, dummyGraph);
+        UnitNode seven = new UnitNode("seven", five, dummyGraph);
+        
+        dummyGraph.addUnit(one, one.getParentNodes());
+        dummyGraph.addUnit(two, two.getParentNodes());
+        dummyGraph.addUnit(three, three.getParentNodes());
+        dummyGraph.addUnit(four, four.getParentNodes());
+        dummyGraph.addUnit(five, five.getParentNodes());
+        dummyGraph.addUnit(six, six.getParentNodes());
+        dummyGraph.addUnit(seven, seven.getParentNodes());
+        
+        
+        
+        return dummyGraph;
+		//return new Graph(findCourseByTitle(title));
+	}
+
+	public void removeStudent(String title) {
+		// TODO
+		
 	}
 }

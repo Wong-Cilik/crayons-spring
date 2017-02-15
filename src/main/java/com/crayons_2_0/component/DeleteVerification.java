@@ -29,11 +29,11 @@ public final class DeleteVerification extends Window {
     // wird noch ausgebessert
    
     // TODO von DB holen
-    Graph dummyGraph = CourseEditorView.buildExampleGraph();
+    Graph graph;
     
-    public DeleteVerification() {
+    public DeleteVerification(Graph graphData) {
         
-        
+        graph = graphData;
         setSizeFull();
         setModal(true);
         setResizable(false);
@@ -63,12 +63,12 @@ public final class DeleteVerification extends Window {
     
     private Component buildUnitChoice() {
         ComboBox selectUnit = new ComboBox("Select the unit to be deleted");
-        for (UnitNode currentNode : dummyGraph.getUnitCollection()) {
+        for (UnitNode currentNode : graph.getUnitCollection()) {
             selectUnit.addItem(currentNode.getUnitNodeTitle());
         }
         selectUnit.addValueChangeListener(new ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
-                deleteUnit = dummyGraph.getNodeByName(selectUnit.getValue().toString());
+                deleteUnit = graph.getNodeByName(selectUnit.getValue().toString());
             }
         });
         return selectUnit;
@@ -84,8 +84,8 @@ public final class DeleteVerification extends Window {
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                dummyGraph.deleteUnit(deleteUnit);
-                CourseEditorView.refreshGraph(dummyGraph);
+            	graph.deleteUnit(deleteUnit);
+                CourseEditorView.refreshGraph(graph);
                 close();
                 Notification success = new Notification(
                         "Unit is deleted successfully");
