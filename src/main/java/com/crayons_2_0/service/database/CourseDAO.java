@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -111,7 +112,17 @@ public class CourseDAO {
 	}
 
 	public void getData() {
+        String query = "SELECT data FROM courses WHERE title = ?";
+        RowMapper mapper = new RowMapper() {
 
+            public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+            	while (rs.next()) {
+            	    byte[] imgBytes = rs.getBytes(1);
+            	    System.out.println(imgBytes);
+            	}
+                return null;
+            }
+        };
+        jdbcTemplate.query(query, mapper);
 	}
-	
 }

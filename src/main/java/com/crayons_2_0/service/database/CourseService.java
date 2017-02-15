@@ -125,7 +125,7 @@ public class CourseService {
 		}
 	}
 	
-	public void saveCourseGraph(Graph data) {
+	public void saveCourseData(Graph data) {
 		System.out.print(data.getStartUnit());
 		System.out.print(data.getEndUnit());
 		System.out.print(data.getCourse());
@@ -143,6 +143,9 @@ public class CourseService {
 		}
       }
 	
+	public void getCourseData (){
+		courseDAO.getData();
+	}
 
 	public Graph getCourseGraph(String title) {
 		//courseDAO.getData();

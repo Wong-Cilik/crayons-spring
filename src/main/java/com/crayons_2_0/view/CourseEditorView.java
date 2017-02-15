@@ -100,7 +100,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
-            	courseService.saveCourseGraph(courseService.getCourseGraph(""));
+            	courseService.getCourseData();
                 //if (unit was modified)
                 UI.getCurrent().addWindow(new UnsavedChangesWindow());
                 //else
