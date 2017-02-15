@@ -112,17 +112,7 @@ public class CourseDAO {
 	}
 
 	public void getData() {
-        String query = "SELECT data FROM courses WHERE title = ?";
-        RowMapper mapper = new RowMapper() {
-
-            public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-            	while (rs.next()) {
-            	    byte[] imgBytes = rs.getBytes(1);
-            	    System.out.println(imgBytes);
-            	}
-                return null;
-            }
-        };
-        jdbcTemplate.query(query, mapper);
+		byte[] b = this.jdbcTemplate.queryForObject("select data from courses where title = ?", byte[].class, "werwer");
+		System.out.println(b.length);
 	}
 }
