@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
@@ -53,6 +54,9 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 	
 	@Autowired
 	CurrentUser c;
+	
+	@Autowired
+	CurrentCourses currentCourse;
 
 	@Autowired
 	UserService userService;
@@ -329,7 +333,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                  * Notification.show("Error while updating profile",
                  * Type.ERROR_MESSAGE); }
                  */
-
+            	currentCourse.setTitle(title);
                 UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
                 // getUI().getUI().getPage().setLocation(uri);
             }

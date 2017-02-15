@@ -9,6 +9,7 @@ import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
+import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.DeleteVerification;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
@@ -37,31 +38,19 @@ public class CourseEditorView extends VerticalLayout implements View {
 	
 	@Autowired
 	CourseService courseService;
+	
+	@Autowired
+	CurrentCourses currentCourse;
+	
+	Graph graphData;
     
     public static final String VIEW_NAME = "Learning Graph";
     //javascript element 
     final static Dagre graph = new Dagre();
     public CourseEditorView() {
         setSizeFull();
-        
-        Graph dummyGraph = buildExampleGraph();
-        
-        //put Nodenames in an Array for javascribt
-        
+        graphData = courseService.getCourseGraph(currentCourse.getTitle());
         // sets the state of the javascript element
-        graph.setGraph(dummyGraph.getNodeNameList(),dummyGraph.getEdgeSequence());
-        graph.setSizeFull();
-        addComponent(graph);
-        setComponentAlignment(graph, Alignment.TOP_CENTER);
-        
-        Component footer = buildFooter();
-        addComponent(footer);
-        setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
-    }
-    
-    
-    public CourseEditorView(String title) {
-        Graph graphData = courseService.getCourseGraph(title);
         graph.setGraph(graphData.getNodeNameList(),graphData.getEdgeSequence());
         graph.setSizeFull();
         addComponent(graph);
@@ -71,44 +60,6 @@ public class CourseEditorView extends VerticalLayout implements View {
         addComponent(footer);
         setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
     }
-    
-    //Example Graph for UI Development
-    public static Graph buildExampleGraph(){
-        
-        
-        String dummy = "dummy";
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        //CrayonsUser dummyUser = new User(dummy, "pass", true, true, false, false, authorities);
-        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", "German", 2, true, true, false, false, authorities);
-        Course dummyCourse = new Course(dummy,dummyUser);
-        Graph dummyGraph = new Graph(dummyCourse);
-        
-        //@DB UnitNodes will be created and added to their courses in the UnitCreationWindow
-        UnitNode one = new UnitNode("one", dummyGraph.getStartUnit(), dummyGraph);
-        UnitNode two = new UnitNode("two", dummyGraph.getStartUnit(), dummyGraph);
-        UnitNode three = new UnitNode("three", two, dummyGraph);
-        UnitNode four = new UnitNode("four", two, dummyGraph);
-        UnitNode five = new UnitNode("five", three, dummyGraph);
-        UnitNode six = new UnitNode("six", four, dummyGraph);
-        UnitNode seven = new UnitNode("seven", five, dummyGraph);
-        
-        dummyGraph.addUnit(one, one.getParentNodes());
-        dummyGraph.addUnit(two, two.getParentNodes());
-        dummyGraph.addUnit(three, three.getParentNodes());
-        dummyGraph.addUnit(four, four.getParentNodes());
-        dummyGraph.addUnit(five, five.getParentNodes());
-        dummyGraph.addUnit(six, six.getParentNodes());
-        dummyGraph.addUnit(seven, seven.getParentNodes());
-        
-        
-        
-        return dummyGraph;
-        
-        
-        
-        
-    }
-    
     
     public static void refreshGraph(Graph graphTmp){
         graph.setGraph(graphTmp.getNodeNameList(),graphTmp.getEdgeSequence());
@@ -154,10 +105,10 @@ public class CourseEditorView extends VerticalLayout implements View {
         editMenuLayout.setSpacing(true);
         editMenuLayout.setWidthUndefined();
 
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.ADD_UNIT, new UnitCreationWindow()));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.EDIT_UNIT, new SelectUnitForEditWindow()));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.CONNECT_UNITS, new UnitConnectionEditor()));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.DELETE_UNIT, new DeleteVerification()));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.ADD_UNIT, new UnitCreationWindow(graphData)));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.EDIT_UNIT, new SelectUnitForEditWindow(graphData)));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.CONNECT_UNITS, new UnitConnectionEditor(graphData)));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.DELETE_UNIT, new DeleteVerification(graphData)));
         editMenuLayout.setSpacing(true);
         
         return editMenuLayout;
