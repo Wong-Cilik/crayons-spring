@@ -120,7 +120,8 @@ public class CourseModificationWindow extends Window {
 
             @Override
             public void buttonClick(ClickEvent event) {
-            	courseService.deleteCourse(courseTitleField);
+            	System.out.println("posrjgpiserjghpjrshgpijsr" + courseTitleField.getValue());
+            	courseService.removeCourse(courseService.findCourseByTitle(courseTitleField.getValue()));
                 /*tabSheet.removeComponent(tab);
                 close();
                 Notification success = new Notification(

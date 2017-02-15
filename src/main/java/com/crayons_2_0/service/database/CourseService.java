@@ -118,9 +118,4 @@ public class CourseService {
 			return null;
 		}
 	}
-
-	public void deleteCourse(TextField courseTitleField) {
-		// TODO Auto-generated method stub
-		
-	}
 }
