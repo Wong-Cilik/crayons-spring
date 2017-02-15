@@ -3,6 +3,7 @@ package com.crayons_2_0.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.component.SelectUnitForEditWindow;
@@ -13,6 +14,7 @@ import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -32,21 +34,17 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 @SpringUI
 public class CourseEditorView extends VerticalLayout implements View {
+	
+	@Autowired
+	CourseService courseService;
     
     public static final String VIEW_NAME = "Learning Graph";
     //javascript element 
     final static Dagre graph = new Dagre();
-    public CourseEditorView() {
+    public CourseEditorView(String title) {
         setSizeFull();
+        courseService.getData(title);
         
-        /*Graph graph = new Graph();
-        User user = new User("a", "a", null);
-        GraphViewCreator gvc = new GraphViewCreator(graph, user);
-        addComponent(gvc.getGraphView());*/
-        
-        //JavaScribt Element
-        
-        //TODO fetch graph from DB, currently using Dummy graph
         Graph dummyGraph = buildExampleGraph();
         
         //put Nodenames in an Array for javascribt

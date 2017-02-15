@@ -262,7 +262,7 @@ public class Uniteditor extends VerticalLayout implements View {
      * 
      */
     public final class PageLayout extends CustomComponent {
-
+    	//TODO check if here save unit to save the unit
         private VerticalLayout layout;
         private final DropHandler dropHandler;
         private DragAndDropWrapper dropArea;

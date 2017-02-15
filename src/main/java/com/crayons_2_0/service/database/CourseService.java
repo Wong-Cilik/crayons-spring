@@ -117,4 +117,8 @@ public class CourseService {
 			return null;
 		}
 	}
+
+	public void getData(String title) {
+		courseDAO.getData();
+	}
 }
