@@ -227,10 +227,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             		System.out.println("EMail von student im course:"+emailOfStudentsInCourse[j]);
             		System.out.println("wird verglichen mit:" + allUsers.get(i).geteMail());
         			if(!emailOfStudentsInCourse[j].equals(allUsers.get(i).geteMail())) {
-        				System.out.println("Diese Email wird links gespeichert :"+ emailOfStudentsInCourse[j]);
+        				System.out.println("Diese Email wird links gespeichert :"+ allUsers.get(i).geteMail());
         				selectStudents.addItem(allUsers.get(i).geteMail());
         			} else {
-                		System.out.println("Diese Email wird rechts gespeichert :"+ emailOfStudentsInCourse[j]);
+                		System.out.println("Diese Email wird rechts gespeichert :"+ allUsers.get(i).geteMail());
         				selectStudents.setValue(allUsers.get(i).geteMail());
         			}
         			System.out.println();
