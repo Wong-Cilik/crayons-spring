@@ -112,9 +112,9 @@ public class UserDAO implements CommandLineRunner{
 		return true;
     }
     
-    private void createTable() {
+    public void createTable() {
         log.info("@@ Creating tables");
-        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS realm.users(email VARCHAR(100) Not Null, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL)");
+        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL)");
        
         log.info("@@ > Done.");
     }
