@@ -58,7 +58,6 @@ public class Uniteditor extends VerticalLayout implements View {
 	 */
     public Uniteditor() {
         setSizeFull();
-        //addStyleName("editor");
         addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
 
         Component pageItemsPalette = buildPageItemsPalette();
@@ -115,7 +114,7 @@ public class Uniteditor extends VerticalLayout implements View {
      * @return the footer component which will be placed on the bottom of the unit editor
      */
     private Component buildFooter() {
-        Label deleteButton = new Label(PageItemType.DELETE_BUTTON.getIcon().getHtml() + PageItemType.DELETE_BUTTON.getTitle(),
+        Label deleteButton = new Label(FontAwesome.TRASH.getHtml() + "Delete",
                 ContentMode.HTML);
         deleteButton.setSizeUndefined();
         deleteButton.setStyleName(ValoTheme.LABEL_LARGE);
@@ -245,10 +244,10 @@ public class Uniteditor extends VerticalLayout implements View {
     }
     
     /**
+     * Adds a component of the defined type to the page.
      * 
-     * 
-     * @param pageItemType
-     * @param prefillData
+     * @param pageItemType type of the component to be added
+     * @param prefillData content of the component (null if the component is new)
      */
     public void addPageComponent(final PageItemType pageItemType,
             final Object prefillData) {
@@ -266,7 +265,10 @@ public class Uniteditor extends VerticalLayout implements View {
         private VerticalLayout layout;
         private final DropHandler dropHandler;
         private DragAndDropWrapper dropArea;
-
+        
+        /**
+         * Builds together several components of the page layout.
+         */
         public PageLayout() {
             layout = new VerticalLayout();
             setCompositionRoot(layout);
@@ -281,10 +283,20 @@ public class Uniteditor extends VerticalLayout implements View {
             addDropArea();
         }
         
+        /**
+         * Adds a drop area to the page. It is used when the page is empty to show the user where the components 
+         * can be dropped.  
+         */
         public void addDropArea() {
             layout.addComponent(buildDropArea());
         }
         
+        /**
+         * Builds a drop area for an empty page. The drop area can/will be later replaced
+         * by a page component such as text, image, or multiple choice exercise.
+         * 
+         * @return drop area as a DragAndDropWrapper
+         */
         private Component buildDropArea() {
             Label dropAreaLabel = new Label("Drag items here");
             dropAreaLabel.setSizeUndefined();
@@ -314,14 +326,30 @@ public class Uniteditor extends VerticalLayout implements View {
             return dropArea;
         }
         
+        /**
+         * Removes a component from the page.
+         * 
+         * @param component component to be removed
+         */
         public void removeComponent(Component component) {
             layout.removeComponent(component);
         }
         
+        /**
+         * Checks if the page is empty. Is used only after a component was removed.
+         * 
+         * @return true if the page is empty, false otherwise.
+         */
         public boolean isEmpty() {
             return (layout.getComponentCount() == 1);
         }
 
+        /**
+         * Adds a component of the defined type to the page.
+         * 
+         * @param pageItemType type of the component to be added
+         * @param prefillData content of the component (null if the component is new)
+         */
         public void addComponent(final PageItemType pageItemType,
                 final Object prefillData) {
             if (dropArea.getParent() != null) {
@@ -332,6 +360,13 @@ public class Uniteditor extends VerticalLayout implements View {
                             pageItemType, prefillData)), 1);
         }
 
+        /**
+         * Creates a component of the defined type.
+         * 
+         * @param type type of the component: text, image, or multiple choice
+         * @param prefillData content of the component (null if the component is new)
+         * @return component of the defined type with the corresponding content
+         */
         private Component createComponentFromPageItem(
                 final PageItemType type, final Object prefillData) {
             Component result = null;
@@ -346,6 +381,10 @@ public class Uniteditor extends VerticalLayout implements View {
             return result;
         }
 
+        /**
+         * 
+         *
+         */
         private class WrappedPageItem extends DragAndDropWrapper {
 
             public WrappedPageItem(final Component content) {
@@ -358,16 +397,18 @@ public class Uniteditor extends VerticalLayout implements View {
                 return dropHandler;
             }
         }
-
+        
+        /**
+         * DropHandler for the drop area of the page layout. Allows to reorder the components of the page.
+         * The implementation is based on "QuickTicketsDashboard" demo from Vaadin.        
+         */
         private class ReorderLayoutDropHandler implements DropHandler {
 
             @Override
             public AcceptCriterion getAcceptCriterion() {
-                // return new SourceIs(component)
                 return AcceptAll.get();
             }
             
-            //TODO(Natalia): read it
             @Override
             public void drop(final DragAndDropEvent dropEvent) {
                 Transferable transferable = dropEvent.getTransferable();
@@ -451,13 +492,12 @@ public class Uniteditor extends VerticalLayout implements View {
     }
 
     /**
-     * 
+     * Defines title and icon for the page items: text, image, and multiple choice exercise.
      */
     public enum PageItemType {
         TEXT("Text Block", FontAwesome.FONT), IMAGE("Image",
-                FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE("Multiple choice excercise",
-                FontAwesome.CHECK_SQUARE_O), TRANSACTIONS("Latest transactions",
-                null),DELETE_BUTTON("Delete", FontAwesome.TRASH);
+                FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE("Multiple choice exercise",
+                FontAwesome.CHECK_SQUARE_O);
 
         private final String title;
         private final FontAwesome icon;
@@ -483,6 +523,9 @@ public class Uniteditor extends VerticalLayout implements View {
      * 
      */
     private class UnsavedChangesWindow extends Window {
+        /**
+         * Builds together several components of the window.
+         */
         public UnsavedChangesWindow() {
             setSizeFull();
             setModal(true);
@@ -508,6 +551,11 @@ public class Uniteditor extends VerticalLayout implements View {
             content.setExpandRatio(footer, 1);
         }
 
+        /**
+         * Builds a footer which includes yes, no and cancel buttons.
+         * 
+         * @return the footer component which will be placed on the bottom of the window
+         */
         private Component buildFooter() {
             Button yesButton = new Button("Yes");
             yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -544,7 +592,12 @@ public class Uniteditor extends VerticalLayout implements View {
             layout.setSpacing(true);
             return layout;
         }
-
+       
+        /**
+         * Builds a title.
+         * 
+         * @return title of the window
+         */
         private Component buildTitle() {
             Label title = new Label("The learning unit was modified. Do you want to save changes?");
             title.addStyleName(ValoTheme.LABEL_H3);
