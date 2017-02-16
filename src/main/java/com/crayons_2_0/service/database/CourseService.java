@@ -5,10 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +19,7 @@ import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.service.CourseDisplay;
 import com.vaadin.spring.annotation.SpringComponent;
 
 /**
@@ -249,5 +250,14 @@ public class CourseService {
         dummyGraph.addUnit(one, one.getParentNodes());
         dummyGraph.addUnit(three, three.getParentNodes());
 		return dummyGraph;
+	}
+	
+	public Collection<CourseDisplay> searchAll(String input){
+		Collection <CourseDisplay> collector = null;
+		List <Course> courseList = courseDAO.searchAll(input);
+		for (Course tmpCourse : courseList) {
+			collector.add(new CourseDisplay("", tmpCourse.getTitle(), tmpCourse.getAuthor().getFirstName() + " " + tmpCourse.getAuthor().getLastName(), "Angemeldet!"));
+		}
+		return collector;
 	}
 }

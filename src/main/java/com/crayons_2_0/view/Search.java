@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.maddon.ListContainer;
 
 import com.crayons_2_0.service.CourseDisplay;
-import com.crayons_2_0.service.SearchAlgo;
+import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.navigator.View;
@@ -38,9 +41,14 @@ public final class Search extends VerticalLayout implements View {
 
     List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
     public static final String VIEW_NAME = "Search";
-    private final Table table;
+    private Table table;
     private Button createSearch;
-    public Search() {
+    
+    @Autowired
+    CourseService courseService;
+    
+    @PostConstruct
+    public void init() {
         setSizeFull();
         addStyleName("courseDisplay");
         addComponent(buildToolbar());
@@ -48,6 +56,11 @@ public final class Search extends VerticalLayout implements View {
         table = buildTable();
         addComponent(table);
         setExpandRatio(table, 1);
+    }
+    
+    
+    public Search() {
+
     }
 
     private Component buildToolbar() {
@@ -73,8 +86,7 @@ public final class Search extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 		        collection.removeAll(collection);
-		        SearchAlgo x = new SearchAlgo();
-		        collection.addAll(x.getSeachResult(""));
+		        collection.addAll(courseService.searchAll("algo"));
 		        table.setContainerDataSource(new TempContainer(collection));
 			}
 

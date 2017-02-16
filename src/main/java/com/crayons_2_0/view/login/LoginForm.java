@@ -31,7 +31,6 @@ public class LoginForm extends VerticalLayout {
     private Button btnLogin = new Button(lang.getString("Login"));
     // Registrate
     private Button btnRegistrate = new Button("Register");  //Todo Sprache
-    private Button btnRegistrate2 = new Button("Registrieren 2!");
    //Todo Sprache
    
 	private TextField textFieldPassoword = new TextField();
@@ -41,7 +40,6 @@ public class LoginForm extends VerticalLayout {
         addComponent(txtPassword);
         addComponent(btnLogin);
         addComponent(btnRegistrate);
-        addComponent(btnRegistrate2);
 
         LoginFormListener loginFormListener = getLoginFormListener();
         btnLogin.addClickListener(loginFormListener);
@@ -49,9 +47,6 @@ public class LoginForm extends VerticalLayout {
         createRegisterButton();
         
         RegisterFormListener2 registerFormListener2 = getRegisterFormListener2();
-        btnRegistrate2.addClickListener(registerFormListener2);
-        
-        
     }
     
     

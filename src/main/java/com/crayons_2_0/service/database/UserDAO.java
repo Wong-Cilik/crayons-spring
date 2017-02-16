@@ -143,10 +143,7 @@ public class UserDAO implements CommandLineRunner {
 //        createTable();
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         log.info("@@ create user");
-        CrayonsUser dummy = new CrayonsUser("Ali", "TestCurrent", "user", "pass", Language.German.toString(), 0, true,
-                true, false, false, authorities);
         log.info("@@ insert user");
-        this.insertUser(dummy);
         log.info("@@ findAll() call...");
         findAll().forEach(entry -> log.info(entry.toString()));
 

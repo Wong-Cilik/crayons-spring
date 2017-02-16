@@ -66,7 +66,6 @@ public class CourseEditorView extends VerticalLayout implements View {
     @PostConstruct
     void init(){
         setSizeFull();
-        // graphData = courseService.getCourseData("title that is existent in the db");
         graphData = courseService.getDummyGraph();
         graph.setGraph(graphData.getNodeNameList(),graphData.getEdgeSequence());
         graph.setSizeFull();
