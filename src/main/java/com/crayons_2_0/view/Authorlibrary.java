@@ -92,25 +92,25 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
     @PostConstruct
     void init(){
-    	authorCoursesList = courseService.findAllAuthorCoursesOfUser(c.get());
+        authorCoursesList = courseService.findAllAuthorCoursesOfUser(c.get());
         VerticalLayout content = new VerticalLayout();
-        HorizontalLayout header = new HorizontalLayout();
-        setSpacing(true);
-        setMargin(true);
-        header.setSizeFull();
-        header.setWidth("100%");
-        header.setSpacing(false);
-        header.addComponent(buildTitle());
+        HorizontalLayout title = new HorizontalLayout();
+        title.setMargin(true);
+        // setSizeFull();
+        title.setSpacing(true);
+        title.setSizeFull();
+        setMargin(false);
+        title.addComponent(buildTitle());
         this.filter = buildFilter();
-        header.addComponent(this.filter);
-        header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
-        content.addComponent(header);
+        title.addComponent(this.filter);
+        title.setComponentAlignment(this.filter, Alignment.BOTTOM_RIGHT);
+        content.addComponent(title);
+        addComponent(content);
         content.setMargin(false);
         //for every author course adding a tab
         this.tabSheet = buildCoursesTabSheet();
-        tabSheet.setSelectedTab(0);
         content.addComponent(this.tabSheet);
-        addComponent(content);
+        content.setSizeFull();
     }
     public Authorlibrary() {
     	
