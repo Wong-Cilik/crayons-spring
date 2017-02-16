@@ -92,25 +92,24 @@ public class CourseEditorView extends VerticalLayout implements View {
         footer.setMargin(true);
         footer.setSizeFull();
         footer.setSpacing(true);
-        Component backButton = buildBackButton();
-        
-        
-
-        footer.addComponent(backButton);
-        footer.setComponentAlignment(backButton, Alignment.BOTTOM_LEFT);
+        Component controlButtons = buildControlButtons();
+        footer.addComponent(controlButtons);
+        footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_LEFT);
         Component editMenu = buildEditMenu();
         footer.addComponent(editMenu);
         footer.setComponentAlignment(editMenu, Alignment.BOTTOM_RIGHT);
-        
         return footer;
     }
     
     /**
-     * Builds a button which returns user to the author library.
-     * @return back button
+     * Builds control buttons which allows user to save the course and to return to the author library.
+     * @return layout wit the control buttons
      */
-    private Component buildBackButton() {
+    private Component buildControlButtons() {
+        HorizontalLayout layout = new HorizontalLayout();
+        layout.setSpacing(true);
         Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
+        layout.addComponent(backButton);
         backButton.addClickListener(new ClickListener() {
 
             @Override
@@ -122,7 +121,18 @@ public class CourseEditorView extends VerticalLayout implements View {
             }
             
         });
-        return backButton;
+        Button save = new Button("Save");
+        save.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        layout.addComponent(save);
+        save.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -5973844872374695493L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                courseService.saveCourseData(graphData, currentCourse.get().getTitle());
+            }
+        });
+        return layout;
     }
     
     /**
@@ -134,7 +144,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         editMenuLayout.setSpacing(true);
         editMenuLayout.setWidthUndefined();
         //create buttons with refresh data
-        Button unitCreationButton = new Button("Create new Unit");
+        Button unitCreationButton = new Button(EditMenuButtonType.ADD_UNIT.getTitle(), EditMenuButtonType.ADD_UNIT.getIcon());
         editMenuLayout.addComponent(unitCreationButton);
         unitCreationButton.addClickListener(new ClickListener() {
             private static final long serialVersionUID = -5973844872374695493L;
@@ -145,7 +155,7 @@ public class CourseEditorView extends VerticalLayout implements View {
             	UI.getCurrent().addWindow(new UnitCreationWindow(graphData));
             }
         });
-        Button selectUnitForEdit = new Button("Select Unit to edit");
+        Button selectUnitForEdit = new Button(EditMenuButtonType.EDIT_UNIT.getTitle(), EditMenuButtonType.EDIT_UNIT.getIcon());
         editMenuLayout.addComponent(selectUnitForEdit);
         selectUnitForEdit.addClickListener(new ClickListener() {
             private static final long serialVersionUID = -5973844872374695493L;
@@ -157,7 +167,7 @@ public class CourseEditorView extends VerticalLayout implements View {
             }
         });
 
-        Button unitConnection = new Button("Connect Units");
+        Button unitConnection = new Button(EditMenuButtonType.CONNECT_UNITS.getTitle(), EditMenuButtonType.CONNECT_UNITS.getIcon());
         editMenuLayout.addComponent(unitConnection);
         unitConnection.addClickListener(new ClickListener() {
             private static final long serialVersionUID = -5973844872374695493L;
@@ -169,7 +179,7 @@ public class CourseEditorView extends VerticalLayout implements View {
             }
         });
 
-        Button deleteUnit = new Button("Delete Unit");
+        Button deleteUnit = new Button(EditMenuButtonType.DELETE_UNIT.getTitle(), EditMenuButtonType.DELETE_UNIT.getIcon());
         editMenuLayout.addComponent(deleteUnit);
         deleteUnit.addClickListener(new ClickListener() {
             private static final long serialVersionUID = -5973844872374695493L;
@@ -180,17 +190,6 @@ public class CourseEditorView extends VerticalLayout implements View {
             	UI.getCurrent().addWindow(new DeleteVerification(graphData));
             }
         });
-        Button save = new Button("Save");
-        save.setStyleName(ValoTheme.BUTTON_PRIMARY);
-        editMenuLayout.addComponent(save);
-        save.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = -5973844872374695493L;
-
-            @Override
-            public void buttonClick(ClickEvent event) {
-            	courseService.saveCourseData(graphData, currentCourse.get().getTitle());
-            }
-        });
         
         return editMenuLayout;
     }
@@ -199,9 +198,9 @@ public class CourseEditorView extends VerticalLayout implements View {
      * Defines title and icon for the edit menu buttons.
      */
     public enum EditMenuButtonType {
-        ADD_UNIT("Add", FontAwesome.PLUS), CONNECT_UNITS("Connect",
-                FontAwesome.LINK), DELETE_UNIT("Delete",
-                FontAwesome.TRASH), EDIT_UNIT("Edit", FontAwesome.PENCIL);
+        ADD_UNIT("Add unit", FontAwesome.PLUS), CONNECT_UNITS("Modify connections",
+                FontAwesome.LINK), DELETE_UNIT("Delete unit",
+                FontAwesome.TRASH), EDIT_UNIT("Select unit", FontAwesome.PENCIL);
         
         private final String title;
         private final FontAwesome icon;

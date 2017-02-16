@@ -108,9 +108,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         content.setMargin(false);
         //for every author course adding a tab
         this.tabSheet = buildCoursesTabSheet();
-        if (tabSheet.getComponentCount() > 1) {
-            tabSheet.setSelectedTab(1);
-        }
+        tabSheet.setSelectedTab(0);
         content.addComponent(this.tabSheet);
         addComponent(content);
     }

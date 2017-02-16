@@ -103,13 +103,30 @@ public class UnitConnectionEditor extends Window {
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
         footer.setWidth(100.0f, Unit.PERCENTAGE);
         footer.setSpacing(true);
-
-        Button ok = new Button("Connect");
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
+        
+        Button disconnect = new Button("Disconnect");
+        disconnect.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-            	graph.addConnection(parent, child);
+                //TODO: remove connection
+                CourseEditorView.refreshGraph(graph);
+                close();
+                Notification success = new Notification("Units are disconnected successfully");
+                success.setDelayMsec(1000);
+                success.setStyleName("bar success small");
+                success.setPosition(Position.BOTTOM_CENTER);
+                success.show(Page.getCurrent());
+
+            }
+        });
+        footer.addComponent(disconnect);
+        footer.setComponentAlignment(disconnect, Alignment.BOTTOM_LEFT);
+
+        Button connect = new Button("Connect");
+        connect.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                graph.addConnection(parent, child);
                 CourseEditorView.refreshGraph(graph);
                 close();
                 Notification success = new Notification("Units are connected successfully");
@@ -120,9 +137,8 @@ public class UnitConnectionEditor extends Window {
 
             }
         });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
+        footer.addComponent(connect);
+        footer.setComponentAlignment(connect, Alignment.BOTTOM_RIGHT);
         return footer;
     }
 
