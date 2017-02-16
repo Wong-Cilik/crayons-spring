@@ -65,7 +65,7 @@ public class CourseEditorView extends VerticalLayout implements View {
     @PostConstruct
     void init(){
         setSizeFull();
-        graphData = courseService.getCourseGraph(currentCourse.getTitle());
+        // graphData = courseService.getCourseData("title that is existent in the db");
         // sets the state of the javascript element
         graph.setGraph(graphData.getNodeNameList(),graphData.getEdgeSequence());
         graph.setSizeFull();
@@ -233,7 +233,7 @@ public class CourseEditorView extends VerticalLayout implements View {
                 @Override
                 public void buttonClick(ClickEvent event) {
                    close();
-                   //TODO: save changes
+                   courseService.saveCourseData(graphData, currentCourse.getTitle());
                    UI.getCurrent().getNavigator().navigateTo(Authorlibrary.VIEW_NAME);
                 }
             });

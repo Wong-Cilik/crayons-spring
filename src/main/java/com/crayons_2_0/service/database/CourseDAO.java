@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -66,7 +67,6 @@ public class CourseDAO {
     	String description = course.getDescription();
     	String author = course.getAuthor().getEmail();
     	String students = "";
-        
         jdbcTemplate.update("insert into courses (title, description, author, students) VALUES (?, ?, ?, ?)", title, description, author, students);
     }
     
@@ -111,8 +111,13 @@ public class CourseDAO {
 				});
 	}
 
-	public void getData() {
-		byte[] b = this.jdbcTemplate.queryForObject("select data from courses where title = ?", byte[].class, "werwer");
-		System.out.println(b.length);
+	public void getData(String title) throws IOException {
+		File file = new File(title + ".bin");
+		FileOutputStream fos = new FileOutputStream (file);
+		byte[] data  = jdbcTemplate.queryForObject("SELECT data FROM courses WHERE title = ?", byte[].class, "qweqweqweqw");
+		fos.write(data, 0, data.length);
+		fos.flush();
+		fos.close();
+		System.out.println(data);
 	}
 }

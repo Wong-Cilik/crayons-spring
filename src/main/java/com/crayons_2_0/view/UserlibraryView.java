@@ -108,7 +108,6 @@ public class UserlibraryView extends VerticalLayout implements View {
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
         for (Course tmp: courseService.findAllCoursesOfUser(c.get())) {
-        	System.out.println(tmp.getTitle());
             coursesTabSheet.addComponent(buildCourseTab(tmp));
         }
         return coursesTabSheet;

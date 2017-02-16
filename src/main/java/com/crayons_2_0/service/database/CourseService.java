@@ -1,9 +1,12 @@
 package com.crayons_2_0.service.database;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -72,18 +75,8 @@ public class CourseService {
     
     
     public boolean insertCourse(Course course) {
-        
-        // Checke - Kurs Existiert? 
-    	/*
-        for (Course tmpCourse : courseDAO.findAll()) {
-            if (tmpCourse.getTitle().equals(course.getTitle())) {
-            	//Course exists -> update;
-                courseDAO.update(tmpCourse);
-            	return true;
-            }
-        }*/
-    
         courseDAO.insert(course);
+        saveCourseData(course.getGraph(), course.getTitle());
         return true;
     }   
     
@@ -125,12 +118,8 @@ public class CourseService {
 		}
 	}
 	
-	public void saveCourseData(Graph data) {
-		System.out.print(data.getStartUnit());
-		System.out.print(data.getEndUnit());
-		System.out.print(data.getCourse());
-		
-		File file = new File ("tmp.bin");
+	public void saveCourseData(Graph data, String title) {
+		File file = new File (title + ".bin");
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(file));
@@ -143,8 +132,20 @@ public class CourseService {
 		}
       }
 	
-	public void getCourseData (){
-		courseDAO.getData();
+	public Graph getCourseData (String title) {
+		ObjectInputStream in;
+		Graph graph = null;
+		try {
+			courseDAO.getData(title);
+			in = new ObjectInputStream(new FileInputStream(title + ".bin"));
+			graph = (Graph) in.readObject();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return graph;
 	}
 
 	public Graph getCourseGraph(String title) {
