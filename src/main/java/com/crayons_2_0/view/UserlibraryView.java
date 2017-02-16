@@ -34,6 +34,10 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
+
+/**
+ * User library view represents the courses which are available for current user.
+ */
 @SpringView(name = UserlibraryView.VIEW_NAME)
 public class UserlibraryView extends VerticalLayout implements View {
 
@@ -58,18 +62,17 @@ public class UserlibraryView extends VerticalLayout implements View {
     	VerticalLayout content = new VerticalLayout();
         HorizontalLayout header = new HorizontalLayout();
         setSpacing(true);
-        setMargin(false);
-        this.filter = buildFilter();
+        setMargin(true);
         header.setSizeFull();
         header.setWidth("100%");
         header.setSpacing(false);
         header.addComponent(buildTitle());
+        this.filter = buildFilter();
         header.addComponent(this.filter);
         header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
-        header.setMargin(true);
-        
-        content.addComponent(buildCoursesTabSheet());
-        addComponent(header);
+        content.addComponent(header);
+        content.setMargin(false);
+        //content.addComponent(buildCoursesTabSheet());
         addComponent(content);
     }
     
@@ -77,16 +80,28 @@ public class UserlibraryView extends VerticalLayout implements View {
         
     }
     
+    /**
+    * Builds a title.
+    * @return title of the author library
+    */
     private Component buildTitle() {
         Label title = new Label("Kursübersicht");
         title.addStyleName(ValoTheme.LABEL_H2);
         return title;
     }
     
+    /**
+     * Tab sheet getter.
+     * @return tabSheet
+     */
     public TabSheet getTabSheet(){
     	return this.coursesTabSheet;
     }
     
+    /**
+     * Builds a tab sheet which includes all available for the user courses. 
+     * @return tab sheet 
+     */
     private Component buildCoursesTabSheet() {
         this.coursesTabSheet = new TabSheet();
         coursesTabSheet.setSizeFull();
@@ -99,6 +114,11 @@ public class UserlibraryView extends VerticalLayout implements View {
         return coursesTabSheet;
     }
   
+    /**
+     * Builds a tab with a description of a course.
+     * @param course course which is represented in the tab
+     * @return course tab
+     */
     private Component buildCourseTab(Course course) {
         VerticalLayout tabContent = new VerticalLayout();
         tabContent.setCaption(course.getTitle());
@@ -136,6 +156,12 @@ public class UserlibraryView extends VerticalLayout implements View {
         return tabContent;
     }
     
+    /**
+     * Builds a layout with the control buttons which allows to learn or leave a course.
+     * @param tab course tab
+     * @param title course title
+     * @return layout with the control buttons
+     */
     private Component buildControlButtons(Component tab, String title) {
         HorizontalLayout controlButtons = new HorizontalLayout();
         controlButtons.setMargin(true);
@@ -174,19 +200,22 @@ public class UserlibraryView extends VerticalLayout implements View {
     public void enter(ViewChangeEvent event) {
     }  
     
+    /**
+     * Builds a filter to search for a course by name.
+     * @return layout with search field
+     */
 	public Component buildFilter() {
-	    //hack damit die lupe richtig angezeigt werden kann...
 	    VerticalLayout search = new VerticalLayout();
 	    search.setStyleName("search");
 	    search.setMargin(false);
-	    
+	    search.setSizeUndefined();
 	    
 		final TextField filter = new TextField();
 		filter.addTextChangeListener(new TextChangeListener() {
 			@Override
 			public void textChange(final TextChangeEvent event) {
 				TabSheet tabs = getTabSheet();
-				Iterator<Component> it = tabs.getComponentIterator();
+				Iterator<Component> it = tabs.iterator();
 				Component comp;
 				if (event.getText().equals("")) {
 					while (it.hasNext()){
@@ -208,6 +237,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 		filter.setInputPrompt("Suche");
 		filter.setIcon(FontAwesome.SEARCH);
 		filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+		filter.setSizeUndefined();
 		search.addComponent(filter);
 		search.setComponentAlignment(filter, Alignment.MIDDLE_RIGHT);
 		return search;

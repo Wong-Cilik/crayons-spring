@@ -110,8 +110,7 @@ public class Uniteditor extends VerticalLayout implements View {
     
     /**
      * Builds a footer which includes primary control buttons, import/export and delete buttons.
-     * 
-     * @return the footer component which will be placed on the bottom of the unit editor
+     * @return the footer
      */
     private Component buildFooter() {
         Label deleteButton = new Label(FontAwesome.TRASH.getHtml() + "Delete",
