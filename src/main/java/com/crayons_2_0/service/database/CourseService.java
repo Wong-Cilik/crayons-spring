@@ -164,7 +164,6 @@ public class CourseService {
         UnitNode four = new UnitNode("four", two, dummyGraph);
         UnitNode five = new UnitNode("five", three, dummyGraph);
         UnitNode six = new UnitNode("six", four, dummyGraph);
-        UnitNode seven = new UnitNode("seven", five, dummyGraph);
         
         dummyGraph.addUnit(one, one.getParentNodes());
         dummyGraph.addUnit(two, two.getParentNodes());
@@ -172,7 +171,6 @@ public class CourseService {
         dummyGraph.addUnit(four, four.getParentNodes());
         dummyGraph.addUnit(five, five.getParentNodes());
         dummyGraph.addUnit(six, six.getParentNodes());
-        dummyGraph.addUnit(seven, seven.getParentNodes());
         
         
         

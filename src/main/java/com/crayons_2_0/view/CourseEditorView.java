@@ -37,6 +37,12 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
+/**
+ * Course editor view consists of a learning graph and a set of buttons for it's modification.
+ * It allows an author to modify the course by adding/removing learning units and 
+ * changing the dependencies between them and open unit editor to modify a unit.
+ *
+ */
 @SuppressWarnings("serial")
 @SpringUI
 @ViewScope
@@ -76,6 +82,10 @@ public class CourseEditorView extends VerticalLayout implements View {
         
     }
     
+    /**
+     * Builds a footer which includes primary control buttons for the editor and the graph.
+     * @return the footer
+     */
     private Component buildFooter(){
         HorizontalLayout footer = new HorizontalLayout();
         footer.setMargin(true);
@@ -94,6 +104,10 @@ public class CourseEditorView extends VerticalLayout implements View {
         return footer;
     }
     
+    /**
+     * Builds a button which returns user to the author library.
+     * @return back button
+     */
     private Component buildBackButton() {
         Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
         backButton.addClickListener(new ClickListener() {
@@ -110,23 +124,34 @@ public class CourseEditorView extends VerticalLayout implements View {
         return backButton;
     }
     
+    /**
+     * Builds a layout with control buttons for the graph
+     * @return layout with control buttons
+     */
     private Component buildEditMenu() {
         HorizontalLayout editMenuLayout = new HorizontalLayout();
         editMenuLayout.setSpacing(true);
         editMenuLayout.setWidthUndefined();
-
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.ADD_UNIT, new UnitCreationWindow(graphData)));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.EDIT_UNIT, new SelectUnitForEditWindow(graphData)));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.CONNECT_UNITS, new UnitConnectionEditor(graphData)));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuItemType.DELETE_UNIT, new DeleteVerification(graphData)));
+        //TODO change every window if changes where made to the graph that there is a currentgraph so not every time there is a db query
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuButtonType.ADD_UNIT, new UnitCreationWindow(graphData)));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuButtonType.EDIT_UNIT, new SelectUnitForEditWindow(graphData)));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuButtonType.CONNECT_UNITS, new UnitConnectionEditor(graphData)));
+        editMenuLayout.addComponent(buildEditMenuItem(EditMenuButtonType.DELETE_UNIT, new DeleteVerification(graphData)));
         editMenuLayout.setSpacing(true);
         
         return editMenuLayout;
     }
     
-    private Button buildEditMenuItem(EditMenuItemType item, Window window) {
-        Button button = new Button(item.getTitle());
-        button.setIcon(item.getIcon());
+    /**
+     * Builds a button which opens a window by click.
+     * 
+     * @param buttonType button type 
+     * @param window window to be opened by a click on the button
+     * @return button of buttonType 
+     */
+    private Button buildEditMenuItem(EditMenuButtonType buttonType, Window window) {
+        Button button = new Button(buttonType.getTitle());
+        button.setIcon(buttonType.getIcon());
         button.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_RIGHT);
         button.addClickListener(new ClickListener() {
             @Override
@@ -137,7 +162,10 @@ public class CourseEditorView extends VerticalLayout implements View {
         return button;
     }
     
-    public enum EditMenuItemType {
+    /**
+     * Defines title and icon for the edit menu buttons.
+     */
+    public enum EditMenuButtonType {
         ADD_UNIT("Add", FontAwesome.PLUS), CONNECT_UNITS("Connect",
                 FontAwesome.LINK), DELETE_UNIT("Delete",
                 FontAwesome.TRASH), EDIT_UNIT("Edit", FontAwesome.PENCIL);
@@ -145,7 +173,7 @@ public class CourseEditorView extends VerticalLayout implements View {
         private final String title;
         private final FontAwesome icon;
 
-        EditMenuItemType(final String title, final FontAwesome icon) {
+        EditMenuButtonType(final String title, final FontAwesome icon) {
             this.title = title;
             this.icon = icon;
         }
@@ -159,7 +187,14 @@ public class CourseEditorView extends VerticalLayout implements View {
         }
     }
     
+    /**
+     * Dialog window which checks if the changes in the learning unit should be saved or not.
+     * Is called by a click on the back button.
+     */
     private class UnsavedChangesWindow extends Window {
+        /**
+         * Builds together several components of the window.
+         */
         public UnsavedChangesWindow() {
             setSizeFull();
             setModal(true);
@@ -185,6 +220,11 @@ public class CourseEditorView extends VerticalLayout implements View {
             content.setExpandRatio(footer, 1);
         }
 
+        /**
+         * Builds a footer which includes yes, no and cancel buttons.
+         * 
+         * @return the footer component which will be placed on the bottom of the window
+         */
         private Component buildFooter() {
             Button yesButton = new Button("Yes");
             yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
@@ -222,6 +262,11 @@ public class CourseEditorView extends VerticalLayout implements View {
             return layout;
         }
 
+        /**
+         * Builds a title.
+         * 
+         * @return title of the window
+         */
         private Component buildTitle() {
             Label title = new Label("The graph was modified. Do you want to save changes?");
             title.addStyleName(ValoTheme.LABEL_H3);

@@ -15,11 +15,16 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+/**
+ * Course editor view consists of a learning graph and a button to navigate to a learning unit.
+ *
+ */
 @SpringView(name = CourseUserView.VIEW_NAME)
 public class CourseUserView extends VerticalLayout implements View {
     
     public static final String VIEW_NAME = "User Learning Graph";
 
+    
     public CourseUserView() {
         setSizeFull();
         
@@ -30,24 +35,16 @@ public class CourseUserView extends VerticalLayout implements View {
         setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
     }
     
+    /**
+     * Builds a footer which includes the control buttons to choose a unit or navigate back to the user library.
+     * @return the footer
+     */
     private Component buildFooter(){
         HorizontalLayout footer = new HorizontalLayout();
         footer.setMargin(true);
         footer.setSizeFull();
         footer.setSpacing(true);
         
-        Component backButton = buildBackButton();
-        footer.addComponent(backButton);  
-        footer.setComponentAlignment(backButton, Alignment.BOTTOM_LEFT);
-        
-        Component chooseUnitButton = buildChooseUnitButton();
-        footer.addComponent(chooseUnitButton);
-        footer.setComponentAlignment(chooseUnitButton, Alignment.BOTTOM_RIGHT);
-        
-        return footer;
-    }
-    
-    private Component buildBackButton() {
         Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
         backButton.addClickListener(new ClickListener() {
 
@@ -57,11 +54,10 @@ public class CourseUserView extends VerticalLayout implements View {
             }
             
         });
-        return backButton;
-    }
-    
-    private Component buildChooseUnitButton() {
-        Button backButton = new Button("Choose unit");
+        footer.addComponent(backButton);  
+        footer.setComponentAlignment(backButton, Alignment.BOTTOM_LEFT);
+        
+        Button chooseUnitButton = new Button("Choose unit");
         backButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
         backButton.addClickListener(new ClickListener() {
 
@@ -71,7 +67,10 @@ public class CourseUserView extends VerticalLayout implements View {
             }
             
         });
-        return backButton;
+        footer.addComponent(chooseUnitButton);
+        footer.setComponentAlignment(chooseUnitButton, Alignment.BOTTOM_RIGHT);
+        
+        return footer;
     }
 
     @Override
