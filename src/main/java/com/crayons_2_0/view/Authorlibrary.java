@@ -328,36 +328,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
             @Override
             public void buttonClick(ClickEvent event) {
-
-                // get courseeditor listener from db
-                // Add it to the root component
-                // UI.getCurrent().addWindow(new UnitEditor());
-
-                // fieldGroup.commit();
-                // Updated user should also be persisted to database. But
-                // not in this demo.
-
-                // DashboardEventBus.post(new ProfileUpdatedEvent());
-
-                /*
-                 * try { //fieldGroup.commit(); // Updated user should also be
-                 * persisted to database. But // not in this demo.
-                 * 
-                 * Notification success = new Notification(
-                 * "Profile updated successfully"); success.setDelayMsec(2000);
-                 * success.setStyleName("bar success small");
-                 * success.setPosition(Position.BOTTOM_CENTER);
-                 * success.show(Page.getCurrent());
-                 * 
-                 * //DashboardEventBus.post(new ProfileUpdatedEvent()); close();
-                 * } catch (CommitException e) {
-                 * Notification.show("Error while updating profile",
-                 * Type.ERROR_MESSAGE); }
-                 */
             	currentCourse.setTitle(title);
+            	System.out.println(currentCourse.getTitle());
             	CourseEditorView.refreshGraph(courseService.getCourseData(title));
                 UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
-                // getUI().getUI().getPage().setLocation(uri);
             }
         });
 
