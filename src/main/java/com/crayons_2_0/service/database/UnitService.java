@@ -18,6 +18,11 @@ public class UnitService {
 	    return res;
 	}
 	
+	/**
+	 * Returns all Units of Course
+	 * @param course to find the Units of
+	 * @return the Units of the course
+	 */
 	public List<Unit> findUnitsOfCourse(Course course) {
 		List<Unit> allUnits = findAll();
 		List<Unit> unitsOfCourse = new LinkedList<Unit>();

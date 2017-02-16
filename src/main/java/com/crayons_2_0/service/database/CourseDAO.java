@@ -25,6 +25,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.vaadin.spring.annotation.SpringComponent;
+
+/**
+ * Class for Course Data Access Object 
+ *
+ */
 @SpringComponent
 public class CourseDAO implements CommandLineRunner{
     
@@ -42,6 +47,11 @@ public class CourseDAO implements CommandLineRunner{
 //        log.info("@@ Done");
 //    }
 
+    
+    /**
+     * Returns all Courses if DB
+     * @return all courses of DB
+     */
     public List<Course> findAll() {
         String query = "select * from courses";
         RowMapper mapper = new RowMapper() {
@@ -67,6 +77,10 @@ public class CourseDAO implements CommandLineRunner{
         
     }
 
+    /**
+     * insert a Course in DB
+     * @param course to insert in DB
+     */
     public void insert(Course course) {
         
     	String title = course.getTitle();
@@ -76,6 +90,10 @@ public class CourseDAO implements CommandLineRunner{
         jdbcTemplate.update("insert into courses (title, description, author, students) VALUES (?, ?, ?, ?)", title, description, author, students);
     }
     
+    /**
+     * Update a course in DB
+     * @param course to update in DB
+     */
     public void update(Course course) {
     	
     	String title = course.getTitle();
@@ -86,6 +104,10 @@ public class CourseDAO implements CommandLineRunner{
     }
 
     
+    /**
+     * Removes a Course from DB
+     * @param course to remove from DB
+     */
     public void remove(Course course) {
     	String deleteStatement = "DELETE FROM courses WHERE title=?";
     	try {
@@ -96,10 +118,16 @@ public class CourseDAO implements CommandLineRunner{
 		}
 	}
 
+    /**
+     * Updates an String of students of an Course
+     * @param tmp String of Students of Course
+     * @param course to Update 
+     */
 	public void updateStudents(String tmp, String course) {
 		jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
 				tmp, course);
 	}
+
 
 	public void saveData(File file, String title) throws IOException {
 		jdbcTemplate.update("UPDATE courses SET data=? WHERE title=?",
