@@ -33,7 +33,7 @@ public final class UnitCreationWindow extends Window {
     String unitTitle;
     // sollte noch ein set werden
     UnitNode child;
-    Graph graph;
+    static Graph graph;
 
     public UnitCreationWindow(Graph graphData) {
         setSizeFull();
@@ -123,6 +123,10 @@ public final class UnitCreationWindow extends Window {
         return comboBoxes;
     }
 
+    public static void refreshData(Graph graphTmp) {
+    	graph = graphTmp;
+    }
+    
     private Component buildTitle() {
         Label title = new Label("Create a new unit");
         title.addStyleName(ValoTheme.LABEL_H2);

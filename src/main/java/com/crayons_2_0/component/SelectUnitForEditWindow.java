@@ -18,7 +18,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public class SelectUnitForEditWindow extends Window {
 	
-	Graph graph;
+	static Graph graph;
     public SelectUnitForEditWindow(Graph graphData) {
     	graph = graphData;
         setSizeFull();
@@ -82,6 +82,11 @@ public class SelectUnitForEditWindow extends Window {
         title.addStyleName(ValoTheme.LABEL_H2);
         return title;
     }
+
+	public static void refreshData(Graph graphData) {
+		graph = graphData;
+		
+	}
     
     /*private Component buildDescription() {
         return null;

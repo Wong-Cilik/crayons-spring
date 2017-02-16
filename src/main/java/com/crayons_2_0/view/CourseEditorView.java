@@ -13,6 +13,7 @@ import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.authentication.CurrentCourses;
+import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.DeleteVerification;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
@@ -55,7 +56,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 	@Autowired
 	CurrentCourses currentCourse;
 	
-	Graph graphData;
+	static Graph graphData;
     
     public static final String VIEW_NAME = "Learning Graph";
     //javascript element 
@@ -79,6 +80,7 @@ public class CourseEditorView extends VerticalLayout implements View {
     
     public static void refreshGraph(Graph graphTmp){
         graph.setGraph(graphTmp.getNodeNameList(),graphTmp.getEdgeSequence());
+        graphData = graphTmp;
     }
     
     /**
@@ -131,34 +133,66 @@ public class CourseEditorView extends VerticalLayout implements View {
         HorizontalLayout editMenuLayout = new HorizontalLayout();
         editMenuLayout.setSpacing(true);
         editMenuLayout.setWidthUndefined();
-        //TODO change every window if changes where made to the graph that there is a currentgraph so not every time there is a db query
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuButtonType.ADD_UNIT, new UnitCreationWindow(graphData)));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuButtonType.EDIT_UNIT, new SelectUnitForEditWindow(graphData)));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuButtonType.CONNECT_UNITS, new UnitConnectionEditor(graphData)));
-        editMenuLayout.addComponent(buildEditMenuItem(EditMenuButtonType.DELETE_UNIT, new DeleteVerification(graphData)));
-        editMenuLayout.setSpacing(true);
-        
-        return editMenuLayout;
-    }
-    
-    /**
-     * Builds a button which opens a window by click.
-     * 
-     * @param buttonType button type 
-     * @param window window to be opened by a click on the button
-     * @return button of buttonType 
-     */
-    private Button buildEditMenuItem(EditMenuButtonType buttonType, Window window) {
-        Button button = new Button(buttonType.getTitle());
-        button.setIcon(buttonType.getIcon());
-        button.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_RIGHT);
-        button.addClickListener(new ClickListener() {
+        //create buttons with refresh data
+        Button unitCreationButton = new Button("Create new Unit");
+        editMenuLayout.addComponent(unitCreationButton);
+        unitCreationButton.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -5973844872374695493L;
+
             @Override
             public void buttonClick(ClickEvent event) {
-                UI.getCurrent().addWindow(window);
+            	UnitCreationWindow.refreshData(graphData);
+            	UI.getCurrent().addWindow(new UnitCreationWindow(graphData));
             }
         });
-        return button;
+        Button selectUnitForEdit = new Button("Select Unit to edit");
+        editMenuLayout.addComponent(selectUnitForEdit);
+        selectUnitForEdit.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -5973844872374695493L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+            	SelectUnitForEditWindow.refreshData(graphData);
+            	UI.getCurrent().addWindow(new SelectUnitForEditWindow(graphData));
+            }
+        });
+
+        Button unitConnection = new Button("Connect Units");
+        editMenuLayout.addComponent(unitConnection);
+        unitConnection.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -5973844872374695493L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+            	UnitConnectionEditor.refreshData(graphData);
+            	UI.getCurrent().addWindow(new UnitConnectionEditor(graphData));
+            }
+        });
+
+        Button deleteUnit = new Button("Delete Unit");
+        editMenuLayout.addComponent(deleteUnit);
+        deleteUnit.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -5973844872374695493L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+            	DeleteVerification.refreshData(graphData);
+            	UI.getCurrent().addWindow(new DeleteVerification(graphData));
+            }
+        });
+        Button save = new Button("Save");
+        save.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        editMenuLayout.addComponent(save);
+        save.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = -5973844872374695493L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+            	courseService.saveCourseData(graphData, currentCourse.get().getTitle());
+            }
+        });
+        
+        return editMenuLayout;
     }
     
     /**

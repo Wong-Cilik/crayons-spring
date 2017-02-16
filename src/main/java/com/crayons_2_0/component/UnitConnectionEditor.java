@@ -30,8 +30,7 @@ public class UnitConnectionEditor extends Window {
     String unitTitle;
     // sollte noch ein set werden
     UnitNode child;
-    // TODO von DB holen
-    Graph graph;
+    static Graph graph;
 
     public UnitConnectionEditor(Graph graphData) {
     	graph = graphData;
@@ -132,6 +131,13 @@ public class UnitConnectionEditor extends Window {
         title.addStyleName(ValoTheme.LABEL_H2);
         return title;
     }
+
+
+
+	public static void refreshData(Graph graphData) {
+		graph = graphData;
+		
+	}
 
     /*
      * private Component buildDescription() { return null; }
