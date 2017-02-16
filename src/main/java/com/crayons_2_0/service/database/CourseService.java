@@ -124,7 +124,7 @@ public class CourseService {
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(file));
             out.writeObject(data);
-            courseDAO.saveData(file, data.getCourse().getTitle());
+            courseDAO.saveData(file, title);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -148,7 +148,8 @@ public class CourseService {
 		return graph;
 	}
 
-	public Graph getCourseGraph(String title) {
+	public void saveDummyGraph(String title) {
+		System.out.println(title);
 		//courseDAO.getData();
 		
 		String dummy = "dummy";
@@ -159,23 +160,15 @@ public class CourseService {
         Graph dummyGraph = new Graph(dummyCourse);
         
         //@DB UnitNodes will be created and added to their courses in the UnitCreationWindow
-        UnitNode one = new UnitNode("one", dummyGraph.getStartUnit(), dummyGraph);
-        UnitNode two = new UnitNode("two", dummyGraph.getStartUnit(), dummyGraph);
-        UnitNode three = new UnitNode("three", two, dummyGraph);
-        UnitNode four = new UnitNode("four", two, dummyGraph);
-        UnitNode five = new UnitNode("five", three, dummyGraph);
-        UnitNode six = new UnitNode("six", four, dummyGraph);
+        UnitNode one = new UnitNode("1", dummyGraph.getStartUnit(), dummyGraph);
+        UnitNode three = new UnitNode("2", one, dummyGraph);
         
         dummyGraph.addUnit(one, one.getParentNodes());
-        dummyGraph.addUnit(two, two.getParentNodes());
         dummyGraph.addUnit(three, three.getParentNodes());
-        dummyGraph.addUnit(four, four.getParentNodes());
-        dummyGraph.addUnit(five, five.getParentNodes());
-        dummyGraph.addUnit(six, six.getParentNodes());
         
         
         
-        return dummyGraph;
+        saveCourseData(dummyGraph, title);
 		//return new Graph(findCourseByTitle(title));
 	}
 
@@ -189,5 +182,22 @@ public class CourseService {
 		}
 		courseDAO.updateStudents(updatedStudents, title);
 		
+	}
+
+	public Graph getDummyGraph() {
+		String dummy = "dummy";
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        //CrayonsUser dummyUser = new User(dummy, "pass", true, true, false, false, authorities);
+        CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy", "pass", "German", 2, true, true, false, false, authorities);
+        Course dummyCourse = new Course(dummy,dummyUser);
+        Graph dummyGraph = new Graph(dummyCourse);
+        
+        //@DB UnitNodes will be created and added to their courses in the UnitCreationWindow
+        UnitNode one = new UnitNode("1.1", dummyGraph.getStartUnit(), dummyGraph);
+        UnitNode three = new UnitNode("2.1", one, dummyGraph);
+        
+        dummyGraph.addUnit(one, one.getParentNodes());
+        dummyGraph.addUnit(three, three.getParentNodes());
+		return dummyGraph;
 	}
 }

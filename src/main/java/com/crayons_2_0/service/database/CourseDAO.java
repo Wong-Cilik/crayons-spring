@@ -114,7 +114,7 @@ public class CourseDAO {
 	public void getData(String title) throws IOException {
 		File file = new File(title + ".bin");
 		FileOutputStream fos = new FileOutputStream (file);
-		byte[] data  = jdbcTemplate.queryForObject("SELECT data FROM courses WHERE title = ?", byte[].class, "qweqweqweqw");
+		byte[] data  = jdbcTemplate.queryForObject("SELECT data FROM courses WHERE title = ?", byte[].class, title);
 		fos.write(data, 0, data.length);
 		fos.flush();
 		fos.close();

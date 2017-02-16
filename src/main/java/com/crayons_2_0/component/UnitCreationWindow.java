@@ -33,7 +33,6 @@ public final class UnitCreationWindow extends Window {
     String unitTitle;
     // sollte noch ein set werden
     UnitNode child;
-    // TODO von DB holen
     Graph graph;
 
     public UnitCreationWindow(Graph graphData) {

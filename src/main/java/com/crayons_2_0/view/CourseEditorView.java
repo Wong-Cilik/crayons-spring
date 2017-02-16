@@ -66,7 +66,7 @@ public class CourseEditorView extends VerticalLayout implements View {
     void init(){
         setSizeFull();
         // graphData = courseService.getCourseData("title that is existent in the db");
-        // sets the state of the javascript element
+        graphData = courseService.getDummyGraph();
         graph.setGraph(graphData.getNodeNameList(),graphData.getEdgeSequence());
         graph.setSizeFull();
         addComponent(graph);
@@ -79,7 +79,6 @@ public class CourseEditorView extends VerticalLayout implements View {
     
     public static void refreshGraph(Graph graphTmp){
         graph.setGraph(graphTmp.getNodeNameList(),graphTmp.getEdgeSequence());
-        
     }
     
     /**

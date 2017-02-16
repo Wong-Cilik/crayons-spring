@@ -20,7 +20,7 @@ public class CrayonsUser extends User {
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(email, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-		
+
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setEmail(email);

@@ -211,6 +211,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             @Override
             public void buttonClick(ClickEvent event) {
                 	courseService.insertCourse(new Course(courseTitleField.getValue(), couseDescriptionField.getValue(), c.get(), ""));
+                	courseService.saveDummyGraph(courseTitleField.getValue());
                 	String title = (String) courseTitleField.getValue();
                     Component newTab = buildCourseTab(title);
                     getTabSheet().addComponent(newTab);
@@ -357,6 +358,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                  * Type.ERROR_MESSAGE); }
                  */
             	currentCourse.setTitle(title);
+            	CourseEditorView.refreshGraph(courseService.getCourseData(title));
                 UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
                 // getUI().getUI().getPage().setLocation(uri);
             }
