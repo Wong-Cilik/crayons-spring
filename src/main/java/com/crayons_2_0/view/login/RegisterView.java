@@ -72,14 +72,14 @@ public class RegisterView extends VerticalLayout implements View {
         
         for (String obj : languages) {
            
-            selectRole.addItem(obj);
+            selectLanguage.addItem(obj);
         }
         
 
-        selectRole.setNullSelectionAllowed(false);
-        selectRole.setImmediate(true);
+        selectLanguage.setNullSelectionAllowed(false);
+        selectLanguage.setImmediate(true);
 
-        selectRole.addValueChangeListener(e -> Notification.show("Value changed:",
+        selectLanguage.addValueChangeListener(e -> Notification.show("Value changed:",
                 String.valueOf(e.getProperty().getValue()),
                 Type.TRAY_NOTIFICATION));
         
