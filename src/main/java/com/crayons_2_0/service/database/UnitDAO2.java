@@ -24,9 +24,9 @@ public class UnitDAO2 {
 	@Autowired
     JdbcTemplate jdbcTemplate;
 
-    public void createDbTable() {
-        jdbcTemplate.execute("create table if not exists units (title varchar(100), unitType varchar(100))");
-    }
+//    public void createDbTable() {
+//        jdbcTemplate.execute("create table if not exists units (title varchar(100), unitType varchar(100))");
+//    }
 
     /**
      * Returns all units of DB
