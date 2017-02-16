@@ -108,7 +108,7 @@ public class UnitConnectionEditor extends Window {
         disconnect.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                //TODO: remove connection
+                graph.deleteConnection(parent, child);
                 CourseEditorView.refreshGraph(graph);
                 close();
                 Notification success = new Notification("Units are disconnected successfully");

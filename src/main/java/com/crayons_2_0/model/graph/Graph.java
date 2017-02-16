@@ -156,6 +156,17 @@ public class Graph implements Serializable{
 		return course;
 	}
 
+
+	public boolean deleteConnection(UnitNode parent, UnitNode child) {
+		for (UnitNode tmp : this.unitCollection) {
+            if (parent.getUnitNodeTitle() == tmp.getUnitNodeTitle())
+            tmp.removeChildNode(child);
+            if (child.getUnitNodeTitle() == tmp.getUnitNodeTitle())
+                tmp.removeParentNode(parent);
+        }
+        return true;
+	}
+
     /*
      * // remove an old connection if exist (alert?) and add a new one public
      * boolean addConnection(UnitNode from, UnitNode to) { return true; }
