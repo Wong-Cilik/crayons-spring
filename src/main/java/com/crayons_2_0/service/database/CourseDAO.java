@@ -77,6 +77,30 @@ public class CourseDAO implements CommandLineRunner{
         
     }
 
+    public List<Course> searchAll(String input){
+    	System.out.println("spögmspröghm#ü");
+        String query = "SELECT * FROM courses WHERE title LIKE '%" + input + "%'";
+        RowMapper mapper = new RowMapper() {
+
+            public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+            	String title = rs.getString("title");
+                String description = rs.getString("description");
+                String students = rs.getString("students");
+                CrayonsUser author = userService.findByEMail(rs.getString("author"));
+        		String[] studentsArray = students.split("/");
+        		System.out.println(title + description + author);
+                Course course = new Course(title, description, author, students);
+                List<CrayonsUser> users = new ArrayList<>();
+                for (int i = 1; i < studentsArray.length; i++){
+                	users.add(userService.findByEMail(studentsArray[i]));
+                }
+				course.setUsers(users);
+                return course;
+            }
+        };
+        return jdbcTemplate.query(query, mapper);
+    }
+    
     /**
      * insert a Course in DB
      * @param course to insert in DB
