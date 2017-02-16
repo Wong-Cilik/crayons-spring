@@ -72,7 +72,7 @@ public class UserlibraryView extends VerticalLayout implements View {
         header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
         content.addComponent(header);
         content.setMargin(false);
-        //content.addComponent(buildCoursesTabSheet());
+        content.addComponent(buildCoursesTabSheet());
         addComponent(content);
     }
     
