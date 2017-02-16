@@ -13,7 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,8 +26,9 @@ import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
-public class CourseDAO {
-
+public class CourseDAO implements CommandLineRunner{
+    
+    private static final Logger log = LoggerFactory.getLogger(CourseDAO.class);
 
 	@Autowired
     JdbcTemplate jdbcTemplate;
@@ -32,9 +36,11 @@ public class CourseDAO {
 	@Autowired
 	UserService userService;
 
-    public void createDbTable() {
-        jdbcTemplate.execute("create table if not exists courses (title varchar(100), description varchar(100), author varchar(100), students varchar(1000))");
-    }
+//    public void createDbTable() {
+//        log.info("@@ Creating Course table");
+//        jdbcTemplate.execute("create table if not exists courses (title varchar(100), description varchar(100), author varchar(100), students varchar(1000))");
+//        log.info("@@ Done");
+//    }
 
     public List<Course> findAll() {
         String query = "select * from courses";
@@ -120,4 +126,11 @@ public class CourseDAO {
 		fos.close();
 		System.out.println(data);
 	}
+	
+	
+    @Override
+    public void run(String... arg0) throws Exception {
+//       this.createDbTable();
+        
+    }
 }

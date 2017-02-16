@@ -49,7 +49,6 @@ import com.vaadin.ui.themes.ValoTheme;
  * modify existing and create new courses. 
  */
 @SpringView(name = Authorlibrary.VIEW_NAME)
-@SpringUI
 @ViewScope
 @SpringComponent
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener {

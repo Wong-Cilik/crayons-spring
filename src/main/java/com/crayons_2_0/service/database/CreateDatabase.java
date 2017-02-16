@@ -21,8 +21,8 @@ public class CreateDatabase {
     CurrentUser currentUser;
     
 	public void fillDatabase() {
-		userDAO.createTable();
-		courseDAO.createDbTable();
+//		userDAO.createTable();
+//		courseDAO.createDbTable();
 		
 		List<Course> y = courseDAO.findAll();
 		for (Course tmpCrs : y) {
