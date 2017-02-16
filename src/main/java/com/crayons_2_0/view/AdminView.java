@@ -20,28 +20,19 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.server.UserError;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -60,21 +51,20 @@ public final class AdminView extends VerticalLayout implements View {
 	ResourceBundle lang = LanguageService.getInstance().getRes();
     List<UserDisplay> collection = new ArrayList<UserDisplay>();
     public static final String VIEW_NAME = "AdminView";
+    HorizontalLayout root;
     private Table table;
-    @PropertyId("firstName")
-    private TextField firstNameField;
-    @PropertyId("lastName")
-    private TextField lastNameField;
+    @PropertyId("name")
+    private TextField nameField = new TextField(lang.getString("Name"));
     @PropertyId("title")
-    private ComboBox titleField;
-    @PropertyId("male")
-    private OptionGroup sexField;
+    private TextField title = new TextField(lang.getString("Title"));
+    @PropertyId("rights")
+    private TextField rights = new TextField(lang.getString("Rights"));
     @PropertyId("email")
-    private TextField emailField;
+    private TextField emailField = new TextField(lang.getString("Email"));
     @PropertyId("location")
-    private TextField locationField;
+    private TextField locationField = new TextField(lang.getString("Location"));
     @PropertyId("phone")
-    private TextField phoneField;
+    private TextField phoneField = new TextField(lang.getString("Phone"));
     
     
     public AdminView() {
@@ -88,13 +78,12 @@ public final class AdminView extends VerticalLayout implements View {
 
         table = buildTable();
         addComponent(table);
-        table.setCaption("select a student");
         Responsive.makeResponsive(this);
         VerticalLayout content = new VerticalLayout();
         content.setSizeFull();
         content.setMargin(new MarginInfo(true, false, false, false));
         addComponent(content);
-        content.addComponent(buildProfileTab());
+        content.addComponent(buildProfileTab(null));
         setComponentAlignment(content, Alignment.BOTTOM_LEFT);
 
     }
@@ -134,14 +123,34 @@ public final class AdminView extends VerticalLayout implements View {
 
         table.setContainerDataSource(new TempContainer(collection));
         table.setVisibleColumns("email", "name", "role", "createdCourses", "visitedCourses");
-        table.setColumnHeaders("eMail", "Name", "Rolle", "Erstellte Kurse", "Besuchte Kurse");
+        table.setColumnHeaders("eMail", "Name", "Rechte", "Erstellte Kurse", "Besuchte Kurse");
+        table.setEditable(false);
         table.addItemClickListener(new ItemClickListener(){
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				UserDisplay userDisplay = (UserDisplay)event.getItemId();
-				System.out.println(userDisplay.getName());
-				System.out.println(event.getComponent());
-				System.out.println(event.getButton().getName());
+				AdminView ad = (AdminView) event.getComponent().getParent();
+				
+				ad.nameField.setReadOnly(false);
+				ad.nameField.setValue(userDisplay.getName());
+				ad.nameField.setReadOnly(true);
+
+				ad.rights.setReadOnly(false);
+				ad.rights.setValue(userDisplay.getRole());
+				ad.rights.setReadOnly(true);
+
+				ad.emailField.setReadOnly(false);
+				ad.emailField.setValue(userDisplay.getEmail());
+				ad.emailField.setReadOnly(true);
+				
+				ad.locationField.setReadOnly(false);
+				ad.locationField.setValue("");
+				ad.locationField.setReadOnly(true);
+
+				ad.phoneField.setReadOnly(false);
+				ad.phoneField.setValue("");
+				ad.phoneField.setReadOnly(true);
+				
 			}
 
 		});
@@ -160,8 +169,8 @@ public final class AdminView extends VerticalLayout implements View {
 
 	}
 	
-	    private Component buildProfileTab() {
-	        HorizontalLayout root = new HorizontalLayout();
+	    private HorizontalLayout buildProfileTab(UserDisplay uD) {
+	        root = new HorizontalLayout();
 	        root.setWidth(100.0f, Unit.PERCENTAGE);
 	        root.setSpacing(true);
 	        root.setMargin(true);
@@ -181,51 +190,39 @@ public final class AdminView extends VerticalLayout implements View {
 	        root.addComponent(details);
 	        root.setExpandRatio(details, 1);
 
-	        firstNameField = new TextField(lang.getString("FirstName"));
-	        firstNameField.setValue("ghsrdhs");
-	        details.addComponent(firstNameField);
-	        lastNameField = new TextField(lang.getString("LastName"));
-	        lastNameField.setValue("dgtjfdzj");
-	        details.addComponent(lastNameField);
-	        titleField = new ComboBox(lang.getString("Title"));
-	        titleField.setInputPrompt(lang.getString("PleaseSpecify"));
-	        titleField.addItem(lang.getString("Mr."));
-	        titleField.addItem(lang.getString("Mrs."));
-	        titleField.addItem(lang.getString("Ms."));
-	        titleField.setNewItemsAllowed(true);
-	        details.addComponent(titleField);
+	        nameField.setValue("");
+	        nameField.setWidth("100%");
+	        nameField.setReadOnly(true);
+	        details.addComponent(nameField);
+	        
+	        title.setValue("");
+	        title.setWidth("100%");
+	        title.setReadOnly(true);
+	        details.addComponent(title);
 
-	        sexField = new OptionGroup(lang.getString("Sex"));
-	        sexField.addItem(Boolean.FALSE);
-	        sexField.setItemCaption(Boolean.FALSE, lang.getString("Female"));
-	        sexField.addItem(Boolean.TRUE);
-	        sexField.setItemCaption(Boolean.TRUE, lang.getString("Male"));
-	        sexField.addStyleName("horizontal");
-	        details.addComponent(sexField);
-
+	        rights.setValue("");
+	        rights.setWidth("100%");
+	        rights.setReadOnly(true);
+	        details.addComponent(rights);
+	        
 	        Label section = new Label(lang.getString("ContactInfo"));
 	        section.addStyleName(ValoTheme.LABEL_H4);
 	        section.addStyleName(ValoTheme.LABEL_COLORED);
 	        details.addComponent(section);
 
-	        emailField = new TextField(lang.getString("Email"));
-	        emailField.setValue("fzhjkfzjk");
-	        
+	        emailField.setValue("");
 	        emailField.setWidth("100%");
-	        emailField.setRequired(true);
-	        emailField.setNullRepresentation("");
+	        emailField.setReadOnly(true);
 	        details.addComponent(emailField);
 
-	        locationField = new TextField(lang.getString("Location"));
+	        locationField.setValue("");
 	        locationField.setWidth("100%");
-	        locationField.setNullRepresentation("");
-	        locationField.setComponentError(new UserError(
-	                lang.getString("ThisAddressDoesn'tExist")));
+	        locationField.setReadOnly(true);
 	        details.addComponent(locationField);
 
-	        phoneField = new TextField(lang.getString("Phone"));
+	        phoneField.setValue("");
 	        phoneField.setWidth("100%");
-	        phoneField.setNullRepresentation("");
+	        phoneField.setReadOnly(true);
 	        details.addComponent(phoneField);
 
 	        return root;
