@@ -253,10 +253,14 @@ public class CourseService {
 	}
 	
 	public Collection<CourseDisplay> searchAll(String input){
-		Collection <CourseDisplay> collector = null;
+		Collection <CourseDisplay> collector = new ArrayList<CourseDisplay>();
 		List <Course> courseList = courseDAO.searchAll(input);
 		for (Course tmpCourse : courseList) {
+			System.out.println(tmpCourse.getTitle() + tmpCourse.getAuthor().getFirstName() + " " + tmpCourse.getAuthor().getLastName());
 			collector.add(new CourseDisplay("", tmpCourse.getTitle(), tmpCourse.getAuthor().getFirstName() + " " + tmpCourse.getAuthor().getLastName(), "Angemeldet!"));
+		}
+		if (collector.size() == 0){
+			collector.add(new CourseDisplay("", "", "", ""));
 		}
 		return collector;
 	}
