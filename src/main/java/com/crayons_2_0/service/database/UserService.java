@@ -16,7 +16,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 //import org.springframework.security.core.authority.GrantedAuthorityImpl;
 
 /**
- * @author Ondrej Kvasnovsky
+ * Class for Service on users of DB
  */
 @SpringComponent
 public class UserService implements UserDetailsService {
@@ -86,12 +86,23 @@ public class UserService implements UserDetailsService {
     	return true;
     }
     
-    
+    /**
+     * updates an User 
+     * @param user to update
+     * @param eMail new eMail
+     * @param firstName newFirst Name
+     * @param lastName new LastName
+     * @return true if successfull
+     */
     public boolean updateUser(CrayonsUser user, String eMail, String firstName,String lastName) {
     	return userDAO.updateUser(user, eMail, firstName, lastName);
     }
     
-    
+    /**
+     * removes an User
+     * @param user to remove
+     * @return true if successfull
+     */
     public boolean removeUser(CrayonsUser user) {
         userDAO.deleteUser(user);
     	return true;

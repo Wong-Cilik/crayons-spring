@@ -21,6 +21,10 @@ import com.vaadin.spring.annotation.SpringComponent;
 // LINKS:
 // http://docs.spring.io/spring/docs/2.0.x/reference/jdbc.html
 
+/**
+ *  Services for Access of Users of DB (via UserDAO)
+ *
+ */
 @SpringComponent
 public class UserDAO implements CommandLineRunner{
     
@@ -35,7 +39,10 @@ public class UserDAO implements CommandLineRunner{
     UserService userService;
 
    
-
+    /**
+     * Returns all Users of DB
+     * @return all users of DB
+     */
     public List<CrayonsUser> findAll() {
         String query = "select * from users";
         RowMapper mapper = new RowMapper() {
@@ -57,20 +64,12 @@ public class UserDAO implements CommandLineRunner{
         };
         return jdbcTemplate.query(query, mapper);
     }
+   
     
-
-
-    /*
-    // FALSCH
-    public void save(CrayonsUser user) {
-        String query = "insert into users (label) values (?)";
-        jdbcTemplate.update(query, new Object[]{user.getUsername()});
-    }
-    */
-    
-    // WICHTIG: realm nicht vergessen, attribute in der sql werden kleingemacht!!
-    
-    
+    /**
+     * Insert an unser to DB
+     * @param user to insert
+     */
     public void insertUser(CrayonsUser user) {
         
         String mail = user.getEmail();
@@ -81,7 +80,11 @@ public class UserDAO implements CommandLineRunner{
         
         jdbcTemplate.update("insert into realm.users (email, password, firstname, lastname, language) VALUES (?, ?, ?, ?,?)", mail, password, firstName, lastName, language);
     }
-        
+    
+    /**
+     * Updates an User on DB
+     * @param user to update
+     */
     public void updateUser(CrayonsUser user) {
         
         String mail = user.getEmail();
@@ -110,6 +113,9 @@ public class UserDAO implements CommandLineRunner{
 		return true;
     }
     
+    /**
+     * Creates the DB Table
+     */
     public void createTable() {
         log.info("@@ Creating tables");
         jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL)");
@@ -119,6 +125,10 @@ public class UserDAO implements CommandLineRunner{
     
     // Example: http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
     
+    /**
+     * Delete an user of DB 
+     * @param user to delete
+     */
     public void deleteUser(CrayonsUser user) {
     	String deleteStatement = "DELETE FROM users WHERE email=?";
     	try {

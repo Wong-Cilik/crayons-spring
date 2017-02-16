@@ -12,6 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+
+/**
+ * Class for Unit Data Access Object 
+ *
+ */
+
 @Component
 public class UnitDAO2 {
 	
@@ -22,6 +28,10 @@ public class UnitDAO2 {
         jdbcTemplate.execute("create table if not exists units (title varchar(100), unitType varchar(100))");
     }
 
+    /**
+     * Returns all units of DB
+     * @return all units of DB
+     */
     public List<Unit> findAll() {
         String query = "select * from units";
         RowMapper mapper = new RowMapper() {

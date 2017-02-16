@@ -1,9 +1,14 @@
 package com.crayons_2_0.service;
 
+
+/**
+ * Enum of Languages
+ *
+ */
 public enum Language {
+		
+	German,		// de_de
 	
-	German,
-	
-	English;
+	English;	// en_en
 
 }

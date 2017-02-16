@@ -7,6 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.model.graph.UnitNode;
+/**
+ * Class for Unit Data Access Object 
+ *
+ */
 @Component
 public class UnitDAO {
 
@@ -17,6 +21,10 @@ public class UnitDAO {
         jdbcTemplate.execute("create table if not exists units (title varchar(100), unitType varchar(100))");
     }
 
+    /**
+     * Returns all Units of DB
+     * @return
+     */
     public List<UnitNode> findAll() {
         /*String query = "select * from units";
         RowMapper mapper = new RowMapper() {
