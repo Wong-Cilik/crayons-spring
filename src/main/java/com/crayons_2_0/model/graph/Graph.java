@@ -147,13 +147,23 @@ public class Graph implements Serializable{
     }
 
     public boolean deleteUnit(UnitNode Unit) {
-        this.unitCollection.remove(Unit);
-        return true;
+        return this.unitCollection.remove(Unit);
     }
 
 
 	public Course getCourse() {
 		return course;
+	}
+
+
+	public boolean deleteConnection(UnitNode parent, UnitNode child) {
+		for (UnitNode tmp : this.unitCollection) {
+            if (parent.getUnitNodeTitle() == tmp.getUnitNodeTitle())
+            tmp.removeChildNode(child);
+            if (child.getUnitNodeTitle() == tmp.getUnitNodeTitle())
+                tmp.removeParentNode(parent);
+        }
+        return true;
 	}
 
     /*

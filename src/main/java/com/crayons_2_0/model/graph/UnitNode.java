@@ -85,4 +85,14 @@ public class UnitNode implements Serializable{
         // END,
         LEARNING, TEST
     }
+
+	public void removeChildNode(UnitNode child) {
+		this.childNodes.remove(child);
+		
+	}
+
+	public void removeParentNode(UnitNode parent) {
+		this.parentNodes.remove(parent);
+		
+	}
 }
