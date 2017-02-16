@@ -46,7 +46,6 @@ public class LoginForm extends VerticalLayout {
         LoginFormListener loginFormListener = getLoginFormListener();
         btnLogin.addClickListener(loginFormListener);
         btnLogin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        RegisterFormListener registerFormListener = getRegisterFormListener();
         createRegisterButton();
         
         RegisterFormListener2 registerFormListener2 = getRegisterFormListener2();
@@ -62,10 +61,10 @@ public class LoginForm extends VerticalLayout {
      */
     private void createRegisterButton() {
 		btnRegistrate.addClickListener(new ClickListener() {
-		private RegisterWindow window = new RegisterWindow();
+		
 			@Override
 			public void buttonClick(ClickEvent event) {	
-				UI.getCurrent().addWindow(window);
+				UI.getCurrent().getNavigator().navigateTo("registerView");
 				
 			}
 		});
