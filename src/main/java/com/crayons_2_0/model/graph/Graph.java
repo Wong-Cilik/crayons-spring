@@ -135,7 +135,12 @@ public class Graph implements Serializable{
         this.unitCollection.add(currentNode);
         return true;
     }
-    
+    /**
+     * 
+     * @param parent 	UnitNode
+     * @param child		UnitNode
+     * @return			boolean
+     */
     public boolean addConnection(UnitNode parent, UnitNode child) {
         for (UnitNode tmp : this.unitCollection) {
             if (parent.getUnitNodeTitle() == tmp.getUnitNodeTitle())
@@ -146,8 +151,14 @@ public class Graph implements Serializable{
         return true;
     }
 
-    public boolean deleteUnit(UnitNode Unit) {
-        return this.unitCollection.remove(Unit);
+    public boolean deleteUnit(UnitNode unit) {
+    	for(UnitNode tmp: unit.getParentNodes()) {
+    		tmp.removeChildNode(unit);
+    	}
+    	for(UnitNode tmp: unit.getChildNodes()) {
+    		tmp.removeParentNode(unit);
+    	}
+        return this.unitCollection.remove(unit);
     }
 
 
@@ -155,11 +166,16 @@ public class Graph implements Serializable{
 		return course;
 	}
 
-
+	/**
+	 * 
+	 * @param parent 	the parent UnitNode
+	 * @param child		the child UnitNode
+	 * @return			boolean
+	 */
 	public boolean deleteConnection(UnitNode parent, UnitNode child) {
 		for (UnitNode tmp : this.unitCollection) {
             if (parent.getUnitNodeTitle() == tmp.getUnitNodeTitle())
-            tmp.removeChildNode(child);
+            	tmp.removeChildNode(child);
             if (child.getUnitNodeTitle() == tmp.getUnitNodeTitle())
                 tmp.removeParentNode(parent);
         }
