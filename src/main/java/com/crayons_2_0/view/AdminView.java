@@ -75,12 +75,6 @@ public final class AdminView extends VerticalLayout implements View {
     private TextField locationField;
     @PropertyId("phone")
     private TextField phoneField;
-    /*@PropertyId("newsletterSubscription")
-    private OptionalSelect<Integer> newsletterField;
-    @PropertyId("website")*/
-    private TextField websiteField;
-    @PropertyId("bio")
-    private TextArea bioField;
     
     
     public AdminView() {
@@ -95,7 +89,6 @@ public final class AdminView extends VerticalLayout implements View {
         table = buildTable();
         addComponent(table);
         table.setCaption("select a student");
-        setComponentAlignment(table, Alignment.TOP_LEFT);
         Responsive.makeResponsive(this);
         VerticalLayout content = new VerticalLayout();
         content.setSizeFull();
@@ -103,6 +96,7 @@ public final class AdminView extends VerticalLayout implements View {
         addComponent(content);
         content.addComponent(buildProfileTab());
         setComponentAlignment(content, Alignment.BOTTOM_LEFT);
+
     }
     
     private Component buildToolbar() {
@@ -115,8 +109,8 @@ public final class AdminView extends VerticalLayout implements View {
 
 	@SuppressWarnings("deprecation")
 	private Table buildTable() {
-		setSizeFull();
         final Table table = new Table();
+        table.setSizeFull();
         table.addStyleName(ValoTheme.TABLE_BORDERLESS);
         table.addStyleName(ValoTheme.TABLE_NO_HORIZONTAL_LINES);
         table.addStyleName(ValoTheme.TABLE_COMPACT);
@@ -233,30 +227,6 @@ public final class AdminView extends VerticalLayout implements View {
 	        phoneField.setWidth("100%");
 	        phoneField.setNullRepresentation("");
 	        details.addComponent(phoneField);
-	        /*
-	        newsletterField = new OptionalSelect<Integer>();
-	        newsletterField.addOption(0, "Daily");
-	        newsletterField.addOption(1, "Weekly");
-	        newsletterField.addOption(2, "Monthly");
-	        details.addComponent(newsletterField);
-	        */
-
-	        section = new Label(lang.getString("AdditionalInfo"));
-	        section.addStyleName(ValoTheme.LABEL_H4);
-	        section.addStyleName(ValoTheme.LABEL_COLORED);
-	        details.addComponent(section);
-
-	        websiteField = new TextField(lang.getString("Website"));
-	        websiteField.setInputPrompt("http://");
-	        websiteField.setWidth("100%");
-	        websiteField.setNullRepresentation("");
-	        details.addComponent(websiteField);
-
-	        bioField = new TextArea(lang.getString("Bio"));
-	        bioField.setWidth("100%");
-	        bioField.setRows(4);
-	        bioField.setNullRepresentation("");
-	        details.addComponent(bioField);
 
 	        return root;
 	    }
