@@ -46,10 +46,10 @@ public class UserDAO implements CommandLineRunner {
                 String firstName = rs.getString("firstname");
                 String lastName = rs.getString("lastname");
                 String language = rs.getString("language");
-                int permissions = rs.getInt("permissions");
+                int permission = rs.getInt("permission");
                 authorities.add(new SimpleGrantedAuthority("CLIENT"));
 
-                CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, language, permissions, true,
+                CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, language, permission, true,
                         true, false, false, authorities);
                 return user;
             }
@@ -73,11 +73,11 @@ public class UserDAO implements CommandLineRunner {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String language = user.getLanguage().toString();
-        int permissions = user.getPermission();
+        int permission = user.getPermission();
 
         jdbcTemplate.update(
-                "insert into users (email, password, firstname, lastname, language, permissions) VALUES (?, ?, ?, ?, ?, ?)",
-                mail, password, firstName, lastName, language, permissions);
+                "insert into users (email, password, firstname, lastname, language, permission) VALUES (?, ?, ?, ?, ?, ?)",
+                mail, password, firstName, lastName, language, permission);
     }
 
     public void updateUser(CrayonsUser user) {
@@ -87,13 +87,13 @@ public class UserDAO implements CommandLineRunner {
         String firstName = user.getFirstName();
         String lastName = user.getLastName();
         String language = user.getLanguage().toString();
-        int permissions = user.getPermission();
+        int permission = user.getPermission();
         // jdbcTemplate.update("update users set password = " + password + "
         // where email = " + mail);
         // Returns numer of changed rows
         jdbcTemplate.update(
-                "UPDATE realm.users SET password=?, firstname=?, lastname=?, language=? permissions=? WHERE email=? ",
-                password, firstName, lastName, mail, language, permissions);
+                "UPDATE realm.users SET password=?, firstname=?, lastname=?, language=? permission=? WHERE email=? ",
+                password, firstName, lastName, mail, language, permission);
 
     }
 
@@ -133,7 +133,7 @@ public class UserDAO implements CommandLineRunner {
 //    public void createTable() {
 //        log.info("@@ Creating users table");
 //        jdbcTemplate.execute(
-//                "CREATE TABLE IF NOT EXISTS users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL, permissions int)");
+//                "CREATE TABLE IF NOT EXISTS users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL, permission int)");
 //
 //        log.info("@@ > Done.");
 //    }
