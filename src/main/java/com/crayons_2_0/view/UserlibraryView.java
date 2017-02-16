@@ -127,27 +127,15 @@ public class UserlibraryView extends VerticalLayout implements View {
         
         Label courseDescription = new Label();
         courseDescription.setContentMode(ContentMode.HTML);
-        courseDescription.setValue("<h3>Course description</h3>\n" + course.getDescription());
+        courseDescription.setValue("<h3>Description</h3>\n" + course.getDescription());
         courseDescription.setSizeFull();
         tabContent.addComponent(courseDescription);
         
-        Table testResults = new Table();
-        testResults.setCaption("<h3>Testergebnisse</h3>");
-        testResults.setCaptionAsHtml(true);
-        testResults.addContainerProperty("Test", String.class, null);
-        testResults.addContainerProperty("Score", Integer.class, 0);
-        testResults.addItem(new Object[]{"Lektion 1", 100}, 1);
-        testResults.addItem(new Object[]{"Lektion 2", 70}, 2);
-        testResults.setSizeFull();
-        testResults.setPageLength(testResults.size());
-        tabContent.addComponent(testResults);
-        
-        ProgressBar learningProgressBar = new ProgressBar(0.0f);
-        learningProgressBar.setValue(0.3f);
-        learningProgressBar.setSizeFull();
-        tabContent.addComponents(learningProgressBar);
-        learningProgressBar.setCaptionAsHtml(true);
-        learningProgressBar.setCaption("<h3>Lernfortschritt</h3>");
+        Label courseAuthor = new Label();
+        courseAuthor.setContentMode(ContentMode.HTML);
+        courseAuthor.setValue("<h3>Author</h3>\n" + course.getAuthor().getFirstName() + " " + course.getAuthor().getLastName());
+        courseAuthor.setSizeFull();
+        tabContent.addComponent(courseAuthor);
         
         Component controlButtons = buildControlButtons(tabContent, course.getTitle());
         tabContent.addComponent(controlButtons);

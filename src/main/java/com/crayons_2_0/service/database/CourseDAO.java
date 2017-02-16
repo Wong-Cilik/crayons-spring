@@ -78,7 +78,6 @@ public class CourseDAO implements CommandLineRunner{
     }
 
     public List<Course> searchAll(String input){
-    	System.out.println("spögmspröghm#ü");
         String query = "SELECT * FROM courses WHERE title LIKE '%" + input + "%'";
         RowMapper mapper = new RowMapper() {
 
