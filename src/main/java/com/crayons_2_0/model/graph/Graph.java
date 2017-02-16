@@ -147,8 +147,7 @@ public class Graph implements Serializable{
     }
 
     public boolean deleteUnit(UnitNode Unit) {
-        this.unitCollection.remove(Unit);
-        return true;
+        return this.unitCollection.remove(Unit);
     }
 
 

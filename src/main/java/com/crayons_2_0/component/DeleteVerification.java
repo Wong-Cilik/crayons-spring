@@ -83,7 +83,7 @@ public final class DeleteVerification extends Window {
         ok.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-            	graph.deleteUnit(deleteUnit);
+            	if(graph.deleteUnit(deleteUnit)){
                 CourseEditorView.refreshGraph(graph);
                 close();
                 Notification success = new Notification(
@@ -93,7 +93,14 @@ public final class DeleteVerification extends Window {
                 success.setPosition(Position.BOTTOM_CENTER);
                 success.show(Page.getCurrent());
                 deleteUnit = null;
-
+            	} else {
+            		Notification failed = new Notification(
+                            "Unit failed to delete");
+            		failed.setDelayMsec(500);
+            		failed.setStyleName("bar success small");
+            		failed.setPosition(Position.BOTTOM_CENTER);
+            		failed.show(Page.getCurrent());
+            	}
             }
         });
         ok.focus();
