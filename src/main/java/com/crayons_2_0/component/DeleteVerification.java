@@ -26,10 +26,9 @@ public final class DeleteVerification extends Window {
 
     // sollte noch ein set werden
     UnitNode deleteUnit;
-    // wird noch ausgebessert
    
     // TODO von DB holen
-    Graph graph;
+    static Graph graph;
     
     public DeleteVerification(Graph graphData) {
         
@@ -108,6 +107,11 @@ public final class DeleteVerification extends Window {
         title.addStyleName(ValoTheme.LABEL_H2);
         return title;
     }
+
+	public static void refreshData(Graph graphData) {
+		graph = graphData;
+		
+	}
     
     /*private Component buildDescription() {
         return null;

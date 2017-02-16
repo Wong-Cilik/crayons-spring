@@ -204,9 +204,11 @@ public class CourseService {
         
         //@DB UnitNodes will be created and added to their courses in the UnitCreationWindow
         UnitNode one = new UnitNode("1", dummyGraph.getStartUnit(), dummyGraph);
-        UnitNode three = new UnitNode("2", one, dummyGraph);
+        UnitNode two = new UnitNode("2", one, dummyGraph);
+        UnitNode three = new UnitNode("3", two, dummyGraph);
         
         dummyGraph.addUnit(one, one.getParentNodes());
+        dummyGraph.addUnit(two, two.getParentNodes());
         dummyGraph.addUnit(three, three.getParentNodes());
         
         
