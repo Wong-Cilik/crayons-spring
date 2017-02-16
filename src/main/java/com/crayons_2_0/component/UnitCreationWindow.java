@@ -86,7 +86,6 @@ public final class UnitCreationWindow extends Window {
         comboBoxes.setMargin(true);
         comboBoxes.setSpacing(true);
 
-        // TODO fetch graph from DB, currently using DummyGraph
 
         ComboBox selectPredecessor = new ComboBox("Select the previous unit");
         comboBoxes.addComponent(selectPredecessor);
