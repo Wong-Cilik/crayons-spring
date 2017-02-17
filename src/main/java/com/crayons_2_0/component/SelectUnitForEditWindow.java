@@ -17,87 +17,88 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class SelectUnitForEditWindow extends Window {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	static Graph graph;
-    public SelectUnitForEditWindow(Graph graphData) {
-    	graph = graphData;
-        setSizeFull();
-        setModal(true);
-        setResizable(false);
-        setClosable(true); 
-        setHeight(40.0f, Unit.PERCENTAGE);
-        setWidth(40.0f, Unit.PERCENTAGE);
-        
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        content.setMargin(true);
-        setContent(content);
-        
-        Component title = buildTitle();
-        content.addComponent(title);
-        content.setComponentAlignment(title, Alignment.TOP_CENTER);
-        
-        //content.addComponent(buildDescription());
-        
-        Component unitChoise = buildUnitChoice();
-        content.addComponent(unitChoise);
-        content.setComponentAlignment(unitChoise, Alignment.MIDDLE_LEFT);
-        
-        Component footer = buildFooter();
-        content.addComponent(footer);
-        content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
-    }
-    
-    private Component buildUnitChoice() {
-        ComboBox selectUnit = new ComboBox("Select the unit for edit");
-        for(UnitNode tmp: graph.getUnitCollection()) {
-        	selectUnit.addItem(tmp.getUnitNodeTitle());
-        }
-        return selectUnit;
-    }
 
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
+	public SelectUnitForEditWindow(Graph graphData) {
+		graph = graphData;
+		setSizeFull();
+		setModal(true);
+		setResizable(false);
+		setClosable(true);
+		setHeight(40.0f, Unit.PERCENTAGE);
+		setWidth(40.0f, Unit.PERCENTAGE);
 
-        Button ok = new Button("Edit");
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            /**
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		content.setMargin(true);
+		setContent(content);
+
+		Component title = buildTitle();
+		content.addComponent(title);
+		content.setComponentAlignment(title, Alignment.TOP_CENTER);
+
+		// content.addComponent(buildDescription());
+
+		Component unitChoise = buildUnitChoice();
+		content.addComponent(unitChoise);
+		content.setComponentAlignment(unitChoise, Alignment.MIDDLE_LEFT);
+
+		Component footer = buildFooter();
+		content.addComponent(footer);
+		content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+	}
+
+	private Component buildUnitChoice() {
+		ComboBox selectUnit = new ComboBox("Select the unit for edit");
+		for (UnitNode tmp : graph.getUnitCollection()) {
+			selectUnit.addItem(tmp.getUnitNodeTitle());
+		}
+		return selectUnit;
+	}
+
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth(100.0f, Unit.PERCENTAGE);
+
+		Button ok = new Button("Edit");
+		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		ok.addClickListener(new ClickListener() {
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void buttonClick(ClickEvent event) {
-                close();
-                UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
+			public void buttonClick(ClickEvent event) {
+				close();
+				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 
-            }
-        });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
-        return footer;
-    }
+			}
+		});
+		ok.focus();
+		footer.addComponent(ok);
+		footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
+		return footer;
+	}
 
-    private Component buildTitle() {
-        Label title = new Label("Open the unit editor");
-        title.addStyleName(ValoTheme.LABEL_H2);
-        return title;
-    }
+	private Component buildTitle() {
+		Label title = new Label("Open the unit editor");
+		title.addStyleName(ValoTheme.LABEL_H2);
+		return title;
+	}
 
 	public static void refreshData(Graph graphData) {
 		graph = graphData;
-		
+
 	}
-    
-    /*private Component buildDescription() {
-        return null;
-    }*/
+
+	/*
+	 * private Component buildDescription() { return null; }
+	 */
 }

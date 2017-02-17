@@ -1,6 +1,6 @@
 package com.crayons_2_0.controller;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,32 +15,32 @@ import com.vaadin.ui.Notification;
 
 @SpringComponent
 public class RegisterFormListener2 implements Button.ClickListener {
-        /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-		@Autowired
-	    private UserManager userManager;
+	@Autowired
+	private UserManager userManager;
 
-	    @Override
-	    public void buttonClick(Button.ClickEvent event) {
-	        try {
-	            Button source = event.getButton();
-	            LoginForm parent = (LoginForm) source.getParent();
-	            String mail = parent.getTxtLogin().getValue();
-	            String password = parent.getTxtPassword().getValue();
-	            List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		        authorities.add(new SimpleGrantedAuthority("CLIENT"));
+	@Override
+	public void buttonClick(Button.ClickEvent event) {
+		try {
+			Button source = event.getButton();
+			LoginForm parent = (LoginForm) source.getParent();
+			String mail = parent.getTxtLogin().getValue();
+			String password = parent.getTxtPassword().getValue();
+			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+			authorities.add(new SimpleGrantedAuthority("CLIENT"));
 
-				CrayonsUser user = new CrayonsUser("first", "last", mail, password, "German", 0, true, true, false, false, authorities);
+			CrayonsUser user = new CrayonsUser("first", "last", mail, password,
+					"German", 0, true, true, false, false, authorities);
 
-	            userManager.foo(user);
-	            
-	        } catch (Exception e) {
-	            Notification.show("Registration failed: " + e.getMessage());
-	        } 
+			userManager.foo(user);
 
-	    }
+		} catch (Exception e) {
+			Notification.show("Registration failed: " + e.getMessage());
+		}
 
+	}
 
 }

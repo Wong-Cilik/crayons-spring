@@ -24,128 +24,134 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class UserDAO implements CommandLineRunner {
 
-    /**
-     * for Console logging
-     */
-    private static final Logger log = LoggerFactory.getLogger(UserDAO.class);
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+	/**
+	 * for Console logging
+	 */
+	private static final Logger log = LoggerFactory.getLogger(UserDAO.class);
+	@Autowired
+	JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    UserService userService;
+	@Autowired
+	UserService userService;
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<CrayonsUser> findAll() {
-        String query = "select * from users";
-        RowMapper mapper = new RowMapper<Object>() {
+		String query = "select * from users";
+		RowMapper mapper = new RowMapper<Object>() {
 
-            public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-                List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-                String mail = rs.getString("email");
-                String password = rs.getString("password");
-                String firstName = rs.getString("firstname");
-                String lastName = rs.getString("lastname");
-                String language = rs.getString("language");
-                int permission = rs.getInt("permission");
-                authorities.add(new SimpleGrantedAuthority("CLIENT"));
+				List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+				String mail = rs.getString("email");
+				String password = rs.getString("password");
+				String firstName = rs.getString("firstname");
+				String lastName = rs.getString("lastname");
+				String language = rs.getString("language");
+				int permission = rs.getInt("permission");
+				authorities.add(new SimpleGrantedAuthority("CLIENT"));
 
-                CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, language, permission, true,
-                        true, false, false, authorities);
-                return user;
-            }
-        };
-        return jdbcTemplate.query(query, mapper);
-    }
+				CrayonsUser user = new CrayonsUser(firstName, lastName, mail,
+						password, language, permission, true, true, false,
+						false, authorities);
+				return user;
+			}
+		};
+		return jdbcTemplate.query(query, mapper);
+	}
 
-    /*
-     * // FALSCH public void save(CrayonsUser user) { String query =
-     * "insert into users (label) values (?)"; jdbcTemplate.update(query, new
-     * Object[]{user.getUsername()}); }
-     */
+	/*
+	 * // FALSCH public void save(CrayonsUser user) { String query =
+	 * "insert into users (label) values (?)"; jdbcTemplate.update(query, new
+	 * Object[]{user.getUsername()}); }
+	 */
 
-    // WICHTIG: realm nicht vergessen, attribute in der sql werden
-    // kleingemacht!!
+	// WICHTIG: realm nicht vergessen, attribute in der sql werden
+	// kleingemacht!!
 
-    public void insertUser(CrayonsUser user) {
+	public void insertUser(CrayonsUser user) {
 
-        String mail = user.getEmail();
-        String password = user.getPassword();
-        String firstName = user.getFirstName();
-        String lastName = user.getLastName();
-        String language = user.getLanguage().toString();
-        int permission = user.getPermission();
+		String mail = user.getEmail();
+		String password = user.getPassword();
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String language = user.getLanguage().toString();
+		int permission = user.getPermission();
 
-        jdbcTemplate.update(
-                "insert into users (email, password, firstname, lastname, language, permission) VALUES (?, ?, ?, ?, ?, ?)",
-                mail, password, firstName, lastName, language, permission);
-    }
+		jdbcTemplate
+				.update("insert into users (email, password, firstname, lastname, language, permission) VALUES (?, ?, ?, ?, ?, ?)",
+						mail, password, firstName, lastName, language,
+						permission);
+	}
 
-    public void updateUser(CrayonsUser user) {
+	public void updateUser(CrayonsUser user) {
 
-        String mail = user.getEmail();
-        String password = user.getPassword();
-        String firstName = user.getFirstName();
-        String lastName = user.getLastName();
-        String language = user.getLanguage().toString();
-        int permission = user.getPermission();
-        // jdbcTemplate.update("update users set password = " + password + "
-        // where email = " + mail);
-        // Returns numer of changed rows
-        jdbcTemplate.update(
-                "UPDATE realm.users SET password=?, firstname=?, lastname=?, language=? permission=? WHERE email=? ",
-                password, firstName, lastName, mail, language, permission);
+		String mail = user.getEmail();
+		String password = user.getPassword();
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String language = user.getLanguage().toString();
+		int permission = user.getPermission();
+		// jdbcTemplate.update("update users set password = " + password + "
+		// where email = " + mail);
+		// Returns numer of changed rows
+		jdbcTemplate
+				.update("UPDATE realm.users SET password=?, firstname=?, lastname=?, language=? permission=? WHERE email=? ",
+						password, firstName, lastName, mail, language,
+						permission);
 
-    }
+	}
 
-    /**
-     * 
-     * @param user
-     *            CurrentUser
-     * @param eMail
-     *            New Email to be saved
-     * @param firstName
-     *            New first name to be saved
-     * @param lastName
-     *            New last name o be saved
-     * @return true if successfully inserted, false if not
-     */
-    public boolean updateUser(CrayonsUser user, String eMail, String firstName, String lastName) {
-        // TODO bad SQL grammar [UPDATE users SET firstname=?, lastname=? WHERE
-        // email=? ]; nested exception is org.postgresql.util.PSQLException:
-        // FEHLER: Spalte »firstname« von Relation »users« existiert nicht
-        jdbcTemplate.update("UPDATE users SET email=?, firstname=?, lastname=? WHERE email=? ", eMail, firstName,
-                lastName, user.getEmail());
-        return true;
-    }
+	/**
+	 * 
+	 * @param user
+	 *            CurrentUser
+	 * @param eMail
+	 *            New Email to be saved
+	 * @param firstName
+	 *            New first name to be saved
+	 * @param lastName
+	 *            New last name o be saved
+	 * @return true if successfully inserted, false if not
+	 */
+	public boolean updateUser(CrayonsUser user, String eMail, String firstName,
+			String lastName) {
+		// TODO bad SQL grammar [UPDATE users SET firstname=?, lastname=? WHERE
+		// email=? ]; nested exception is org.postgresql.util.PSQLException:
+		// FEHLER: Spalte »firstname« von Relation »users« existiert nicht
+		jdbcTemplate
+				.update("UPDATE users SET email=?, firstname=?, lastname=? WHERE email=? ",
+						eMail, firstName, lastName, user.getEmail());
+		return true;
+	}
 
-    // Example:
-    // http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
+	// Example:
+	// http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
 
-    public void deleteUser(CrayonsUser user) {
-        String deleteStatement = "DELETE FROM users WHERE email=?";
-        try {
-            jdbcTemplate.update(deleteStatement, user.getEmail());
-        } catch (RuntimeException e) {
-            throw new UsernameNotFoundException("User with mail:" + user.getEmail() + "doesnt exists!");
-        }
-    }
+	public void deleteUser(CrayonsUser user) {
+		String deleteStatement = "DELETE FROM users WHERE email=?";
+		try {
+			jdbcTemplate.update(deleteStatement, user.getEmail());
+		} catch (RuntimeException e) {
+			throw new UsernameNotFoundException("User with mail:"
+					+ user.getEmail() + "doesnt exists!");
+		}
+	}
 
-//    public void createTable() {
-//        log.info("@@ Creating users table");
-//        jdbcTemplate.execute(
-//                "CREATE TABLE IF NOT EXISTS users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL, permission int)");
-//
-//        log.info("@@ > Done.");
-//    }
+	// public void createTable() {
+	// log.info("@@ Creating users table");
+	// jdbcTemplate.execute(
+	// "CREATE TABLE IF NOT EXISTS users(email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL, permission int)");
+	//
+	// log.info("@@ > Done.");
+	// }
 
-    @Override
-    public void run(String... arg0) throws Exception {
-new ArrayList<GrantedAuthority>();
-        log.info("@@ create user");
-        log.info("@@ insert user");
-        log.info("@@ findAll() call...");
-        findAll().forEach(entry -> log.info(entry.toString()));
+	@Override
+	public void run(String... arg0) throws Exception {
+		new ArrayList<GrantedAuthority>();
+		log.info("@@ create user");
+		log.info("@@ insert user");
+		log.info("@@ findAll() call...");
+		findAll().forEach(entry -> log.info(entry.toString()));
 
-    }
+	}
 }

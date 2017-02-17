@@ -10,26 +10,26 @@ public class CurrentUser {
 
 	@Autowired
 	UserService userService;
-	
-	 private static CurrentUser instance = null;
-	 private String eMail;
-	 private CrayonsUser user;
-	 
-	 private CurrentUser() {}
 
-	  public static CurrentUser getInstance()
-	  {
-	    if (instance == null){
-	      instance = new CurrentUser();
-	    }
-	    return instance;
-	  }
+	private static CurrentUser instance = null;
+	private String eMail;
+	private CrayonsUser user;
 
+	private CurrentUser() {
+	}
+
+	public static CurrentUser getInstance() {
+		if (instance == null) {
+			instance = new CurrentUser();
+		}
+		return instance;
+	}
 
 	public CrayonsUser get() {
 
-		if (getInstance().getUser() == null){
-			getInstance().setUser(userService.findByEMail(getInstance().geteMail()));
+		if (getInstance().getUser() == null) {
+			getInstance().setUser(
+					userService.findByEMail(getInstance().geteMail()));
 		}
 		return getInstance().getUser();
 	}
@@ -41,7 +41,7 @@ public class CurrentUser {
 	public void seteMail(String eMail) {
 		this.eMail = eMail;
 	}
-	
+
 	public CrayonsUser getUser() {
 		return user;
 	}

@@ -10,43 +10,36 @@ import com.crayons_2_0.view.CurrentCourseDummy;
 
 @Component
 public class UnitEditor2 {
-    @Autowired
+	@Autowired
 	private Course course;
-	
-    
-    @Autowired
+
+	@Autowired
 	private Unit currentUnit;
-	
+
 	@Autowired
 	CourseService courseService;
-	
-//	@Resource(name = "unitService2")
-//	UnitService2 unitService2;
-	
+
+	// @Resource(name = "unitService2")
+	// UnitService2 unitService2;
+
 	public UnitEditor2() {
-		
+
 		CurrentCourseDummy.getInstance().getCourseTitle();
-		
-//		this.course = courseService.findCourseByTitle(courseTitle); ToDO
-		
-//		this.setCurrentUnit(course.getUnits2().get(0)); ToDo
-		
-		
+
+		// this.course = courseService.findCourseByTitle(courseTitle); ToDO
+
+		// this.setCurrentUnit(course.getUnits2().get(0)); ToDo
+
 	}
 
-	
-	
 	public Course getCourse() {
 		return course;
 	}
 
-
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	
 
-	
 	/**
 	 * @return the currentUnit
 	 */
@@ -55,13 +48,11 @@ public class UnitEditor2 {
 	}
 
 	/**
-	 * @param currentUnit the currentUnit to set
+	 * @param currentUnit
+	 *            the currentUnit to set
 	 */
 	public void setCurrentUnit(Unit currentUnit) {
 		this.currentUnit = currentUnit;
 	}
-	
-	
-	
-	
+
 }

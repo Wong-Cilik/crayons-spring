@@ -1,4 +1,5 @@
 package com.crayons_2_0.component;
+
 import com.crayons_2_0.service.LanguageService;
 
 import java.text.SimpleDateFormat;
@@ -49,337 +50,336 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings({ "serial" })
 public final class UnitEditor extends Window {
 
-    //private final CourseEditorListener listener;
-    private final SortableLayout canvas;
-    ResourceBundle lang = LanguageService.getInstance().getRes();
+	// private final CourseEditorListener listener;
+	private final SortableLayout canvas;
+	ResourceBundle lang = LanguageService.getInstance().getRes();
 
-    @SuppressWarnings("deprecation")
-    //public CourseEditor(final CoursetEditorListener listener)
-    public UnitEditor() {
-        //this.listener = (CourseEditorListener) clickListener;
-        setSizeFull();
-        addStyleName("editor");
-        addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
-        setModal(true);
-        setCloseShortcut(KeyCode.ESCAPE, null);
-        setResizable(false);
-        setClosable(false);
-        setHeight(90.0f, Unit.PERCENTAGE);
-        
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        Component palette = buildPalette();
-        content.addComponent(palette);
-        content.setComponentAlignment(palette, Alignment.TOP_CENTER);
+	@SuppressWarnings("deprecation")
+	// public CourseEditor(final CoursetEditorListener listener)
+	public UnitEditor() {
+		// this.listener = (CourseEditorListener) clickListener;
+		setSizeFull();
+		addStyleName("editor");
+		addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
+		setModal(true);
+		setCloseShortcut(KeyCode.ESCAPE, null);
+		setResizable(false);
+		setClosable(false);
+		setHeight(90.0f, Unit.PERCENTAGE);
 
-        canvas = new SortableLayout();
-        canvas.setWidth(100.0f, Unit.PERCENTAGE);
-        canvas.addStyleName("canvas");
-        content.addComponent(canvas);
-        content.setExpandRatio(canvas, 1);
-        setContent(content);
-        content.addComponent(buildFooter());
-    }
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		Component palette = buildPalette();
+		content.addComponent(palette);
+		content.setComponentAlignment(palette, Alignment.TOP_CENTER);
 
-    public void setTitle(final String title) {
-        canvas.setTitle(title);
-    }
+		canvas = new SortableLayout();
+		canvas.setWidth(100.0f, Unit.PERCENTAGE);
+		canvas.addStyleName("canvas");
+		content.addComponent(canvas);
+		content.setExpandRatio(canvas, 1);
+		setContent(content);
+		content.addComponent(buildFooter());
+	}
 
-    private Component buildPalette() {
-        HorizontalLayout paletteLayout = new HorizontalLayout();
-        paletteLayout.setSpacing(true);
-        paletteLayout.setWidthUndefined();
-        paletteLayout.addStyleName("palette");
+	public void setTitle(final String title) {
+		canvas.setTitle(title);
+	}
 
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TEXT));
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.MULTIPLECHOICE));
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.IMAGE));
+	private Component buildPalette() {
+		HorizontalLayout paletteLayout = new HorizontalLayout();
+		paletteLayout.setSpacing(true);
+		paletteLayout.setWidthUndefined();
+		paletteLayout.addStyleName("palette");
 
-        paletteLayout.addLayoutClickListener(new LayoutClickListener() {
-            @Override
-            public void layoutClick(final LayoutClickEvent event) {
-                if (event.getChildComponent() != null) {
-                    PaletteItemType data = (PaletteItemType) ((DragAndDropWrapper) event
-                            .getChildComponent()).getData();
-                    addWidget(data, null);
-                }
-            }
-        });
+		paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TEXT));
+		paletteLayout
+				.addComponent(buildPaletteItem(PaletteItemType.MULTIPLECHOICE));
+		paletteLayout.addComponent(buildPaletteItem(PaletteItemType.IMAGE));
 
-        return paletteLayout;
-    }
-    
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
+		paletteLayout.addLayoutClickListener(new LayoutClickListener() {
+			@Override
+			public void layoutClick(final LayoutClickEvent event) {
+				if (event.getChildComponent() != null) {
+					PaletteItemType data = (PaletteItemType) ((DragAndDropWrapper) event
+							.getChildComponent()).getData();
+					addWidget(data, null);
+				}
+			}
+		});
 
-        Button ok = new Button(lang.getString("Save"));
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                close();
-                Notification success = new Notification(
-                        lang.getString("CourseSavedSuccessfully"));
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
+		return paletteLayout;
+	}
 
-            }
-        });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
-        return footer;
-    }
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-    private Component buildPaletteItem(final PaletteItemType type) {
-        Label caption = new Label(type.getIcon().getHtml() + type.getTitle(),
-                ContentMode.HTML);
-        caption.setSizeUndefined();
+		Button ok = new Button(lang.getString("Save"));
+		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		ok.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				close();
+				Notification success = new Notification(lang
+						.getString("CourseSavedSuccessfully"));
+				success.setDelayMsec(2000);
+				success.setStyleName("bar success small");
+				success.setPosition(Position.BOTTOM_CENTER);
+				success.show(Page.getCurrent());
 
-        DragAndDropWrapper ddWrap = new DragAndDropWrapper(caption);
-        ddWrap.setSizeUndefined();
-        ddWrap.setDragStartMode(DragStartMode.WRAPPER);
-        ddWrap.setData(type);
-        return ddWrap;
-    }
+			}
+		});
+		ok.focus();
+		footer.addComponent(ok);
+		footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
+		return footer;
+	}
 
-    public void addWidget(final PaletteItemType paletteItemType,
-            final Object prefillData) {
-        canvas.addComponent(paletteItemType, prefillData);
-    }
+	private Component buildPaletteItem(final PaletteItemType type) {
+		Label caption = new Label(type.getIcon().getHtml() + type.getTitle(),
+				ContentMode.HTML);
+		caption.setSizeUndefined();
 
-    public final class SortableLayout extends CustomComponent {
+		DragAndDropWrapper ddWrap = new DragAndDropWrapper(caption);
+		ddWrap.setSizeUndefined();
+		ddWrap.setDragStartMode(DragStartMode.WRAPPER);
+		ddWrap.setData(type);
+		return ddWrap;
+	}
 
-        private VerticalLayout layout;
-        private final DropHandler dropHandler;
-        private TextField titleLabel;
-        private DragAndDropWrapper placeholder;
+	public void addWidget(final PaletteItemType paletteItemType,
+			final Object prefillData) {
+		canvas.addComponent(paletteItemType, prefillData);
+	}
 
-        public SortableLayout() {
-            layout = new VerticalLayout();
-            setCompositionRoot(layout);
-            layout.addStyleName("canvas-layout");
+	public final class SortableLayout extends CustomComponent {
 
-            titleLabel = new TextField();
-            titleLabel.addStyleName("title");
-            SimpleDateFormat df = new SimpleDateFormat();
-            df.applyPattern("M/dd/yyyy");
+		private VerticalLayout layout;
+		private final DropHandler dropHandler;
+		private TextField titleLabel;
+		private DragAndDropWrapper placeholder;
 
-            titleLabel.addValueChangeListener(new ValueChangeListener() {
-                @Override
-                public void valueChange(final ValueChangeEvent event) {
-                    String t = titleLabel.getValue();
-                    if (t == null || t.equals("")) {
-                        t = " ";
-                    }
-                    //
-                    //listener.titleChanged(t, UnitEditor.this);
-                }
-            });
-            layout.addComponent(titleLabel);
+		public SortableLayout() {
+			layout = new VerticalLayout();
+			setCompositionRoot(layout);
+			layout.addStyleName("canvas-layout");
 
-            dropHandler = new ReorderLayoutDropHandler();
+			titleLabel = new TextField();
+			titleLabel.addStyleName("title");
+			SimpleDateFormat df = new SimpleDateFormat();
+			df.applyPattern("M/dd/yyyy");
 
-            Label l = new Label(lang.getString("DragItemsHere"));
-            l.setSizeUndefined();
+			titleLabel.addValueChangeListener(new ValueChangeListener() {
+				@Override
+				public void valueChange(final ValueChangeEvent event) {
+					String t = titleLabel.getValue();
+					if (t == null || t.equals("")) {
+						t = " ";
+					}
+					//
+					// listener.titleChanged(t, UnitEditor.this);
+				}
+			});
+			layout.addComponent(titleLabel);
 
-            placeholder = new DragAndDropWrapper(l);
-            placeholder.addStyleName("placeholder");
-            placeholder.setDropHandler(new DropHandler() {
+			dropHandler = new ReorderLayoutDropHandler();
 
-                @Override
-                public AcceptCriterion getAcceptCriterion() {
-                    return AcceptAll.get();
-                }
+			Label l = new Label(lang.getString("DragItemsHere"));
+			l.setSizeUndefined();
 
-                @Override
-                public void drop(final DragAndDropEvent event) {
-                    Transferable transferable = event.getTransferable();
-                    Component sourceComponent = transferable
-                            .getSourceComponent();
+			placeholder = new DragAndDropWrapper(l);
+			placeholder.addStyleName("placeholder");
+			placeholder.setDropHandler(new DropHandler() {
 
-                    if (sourceComponent != layout.getParent()) {
-                        Object type = ((AbstractComponent) sourceComponent)
-                                .getData();
-                        addComponent((PaletteItemType) type, null);
-                    }
-                }
-            });
-            layout.addComponent(placeholder);
-        }
+				@Override
+				public AcceptCriterion getAcceptCriterion() {
+					return AcceptAll.get();
+				}
 
-        public void setTitle(final String title) {
-            titleLabel.setValue(title);
-        }
+				@Override
+				public void drop(final DragAndDropEvent event) {
+					Transferable transferable = event.getTransferable();
+					Component sourceComponent = transferable
+							.getSourceComponent();
 
-        public void addComponent(final PaletteItemType paletteItemType,
-                final Object prefillData) {
-            if (placeholder.getParent() != null) {
-                layout.removeComponent(placeholder);
-            }
-            
-            layout.addComponent(
-                    new WrappedComponent(createComponentFromPaletteItem(
-                            paletteItemType, prefillData)), 1);
-                            
-        }
-        
-        private Component createComponentFromPaletteItem(
-                final PaletteItemType type, final Object prefillData) {
-            Component result = null;
-            if (type == PaletteItemType.TEXT) {
-                /*result = new InlineTextEditor(
-                        prefillData != null ? String.valueOf(prefillData)
-                                : null);*/
-            } else if (type == PaletteItemType.IMAGE) {
-                //result = new TopTenMoviesTable();
-            } else if (type == PaletteItemType.MULTIPLECHOICE) {
-                //result = new TopSixTheatersChart();
-            } else if (type == PaletteItemType.TRANSACTIONS) {
-                //result = new TransactionsListing(
-                       // (Collection<Transaction>) prefillData);
-            }
-    
-            return result;
-        }
-       
+					if (sourceComponent != layout.getParent()) {
+						Object type = ((AbstractComponent) sourceComponent)
+								.getData();
+						addComponent((PaletteItemType) type, null);
+					}
+				}
+			});
+			layout.addComponent(placeholder);
+		}
 
-        private class WrappedComponent extends DragAndDropWrapper {
+		public void setTitle(final String title) {
+			titleLabel.setValue(title);
+		}
 
-            public WrappedComponent(final Component content) {
-                super(content);
-                setDragStartMode(DragStartMode.WRAPPER);
-            }
+		public void addComponent(final PaletteItemType paletteItemType,
+				final Object prefillData) {
+			if (placeholder.getParent() != null) {
+				layout.removeComponent(placeholder);
+			}
 
-            @Override
-            public DropHandler getDropHandler() {
-                return dropHandler;
-            }
+			layout.addComponent(
+					new WrappedComponent(createComponentFromPaletteItem(
+							paletteItemType, prefillData)), 1);
 
-        }
+		}
 
-        private class ReorderLayoutDropHandler implements DropHandler {
+		private Component createComponentFromPaletteItem(
+				final PaletteItemType type, final Object prefillData) {
+			Component result = null;
+			if (type == PaletteItemType.TEXT) {
+				/*
+				 * result = new InlineTextEditor( prefillData != null ?
+				 * String.valueOf(prefillData) : null);
+				 */
+			} else if (type == PaletteItemType.IMAGE) {
+				// result = new TopTenMoviesTable();
+			} else if (type == PaletteItemType.MULTIPLECHOICE) {
+				// result = new TopSixTheatersChart();
+			} else if (type == PaletteItemType.TRANSACTIONS) {
+				// result = new TransactionsListing(
+				// (Collection<Transaction>) prefillData);
+			}
 
-            @Override
-            public AcceptCriterion getAcceptCriterion() {
-                 //return new SourceIs()
-                return AcceptAll.get();
-            }
+			return result;
+		}
 
-            @Override
-            public void drop(final DragAndDropEvent dropEvent) {
-                Transferable transferable = dropEvent.getTransferable();
-                Component sourceComponent = transferable.getSourceComponent();
+		private class WrappedComponent extends DragAndDropWrapper {
 
-                TargetDetails dropTargetData = dropEvent.getTargetDetails();
-                DropTarget target = dropTargetData.getTarget();
+			public WrappedComponent(final Component content) {
+				super(content);
+				setDragStartMode(DragStartMode.WRAPPER);
+			}
 
-                if (sourceComponent.getParent() != layout) {
-                    Object paletteItemType = ((AbstractComponent) sourceComponent)
-                            .getData();
-                   
-                    AbstractComponent c = new WrappedComponent(
-                            createComponentFromPaletteItem(
-                                    (PaletteItemType) paletteItemType, null));
-                                    
-                    int index = 0;
-                    Iterator<Component> componentIterator = layout.iterator();
-                    Component next = null;
-                    while (next != target && componentIterator.hasNext()) {
-                        next = componentIterator.next();
-                        if (next != sourceComponent) {
-                            index++;
-                        }
-                    }
+			@Override
+			public DropHandler getDropHandler() {
+				return dropHandler;
+			}
 
-                    if (dropTargetData.getData("verticalLocation").equals(
-                            VerticalDropLocation.TOP.toString())) {
-                        index--;
-                        if (index <= 0) {
-                            index = 1;
-                        }
-                    }
+		}
 
-                    layout.addComponent(c, index);
-                }
+		private class ReorderLayoutDropHandler implements DropHandler {
 
-                if (sourceComponent instanceof WrappedComponent) {
-                    // find the location where to move the dragged component
-                    boolean sourceWasAfterTarget = true;
-                    int index = 0;
-                    Iterator<Component> componentIterator = layout.iterator();
-                    Component next = null;
-                    while (next != target && componentIterator.hasNext()) {
-                        next = componentIterator.next();
-                        if (next != sourceComponent) {
-                            index++;
-                        } else {
-                            sourceWasAfterTarget = false;
-                        }
-                    }
-                    if (next == null || next != target) {
-                        // component not found - if dragging from another layout
-                        return;
-                    }
+			@Override
+			public AcceptCriterion getAcceptCriterion() {
+				// return new SourceIs()
+				return AcceptAll.get();
+			}
 
-                    // drop on top of target?
-                    if (dropTargetData.getData("verticalLocation").equals(
-                            VerticalDropLocation.MIDDLE.toString())) {
-                        if (sourceWasAfterTarget) {
-                            index--;
-                        }
-                    }
+			@Override
+			public void drop(final DragAndDropEvent dropEvent) {
+				Transferable transferable = dropEvent.getTransferable();
+				Component sourceComponent = transferable.getSourceComponent();
 
-                    // drop before the target?
-                    else if (dropTargetData.getData("verticalLocation").equals(
-                            VerticalDropLocation.TOP.toString())) {
-                        index--;
-                        if (index <= 0) {
-                            index = 1;
-                        }
-                    }
+				TargetDetails dropTargetData = dropEvent.getTargetDetails();
+				DropTarget target = dropTargetData.getTarget();
 
-                    // move component within the layout
-                    layout.removeComponent(sourceComponent);
-                    layout.addComponent(sourceComponent, index);
-                }
-            }
-        }
+				if (sourceComponent.getParent() != layout) {
+					Object paletteItemType = ((AbstractComponent) sourceComponent)
+							.getData();
 
-    }
+					AbstractComponent c = new WrappedComponent(
+							createComponentFromPaletteItem(
+									(PaletteItemType) paletteItemType, null));
 
-    public interface CourseEditorListener {
-        void titleChanged(String newTitle, UnitEditor editor);
-    }
+					int index = 0;
+					Iterator<Component> componentIterator = layout.iterator();
+					Component next = null;
+					while (next != target && componentIterator.hasNext()) {
+						next = componentIterator.next();
+						if (next != sourceComponent) {
+							index++;
+						}
+					}
 
-    
-    // TODO Change Language!
-    
-    public enum PaletteItemType {
-        TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",
-                FontAwesome.CHECK_SQUARE_O), IMAGE("Image",
-                FontAwesome.IMAGE), TRANSACTIONS("Latest transactions",
-                null);
+					if (dropTargetData.getData("verticalLocation").equals(
+							VerticalDropLocation.TOP.toString())) {
+						index--;
+						if (index <= 0) {
+							index = 1;
+						}
+					}
 
-        private final String title;
-        private final FontAwesome icon;
+					layout.addComponent(c, index);
+				}
 
-        PaletteItemType(final String title, final FontAwesome icon) {
-            this.title = title;
-            this.icon = icon;
-        }
+				if (sourceComponent instanceof WrappedComponent) {
+					// find the location where to move the dragged component
+					boolean sourceWasAfterTarget = true;
+					int index = 0;
+					Iterator<Component> componentIterator = layout.iterator();
+					Component next = null;
+					while (next != target && componentIterator.hasNext()) {
+						next = componentIterator.next();
+						if (next != sourceComponent) {
+							index++;
+						} else {
+							sourceWasAfterTarget = false;
+						}
+					}
+					if (next == null || next != target) {
+						// component not found - if dragging from another layout
+						return;
+					}
 
-        public String getTitle() {
-            return title;
-        }
+					// drop on top of target?
+					if (dropTargetData.getData("verticalLocation").equals(
+							VerticalDropLocation.MIDDLE.toString())) {
+						if (sourceWasAfterTarget) {
+							index--;
+						}
+					}
 
-        public FontAwesome getIcon() {
-            return icon;
-        }
+					// drop before the target?
+					else if (dropTargetData.getData("verticalLocation").equals(
+							VerticalDropLocation.TOP.toString())) {
+						index--;
+						if (index <= 0) {
+							index = 1;
+						}
+					}
 
-    }
+					// move component within the layout
+					layout.removeComponent(sourceComponent);
+					layout.addComponent(sourceComponent, index);
+				}
+			}
+		}
+
+	}
+
+	public interface CourseEditorListener {
+		void titleChanged(String newTitle, UnitEditor editor);
+	}
+
+	// TODO Change Language!
+
+	public enum PaletteItemType {
+		TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",
+				FontAwesome.CHECK_SQUARE_O), IMAGE("Image", FontAwesome.IMAGE), TRANSACTIONS(
+				"Latest transactions", null);
+
+		private final String title;
+		private final FontAwesome icon;
+
+		PaletteItemType(final String title, final FontAwesome icon) {
+			this.title = title;
+			this.icon = icon;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public FontAwesome getIcon() {
+			return icon;
+		}
+
+	}
 }

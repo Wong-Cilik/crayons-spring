@@ -36,189 +36,189 @@ import com.vaadin.ui.themes.ValoTheme;
 // Code is based on https://github.com/vaadin/book-examples/blob/master/src/com/vaadin/book/examples/component/UploadExample.java
 
 public class ImageUploadEditor extends CustomComponent {
-    private static final long serialVersionUID = -8880121539345363049L;
-    
-    private final Image image = new Image();
-    private final Property<String> imageTitle = new ObjectProperty<String>(
-            "");
-    private final Property<String> imageSource = new ObjectProperty<String>(
-            "");
-    private final Component selectImageEditor;
-    private final Component showImage;
-    
-    public ImageUploadEditor() {
-        setWidth(100.0f, Unit.PERCENTAGE);
-        
-        selectImageEditor = buildSelectImageEditor();
-        showImage = showImage();
-        
-        setCompositionRoot(selectImageEditor);
-    }
+	private static final long serialVersionUID = -8880121539345363049L;
 
-    private Component showImage() {
-        Button editButton = new Button(FontAwesome.EDIT);
-        editButton.addStyleName(ValoTheme.BUTTON_SMALL);
-        editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
-        editButton.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = 7359038534128275984L;
+	private final Image image = new Image();
+	private final Property<String> imageTitle = new ObjectProperty<String>("");
+	private final Property<String> imageSource = new ObjectProperty<String>("");
+	private final Component selectImageEditor;
+	private final Component showImage;
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                setCompositionRoot(selectImageEditor);
-            }
-        });
-        
-        VerticalLayout imageLayout = new VerticalLayout();
-        imageLayout.setSpacing(true);
-        
-        imageLayout.addComponent(image);
-        imageLayout.setComponentAlignment(image, Alignment.TOP_CENTER);
-        final Label title = new Label(imageTitle);
-        title.setWidthUndefined();
-        title.setStyleName(ValoTheme.LABEL_LIGHT);
-        imageLayout.addComponent(title);
-        imageLayout.setComponentAlignment(title, Alignment.TOP_CENTER);
-        
-        CssLayout result = new CssLayout(imageLayout, editButton);
-        result.addStyleName("text-editor");
-        result.setSizeFull();
-        result.addLayoutClickListener(new LayoutClickListener() {
-            private static final long serialVersionUID = -8289333071983502304L;
+	public ImageUploadEditor() {
+		setWidth(100.0f, Unit.PERCENTAGE);
 
-            @Override
-            public void layoutClick(final LayoutClickEvent event) {
-                if (event.getChildComponent() == image && event.isDoubleClick()) {
-                    setCompositionRoot(selectImageEditor);
-                }
-            }
-        });
-        return result;
-    }
+		selectImageEditor = buildSelectImageEditor();
+		showImage = showImage();
 
-    private VerticalLayout buildSelectImageEditor() {
-        final VerticalLayout layout = new VerticalLayout();
-        layout.setWidth(100.0f, Unit.PERCENTAGE);
-        layout.setSpacing(true);
-        
-        image.setVisible(false);
-        
-        class ImageReceiver implements Receiver, SucceededListener {
-            private static final long serialVersionUID = -5899511248623876868L;
-            
-            public File file;
-            
-            @Override
-            public void uploadSucceeded(SucceededEvent event) {
-                image.setVisible(true);
-                image.setSource(new FileResource(file));
-                setCompositionRoot(showImage);
-            }
+		setCompositionRoot(selectImageEditor);
+	}
 
-            @Override
-            public OutputStream receiveUpload(String filename, String mimeType) {
-                FileOutputStream stream = null; 
-                String username = System.getProperty("user.name");
-                try {
-                    file = new File("C:/Users/" + username + "/vaadin-uploads" + filename);
-                    stream = new FileOutputStream(file);
-                } catch (final java.io.FileNotFoundException e) {
-                    new Notification("Could not open file<br/>",
-                                     e.getMessage(),
-                                     Notification.Type.ERROR_MESSAGE)
-                        .show(Page.getCurrent());
-                    return null;
-                }
-                return stream; 
-            }
-            
-        }
-        
-        ImageReceiver receiver = new ImageReceiver(); 
+	private Component showImage() {
+		Button editButton = new Button(FontAwesome.EDIT);
+		editButton.addStyleName(ValoTheme.BUTTON_SMALL);
+		editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
+		editButton.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 7359038534128275984L;
 
-        final Upload upload = new Upload("Upload image", receiver);
-        upload.setButtonCaption("Upload");
-        upload.addSucceededListener(receiver);
-        
-        // TODO: set upload limit
-        final long UPLOAD_LIMIT = 1000000l;
-        upload.addStartedListener(new StartedListener() {
-            private static final long serialVersionUID = 4728847902678459488L;
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				setCompositionRoot(selectImageEditor);
+			}
+		});
 
-            @Override
-            public void uploadStarted(StartedEvent event) {
-                if (event.getContentLength() > UPLOAD_LIMIT) {
-                    Notification.show("Too big file",
-                        Notification.Type.ERROR_MESSAGE);
-                    upload.interruptUpload();
-                }
-            }
-        });
-        
-        // Check the size also during progress 
-        upload.addProgressListener(new ProgressListener() {
-            private static final long serialVersionUID = 8587352676703174995L;
+		VerticalLayout imageLayout = new VerticalLayout();
+		imageLayout.setSpacing(true);
 
-            @Override
-            public void updateProgress(long readBytes, long contentLength) {
-                if (readBytes > UPLOAD_LIMIT) {
-                    Notification.show("Too big file",
-                        Notification.Type.ERROR_MESSAGE);
-                    upload.interruptUpload();
-                }
-            } 
-        });
+		imageLayout.addComponent(image);
+		imageLayout.setComponentAlignment(image, Alignment.TOP_CENTER);
+		final Label title = new Label(imageTitle);
+		title.setWidthUndefined();
+		title.setStyleName(ValoTheme.LABEL_LIGHT);
+		imageLayout.addComponent(title);
+		imageLayout.setComponentAlignment(title, Alignment.TOP_CENTER);
 
-        image.setWidth(400, Unit.PIXELS);
-        
-        final Label titleFieldLabel = new Label("Image title");
-        final TextField titleField = new TextField(imageTitle);
-        titleField.setWidth(100.0f, Unit.PERCENTAGE);
-        HorizontalLayout titleLayout = new HorizontalLayout(titleFieldLabel, titleField);
-        titleLayout.setSpacing(true);
-        layout.addComponent(titleLayout);
-        
-        titleField.addAttachListener(new AttachListener() {
-            /**
+		CssLayout result = new CssLayout(imageLayout, editButton);
+		result.addStyleName("text-editor");
+		result.setSizeFull();
+		result.addLayoutClickListener(new LayoutClickListener() {
+			private static final long serialVersionUID = -8289333071983502304L;
+
+			@Override
+			public void layoutClick(final LayoutClickEvent event) {
+				if (event.getChildComponent() == image && event.isDoubleClick()) {
+					setCompositionRoot(selectImageEditor);
+				}
+			}
+		});
+		return result;
+	}
+
+	private VerticalLayout buildSelectImageEditor() {
+		final VerticalLayout layout = new VerticalLayout();
+		layout.setWidth(100.0f, Unit.PERCENTAGE);
+		layout.setSpacing(true);
+
+		image.setVisible(false);
+
+		class ImageReceiver implements Receiver, SucceededListener {
+			private static final long serialVersionUID = -5899511248623876868L;
+
+			public File file;
+
+			@Override
+			public void uploadSucceeded(SucceededEvent event) {
+				image.setVisible(true);
+				image.setSource(new FileResource(file));
+				setCompositionRoot(showImage);
+			}
+
+			@Override
+			public OutputStream receiveUpload(String filename, String mimeType) {
+				FileOutputStream stream = null;
+				String username = System.getProperty("user.name");
+				try {
+					file = new File("C:/Users/" + username + "/vaadin-uploads"
+							+ filename);
+					stream = new FileOutputStream(file);
+				} catch (final java.io.FileNotFoundException e) {
+					new Notification("Could not open file<br/>",
+							e.getMessage(), Notification.Type.ERROR_MESSAGE)
+							.show(Page.getCurrent());
+					return null;
+				}
+				return stream;
+			}
+
+		}
+
+		ImageReceiver receiver = new ImageReceiver();
+
+		final Upload upload = new Upload("Upload image", receiver);
+		upload.setButtonCaption("Upload");
+		upload.addSucceededListener(receiver);
+
+		// TODO: set upload limit
+		final long UPLOAD_LIMIT = 1000000l;
+		upload.addStartedListener(new StartedListener() {
+			private static final long serialVersionUID = 4728847902678459488L;
+
+			@Override
+			public void uploadStarted(StartedEvent event) {
+				if (event.getContentLength() > UPLOAD_LIMIT) {
+					Notification.show("Too big file",
+							Notification.Type.ERROR_MESSAGE);
+					upload.interruptUpload();
+				}
+			}
+		});
+
+		// Check the size also during progress
+		upload.addProgressListener(new ProgressListener() {
+			private static final long serialVersionUID = 8587352676703174995L;
+
+			@Override
+			public void updateProgress(long readBytes, long contentLength) {
+				if (readBytes > UPLOAD_LIMIT) {
+					Notification.show("Too big file",
+							Notification.Type.ERROR_MESSAGE);
+					upload.interruptUpload();
+				}
+			}
+		});
+
+		image.setWidth(400, Unit.PIXELS);
+
+		final Label titleFieldLabel = new Label("Image title");
+		final TextField titleField = new TextField(imageTitle);
+		titleField.setWidth(100.0f, Unit.PERCENTAGE);
+		HorizontalLayout titleLayout = new HorizontalLayout(titleFieldLabel,
+				titleField);
+		titleLayout.setSpacing(true);
+		layout.addComponent(titleLayout);
+
+		titleField.addAttachListener(new AttachListener() {
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void attach(final AttachEvent event) {
-                titleField.focus();
-                titleField.selectAll();
-            }
-        });
-        
-        final Label sourceFieldLabel = new Label("Image sourse");
-        final TextField sourceField = new TextField(imageSource);
-        sourceField.setWidth(100.0f, Unit.PERCENTAGE);
-        HorizontalLayout sourceLayout = new HorizontalLayout(sourceFieldLabel, sourceField);
-        sourceLayout.setSpacing(true);
-        layout.addComponent(sourceLayout);
-        
-        sourceField.addAttachListener(new AttachListener() {
-            /**
+			public void attach(final AttachEvent event) {
+				titleField.focus();
+				titleField.selectAll();
+			}
+		});
+
+		final Label sourceFieldLabel = new Label("Image sourse");
+		final TextField sourceField = new TextField(imageSource);
+		sourceField.setWidth(100.0f, Unit.PERCENTAGE);
+		HorizontalLayout sourceLayout = new HorizontalLayout(sourceFieldLabel,
+				sourceField);
+		sourceLayout.setSpacing(true);
+		layout.addComponent(sourceLayout);
+
+		sourceField.addAttachListener(new AttachListener() {
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void attach(final AttachEvent event) {
-                sourceField.focus();
-                sourceField.selectAll();
-            }
-        });
-        
-        layout.addComponents(upload);
-        layout.setComponentAlignment(upload, Alignment.MIDDLE_CENTER);
+			public void attach(final AttachEvent event) {
+				sourceField.focus();
+				sourceField.selectAll();
+			}
+		});
 
-        // TODO: create uploads directory
-        String username = System.getProperty("user.name");
-        File uploads = new File("C:/Users/" + username + "/vaadin-uploads");
-        if (!uploads.exists() && !uploads.mkdir())
-            layout.addComponent(new Label("ERROR: Could not create upload dir"));
+		layout.addComponents(upload);
+		layout.setComponentAlignment(upload, Alignment.MIDDLE_CENTER);
 
-        return layout;
-    }
+		// TODO: create uploads directory
+		String username = System.getProperty("user.name");
+		File uploads = new File("C:/Users/" + username + "/vaadin-uploads");
+		if (!uploads.exists() && !uploads.mkdir())
+			layout.addComponent(new Label("ERROR: Could not create upload dir"));
+
+		return layout;
+	}
 }

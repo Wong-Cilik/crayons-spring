@@ -19,89 +19,89 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class UnitTitle extends CustomComponent {
-    private static final long serialVersionUID = 2343588123846949111L;
-    
-    private final Property<String> property = new ObjectProperty<String>(
-            "Enter unit title here...");
-    private final Component titleEditor;
-    private final Component readOnly;
-    
-    public UnitTitle(String title) {
-        setWidth(100.0f, Unit.PERCENTAGE);
-        
-        titleEditor = buildTitleEditor();
-        readOnly = buildReadOnly();
-        
-        if (title != null) {
-            property.setValue(title);
-        }
-        
-        setCompositionRoot(titleEditor);
-    }
+	private static final long serialVersionUID = 2343588123846949111L;
 
-    private Component buildReadOnly() {
-        final Label title = new Label(property);
-        title.setStyleName(ValoTheme.LABEL_LARGE);
-        title.setWidthUndefined();
-        VerticalLayout titleLayout = new VerticalLayout(title);
-        titleLayout.setSizeFull();
-        titleLayout.setComponentAlignment(title, Alignment.TOP_CENTER);
-        
-        Button editButton = new Button(FontAwesome.EDIT);
-        editButton.addStyleName(ValoTheme.BUTTON_SMALL);
-        editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
-        editButton.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = -6863363158492604043L;
+	private final Property<String> property = new ObjectProperty<String>(
+			"Enter unit title here...");
+	private final Component titleEditor;
+	private final Component readOnly;
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                setCompositionRoot(titleEditor);
-            }
-        });
+	public UnitTitle(String title) {
+		setWidth(100.0f, Unit.PERCENTAGE);
 
-        CssLayout result = new CssLayout(titleLayout, editButton);
-        result.addStyleName("text-editor");
-        result.setSizeFull();
-        result.addLayoutClickListener(new LayoutClickListener() {
-            private static final long serialVersionUID = 2211766026521962658L;
+		titleEditor = buildTitleEditor();
+		readOnly = buildReadOnly();
 
-            @Override
-            public void layoutClick(final LayoutClickEvent event) {
-                if (event.getChildComponent() == title && event.isDoubleClick()) {
-                    setCompositionRoot(titleEditor);
-                }
-            }
-        });
-        return result;
-    }
+		if (title != null) {
+			property.setValue(title);
+		}
 
-    private Component buildTitleEditor() {
-        final TextField textField = new TextField(property);
-        textField.setWidth(100.0f, Unit.PERCENTAGE);
-        textField.addAttachListener(new AttachListener() {
-            private static final long serialVersionUID = -3246635949197534220L;
+		setCompositionRoot(titleEditor);
+	}
 
-            @Override
-            public void attach(final AttachEvent event) {
-                textField.focus();
-                textField.selectAll();
-            }
-        });
-       
-        Button save = new Button("Save");
-        save.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = 7805400627427951016L;
+	private Component buildReadOnly() {
+		final Label title = new Label(property);
+		title.setStyleName(ValoTheme.LABEL_LARGE);
+		title.setWidthUndefined();
+		VerticalLayout titleLayout = new VerticalLayout(title);
+		titleLayout.setSizeFull();
+		titleLayout.setComponentAlignment(title, Alignment.TOP_CENTER);
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                setCompositionRoot(readOnly);
-            }
-        });
+		Button editButton = new Button(FontAwesome.EDIT);
+		editButton.addStyleName(ValoTheme.BUTTON_SMALL);
+		editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
+		editButton.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = -6863363158492604043L;
 
-        HorizontalLayout result = new HorizontalLayout(textField, save);
-        //result.addStyleName("edit");
-        result.setSizeFull();
-        result.setSpacing(true);
-        return result;
-    }
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				setCompositionRoot(titleEditor);
+			}
+		});
+
+		CssLayout result = new CssLayout(titleLayout, editButton);
+		result.addStyleName("text-editor");
+		result.setSizeFull();
+		result.addLayoutClickListener(new LayoutClickListener() {
+			private static final long serialVersionUID = 2211766026521962658L;
+
+			@Override
+			public void layoutClick(final LayoutClickEvent event) {
+				if (event.getChildComponent() == title && event.isDoubleClick()) {
+					setCompositionRoot(titleEditor);
+				}
+			}
+		});
+		return result;
+	}
+
+	private Component buildTitleEditor() {
+		final TextField textField = new TextField(property);
+		textField.setWidth(100.0f, Unit.PERCENTAGE);
+		textField.addAttachListener(new AttachListener() {
+			private static final long serialVersionUID = -3246635949197534220L;
+
+			@Override
+			public void attach(final AttachEvent event) {
+				textField.focus();
+				textField.selectAll();
+			}
+		});
+
+		Button save = new Button("Save");
+		save.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 7805400627427951016L;
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				setCompositionRoot(readOnly);
+			}
+		});
+
+		HorizontalLayout result = new HorizontalLayout(textField, save);
+		// result.addStyleName("edit");
+		result.setSizeFull();
+		result.setSpacing(true);
+		return result;
+	}
 }

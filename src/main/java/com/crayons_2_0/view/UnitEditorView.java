@@ -42,411 +42,410 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-
 public class UnitEditorView extends VerticalLayout implements View {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final String VIEW_NAME = "Unit Editor LevinNeu";   // Todo: Change Name!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public static final String VIEW_NAME = "Unit Editor LevinNeu"; // Todo:
+																	// Change
+																	// Name!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	private final SortableLayout canvas;
-    ResourceBundle lang = LanguageService.getInstance().getRes();
-    
-    private UnitEditor2 unitEditor;
+	ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	
+	private UnitEditor2 unitEditor;
+
 	public UnitEditorView() {
-		//this.listener = (CourseEditorListener) clickListener;
-        setSizeFull();
-        addStyleName("editor");
-        addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
-        /*
-        setModal(true);
-        setCloseShortcut(KeyCode.ESCAPE, null);
-        setResizable(false);
-        setClosable(false);
-        */
-        setHeight(90.0f, Unit.PERCENTAGE);
-        
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        
-        this.unitEditor = new UnitEditor2();
-        
-        Component selectUnit = buildSelectUnit();
-        content.addComponent(selectUnit);
-        
-        Component palette = buildPalette();
-        content.addComponent(palette);
-        content.setComponentAlignment(palette, Alignment.TOP_CENTER);
+		// this.listener = (CourseEditorListener) clickListener;
+		setSizeFull();
+		addStyleName("editor");
+		addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
+		/*
+		 * setModal(true); setCloseShortcut(KeyCode.ESCAPE, null);
+		 * setResizable(false); setClosable(false);
+		 */
+		setHeight(90.0f, Unit.PERCENTAGE);
 
-        canvas = new SortableLayout();
-        canvas.setWidth(100.0f, Unit.PERCENTAGE);
-        canvas.addStyleName("canvas");
-        content.addComponent(canvas);
-        content.setExpandRatio(canvas, 1);
-        addComponent(content);
-        content.addComponent(buildFooter());
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+
+		this.unitEditor = new UnitEditor2();
+
+		Component selectUnit = buildSelectUnit();
+		content.addComponent(selectUnit);
+
+		Component palette = buildPalette();
+		content.addComponent(palette);
+		content.setComponentAlignment(palette, Alignment.TOP_CENTER);
+
+		canvas = new SortableLayout();
+		canvas.setWidth(100.0f, Unit.PERCENTAGE);
+		canvas.addStyleName("canvas");
+		content.addComponent(canvas);
+		content.setExpandRatio(canvas, 1);
+		addComponent(content);
+		content.addComponent(buildFooter());
 	}
-	
+
 	private Component buildSelectUnit() {
-		// Link: https://demo.vaadin.com/sampler/#ui/data-input/multiple-value/combo-box
+		// Link:
+		// https://demo.vaadin.com/sampler/#ui/data-input/multiple-value/combo-box
 		HorizontalLayout layout = new HorizontalLayout();
-		
+
 		ComboBox comboBox = new ComboBox("Select your Unit");
 		comboBox.setInputPrompt(unitEditor.getCurrentUnit().getTitle());
-		
-		for (com.crayons_2_0.component.Unit tmpUnit : unitEditor.getCourse().getUnits()) {
+
+		for (com.crayons_2_0.component.Unit tmpUnit : unitEditor.getCourse()
+				.getUnits()) {
 			comboBox.addItem(tmpUnit.getTitle());
 		}
-		//TODO REACTION
+		// TODO REACTION
 		layout.addComponent(comboBox);
 		return layout;
 	}
 
 	public void setTitle(final String title) {
-        canvas.setTitle(title);
-    }
+		canvas.setTitle(title);
+	}
 
-    private Component buildPalette() {
-        HorizontalLayout paletteLayout = new HorizontalLayout();
-        paletteLayout.setSpacing(true);
-        paletteLayout.setWidthUndefined();
-        paletteLayout.addStyleName("palette");
+	private Component buildPalette() {
+		HorizontalLayout paletteLayout = new HorizontalLayout();
+		paletteLayout.setSpacing(true);
+		paletteLayout.setWidthUndefined();
+		paletteLayout.addStyleName("palette");
 
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TEXT));
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.MULTIPLECHOICE));
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.IMAGE));
+		paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TEXT));
+		paletteLayout
+				.addComponent(buildPaletteItem(PaletteItemType.MULTIPLECHOICE));
+		paletteLayout.addComponent(buildPaletteItem(PaletteItemType.IMAGE));
 
-        paletteLayout.addLayoutClickListener(new LayoutClickListener() {
-            /**
+		paletteLayout.addLayoutClickListener(new LayoutClickListener() {
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void layoutClick(final LayoutClickEvent event) {
-                if (event.getChildComponent() != null) {
-                    PaletteItemType data = (PaletteItemType) ((DragAndDropWrapper) event
-                            .getChildComponent()).getData();
-                    addWidget(data, null);
-                }
-            }
-        });
+			public void layoutClick(final LayoutClickEvent event) {
+				if (event.getChildComponent() != null) {
+					PaletteItemType data = (PaletteItemType) ((DragAndDropWrapper) event
+							.getChildComponent()).getData();
+					addWidget(data, null);
+				}
+			}
+		});
 
-        return paletteLayout;
-    }
-    
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
+		return paletteLayout;
+	}
 
-        Button ok = new Button(lang.getString("Save"));
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            /**
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth(100.0f, Unit.PERCENTAGE);
+
+		Button ok = new Button(lang.getString("Save"));
+		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		ok.addClickListener(new ClickListener() {
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void buttonClick(ClickEvent event) {
-                //close();
-                Notification success = new Notification(
-                        lang.getString("CourseSavedSuccessfully"));
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
+			public void buttonClick(ClickEvent event) {
+				// close();
+				Notification success = new Notification(lang
+						.getString("CourseSavedSuccessfully"));
+				success.setDelayMsec(2000);
+				success.setStyleName("bar success small");
+				success.setPosition(Position.BOTTOM_CENTER);
+				success.show(Page.getCurrent());
 
-            }
-        });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
-        return footer;
-    }
+			}
+		});
+		ok.focus();
+		footer.addComponent(ok);
+		footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
+		return footer;
+	}
 
-    private Component buildPaletteItem(final PaletteItemType type) {
-        Label caption = new Label(type.getIcon().getHtml() + type.getTitle(),
-                ContentMode.HTML);
-        caption.setSizeUndefined();
+	private Component buildPaletteItem(final PaletteItemType type) {
+		Label caption = new Label(type.getIcon().getHtml() + type.getTitle(),
+				ContentMode.HTML);
+		caption.setSizeUndefined();
 
-        DragAndDropWrapper ddWrap = new DragAndDropWrapper(caption);
-        ddWrap.setSizeUndefined();
-        ddWrap.setDragStartMode(DragStartMode.WRAPPER);
-        ddWrap.setData(type);
-        return ddWrap;
-    }
+		DragAndDropWrapper ddWrap = new DragAndDropWrapper(caption);
+		ddWrap.setSizeUndefined();
+		ddWrap.setDragStartMode(DragStartMode.WRAPPER);
+		ddWrap.setData(type);
+		return ddWrap;
+	}
 
-    public void addWidget(final PaletteItemType paletteItemType,
-            final Object prefillData) {
-        canvas.addComponent(paletteItemType, prefillData);
-    }
+	public void addWidget(final PaletteItemType paletteItemType,
+			final Object prefillData) {
+		canvas.addComponent(paletteItemType, prefillData);
+	}
 
-    public final class SortableLayout extends CustomComponent {
+	public final class SortableLayout extends CustomComponent {
 
-        /**
+		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
 		private VerticalLayout layout;
-        private final DropHandler dropHandler;
-        private TextField titleLabel;
-        private DragAndDropWrapper placeholder;
+		private final DropHandler dropHandler;
+		private TextField titleLabel;
+		private DragAndDropWrapper placeholder;
 
-        public SortableLayout() {
-            layout = new VerticalLayout();
-            setCompositionRoot(layout);
-            layout.addStyleName("canvas-layout");
+		public SortableLayout() {
+			layout = new VerticalLayout();
+			setCompositionRoot(layout);
+			layout.addStyleName("canvas-layout");
 
-            titleLabel = new TextField();
-            titleLabel.addStyleName("title");
-            SimpleDateFormat df = new SimpleDateFormat();
-            df.applyPattern("M/dd/yyyy");
+			titleLabel = new TextField();
+			titleLabel.addStyleName("title");
+			SimpleDateFormat df = new SimpleDateFormat();
+			df.applyPattern("M/dd/yyyy");
 
-            titleLabel.addValueChangeListener(new ValueChangeListener() {
-                /**
+			titleLabel.addValueChangeListener(new ValueChangeListener() {
+				/**
 				 * 
 				 */
 				private static final long serialVersionUID = 1L;
 
 				@Override
-                public void valueChange(final ValueChangeEvent event) {
-                    String t = titleLabel.getValue();
-                    if (t == null || t.equals("")) {
-                        t = " ";
-                    }
-                    //
-                    //listener.titleChanged(t, UnitEditor.this);
-                }
-            });
-            layout.addComponent(titleLabel);
+				public void valueChange(final ValueChangeEvent event) {
+					String t = titleLabel.getValue();
+					if (t == null || t.equals("")) {
+						t = " ";
+					}
+					//
+					// listener.titleChanged(t, UnitEditor.this);
+				}
+			});
+			layout.addComponent(titleLabel);
 
-            dropHandler = new ReorderLayoutDropHandler();
+			dropHandler = new ReorderLayoutDropHandler();
 
-            Label l = new Label(lang.getString("DragItemsHere"));
-            l.setSizeUndefined();
+			Label l = new Label(lang.getString("DragItemsHere"));
+			l.setSizeUndefined();
 
-            placeholder = new DragAndDropWrapper(l);
-            placeholder.addStyleName("placeholder");
-            placeholder.setDropHandler(new DropHandler() {
+			placeholder = new DragAndDropWrapper(l);
+			placeholder.addStyleName("placeholder");
+			placeholder.setDropHandler(new DropHandler() {
 
-                /**
+				/**
 				 * 
 				 */
 				private static final long serialVersionUID = 1L;
 
 				@Override
-                public AcceptCriterion getAcceptCriterion() {
-                    return AcceptAll.get();
-                }
+				public AcceptCriterion getAcceptCriterion() {
+					return AcceptAll.get();
+				}
 
-                @Override
-                public void drop(final DragAndDropEvent event) {
-                    Transferable transferable = event.getTransferable();
-                    Component sourceComponent = transferable
-                            .getSourceComponent();
+				@Override
+				public void drop(final DragAndDropEvent event) {
+					Transferable transferable = event.getTransferable();
+					Component sourceComponent = transferable
+							.getSourceComponent();
 
-                    if (sourceComponent != layout.getParent()) {
-                        Object type = ((AbstractComponent) sourceComponent)
-                                .getData();
-                        addComponent((PaletteItemType) type, null);
-                    }
-                }
-            });
-            layout.addComponent(placeholder);
-        }
+					if (sourceComponent != layout.getParent()) {
+						Object type = ((AbstractComponent) sourceComponent)
+								.getData();
+						addComponent((PaletteItemType) type, null);
+					}
+				}
+			});
+			layout.addComponent(placeholder);
+		}
 
-        public void setTitle(final String title) {
-            titleLabel.setValue(title);
-        }
+		public void setTitle(final String title) {
+			titleLabel.setValue(title);
+		}
 
-        public void addComponent(final PaletteItemType paletteItemType,
-                final Object prefillData) {
-            if (placeholder.getParent() != null) {
-                layout.removeComponent(placeholder);
-            }
-            
-            layout.addComponent(
-                    new WrappedComponent(createComponentFromPaletteItem(
-                            paletteItemType, prefillData)), 1);
-                            
-        }
-        
-        private Component createComponentFromPaletteItem(
-                final PaletteItemType type, final Object prefillData) {
-            Component result = null;
-            if (type == PaletteItemType.TEXT) {
-                /*result = new InlineTextEditor(
-                        prefillData != null ? String.valueOf(prefillData)
-                                : null);*/
-            } else if (type == PaletteItemType.IMAGE) {
-                //result = new TopTenMoviesTable();
-            } else if (type == PaletteItemType.MULTIPLECHOICE) {
-                //result = new TopSixTheatersChart();
-            } else if (type == PaletteItemType.TRANSACTIONS) {
-                //result = new TransactionsListing(
-                       // (Collection<Transaction>) prefillData);
-            }
-    
-            return result;
-        }
-       
+		public void addComponent(final PaletteItemType paletteItemType,
+				final Object prefillData) {
+			if (placeholder.getParent() != null) {
+				layout.removeComponent(placeholder);
+			}
 
-        private class WrappedComponent extends DragAndDropWrapper {
+			layout.addComponent(
+					new WrappedComponent(createComponentFromPaletteItem(
+							paletteItemType, prefillData)), 1);
 
-            /**
+		}
+
+		private Component createComponentFromPaletteItem(
+				final PaletteItemType type, final Object prefillData) {
+			Component result = null;
+			if (type == PaletteItemType.TEXT) {
+				/*
+				 * result = new InlineTextEditor( prefillData != null ?
+				 * String.valueOf(prefillData) : null);
+				 */
+			} else if (type == PaletteItemType.IMAGE) {
+				// result = new TopTenMoviesTable();
+			} else if (type == PaletteItemType.MULTIPLECHOICE) {
+				// result = new TopSixTheatersChart();
+			} else if (type == PaletteItemType.TRANSACTIONS) {
+				// result = new TransactionsListing(
+				// (Collection<Transaction>) prefillData);
+			}
+
+			return result;
+		}
+
+		private class WrappedComponent extends DragAndDropWrapper {
+
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			public WrappedComponent(final Component content) {
-                super(content);
-                setDragStartMode(DragStartMode.WRAPPER);
-            }
+				super(content);
+				setDragStartMode(DragStartMode.WRAPPER);
+			}
 
-            @Override
-            public DropHandler getDropHandler() {
-                return dropHandler;
-            }
+			@Override
+			public DropHandler getDropHandler() {
+				return dropHandler;
+			}
 
-        }
+		}
 
-        private class ReorderLayoutDropHandler implements DropHandler {
+		private class ReorderLayoutDropHandler implements DropHandler {
 
-            /**
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public AcceptCriterion getAcceptCriterion() {
-                 //return new SourceIs()
-                return AcceptAll.get();
-            }
+			public AcceptCriterion getAcceptCriterion() {
+				// return new SourceIs()
+				return AcceptAll.get();
+			}
 
-            @Override
-            public void drop(final DragAndDropEvent dropEvent) {
-                Transferable transferable = dropEvent.getTransferable();
-                Component sourceComponent = transferable.getSourceComponent();
+			@Override
+			public void drop(final DragAndDropEvent dropEvent) {
+				Transferable transferable = dropEvent.getTransferable();
+				Component sourceComponent = transferable.getSourceComponent();
 
-                TargetDetails dropTargetData = dropEvent.getTargetDetails();
-                DropTarget target = dropTargetData.getTarget();
+				TargetDetails dropTargetData = dropEvent.getTargetDetails();
+				DropTarget target = dropTargetData.getTarget();
 
-                if (sourceComponent.getParent() != layout) {
-                    Object paletteItemType = ((AbstractComponent) sourceComponent)
-                            .getData();
-                   
-                    AbstractComponent c = new WrappedComponent(
-                            createComponentFromPaletteItem(
-                                    (PaletteItemType) paletteItemType, null));
-                                    
-                    int index = 0;
-                    Iterator<Component> componentIterator = layout.iterator();
-                    Component next = null;
-                    while (next != target && componentIterator.hasNext()) {
-                        next = componentIterator.next();
-                        if (next != sourceComponent) {
-                            index++;
-                        }
-                    }
+				if (sourceComponent.getParent() != layout) {
+					Object paletteItemType = ((AbstractComponent) sourceComponent)
+							.getData();
 
-                    if (dropTargetData.getData("verticalLocation").equals(
-                            VerticalDropLocation.TOP.toString())) {
-                        index--;
-                        if (index <= 0) {
-                            index = 1;
-                        }
-                    }
+					AbstractComponent c = new WrappedComponent(
+							createComponentFromPaletteItem(
+									(PaletteItemType) paletteItemType, null));
 
-                    layout.addComponent(c, index);
-                }
+					int index = 0;
+					Iterator<Component> componentIterator = layout.iterator();
+					Component next = null;
+					while (next != target && componentIterator.hasNext()) {
+						next = componentIterator.next();
+						if (next != sourceComponent) {
+							index++;
+						}
+					}
 
-                if (sourceComponent instanceof WrappedComponent) {
-                    // find the location where to move the dragged component
-                    boolean sourceWasAfterTarget = true;
-                    int index = 0;
-                    Iterator<Component> componentIterator = layout.iterator();
-                    Component next = null;
-                    while (next != target && componentIterator.hasNext()) {
-                        next = componentIterator.next();
-                        if (next != sourceComponent) {
-                            index++;
-                        } else {
-                            sourceWasAfterTarget = false;
-                        }
-                    }
-                    if (next == null || next != target) {
-                        // component not found - if dragging from another layout
-                        return;
-                    }
+					if (dropTargetData.getData("verticalLocation").equals(
+							VerticalDropLocation.TOP.toString())) {
+						index--;
+						if (index <= 0) {
+							index = 1;
+						}
+					}
 
-                    // drop on top of target?
-                    if (dropTargetData.getData("verticalLocation").equals(
-                            VerticalDropLocation.MIDDLE.toString())) {
-                        if (sourceWasAfterTarget) {
-                            index--;
-                        }
-                    }
+					layout.addComponent(c, index);
+				}
 
-                    // drop before the target?
-                    else if (dropTargetData.getData("verticalLocation").equals(
-                            VerticalDropLocation.TOP.toString())) {
-                        index--;
-                        if (index <= 0) {
-                            index = 1;
-                        }
-                    }
+				if (sourceComponent instanceof WrappedComponent) {
+					// find the location where to move the dragged component
+					boolean sourceWasAfterTarget = true;
+					int index = 0;
+					Iterator<Component> componentIterator = layout.iterator();
+					Component next = null;
+					while (next != target && componentIterator.hasNext()) {
+						next = componentIterator.next();
+						if (next != sourceComponent) {
+							index++;
+						} else {
+							sourceWasAfterTarget = false;
+						}
+					}
+					if (next == null || next != target) {
+						// component not found - if dragging from another layout
+						return;
+					}
 
-                    // move component within the layout
-                    layout.removeComponent(sourceComponent);
-                    layout.addComponent(sourceComponent, index);
-                }
-            }
-        }
+					// drop on top of target?
+					if (dropTargetData.getData("verticalLocation").equals(
+							VerticalDropLocation.MIDDLE.toString())) {
+						if (sourceWasAfterTarget) {
+							index--;
+						}
+					}
 
-    }
+					// drop before the target?
+					else if (dropTargetData.getData("verticalLocation").equals(
+							VerticalDropLocation.TOP.toString())) {
+						index--;
+						if (index <= 0) {
+							index = 1;
+						}
+					}
 
-    public interface CourseEditorListener {
-        void titleChanged(String newTitle, UnitEditor editor);
-    }
+					// move component within the layout
+					layout.removeComponent(sourceComponent);
+					layout.addComponent(sourceComponent, index);
+				}
+			}
+		}
 
-    
-    // TODO Change Language!
-    
-    public enum PaletteItemType {
-        TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",
-                FontAwesome.CHECK_SQUARE_O), IMAGE("Image",
-                FontAwesome.IMAGE), TRANSACTIONS("Latest transactions",
-                null);
+	}
 
-        private final String title;
-        private final FontAwesome icon;
+	public interface CourseEditorListener {
+		void titleChanged(String newTitle, UnitEditor editor);
+	}
 
-        PaletteItemType(final String title, final FontAwesome icon) {
-            this.title = title;
-            this.icon = icon;
-        }
+	// TODO Change Language!
 
-        public String getTitle() {
-            return title;
-        }
+	public enum PaletteItemType {
+		TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",
+				FontAwesome.CHECK_SQUARE_O), IMAGE("Image", FontAwesome.IMAGE), TRANSACTIONS(
+				"Latest transactions", null);
 
-        public FontAwesome getIcon() {
-            return icon;
-        }
+		private final String title;
+		private final FontAwesome icon;
 
-    }
-	
+		PaletteItemType(final String title, final FontAwesome icon) {
+			this.title = title;
+			this.icon = icon;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public FontAwesome getIcon() {
+			return icon;
+		}
+
+	}
+
 	@Override
 	public void enter(ViewChangeEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

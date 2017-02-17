@@ -1,6 +1,5 @@
 package com.crayons_2_0.view;
 
-
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
@@ -49,113 +48,109 @@ import com.vaadin.ui.themes.ValoTheme;
 //import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.fieldgroup.PropertyId;
 
-
-
 @SpringView(name = Preferences.VIEW_NAME)
 @ViewScope
 @SpringComponent
 public class Preferences extends VerticalLayout implements View {
-	
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//public static final String ID = "profilepreferenceswindow";
-    public static final String VIEW_NAME = "Preferences";
-    ResourceBundle lang = LanguageService.getInstance().getRes();
-    @Autowired
-    UserService userService;
-    
-    
+	// public static final String ID = "profilepreferenceswindow";
+	public static final String VIEW_NAME = "Preferences";
+	ResourceBundle lang = LanguageService.getInstance().getRes();
+	@Autowired
+	UserService userService;
 
-   // private final BeanFieldGroup<User> fieldGroup;
-    /*
-     * Fields for editing the User object are defined here as class members.
-     * They are later bound to a FieldGroup by calling
-     * fieldGroup.bindMemberFields(this). The Fields' values don't need to be
-     * explicitly set, calling fieldGroup.setItemDataSource(user) synchronizes
-     * the fields with the user object.
-     */
-    @PropertyId("firstName")
-    private TextField firstNameField;
-    @PropertyId("lastName")
-    private TextField lastNameField;
-    @PropertyId("title")
-    private ComboBox titleField;
-    @PropertyId("male")
-    private OptionGroup sexField;
-    @PropertyId("email")
-    private TextField emailField;
-    @PropertyId("location")
-    private TextField locationField;
-    @PropertyId("phone")
-    private TextField phoneField;
-    /*@PropertyId("newsletterSubscription")
-    private OptionalSelect<Integer> newsletterField;
-    @PropertyId("website")*/
-    private TextField websiteField;
-    @PropertyId("bio")
-    private TextArea bioField;
-    
-    @Autowired 
-    CurrentUser currentUser;
-    
-    public Preferences() {
-        
-    }
-    
-    @PostConstruct
-    void init(){
-        
-      //addStyleName("profile-window");
-        //setId(ID);
-        Responsive.makeResponsive(this);
+	// private final BeanFieldGroup<User> fieldGroup;
+	/*
+	 * Fields for editing the User object are defined here as class members.
+	 * They are later bound to a FieldGroup by calling
+	 * fieldGroup.bindMemberFields(this). The Fields' values don't need to be
+	 * explicitly set, calling fieldGroup.setItemDataSource(user) synchronizes
+	 * the fields with the user object.
+	 */
+	@PropertyId("firstName")
+	private TextField firstNameField;
+	@PropertyId("lastName")
+	private TextField lastNameField;
+	@PropertyId("title")
+	private ComboBox titleField;
+	@PropertyId("male")
+	private OptionGroup sexField;
+	@PropertyId("email")
+	private TextField emailField;
+	@PropertyId("location")
+	private TextField locationField;
+	@PropertyId("phone")
+	private TextField phoneField;
+	/*
+	 * @PropertyId("newsletterSubscription") private OptionalSelect<Integer>
+	 * newsletterField;
+	 * 
+	 * @PropertyId("website")
+	 */
+	private TextField websiteField;
+	@PropertyId("bio")
+	private TextArea bioField;
 
-        
+	@Autowired
+	CurrentUser currentUser;
 
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        content.setMargin(new MarginInfo(true, false, false, false));
-        addComponent(content);
+	public Preferences() {
 
-        TabSheet detailsWrapper = new TabSheet();
-        detailsWrapper.setSizeFull();
-        detailsWrapper.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
-        detailsWrapper.addStyleName(ValoTheme.TABSHEET_ICONS_ON_TOP);
-        detailsWrapper.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-        content.addComponent(detailsWrapper);
-        content.setExpandRatio(detailsWrapper, 1f);
+	}
 
-        detailsWrapper.addComponent(buildProfileTab());
-        detailsWrapper.addComponent(buildPreferencesTab());
+	@PostConstruct
+	void init() {
 
-       
+		// addStyleName("profile-window");
+		// setId(ID);
+		Responsive.makeResponsive(this);
 
-        content.addComponent(buildFooter());
-        /*
-        fieldGroup = new BeanFieldGroup<User>(User.class);
-        fieldGroup.bindMemberFields(this);
-        fieldGroup.setItemDataSource(user);
-        */
-    }
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		content.setMargin(new MarginInfo(true, false, false, false));
+		addComponent(content);
 
-    private Component buildPreferencesTab() {
-        VerticalLayout root = new VerticalLayout();
-        root.setCaption(lang.getString("Preferences"));
-        root.setIcon(FontAwesome.COGS);
-        root.setSpacing(true);
-        root.setMargin(true);
-        root.setSizeFull();
-        
-        ComboBox selectLanguage = new ComboBox(lang.getString("SelectYourLanguage"));
-        selectLanguage.setInputPrompt(LanguageService.getInstance().getLanguage().toString());
-        selectLanguage.addItem(Language.German.toString());
-        selectLanguage.addItem(Language.English.toString());
-        selectLanguage.addValueChangeListener(new ValueChangeListener() {
-			
-        	// ToDO Makeup Hardcoded. 
-        	
+		TabSheet detailsWrapper = new TabSheet();
+		detailsWrapper.setSizeFull();
+		detailsWrapper.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
+		detailsWrapper.addStyleName(ValoTheme.TABSHEET_ICONS_ON_TOP);
+		detailsWrapper.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
+		content.addComponent(detailsWrapper);
+		content.setExpandRatio(detailsWrapper, 1f);
+
+		detailsWrapper.addComponent(buildProfileTab());
+		detailsWrapper.addComponent(buildPreferencesTab());
+
+		content.addComponent(buildFooter());
+		/*
+		 * fieldGroup = new BeanFieldGroup<User>(User.class);
+		 * fieldGroup.bindMemberFields(this);
+		 * fieldGroup.setItemDataSource(user);
+		 */
+	}
+
+	private Component buildPreferencesTab() {
+		VerticalLayout root = new VerticalLayout();
+		root.setCaption(lang.getString("Preferences"));
+		root.setIcon(FontAwesome.COGS);
+		root.setSpacing(true);
+		root.setMargin(true);
+		root.setSizeFull();
+
+		ComboBox selectLanguage = new ComboBox(
+				lang.getString("SelectYourLanguage"));
+		selectLanguage.setInputPrompt(LanguageService.getInstance()
+				.getLanguage().toString());
+		selectLanguage.addItem(Language.German.toString());
+		selectLanguage.addItem(Language.English.toString());
+		selectLanguage.addValueChangeListener(new ValueChangeListener() {
+
+			// ToDO Makeup Hardcoded.
+
 			/**
 			 * 
 			 */
@@ -174,171 +169,172 @@ public class Preferences extends VerticalLayout implements View {
 				}
 				LanguageService.getInstance().setCurrentLocale(newLanguage);
 				Page.getCurrent().reload();
-				Notification.show(lang.getString("LanguageChangedTo") + ": " + value);
-				
+				Notification.show(lang.getString("LanguageChangedTo") + ": "
+						+ value);
+
 			}
 		});
-        root.addComponent(selectLanguage);
-        return root;
-    }
+		root.addComponent(selectLanguage);
+		return root;
+	}
 
-    private Component buildProfileTab() {
-        HorizontalLayout root = new HorizontalLayout();
-        root.setCaption(lang.getString("Profile"));
-        root.setIcon(FontAwesome.USER);
-        root.setWidth(100.0f, Unit.PERCENTAGE);
-        root.setSpacing(true);
-        root.setMargin(true);
-        root.addStyleName("profile-form");
+	private Component buildProfileTab() {
+		HorizontalLayout root = new HorizontalLayout();
+		root.setCaption(lang.getString("Profile"));
+		root.setIcon(FontAwesome.USER);
+		root.setWidth(100.0f, Unit.PERCENTAGE);
+		root.setSpacing(true);
+		root.setMargin(true);
+		root.addStyleName("profile-form");
 
-        VerticalLayout pic = new VerticalLayout();
-        pic.setSizeUndefined();
-        pic.setSpacing(true);
-        Image profilePic = new Image(null, new ThemeResource(
-                "img/profile-pic-300px.jpg"));
-        profilePic.setWidth(100.0f, Unit.PIXELS);
-        pic.addComponent(profilePic);
-        root.addComponent(pic);
+		VerticalLayout pic = new VerticalLayout();
+		pic.setSizeUndefined();
+		pic.setSpacing(true);
+		Image profilePic = new Image(null, new ThemeResource(
+				"img/profile-pic-300px.jpg"));
+		profilePic.setWidth(100.0f, Unit.PIXELS);
+		pic.addComponent(profilePic);
+		root.addComponent(pic);
 
-        FormLayout details = new FormLayout();
-        details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-        root.addComponent(details);
-        root.setExpandRatio(details, 1);
+		FormLayout details = new FormLayout();
+		details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+		root.addComponent(details);
+		root.setExpandRatio(details, 1);
 
-        firstNameField = new TextField(lang.getString("FirstName"));
-        firstNameField.setValue(currentUser.get().getFirstName());
-        details.addComponent(firstNameField);
-        lastNameField = new TextField(lang.getString("LastName"));
-        lastNameField.setValue(currentUser.get().getLastName());
-        details.addComponent(lastNameField);
-        titleField = new ComboBox(lang.getString("Title"));
-        titleField.setInputPrompt(lang.getString("PleaseSpecify"));
-        titleField.addItem(lang.getString("Mr."));
-        titleField.addItem(lang.getString("Mrs."));
-        titleField.addItem(lang.getString("Ms."));
-        titleField.setNewItemsAllowed(true);
-        details.addComponent(titleField);
+		firstNameField = new TextField(lang.getString("FirstName"));
+		firstNameField.setValue(currentUser.get().getFirstName());
+		details.addComponent(firstNameField);
+		lastNameField = new TextField(lang.getString("LastName"));
+		lastNameField.setValue(currentUser.get().getLastName());
+		details.addComponent(lastNameField);
+		titleField = new ComboBox(lang.getString("Title"));
+		titleField.setInputPrompt(lang.getString("PleaseSpecify"));
+		titleField.addItem(lang.getString("Mr."));
+		titleField.addItem(lang.getString("Mrs."));
+		titleField.addItem(lang.getString("Ms."));
+		titleField.setNewItemsAllowed(true);
+		details.addComponent(titleField);
 
-        sexField = new OptionGroup(lang.getString("Sex"));
-        sexField.addItem(Boolean.FALSE);
-        sexField.setItemCaption(Boolean.FALSE, lang.getString("Female"));
-        sexField.addItem(Boolean.TRUE);
-        sexField.setItemCaption(Boolean.TRUE, lang.getString("Male"));
-        sexField.addStyleName("horizontal");
-        details.addComponent(sexField);
+		sexField = new OptionGroup(lang.getString("Sex"));
+		sexField.addItem(Boolean.FALSE);
+		sexField.setItemCaption(Boolean.FALSE, lang.getString("Female"));
+		sexField.addItem(Boolean.TRUE);
+		sexField.setItemCaption(Boolean.TRUE, lang.getString("Male"));
+		sexField.addStyleName("horizontal");
+		details.addComponent(sexField);
 
-        Label section = new Label(lang.getString("ContactInfo"));
-        section.addStyleName(ValoTheme.LABEL_H4);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        details.addComponent(section);
+		Label section = new Label(lang.getString("ContactInfo"));
+		section.addStyleName(ValoTheme.LABEL_H4);
+		section.addStyleName(ValoTheme.LABEL_COLORED);
+		details.addComponent(section);
 
-        emailField = new TextField(lang.getString("Email"));
-        emailField.setValue(currentUser.get().getEmail());
-        
-        emailField.setWidth("100%");
-        emailField.setNullRepresentation("");
-        details.addComponent(emailField);
+		emailField = new TextField(lang.getString("Email"));
+		emailField.setValue(currentUser.get().getEmail());
 
-        locationField = new TextField(lang.getString("Location"));
-        locationField.setWidth("100%");
-        locationField.setNullRepresentation("");
-        details.addComponent(locationField);
+		emailField.setWidth("100%");
+		emailField.setNullRepresentation("");
+		details.addComponent(emailField);
 
-        phoneField = new TextField(lang.getString("Phone"));
-        phoneField.setWidth("100%");
-        phoneField.setNullRepresentation("");
-        details.addComponent(phoneField);
-        /*
-        newsletterField = new OptionalSelect<Integer>();
-        newsletterField.addOption(0, "Daily");
-        newsletterField.addOption(1, "Weekly");
-        newsletterField.addOption(2, "Monthly");
-        details.addComponent(newsletterField);
-        */
+		locationField = new TextField(lang.getString("Location"));
+		locationField.setWidth("100%");
+		locationField.setNullRepresentation("");
+		details.addComponent(locationField);
 
-        section = new Label(lang.getString("AdditionalInfo"));
-        section.addStyleName(ValoTheme.LABEL_H4);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        details.addComponent(section);
+		phoneField = new TextField(lang.getString("Phone"));
+		phoneField.setWidth("100%");
+		phoneField.setNullRepresentation("");
+		details.addComponent(phoneField);
+		/*
+		 * newsletterField = new OptionalSelect<Integer>();
+		 * newsletterField.addOption(0, "Daily"); newsletterField.addOption(1,
+		 * "Weekly"); newsletterField.addOption(2, "Monthly");
+		 * details.addComponent(newsletterField);
+		 */
 
-        websiteField = new TextField(lang.getString("Website"));
-        websiteField.setInputPrompt("http://");
-        websiteField.setWidth("100%");
-        websiteField.setNullRepresentation("");
-        details.addComponent(websiteField);
+		section = new Label(lang.getString("AdditionalInfo"));
+		section.addStyleName(ValoTheme.LABEL_H4);
+		section.addStyleName(ValoTheme.LABEL_COLORED);
+		details.addComponent(section);
 
-        bioField = new TextArea(lang.getString("Bio"));
-        bioField.setWidth("100%");
-        bioField.setRows(4);
-        bioField.setNullRepresentation("");
-        details.addComponent(bioField);
+		websiteField = new TextField(lang.getString("Website"));
+		websiteField.setInputPrompt("http://");
+		websiteField.setWidth("100%");
+		websiteField.setNullRepresentation("");
+		details.addComponent(websiteField);
 
-        return root;
-    }
+		bioField = new TextArea(lang.getString("Bio"));
+		bioField.setWidth("100%");
+		bioField.setRows(4);
+		bioField.setNullRepresentation("");
+		details.addComponent(bioField);
 
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
+		return root;
+	}
 
-        Button ok = new Button(lang.getString("OK"));
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            /**
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth(100.0f, Unit.PERCENTAGE);
+
+		Button ok = new Button(lang.getString("OK"));
+		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		ok.addClickListener(new ClickListener() {
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void buttonClick(ClickEvent event) {
-                
-                    // fieldGroup.commit();
-                    // Updated user should also be persisted to database. But
-                    // not in this demo.
-            	if(currentUser.get().getUsername() != emailField.getValue() ||
-            			currentUser.get().getFirstName() != firstNameField.getValue() ||
-            			currentUser.get().getLastName() != lastNameField.getValue()) {
-            		if(userService.updateUser(currentUser.get(), emailField.getValue(), firstNameField.getValue(), lastNameField.getValue())) {
-            			Notification success = new Notification(
-                                lang.getString("ProfileUpdatedSuccessfully"));
-                        success.setDelayMsec(2000);
-                        success.setStyleName("barSuccessSmall");
-                        success.setPosition(Position.BOTTOM_CENTER);
-                        success.show(Page.getCurrent());
-            		}
-            	}
+			public void buttonClick(ClickEvent event) {
 
-                    //DashboardEventBus.post(new ProfileUpdatedEvent());
-               
-                /*try {
-                    //fieldGroup.commit();
-                    // Updated user should also be persisted to database. But
-                    // not in this demo.
+				// fieldGroup.commit();
+				// Updated user should also be persisted to database. But
+				// not in this demo.
+				if (currentUser.get().getUsername() != emailField.getValue()
+						|| currentUser.get().getFirstName() != firstNameField
+								.getValue()
+						|| currentUser.get().getLastName() != lastNameField
+								.getValue()) {
+					if (userService.updateUser(currentUser.get(),
+							emailField.getValue(), firstNameField.getValue(),
+							lastNameField.getValue())) {
+						Notification success = new Notification(lang
+								.getString("ProfileUpdatedSuccessfully"));
+						success.setDelayMsec(2000);
+						success.setStyleName("barSuccessSmall");
+						success.setPosition(Position.BOTTOM_CENTER);
+						success.show(Page.getCurrent());
+					}
+				}
 
-                    Notification success = new Notification(
-                            "Profile updated successfully");
-                    success.setDelayMsec(2000);
-                    success.setStyleName("bar success small");
-                    success.setPosition(Position.BOTTOM_CENTER);
-                    success.show(Page.getCurrent());
+				// DashboardEventBus.post(new ProfileUpdatedEvent());
 
-                    //DashboardEventBus.post(new ProfileUpdatedEvent());
-                    close();
-                } catch (CommitException e) {
-                    Notification.show("Error while updating profile",
-                            Type.ERROR_MESSAGE);
-                }*/
+				/*
+				 * try { //fieldGroup.commit(); // Updated user should also be
+				 * persisted to database. But // not in this demo.
+				 * 
+				 * Notification success = new Notification(
+				 * "Profile updated successfully"); success.setDelayMsec(2000);
+				 * success.setStyleName("bar success small");
+				 * success.setPosition(Position.BOTTOM_CENTER);
+				 * success.show(Page.getCurrent());
+				 * 
+				 * //DashboardEventBus.post(new ProfileUpdatedEvent()); close();
+				 * } catch (CommitException e) {
+				 * Notification.show("Error while updating profile",
+				 * Type.ERROR_MESSAGE); }
+				 */
 
-            }
-        });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_RIGHT);
-        return footer;
-    }
-    @Override
-    public void enter(ViewChangeEvent event) {
-    }
+			}
+		});
+		ok.focus();
+		footer.addComponent(ok);
+		footer.setComponentAlignment(ok, Alignment.TOP_RIGHT);
+		return footer;
+	}
 
+	@Override
+	public void enter(ViewChangeEvent event) {
+	}
 
 }

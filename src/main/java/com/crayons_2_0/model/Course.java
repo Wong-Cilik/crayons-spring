@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
+
 @Component
-public class Course implements Serializable{
+public class Course implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//checked
+	// checked
 	private String title;
 	private String description;
 	private String students;
@@ -24,71 +25,72 @@ public class Course implements Serializable{
 	private List<Unit> units = new ArrayList<Unit>();
 	private Date creationTime;
 	private Graph graph;
-	
-	public Course (String title, String description, CrayonsUser author) {
+
+	public Course(String title, String description, CrayonsUser author) {
 		this.setTitle(title);
 		this.setDescription(description);
 		this.setAuthor(author);
-		
+
 	}
-	
-	public Course (String title, String description, CrayonsUser author, String students) {
+
+	public Course(String title, String description, CrayonsUser author,
+			String students) {
 		this.setTitle(title);
 		this.setDescription(description);
 		this.setAuthor(author);
 		this.setStudents(students);
-		
+
 	}
-	
+
 	public Course() {
-        // TODO Auto-generated constructor stub
-    }
+		// TODO Auto-generated constructor stub
+	}
 
 	public Course(String title, CrayonsUser author) {
-	    this.title = title;
-	    this.setAuthor(author);
-	    creationTime = new Date();
+		this.title = title;
+		this.setAuthor(author);
+		creationTime = new Date();
 	}
-	
+
 	public String getStudents() {
-        return students;
-    }
-    
-    public void setStudents(String students) {
-        this.students = students;
-    }
-	
-    public String getTitle() {
-        return title;
-    }
-    
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    
-    public String getDescription() {
-        return description;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
-    public Graph getGraph() {
-        return graph;
-    }
-    
-    public void setGraph(Graph graph) {
-        this.graph = graph;
-    }
-    
-    public Date getCreationTime() {
-        return creationTime;
-    }
-    
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
-    }
+		return students;
+	}
+
+	public void setStudents(String students) {
+		this.students = students;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public void setGraph(Graph graph) {
+		this.graph = graph;
+	}
+
+	public Date getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	public CrayonsUser getAuthor() {
 		return author;

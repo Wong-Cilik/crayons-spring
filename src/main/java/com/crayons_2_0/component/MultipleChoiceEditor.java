@@ -21,109 +21,112 @@ import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.VerticalLayout;
 
 public class MultipleChoiceEditor extends CustomComponent {
-    private static final long serialVersionUID = 5884398958435787340L;
-    
-    private final OptionGroup answers = new OptionGroup();
-    private final Property<String> questionText = new ObjectProperty<String>(
-            "Enter the question here...");
-    private String rightAnswer = "";
-    
-    public MultipleChoiceEditor(String questionText, ArrayList<String> answers, String rightAnswer) {
-        setWidth(100.0f, Unit.PERCENTAGE);
-        addStyleName("inline-text-editor");
-        
-        if (questionText != null)
-            this.questionText.setValue(questionText);
-        
-        if (answers != null)
-            for (String question: answers)
-                this.answers.addItem(question);
-        
-        if (rightAnswer != null)
-            this.rightAnswer = rightAnswer;
-        
-        setCompositionRoot(buildMultipleChoiceEditor());
-    }
+	private static final long serialVersionUID = 5884398958435787340L;
 
-    private Component buildReadOnly() {
-        final Label questionText = new Label(this.questionText);
-        
-        Button editButton = new Button(FontAwesome.EDIT);
-        editButton.addStyleName(ValoTheme.BUTTON_SMALL);
-        editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
-        editButton.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = 2128892506778715818L;
+	private final OptionGroup answers = new OptionGroup();
+	private final Property<String> questionText = new ObjectProperty<String>(
+			"Enter the question here...");
+	private String rightAnswer = "";
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                setCompositionRoot(buildMultipleChoiceEditor());
-            }
-        });
-        
-        CssLayout result = new CssLayout(questionText, answers, editButton);
-        result.addStyleName("text-editor");
-        result.setSizeFull();
-        return result;
-    }
+	public MultipleChoiceEditor(String questionText, ArrayList<String> answers,
+			String rightAnswer) {
+		setWidth(100.0f, Unit.PERCENTAGE);
+		addStyleName("inline-text-editor");
 
-    private Component buildMultipleChoiceEditor() {
-        final TextArea questionText = new TextArea(this.questionText);
-        questionText.setWidth(100.0f, Unit.PERCENTAGE);
-        questionText.addAttachListener(new AttachListener() {
-            private static final long serialVersionUID = -585304752892396542L;
+		if (questionText != null)
+			this.questionText.setValue(questionText);
 
-            @Override
-            public void attach(final AttachEvent event) {
-                questionText.focus();
-                questionText.selectAll();
-            }
-        });
-        
-        final TextField textField = new TextField();
-        textField.setWidth(100.0f, Unit.PERCENTAGE);
-        
-        answers.addValueChangeListener(new ValueChangeListener() {
-            private static final long serialVersionUID = 8103764137753316059L;
+		if (answers != null)
+			for (String question : answers)
+				this.answers.addItem(question);
 
-            @Override
-            public void valueChange(ValueChangeEvent event) {
-                rightAnswer = (String) event.getProperty().getValue();
-            }
-        });
-        
-        Button addQuestionButton = new Button("Add question");
-        addQuestionButton.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = -6884263769895434223L;
+		if (rightAnswer != null)
+			this.rightAnswer = rightAnswer;
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                answers.addItem((String) textField.getValue());
-                textField.clear();
-            }
-        });
-        
-        HorizontalLayout addQuestion = new HorizontalLayout(textField, addQuestionButton);
-        addQuestion.setSpacing(true);
-        
-        Button save = new Button("Save");
-        save.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = 8068966193937340344L;
+		setCompositionRoot(buildMultipleChoiceEditor());
+	}
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                System.out.println(rightAnswer);
-                setCompositionRoot(buildReadOnly());
-            }
-        });
-        
-        VerticalLayout result = new VerticalLayout(questionText);
-        if (answers != null)
-            result.addComponent(answers);
-        HorizontalLayout controlButtons = new HorizontalLayout(addQuestion, save);
-        controlButtons.setSpacing(true);
-        result.addComponent(controlButtons);
-        result.setSpacing(true);
-        result.setSizeFull();
-        return result;
-    }
+	private Component buildReadOnly() {
+		final Label questionText = new Label(this.questionText);
+
+		Button editButton = new Button(FontAwesome.EDIT);
+		editButton.addStyleName(ValoTheme.BUTTON_SMALL);
+		editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
+		editButton.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 2128892506778715818L;
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				setCompositionRoot(buildMultipleChoiceEditor());
+			}
+		});
+
+		CssLayout result = new CssLayout(questionText, answers, editButton);
+		result.addStyleName("text-editor");
+		result.setSizeFull();
+		return result;
+	}
+
+	private Component buildMultipleChoiceEditor() {
+		final TextArea questionText = new TextArea(this.questionText);
+		questionText.setWidth(100.0f, Unit.PERCENTAGE);
+		questionText.addAttachListener(new AttachListener() {
+			private static final long serialVersionUID = -585304752892396542L;
+
+			@Override
+			public void attach(final AttachEvent event) {
+				questionText.focus();
+				questionText.selectAll();
+			}
+		});
+
+		final TextField textField = new TextField();
+		textField.setWidth(100.0f, Unit.PERCENTAGE);
+
+		answers.addValueChangeListener(new ValueChangeListener() {
+			private static final long serialVersionUID = 8103764137753316059L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				rightAnswer = (String) event.getProperty().getValue();
+			}
+		});
+
+		Button addQuestionButton = new Button("Add question");
+		addQuestionButton.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = -6884263769895434223L;
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				answers.addItem((String) textField.getValue());
+				textField.clear();
+			}
+		});
+
+		HorizontalLayout addQuestion = new HorizontalLayout(textField,
+				addQuestionButton);
+		addQuestion.setSpacing(true);
+
+		Button save = new Button("Save");
+		save.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 8068966193937340344L;
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				System.out.println(rightAnswer);
+				setCompositionRoot(buildReadOnly());
+			}
+		});
+
+		VerticalLayout result = new VerticalLayout(questionText);
+		if (answers != null)
+			result.addComponent(answers);
+		HorizontalLayout controlButtons = new HorizontalLayout(addQuestion,
+				save);
+		controlButtons.setSpacing(true);
+		result.addComponent(controlButtons);
+		result.setSpacing(true);
+		result.setSizeFull();
+		return result;
+	}
 }

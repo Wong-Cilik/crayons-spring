@@ -30,100 +30,108 @@ import com.vaadin.ui.Button.ClickListener;
 @SpringComponent
 public class CourseModificationWindow extends Window {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	ResourceBundle lang = LanguageService.getInstance().getRes();
-    private TabSheet tabSheet;
-    private Component tab;
+	private TabSheet tabSheet;
+	private Component tab;
 	private Course course;
-    @Autowired
+	@Autowired
 	CourseService courseService;
-    
-    public CourseModificationWindow(Course course, Component tab, TabSheet tabSheet) {
-        this.course = course;
-        this.tab = tab;
-        this.tabSheet = tabSheet;
-        setModal(true);
-        setResizable(false);
-        setClosable(true);
-        setHeight(40.0f, Unit.PERCENTAGE);
-        setWidth(40.0f, Unit.PERCENTAGE);
-        
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        content.setSpacing(true);
-        setContent(content);
-        
-        Component courseDescription = buildCourseDescription();
-        content.addComponent(courseDescription);
-    }
-    
-    private Component buildCourseDescription() {
-        VerticalLayout courseDescription = new VerticalLayout();
-        courseDescription.setSpacing(true);
-        courseDescription.setMargin(true);
-        
-        HorizontalLayout course = new HorizontalLayout();
-        course.setSpacing(true);
-        Label courseTitleLabel = new Label(lang.getString("CourseTitle"));
-        TextField courseTitleField = new TextField(null, this.course.getTitle());
-        course.addComponents(courseTitleLabel, courseTitleField);
-        //courseTitleField.addValueChangeListener();
-        courseDescription.addComponent(course);
-        courseTitleField.setImmediate(true); 
-        
-        VerticalLayout couseDescription = new VerticalLayout();
-        couseDescription.setSizeFull();
-        Label couseDescriptionLabel = new Label(lang.getString("CourseDescription"));
-        TextField couseDescriptionField = new TextField();
-        couseDescriptionField.setSizeFull();
-        
-        couseDescriptionField.setValue(this.course.getDescription());
-        couseDescription.addComponents(couseDescriptionLabel, couseDescriptionField);
-        couseDescription.setSizeFull();
-        courseDescription.addComponent(couseDescription);
-        
-        Component controlButtons = buildControlButtons(courseTitleField, couseDescriptionField);
-        controlButtons.setSizeFull();
-        courseDescription.addComponent(controlButtons);
-        courseDescription.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
-        
-        return courseDescription;
-    }
-    
-    private Component buildControlButtons(TextField courseTitleField, TextField couseDescriptionField) {
-        HorizontalLayout controlButtons = new HorizontalLayout();
-        controlButtons.setMargin(true);
-        controlButtons.setSpacing(true);
-        
-        Button saveCourse = new Button(lang.getString("Save"));
-        controlButtons.addComponent(saveCourse);
-        controlButtons.setComponentAlignment(saveCourse, Alignment.BOTTOM_LEFT);
-        saveCourse.addClickListener(new ClickListener() {
 
-            /**
+	public CourseModificationWindow(Course course, Component tab,
+			TabSheet tabSheet) {
+		this.course = course;
+		this.tab = tab;
+		this.tabSheet = tabSheet;
+		setModal(true);
+		setResizable(false);
+		setClosable(true);
+		setHeight(40.0f, Unit.PERCENTAGE);
+		setWidth(40.0f, Unit.PERCENTAGE);
+
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		content.setSpacing(true);
+		setContent(content);
+
+		Component courseDescription = buildCourseDescription();
+		content.addComponent(courseDescription);
+	}
+
+	private Component buildCourseDescription() {
+		VerticalLayout courseDescription = new VerticalLayout();
+		courseDescription.setSpacing(true);
+		courseDescription.setMargin(true);
+
+		HorizontalLayout course = new HorizontalLayout();
+		course.setSpacing(true);
+		Label courseTitleLabel = new Label(lang.getString("CourseTitle"));
+		TextField courseTitleField = new TextField(null, this.course.getTitle());
+		course.addComponents(courseTitleLabel, courseTitleField);
+		// courseTitleField.addValueChangeListener();
+		courseDescription.addComponent(course);
+		courseTitleField.setImmediate(true);
+
+		VerticalLayout couseDescription = new VerticalLayout();
+		couseDescription.setSizeFull();
+		Label couseDescriptionLabel = new Label(
+				lang.getString("CourseDescription"));
+		TextField couseDescriptionField = new TextField();
+		couseDescriptionField.setSizeFull();
+
+		couseDescriptionField.setValue(this.course.getDescription());
+		couseDescription.addComponents(couseDescriptionLabel,
+				couseDescriptionField);
+		couseDescription.setSizeFull();
+		courseDescription.addComponent(couseDescription);
+
+		Component controlButtons = buildControlButtons(courseTitleField,
+				couseDescriptionField);
+		controlButtons.setSizeFull();
+		courseDescription.addComponent(controlButtons);
+		courseDescription.setComponentAlignment(controlButtons,
+				Alignment.BOTTOM_CENTER);
+
+		return courseDescription;
+	}
+
+	private Component buildControlButtons(TextField courseTitleField,
+			TextField couseDescriptionField) {
+		HorizontalLayout controlButtons = new HorizontalLayout();
+		controlButtons.setMargin(true);
+		controlButtons.setSpacing(true);
+
+		Button saveCourse = new Button(lang.getString("Save"));
+		controlButtons.addComponent(saveCourse);
+		controlButtons.setComponentAlignment(saveCourse, Alignment.BOTTOM_LEFT);
+		saveCourse.addClickListener(new ClickListener() {
+
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void buttonClick(ClickEvent event) {
-                //TODO: check why null at CourseDAO findAll()
-                courseService.update(courseService.findCourseByTitle(course.getTitle()));
-                tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
-                tabSheet.getTab(tab).setDescription(couseDescriptionField.getValue());
-                close();
-                Notification success = new Notification(
-                		lang.getString("CourseIsModifiedSuccessfully"));
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-            }
-            
-        });
-        return controlButtons;
-    }
+			public void buttonClick(ClickEvent event) {
+				// TODO: check why null at CourseDAO findAll()
+				courseService.update(courseService.findCourseByTitle(course
+						.getTitle()));
+				tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
+				tabSheet.getTab(tab).setDescription(
+						couseDescriptionField.getValue());
+				close();
+				Notification success = new Notification(lang
+						.getString("CourseIsModifiedSuccessfully"));
+				success.setDelayMsec(2000);
+				success.setStyleName("bar success small");
+				success.setPosition(Position.BOTTOM_CENTER);
+				success.show(Page.getCurrent());
+			}
+
+		});
+		return controlButtons;
+	}
 }

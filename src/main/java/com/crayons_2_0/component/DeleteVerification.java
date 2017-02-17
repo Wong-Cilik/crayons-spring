@@ -22,105 +22,106 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 public final class DeleteVerification extends Window {
- // @DB
+	// @DB
 
-    // sollte noch ein set werden
-    UnitNode deleteUnit;
-   
-    // TODO von DB holen
-    static Graph graph;
-    
-    public DeleteVerification(Graph graphData) {
-        
-        graph = graphData;
-        setSizeFull();
-        setModal(true);
-        setResizable(false);
-        setClosable(true); 
-        setHeight(40.0f, Unit.PERCENTAGE);
-        setWidth(40.0f, Unit.PERCENTAGE);
-        
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        content.setMargin(true);
-        setContent(content);
-        
-        Component title = buildTitle();
-        content.addComponent(title);
-        content.setComponentAlignment(title, Alignment.TOP_CENTER);
-        
-        //content.addComponent(buildDescription());
-        
-        Component unitChoise = buildUnitChoice();
-        content.addComponent(unitChoise);
-        content.setComponentAlignment(unitChoise, Alignment.MIDDLE_LEFT);
-        
-        Component footer = buildFooter();
-        content.addComponent(footer);
-        content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
-    }
-    
-    private Component buildUnitChoice() {
-        ComboBox selectUnit = new ComboBox("Select the unit to be deleted");
-        for (UnitNode currentNode : graph.getUnitCollection()) {
-            selectUnit.addItem(currentNode.getUnitNodeTitle());
-        }
-        selectUnit.addValueChangeListener(new ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                deleteUnit = graph.getNodeByName(selectUnit.getValue().toString());
-            }
-        });
-        return selectUnit;
-    }
+	// sollte noch ein set werden
+	UnitNode deleteUnit;
 
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
+	// TODO von DB holen
+	static Graph graph;
 
-        Button ok = new Button("Delete");
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-            	if(graph.deleteUnit(deleteUnit)){
-                CourseEditorView.refreshGraph(graph);
-                close();
-                Notification success = new Notification(
-                        "Unit is deleted successfully");
-                success.setDelayMsec(500);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-                deleteUnit = null;
-            	} else {
-            		Notification failed = new Notification(
-                            "Unit failed to delete");
-            		failed.setDelayMsec(500);
-            		failed.setStyleName("bar success small");
-            		failed.setPosition(Position.BOTTOM_CENTER);
-            		failed.show(Page.getCurrent());
-            	}
-            }
-        });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
-        return footer;
-    }
+	public DeleteVerification(Graph graphData) {
 
-    private Component buildTitle() {
-        Label title = new Label("Delete a unit");
-        title.addStyleName(ValoTheme.LABEL_H2);
-        return title;
-    }
+		graph = graphData;
+		setSizeFull();
+		setModal(true);
+		setResizable(false);
+		setClosable(true);
+		setHeight(40.0f, Unit.PERCENTAGE);
+		setWidth(40.0f, Unit.PERCENTAGE);
+
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		content.setMargin(true);
+		setContent(content);
+
+		Component title = buildTitle();
+		content.addComponent(title);
+		content.setComponentAlignment(title, Alignment.TOP_CENTER);
+
+		// content.addComponent(buildDescription());
+
+		Component unitChoise = buildUnitChoice();
+		content.addComponent(unitChoise);
+		content.setComponentAlignment(unitChoise, Alignment.MIDDLE_LEFT);
+
+		Component footer = buildFooter();
+		content.addComponent(footer);
+		content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+	}
+
+	private Component buildUnitChoice() {
+		ComboBox selectUnit = new ComboBox("Select the unit to be deleted");
+		for (UnitNode currentNode : graph.getUnitCollection()) {
+			selectUnit.addItem(currentNode.getUnitNodeTitle());
+		}
+		selectUnit.addValueChangeListener(new ValueChangeListener() {
+			public void valueChange(ValueChangeEvent event) {
+				deleteUnit = graph.getNodeByName(selectUnit.getValue()
+						.toString());
+			}
+		});
+		return selectUnit;
+	}
+
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth(100.0f, Unit.PERCENTAGE);
+
+		Button ok = new Button("Delete");
+		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		ok.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if (graph.deleteUnit(deleteUnit)) {
+					CourseEditorView.refreshGraph(graph);
+					close();
+					Notification success = new Notification(
+							"Unit is deleted successfully");
+					success.setDelayMsec(500);
+					success.setStyleName("bar success small");
+					success.setPosition(Position.BOTTOM_CENTER);
+					success.show(Page.getCurrent());
+					deleteUnit = null;
+				} else {
+					Notification failed = new Notification(
+							"Unit failed to delete");
+					failed.setDelayMsec(500);
+					failed.setStyleName("bar success small");
+					failed.setPosition(Position.BOTTOM_CENTER);
+					failed.show(Page.getCurrent());
+				}
+			}
+		});
+		ok.focus();
+		footer.addComponent(ok);
+		footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
+		return footer;
+	}
+
+	private Component buildTitle() {
+		Label title = new Label("Delete a unit");
+		title.addStyleName(ValoTheme.LABEL_H2);
+		return title;
+	}
 
 	public static void refreshData(Graph graphData) {
 		graph = graphData;
-		
+
 	}
-    
-    /*private Component buildDescription() {
-        return null;
-    }*/
+
+	/*
+	 * private Component buildDescription() { return null; }
+	 */
 }

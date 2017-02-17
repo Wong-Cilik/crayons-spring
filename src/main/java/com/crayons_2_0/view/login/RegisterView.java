@@ -1,6 +1,6 @@
 package com.crayons_2_0.view.login;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -22,142 +22,142 @@ import com.vaadin.ui.VerticalLayout;
 @SpringView(name = RegisterView.VIEW_NAME)
 @ViewScope
 public class RegisterView extends VerticalLayout implements View {
-    /**
+	/**
      * 
      */
-    public static final String VIEW_NAME = "registerView";
-    private static final long serialVersionUID = 1L;
-    private TextField email = new TextField();
-    private PasswordField password = new PasswordField();
-    private TextField firstname = new TextField();
-    private TextField lastname = new TextField();
-    private NativeSelect selectLanguage = new NativeSelect("Select language");
-    private NativeSelect selectRole = new NativeSelect("Select a role");
-    
-    @PostConstruct
-    void init() {
-        registerViewBuilder();
-        
-    }
-    private void registerViewBuilder() {
-       List<String> roles = new ArrayList<String>();
-        roles.add("user");
-        roles.add("admin");
-        
-        for (String obj : roles) {
-           
-            selectRole.addItem(obj);
-        }
-        
+	public static final String VIEW_NAME = "registerView";
+	private static final long serialVersionUID = 1L;
+	private TextField email = new TextField();
+	private PasswordField password = new PasswordField();
+	private TextField firstname = new TextField();
+	private TextField lastname = new TextField();
+	private NativeSelect selectLanguage = new NativeSelect("Select language");
+	private NativeSelect selectRole = new NativeSelect("Select a role");
 
-        selectRole.setNullSelectionAllowed(false);
-        selectRole.setImmediate(true);
+	@PostConstruct
+	void init() {
+		registerViewBuilder();
 
-        selectRole.addValueChangeListener(e -> Notification.show("Value changed:",
-                String.valueOf(e.getProperty().getValue()),
-                Type.TRAY_NOTIFICATION));
-        
-        List<String> languages = new ArrayList<String>();
-        languages.add("English");
-        languages.add("German");
-        
-        for (String obj : languages) {
-           
-            selectLanguage.addItem(obj);
-        }
-        
+	}
 
-        selectLanguage.setNullSelectionAllowed(false);
-        selectLanguage.setImmediate(true);
+	private void registerViewBuilder() {
+		List<String> roles = new ArrayList<String>();
+		roles.add("user");
+		roles.add("admin");
 
-        selectLanguage.addValueChangeListener(e -> Notification.show("Value changed:",
-                String.valueOf(e.getProperty().getValue()),
-                Type.TRAY_NOTIFICATION));
-        
-        getEmail().setRequired(true);
-        getPassword().setRequired(true);
-        getFirstname().setRequired(true);
-        getLastname().setRequired(true);
-        addComponent(new Label("firstname"));
+		for (String obj : roles) {
 
-        addComponent(getFirstname());
+			selectRole.addItem(obj);
+		}
 
-        addComponent(new Label("lastname"));
+		selectRole.setNullSelectionAllowed(false);
+		selectRole.setImmediate(true);
 
-        addComponent(getLastname());
+		selectRole.addValueChangeListener(e -> Notification.show(
+				"Value changed:", String.valueOf(e.getProperty().getValue()),
+				Type.TRAY_NOTIFICATION));
 
-        addComponent(new Label("eMail:"));
+		List<String> languages = new ArrayList<String>();
+		languages.add("English");
+		languages.add("German");
 
-        addComponent(getEmail());
+		for (String obj : languages) {
 
-        addComponent(new Label("password"));
+			selectLanguage.addItem(obj);
+		}
 
-        addComponent(getPassword());
+		selectLanguage.setNullSelectionAllowed(false);
+		selectLanguage.setImmediate(true);
 
-        addComponent(getSelectRole());
-        
-        addComponent(getSelectLanguage());
-        
-        Button btnInsertUser = new Button("create a user");
-        btnInsertUser.addClickListener(new RegisterFormListener());
-        //
-        // Trivial logic for closing the sub-window
-        setMargin(true);
-        setSpacing(true);
-        addComponents(btnInsertUser);
-    }
+		selectLanguage.addValueChangeListener(e -> Notification.show(
+				"Value changed:", String.valueOf(e.getProperty().getValue()),
+				Type.TRAY_NOTIFICATION));
 
+		getEmail().setRequired(true);
+		getPassword().setRequired(true);
+		getFirstname().setRequired(true);
+		getLastname().setRequired(true);
+		addComponent(new Label("firstname"));
 
- 
-    
-    public TextField getEmail() {
-        return email;
-    }
+		addComponent(getFirstname());
 
-    public void setEmail(TextField email) {
-        this.email = email;
-    }
+		addComponent(new Label("lastname"));
 
-    public PasswordField getPassword() {
-        return password;
-    }
+		addComponent(getLastname());
 
-    public void setPassword(PasswordField password) {
-        this.password = password;
-    }
+		addComponent(new Label("eMail:"));
 
-    public TextField getFirstname() {
-        return firstname;
-    }
+		addComponent(getEmail());
 
-    public void setFirstname(TextField firstname) {
-        this.firstname = firstname;
-    }
+		addComponent(new Label("password"));
 
-    public TextField getLastname() {
-        return lastname;
-    }
+		addComponent(getPassword());
 
-    public void setLastname(TextField lastname) {
-        this.lastname = lastname;
-    }
+		addComponent(getSelectRole());
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
-        
-    }
-    public NativeSelect getSelectRole() {
-        return selectRole;
-    }
-    public void setSelectRole(NativeSelect selectRole) {
-        this.selectRole = selectRole;
-    }
-    public NativeSelect getSelectLanguage() {
-        return selectLanguage;
-    }
-    public void setSelectLanguage(NativeSelect selectLanguage) {
-        this.selectLanguage = selectLanguage;
-    }
-   
+		addComponent(getSelectLanguage());
+
+		Button btnInsertUser = new Button("create a user");
+		btnInsertUser.addClickListener(new RegisterFormListener());
+		//
+		// Trivial logic for closing the sub-window
+		setMargin(true);
+		setSpacing(true);
+		addComponents(btnInsertUser);
+	}
+
+	public TextField getEmail() {
+		return email;
+	}
+
+	public void setEmail(TextField email) {
+		this.email = email;
+	}
+
+	public PasswordField getPassword() {
+		return password;
+	}
+
+	public void setPassword(PasswordField password) {
+		this.password = password;
+	}
+
+	public TextField getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(TextField firstname) {
+		this.firstname = firstname;
+	}
+
+	public TextField getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(TextField lastname) {
+		this.lastname = lastname;
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public NativeSelect getSelectRole() {
+		return selectRole;
+	}
+
+	public void setSelectRole(NativeSelect selectRole) {
+		this.selectRole = selectRole;
+	}
+
+	public NativeSelect getSelectLanguage() {
+		return selectLanguage;
+	}
+
+	public void setSelectLanguage(NativeSelect selectLanguage) {
+		this.selectLanguage = selectLanguage;
+	}
+
 }

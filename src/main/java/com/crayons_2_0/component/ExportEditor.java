@@ -11,37 +11,38 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.Component;
 
-public class ExportEditor   {
+public class ExportEditor {
 
-    public ExportEditor() {
-        // TODO Auto-generated constructor stub
-    }
+	public ExportEditor() {
+		// TODO Auto-generated constructor stub
+	}
 
-    public Component ExportButton(){
-        
-        Button export = new Button("Export");
-        export.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        export.addClickListener(new ClickListener() {
-            
-            /**
+	public Component ExportButton() {
+
+		Button export = new Button("Export");
+		export.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		export.addClickListener(new ClickListener() {
+
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void buttonClick(ClickEvent event) {
-                for (Window window : UI.getCurrent().getWindows())
-                    window.close();
-                Notification success = new Notification("file is exported successfully");
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-                
-            }
-        });
-        return export;
-        
-    }
-    
+			public void buttonClick(ClickEvent event) {
+				for (Window window : UI.getCurrent().getWindows())
+					window.close();
+				Notification success = new Notification(
+						"file is exported successfully");
+				success.setDelayMsec(2000);
+				success.setStyleName("bar success small");
+				success.setPosition(Position.BOTTOM_CENTER);
+				success.show(Page.getCurrent());
+
+			}
+		});
+		return export;
+
+	}
+
 }

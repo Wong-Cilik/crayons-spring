@@ -41,7 +41,7 @@ import com.vaadin.ui.themes.ValoTheme;
 @ViewScope
 @SpringComponent
 public final class AdminView extends VerticalLayout implements View {
-	
+
 	/**
 	 * 
 	 */
@@ -49,87 +49,91 @@ public final class AdminView extends VerticalLayout implements View {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	CourseService courseService;
-	
+
 	ResourceBundle lang = LanguageService.getInstance().getRes();
-    List<UserDisplay> collection = new ArrayList<UserDisplay>();
-    public static final String VIEW_NAME = "AdminView";
-    HorizontalLayout root;
-    private Table table;
-    @PropertyId("name")
-    private TextField nameField = new TextField(lang.getString("Name"));
-    @PropertyId("title")
-    private TextField title = new TextField(lang.getString("Title"));
-    @PropertyId("rights")
-    private TextField rights = new TextField(lang.getString("Rights"));
-    @PropertyId("email")
-    private TextField emailField = new TextField(lang.getString("Email"));
-    @PropertyId("location")
-    private TextField locationField = new TextField(lang.getString("Location"));
-    @PropertyId("phone")
-    private TextField phoneField = new TextField(lang.getString("Phone"));
-    
-    
-    public AdminView() {
+	List<UserDisplay> collection = new ArrayList<UserDisplay>();
+	public static final String VIEW_NAME = "AdminView";
+	HorizontalLayout root;
+	private Table table;
+	@PropertyId("name")
+	private TextField nameField = new TextField(lang.getString("Name"));
+	@PropertyId("title")
+	private TextField title = new TextField(lang.getString("Title"));
+	@PropertyId("rights")
+	private TextField rights = new TextField(lang.getString("Rights"));
+	@PropertyId("email")
+	private TextField emailField = new TextField(lang.getString("Email"));
+	@PropertyId("location")
+	private TextField locationField = new TextField(lang.getString("Location"));
+	@PropertyId("phone")
+	private TextField phoneField = new TextField(lang.getString("Phone"));
 
-    }
+	public AdminView() {
 
-    @PostConstruct
-    void init(){
-        addStyleName("courseDisplay");
-        addComponent(buildToolbar());
+	}
 
-        table = buildTable();
-        addComponent(table);
-        Responsive.makeResponsive(this);
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        content.setMargin(new MarginInfo(true, false, false, false));
-        addComponent(content);
-        content.addComponent(buildProfileTab(null));
-        setComponentAlignment(content, Alignment.BOTTOM_LEFT);
+	@PostConstruct
+	void init() {
+		addStyleName("courseDisplay");
+		addComponent(buildToolbar());
 
-    }
-    
-    private Component buildToolbar() {
-        HorizontalLayout header = new HorizontalLayout();
-        header.addStyleName("viewheader");
-        header.setSpacing(true);
-        Responsive.makeResponsive(header);
-        return header;
-    }
+		table = buildTable();
+		addComponent(table);
+		Responsive.makeResponsive(this);
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		content.setMargin(new MarginInfo(true, false, false, false));
+		addComponent(content);
+		content.addComponent(buildProfileTab(null));
+		setComponentAlignment(content, Alignment.BOTTOM_LEFT);
+
+	}
+
+	private Component buildToolbar() {
+		HorizontalLayout header = new HorizontalLayout();
+		header.addStyleName("viewheader");
+		header.setSpacing(true);
+		Responsive.makeResponsive(header);
+		return header;
+	}
 
 	private Table buildTable() {
-        final Table table = new Table();
-        table.setSizeFull();
-        table.addStyleName(ValoTheme.TABLE_BORDERLESS);
-        table.addStyleName(ValoTheme.TABLE_NO_HORIZONTAL_LINES);
-        table.addStyleName(ValoTheme.TABLE_COMPACT);
+		final Table table = new Table();
+		table.setSizeFull();
+		table.addStyleName(ValoTheme.TABLE_BORDERLESS);
+		table.addStyleName(ValoTheme.TABLE_NO_HORIZONTAL_LINES);
+		table.addStyleName(ValoTheme.TABLE_COMPACT);
 
-        table.setColumnCollapsingAllowed(true);
-        table.setColumnReorderingAllowed(true);
-        
-        for (CrayonsUser tmpUser : userService.findAll()) {
-        	String permission = "Fehler beim ermitteln der Rechte";
-        	if (tmpUser.getPermission() == 2) {
-        		permission = "Admin";
-        	} else if (tmpUser.getPermission() == 1) {
-        		permission = "Autor";
-        	} else if (tmpUser.getPermission() == 0) {
-        		permission = "Schüler";
-        	}
-        	collection.add(new UserDisplay(tmpUser.getEmail(), tmpUser.getFirstName() + " " + tmpUser.getLastName(), permission, courseService.findAllAuthorCoursesOfUser(tmpUser).size(), courseService.findAllCoursesOfUser(tmpUser).size()));
-        }
-        table.setSortContainerPropertyId("email");
-        table.setSortAscending(false);
+		table.setColumnCollapsingAllowed(true);
+		table.setColumnReorderingAllowed(true);
 
-        table.setContainerDataSource(new TempContainer(collection));
-        table.setVisibleColumns("email", "name", "role", "createdCourses", "visitedCourses");
-        table.setColumnHeaders("eMail", "Name", "Rechte", "Erstellte Kurse", "Besuchte Kurse");
-        table.setEditable(false);
-        table.addItemClickListener(new ItemClickListener(){
+		for (CrayonsUser tmpUser : userService.findAll()) {
+			String permission = "Fehler beim ermitteln der Rechte";
+			if (tmpUser.getPermission() == 2) {
+				permission = "Admin";
+			} else if (tmpUser.getPermission() == 1) {
+				permission = "Autor";
+			} else if (tmpUser.getPermission() == 0) {
+				permission = "Schüler";
+			}
+			collection.add(new UserDisplay(tmpUser.getEmail(), tmpUser
+					.getFirstName() + " " + tmpUser.getLastName(), permission,
+					courseService.findAllAuthorCoursesOfUser(tmpUser).size(),
+					courseService.findAllCoursesOfUser(tmpUser).size()));
+		}
+		table.setSortContainerPropertyId("email");
+		table.setSortAscending(false);
+
+		table.setContainerDataSource(new TempContainer(collection));
+		table.setVisibleColumns("email", "name", "role", "createdCourses",
+				"visitedCourses");
+		table.setColumnHeaders("eMail", "Name", "Rechte", "Erstellte Kurse",
+				"Besuchte Kurse");
+		table.setEditable(false);
+		table.addItemClickListener(new ItemClickListener() {
 			/**
 			 * 
 			 */
@@ -137,9 +141,9 @@ public final class AdminView extends VerticalLayout implements View {
 
 			@Override
 			public void itemClick(ItemClickEvent event) {
-				UserDisplay userDisplay = (UserDisplay)event.getItemId();
+				UserDisplay userDisplay = (UserDisplay) event.getItemId();
 				AdminView ad = (AdminView) event.getComponent().getParent();
-				
+
 				ad.nameField.setReadOnly(false);
 				ad.nameField.setValue(userDisplay.getName());
 				ad.nameField.setReadOnly(true);
@@ -151,7 +155,7 @@ public final class AdminView extends VerticalLayout implements View {
 				ad.emailField.setReadOnly(false);
 				ad.emailField.setValue(userDisplay.getEmail());
 				ad.emailField.setReadOnly(true);
-				
+
 				ad.locationField.setReadOnly(false);
 				ad.locationField.setValue("");
 				ad.locationField.setReadOnly(true);
@@ -159,7 +163,7 @@ public final class AdminView extends VerticalLayout implements View {
 				ad.phoneField.setReadOnly(false);
 				ad.phoneField.setValue("");
 				ad.phoneField.setReadOnly(true);
-				
+
 			}
 
 		});
@@ -182,63 +186,63 @@ public final class AdminView extends VerticalLayout implements View {
 		}
 
 	}
-	
-	    private HorizontalLayout buildProfileTab(UserDisplay uD) {
-	        root = new HorizontalLayout();
-	        root.setWidth(100.0f, Unit.PERCENTAGE);
-	        root.setSpacing(true);
-	        root.setMargin(true);
-	        root.addStyleName("profile-form");
 
-	        VerticalLayout pic = new VerticalLayout();
-	        pic.setSizeUndefined();
-	        pic.setSpacing(true);
-	        Image profilePic = new Image(null, new ThemeResource(
-	                "img/profile-pic-300px.jpg"));
-	        profilePic.setWidth(100.0f, Unit.PIXELS);
-	        pic.addComponent(profilePic);
-	        root.addComponent(pic);
+	private HorizontalLayout buildProfileTab(UserDisplay uD) {
+		root = new HorizontalLayout();
+		root.setWidth(100.0f, Unit.PERCENTAGE);
+		root.setSpacing(true);
+		root.setMargin(true);
+		root.addStyleName("profile-form");
 
-	        FormLayout details = new FormLayout();
-	        details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-	        root.addComponent(details);
-	        root.setExpandRatio(details, 1);
+		VerticalLayout pic = new VerticalLayout();
+		pic.setSizeUndefined();
+		pic.setSpacing(true);
+		Image profilePic = new Image(null, new ThemeResource(
+				"img/profile-pic-300px.jpg"));
+		profilePic.setWidth(100.0f, Unit.PIXELS);
+		pic.addComponent(profilePic);
+		root.addComponent(pic);
 
-	        nameField.setValue("");
-	        nameField.setWidth("100%");
-	        nameField.setReadOnly(true);
-	        details.addComponent(nameField);
-	        
-	        title.setValue("");
-	        title.setWidth("100%");
-	        title.setReadOnly(true);
-	        details.addComponent(title);
+		FormLayout details = new FormLayout();
+		details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+		root.addComponent(details);
+		root.setExpandRatio(details, 1);
 
-	        rights.setValue("");
-	        rights.setWidth("100%");
-	        rights.setReadOnly(true);
-	        details.addComponent(rights);
-	        
-	        Label section = new Label(lang.getString("ContactInfo"));
-	        section.addStyleName(ValoTheme.LABEL_H4);
-	        section.addStyleName(ValoTheme.LABEL_COLORED);
-	        details.addComponent(section);
+		nameField.setValue("");
+		nameField.setWidth("100%");
+		nameField.setReadOnly(true);
+		details.addComponent(nameField);
 
-	        emailField.setValue("");
-	        emailField.setWidth("100%");
-	        emailField.setReadOnly(true);
-	        details.addComponent(emailField);
+		title.setValue("");
+		title.setWidth("100%");
+		title.setReadOnly(true);
+		details.addComponent(title);
 
-	        locationField.setValue("");
-	        locationField.setWidth("100%");
-	        locationField.setReadOnly(true);
-	        details.addComponent(locationField);
+		rights.setValue("");
+		rights.setWidth("100%");
+		rights.setReadOnly(true);
+		details.addComponent(rights);
 
-	        phoneField.setValue("");
-	        phoneField.setWidth("100%");
-	        phoneField.setReadOnly(true);
-	        details.addComponent(phoneField);
+		Label section = new Label(lang.getString("ContactInfo"));
+		section.addStyleName(ValoTheme.LABEL_H4);
+		section.addStyleName(ValoTheme.LABEL_COLORED);
+		details.addComponent(section);
 
-	        return root;
-	    }
+		emailField.setValue("");
+		emailField.setWidth("100%");
+		emailField.setReadOnly(true);
+		details.addComponent(emailField);
+
+		locationField.setValue("");
+		locationField.setWidth("100%");
+		locationField.setReadOnly(true);
+		details.addComponent(locationField);
+
+		phoneField.setValue("");
+		phoneField.setWidth("100%");
+		phoneField.setReadOnly(true);
+		details.addComponent(phoneField);
+
+		return root;
+	}
 }

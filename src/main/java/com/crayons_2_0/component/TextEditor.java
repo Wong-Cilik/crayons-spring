@@ -23,128 +23,129 @@ import com.vaadin.ui.themes.ValoTheme;
 // Code is based on https://github.com/vaadin/dashboard-demo/blob/7.7/src/main/java/com/vaadin/demo/dashboard/component/InlineTextEditor.java
 
 public class TextEditor extends CustomComponent {
-    private static final long serialVersionUID = 4186796136009413559L;
-    
-    private final Property<String> property = new ObjectProperty<String>(
-            "Enter text here...");
-    private final Component textEditor;
-    private final Component readOnly;
-    
-    public TextEditor(String prefillData) {
-        setWidth(100.0f, Unit.PERCENTAGE);
-        addStyleName("inline-text-editor");
-        
-        textEditor = buildTextEditor();
-        readOnly = buildReadOnly();
-        
-        if (prefillData != null) {
-            property.setValue(prefillData);
-        }
-        
-        setCompositionRoot(textEditor);
-    }
+	private static final long serialVersionUID = 4186796136009413559L;
 
-    private Component buildReadOnly() {
-        final Label text = new Label(property);
-        text.setContentMode(ContentMode.HTML);
+	private final Property<String> property = new ObjectProperty<String>(
+			"Enter text here...");
+	private final Component textEditor;
+	private final Component readOnly;
 
-        Button editButton = new Button(FontAwesome.EDIT);
-        editButton.addStyleName(ValoTheme.BUTTON_SMALL);
-        editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
-        editButton.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = -8467021048199100945L;
+	public TextEditor(String prefillData) {
+		setWidth(100.0f, Unit.PERCENTAGE);
+		addStyleName("inline-text-editor");
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                setCompositionRoot(textEditor);
-            }
-        });
+		textEditor = buildTextEditor();
+		readOnly = buildReadOnly();
 
-        CssLayout result = new CssLayout(text, editButton);
-        result.addStyleName("text-editor");
-        result.setSizeFull();
-        result.addLayoutClickListener(new LayoutClickListener() {
-            private static final long serialVersionUID = 7363639788653598603L;
+		if (prefillData != null) {
+			property.setValue(prefillData);
+		}
 
-            @Override
-            public void layoutClick(final LayoutClickEvent event) {
-                if (event.getChildComponent() == text && event.isDoubleClick()) {
-                    setCompositionRoot(textEditor);
-                }
-            }
-        });
-        
-        return result;
-    }
-    
-    private Component buildTextEditor() {
-        CKEditorConfig config = new CKEditorConfig();
-        config.useCompactTags();
-        config.disableElementsPath();
-        config.setResizeDir(CKEditorConfig.RESIZE_DIR.HORIZONTAL);
-        config.disableSpellChecker();
-        config.setWidth("100%");
-        final CKEditorTextField ckEditorTextField = new CKEditorTextField(config);
-        ckEditorTextField.setWidth(100.0f, Unit.PERCENTAGE);
-        ckEditorTextField.addAttachListener(new AttachListener() {
-            /**
+		setCompositionRoot(textEditor);
+	}
+
+	private Component buildReadOnly() {
+		final Label text = new Label(property);
+		text.setContentMode(ContentMode.HTML);
+
+		Button editButton = new Button(FontAwesome.EDIT);
+		editButton.addStyleName(ValoTheme.BUTTON_SMALL);
+		editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
+		editButton.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = -8467021048199100945L;
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				setCompositionRoot(textEditor);
+			}
+		});
+
+		CssLayout result = new CssLayout(text, editButton);
+		result.addStyleName("text-editor");
+		result.setSizeFull();
+		result.addLayoutClickListener(new LayoutClickListener() {
+			private static final long serialVersionUID = 7363639788653598603L;
+
+			@Override
+			public void layoutClick(final LayoutClickEvent event) {
+				if (event.getChildComponent() == text && event.isDoubleClick()) {
+					setCompositionRoot(textEditor);
+				}
+			}
+		});
+
+		return result;
+	}
+
+	private Component buildTextEditor() {
+		CKEditorConfig config = new CKEditorConfig();
+		config.useCompactTags();
+		config.disableElementsPath();
+		config.setResizeDir(CKEditorConfig.RESIZE_DIR.HORIZONTAL);
+		config.disableSpellChecker();
+		config.setWidth("100%");
+		final CKEditorTextField ckEditorTextField = new CKEditorTextField(
+				config);
+		ckEditorTextField.setWidth(100.0f, Unit.PERCENTAGE);
+		ckEditorTextField.addAttachListener(new AttachListener() {
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void attach(final AttachEvent event) {
-                ckEditorTextField.focus();
-            }
-        });
-        ckEditorTextField.setValue(property.getValue());
-        ckEditorTextField.addValueChangeListener(new Property.ValueChangeListener() {
-            /**
+			public void attach(final AttachEvent event) {
+				ckEditorTextField.focus();
+			}
+		});
+		ckEditorTextField.setValue(property.getValue());
+		ckEditorTextField
+				.addValueChangeListener(new Property.ValueChangeListener() {
+					/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
+					private static final long serialVersionUID = 1L;
 
-			public void valueChange(ValueChangeEvent event) {
-                Notification.show("CKEditor v" + ckEditorTextField.getVersion() + " - contents: " + event.getProperty().getValue().toString());
-            }
-        });
-        /*
-        final RichTextArea textArea = new RichTextArea(property);
-        textArea.setWidth(100.0f, Unit.PERCENTAGE);
-        textArea.addAttachListener(new AttachListener() {
-            private static final long serialVersionUID = 8413778836678316866L;
+					public void valueChange(ValueChangeEvent event) {
+						Notification.show("CKEditor v"
+								+ ckEditorTextField.getVersion()
+								+ " - contents: "
+								+ event.getProperty().getValue().toString());
+					}
+				});
+		/*
+		 * final RichTextArea textArea = new RichTextArea(property);
+		 * textArea.setWidth(100.0f, Unit.PERCENTAGE);
+		 * textArea.addAttachListener(new AttachListener() { private static
+		 * final long serialVersionUID = 8413778836678316866L;
+		 * 
+		 * @Override public void attach(final AttachEvent event) {
+		 * textArea.focus(); textArea.selectAll(); } });
+		 */
+		Button save = new Button("Save");
+		save.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = -4688758527425055901L;
 
-            @Override
-            public void attach(final AttachEvent event) {
-                textArea.focus();
-                textArea.selectAll();
-            }
-        });
-       */
-        Button save = new Button("Save");
-        save.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = -4688758527425055901L;
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				property.setValue(ckEditorTextField.getValue());
+				setCompositionRoot(readOnly);
+			}
+		});
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-            	property.setValue(ckEditorTextField.getValue());
-                setCompositionRoot(readOnly);
-            }
-        });
-        
-        save.addClickListener(new ClickListener() {
-            private static final long serialVersionUID = 6125553410927864047L;
+		save.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 6125553410927864047L;
 
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                /*getParent()*/
-            }
-        });
-        
-        CssLayout result = new CssLayout(ckEditorTextField, save);
+			@Override
+			public void buttonClick(final ClickEvent event) {
+				/* getParent() */
+			}
+		});
 
-        result.addStyleName("edit");
-        result.setSizeFull();
-        return result;
-    }
+		CssLayout result = new CssLayout(ckEditorTextField, save);
+
+		result.addStyleName("edit");
+		result.setSizeFull();
+		return result;
+	}
 }

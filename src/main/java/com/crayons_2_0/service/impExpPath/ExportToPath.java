@@ -2,27 +2,27 @@ package com.crayons_2_0.service.impExpPath;
 
 public class ExportToPath {
 
-    private String name;
-    private String path;
-    
-    public ExportToPath(String name, String path) {
-       this.name = name;
-       this.path = path;
-    }
+	private String name;
+	private String path;
 
-    public String getName() {
-        return name;
-    }
+	public ExportToPath(String name, String path) {
+		this.name = name;
+		this.path = path;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getPath() {
-        return path;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 }

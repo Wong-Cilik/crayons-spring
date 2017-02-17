@@ -19,16 +19,19 @@ public class CrayonsUser extends User {
 	private Language language;
 	private String email;
 	private int permission;
-	
-	public CrayonsUser(String firstName, String lastName, String email, String password, String language, int permission, boolean enabled, boolean accountNonExpired,
-			boolean credentialsNonExpired, boolean accountNonLocked,
+
+	public CrayonsUser(String firstName, String lastName, String email,
+			String password, String language, int permission, boolean enabled,
+			boolean accountNonExpired, boolean credentialsNonExpired,
+			boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
-		super(email, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+		super(email, password, enabled, accountNonExpired,
+				credentialsNonExpired, accountNonLocked, authorities);
 
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setEmail(email);
-		this.setPassword(password);   
+		this.setPassword(password);
 		this.setLanguage(language);
 		this.setPermission(permission);
 	}
@@ -48,7 +51,7 @@ public class CrayonsUser extends User {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -56,7 +59,7 @@ public class CrayonsUser extends User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -72,25 +75,26 @@ public class CrayonsUser extends User {
 	public void setLanguage(Language language) {
 		this.language = language;
 	}
-	
+
 	public void setLanguage(String language) {
-		if(language != null){
-		if (language.equals(Language.German.toString())) {
-			this.setLanguage(Language.German);
-		} else if (language.equals(Language.English.toString())) {
-			this.setLanguage(Language.English);
-		} else {
-			throw new IllegalArgumentException("Language not known");
-		}
+		if (language != null) {
+			if (language.equals(Language.German.toString())) {
+				this.setLanguage(Language.German);
+			} else if (language.equals(Language.English.toString())) {
+				this.setLanguage(Language.English);
+			} else {
+				throw new IllegalArgumentException("Language not known");
+			}
 		}
 	}
 
 	@Override
-    public String toString() {
-        return String.format(
-                "User[username= '%s', password= '%s', firstname = '%s', 'lastname = '%s', 'language = '%s']",
-                 getUsername(), getPassword(), getFirstName(), getLastName(), getLanguage().toString());
-    }
+	public String toString() {
+		return String
+				.format("User[username= '%s', password= '%s', firstname = '%s', 'lastname = '%s', 'language = '%s']",
+						getUsername(), getPassword(), getFirstName(),
+						getLastName(), getLanguage().toString());
+	}
 
 	public int getPermission() {
 		return permission;

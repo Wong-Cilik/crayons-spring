@@ -1,14 +1,15 @@
 package com.crayons_2_0.service;
 
 public final class UserDisplay {
-    private String email;
-    private String name;
-    private String role;
+	private String email;
+	private String name;
+	private String role;
 
-    private int createdCourses;
-    private int visitedCourses;
+	private int createdCourses;
+	private int visitedCourses;
 
-    public UserDisplay(String email, String name, String role, int createdCourses, int visitedCourses) {
+	public UserDisplay(String email, String name, String role,
+			int createdCourses, int visitedCourses) {
 		this.email = email;
 		this.name = name;
 		this.role = role;

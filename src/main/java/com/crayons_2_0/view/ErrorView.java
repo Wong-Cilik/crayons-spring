@@ -19,29 +19,28 @@ import com.vaadin.ui.themes.Reindeer;
 @SpringView(name = ErrorView.VIEW_NAME)
 public class ErrorView extends VerticalLayout implements View {
 
-    /**
+	/**
      * 
      */
-    public static final String VIEW_NAME = "Error view";
-    private static final long serialVersionUID = 1L;
-    ResourceBundle lang = LanguageService.getInstance().getRes();
-    private Label explanation;
-    
+	public static final String VIEW_NAME = "Error view";
+	private static final long serialVersionUID = 1L;
+	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private Label explanation;
 
-    public ErrorView() {
-        setMargin(true);
-        setSpacing(true);
+	public ErrorView() {
+		setMargin(true);
+		setSpacing(true);
 
-        Label header = new Label(lang.getString("TheViewCouldNotBeFound"));
-        header.addStyleName(Reindeer.LABEL_H1);
-        addComponent(header);
-        addComponent(explanation = new Label());
-    }
+		Label header = new Label(lang.getString("TheViewCouldNotBeFound"));
+		header.addStyleName(Reindeer.LABEL_H1);
+		addComponent(header);
+		addComponent(explanation = new Label());
+	}
 
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        explanation.setValue(String.format(
-                lang.getString("YouTriedToNavigateToAView('%s')thatDoesNotExist."),
-                event.getViewName()));
-    }
+	@Override
+	public void enter(ViewChangeListener.ViewChangeEvent event) {
+		explanation.setValue(String.format(lang
+				.getString("YouTriedToNavigateToAView('%s')thatDoesNotExist."),
+				event.getViewName()));
+	}
 }

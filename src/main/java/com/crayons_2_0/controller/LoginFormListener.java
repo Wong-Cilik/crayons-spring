@@ -18,29 +18,30 @@ import com.vaadin.ui.Notification;
 @Component
 public class LoginFormListener implements Button.ClickListener {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Autowired
-    private AuthManager authManager;
+	private AuthManager authManager;
 
-    @Override
-    public void buttonClick(Button.ClickEvent event) {
-        try {
-            Button source = event.getButton();
-            LoginForm parent = (LoginForm) source.getParent();
-            String username = parent.getTxtLogin().getValue();
-            String password = parent.getTxtPassword().getValue();
+	@Override
+	public void buttonClick(Button.ClickEvent event) {
+		try {
+			Button source = event.getButton();
+			LoginForm parent = (LoginForm) source.getParent();
+			String username = parent.getTxtLogin().getValue();
+			String password = parent.getTxtPassword().getValue();
 
-            CurrentUser.getInstance().seteMail(username);
-            UsernamePasswordAuthenticationToken request = new UsernamePasswordAuthenticationToken(username, password);
+			CurrentUser.getInstance().seteMail(username);
+			UsernamePasswordAuthenticationToken request = new UsernamePasswordAuthenticationToken(
+					username, password);
 
-            Authentication result = authManager.authenticate(request);
-            SecurityContextHolder.getContext().setAuthentication(result);
-            
-        } catch (AuthenticationException e) {
-            Notification.show("Authentication failed: " + e.getMessage());
-        } 
-    }
+			Authentication result = authManager.authenticate(request);
+			SecurityContextHolder.getContext().setAuthentication(result);
+
+		} catch (AuthenticationException e) {
+			Notification.show("Authentication failed: " + e.getMessage());
+		}
+	}
 }

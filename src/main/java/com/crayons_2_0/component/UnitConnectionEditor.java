@@ -22,140 +22,141 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 public class UnitConnectionEditor extends Window {
-    // @DB
+	// @DB
 
-    // sollte noch ein set werden
-    UnitNode parent;
-    // wird noch ausgebessert
-    String unitTitle;
-    // sollte noch ein set werden
-    UnitNode child;
-    static Graph graph;
+	// sollte noch ein set werden
+	UnitNode parent;
+	// wird noch ausgebessert
+	String unitTitle;
+	// sollte noch ein set werden
+	UnitNode child;
+	static Graph graph;
 
-    public UnitConnectionEditor(Graph graphData) {
-    	graph = graphData;
-        setSizeFull();
-        setModal(true);
-        setResizable(false);
-        setClosable(true);
-        setHeight(40.0f, Unit.PERCENTAGE);
-        setWidth(40.0f, Unit.PERCENTAGE);
+	public UnitConnectionEditor(Graph graphData) {
+		graph = graphData;
+		setSizeFull();
+		setModal(true);
+		setResizable(false);
+		setClosable(true);
+		setHeight(40.0f, Unit.PERCENTAGE);
+		setWidth(40.0f, Unit.PERCENTAGE);
 
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        content.setMargin(true);
-        setContent(content);
-        Component title = buildTitle();
-        content.addComponent(title);
-        content.setComponentAlignment(title, Alignment.TOP_CENTER);
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		content.setMargin(true);
+		setContent(content);
+		Component title = buildTitle();
+		content.addComponent(title);
+		content.setComponentAlignment(title, Alignment.TOP_CENTER);
 
-        // content.addComponent(buildDescription());
+		// content.addComponent(buildDescription());
 
-        Component unitChoiseBoxes = buildUnitsChoiceBoxes();
-        content.addComponent(unitChoiseBoxes);
-        content.setComponentAlignment(unitChoiseBoxes, Alignment.MIDDLE_LEFT);
+		Component unitChoiseBoxes = buildUnitsChoiceBoxes();
+		content.addComponent(unitChoiseBoxes);
+		content.setComponentAlignment(unitChoiseBoxes, Alignment.MIDDLE_LEFT);
 
-        Component footer = buildFooter();
-        content.addComponent(footer);
-        content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
-    }
+		Component footer = buildFooter();
+		content.addComponent(footer);
+		content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+	}
 
-    
+	private Component buildUnitsChoiceBoxes() {
+		HorizontalLayout comboBoxes = new HorizontalLayout();
+		comboBoxes.setMargin(true);
+		comboBoxes.setSpacing(true);
 
-    private Component buildUnitsChoiceBoxes() {
-        HorizontalLayout comboBoxes = new HorizontalLayout();
-        comboBoxes.setMargin(true);
-        comboBoxes.setSpacing(true);
+		ComboBox selectPredecessor = new ComboBox("From");
+		comboBoxes.addComponent(selectPredecessor);
+		// Set<Node> predecessors = new HashSet<Node>();
+		// predecessors.add(new Node("Node 1"));
+		// predecessors.add(new Node("Node 2"));
+		// selectPredecessor.addItems(predecessors);
+		for (UnitNode currentNode : graph.getUnitCollection()) {
+			selectPredecessor.addItem(currentNode.getUnitNodeTitle());
+		}
+		selectPredecessor.addValueChangeListener(new ValueChangeListener() {
+			public void valueChange(ValueChangeEvent event) {
+				parent = graph.getNodeByName(selectPredecessor.getValue()
+						.toString());
+			}
+		});
 
-        ComboBox selectPredecessor = new ComboBox("From");
-        comboBoxes.addComponent(selectPredecessor);
-        // Set<Node> predecessors = new HashSet<Node>();
-        // predecessors.add(new Node("Node 1"));
-        // predecessors.add(new Node("Node 2"));
-        // selectPredecessor.addItems(predecessors);
-        for (UnitNode currentNode : graph.getUnitCollection()) {
-            selectPredecessor.addItem(currentNode.getUnitNodeTitle());
-        }
-        selectPredecessor.addValueChangeListener(new ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                parent = graph.getNodeByName(selectPredecessor.getValue().toString());
-            }
-        });
+		ComboBox selectSuccessor = new ComboBox("To");
+		comboBoxes.addComponent(selectSuccessor);
+		// Set<Node> successors = new HashSet<Node>();
+		// successors.add(new Node("Node 3"));
+		// successors.add(new Node("Node 4"));
+		// selectSuccessor.addItems(successors);
+		for (UnitNode currentNode : graph.getUnitCollection()) {
+			selectSuccessor.addItem(currentNode.getUnitNodeTitle());
+		}
+		selectSuccessor.addValueChangeListener(new ValueChangeListener() {
+			public void valueChange(ValueChangeEvent event) {
+				child = graph.getNodeByName(selectSuccessor.getValue()
+						.toString());
+			}
+		});
+		return comboBoxes;
+	}
 
-        ComboBox selectSuccessor = new ComboBox("To");
-        comboBoxes.addComponent(selectSuccessor);
-        // Set<Node> successors = new HashSet<Node>();
-        // successors.add(new Node("Node 3"));
-        // successors.add(new Node("Node 4"));
-        // selectSuccessor.addItems(successors);
-        for (UnitNode currentNode : graph.getUnitCollection()) {
-            selectSuccessor.addItem(currentNode.getUnitNodeTitle());
-        }
-        selectSuccessor.addValueChangeListener(new ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                child = graph.getNodeByName(selectSuccessor.getValue().toString());
-            }
-        });
-        return comboBoxes;
-    }
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
-        footer.setSpacing(true);
-        
-        Button disconnect = new Button("Disconnect");
-        disconnect.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                graph.deleteConnection(parent, child);
-                CourseEditorView.refreshGraph(graph);
-                close();
-                Notification success = new Notification("Units are disconnected successfully");
-                success.setDelayMsec(1000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth(100.0f, Unit.PERCENTAGE);
+		footer.setSpacing(true);
 
-            }
-        });
-        footer.addComponent(disconnect);
-        footer.setComponentAlignment(disconnect, Alignment.BOTTOM_LEFT);
+		Button disconnect = new Button("Disconnect");
+		disconnect.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				graph.deleteConnection(parent, child);
+				CourseEditorView.refreshGraph(graph);
+				close();
+				Notification success = new Notification(
+						"Units are disconnected successfully");
+				success.setDelayMsec(1000);
+				success.setStyleName("bar success small");
+				success.setPosition(Position.BOTTOM_CENTER);
+				success.show(Page.getCurrent());
 
-        Button connect = new Button("Connect");
-        connect.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                graph.addConnection(parent, child);
-                CourseEditorView.refreshGraph(graph);
-                close();
-                Notification success = new Notification("Units are connected successfully");
-                success.setDelayMsec(1000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
+			}
+		});
+		footer.addComponent(disconnect);
+		footer.setComponentAlignment(disconnect, Alignment.BOTTOM_LEFT);
 
-            }
-        });
-        footer.addComponent(connect);
-        footer.setComponentAlignment(connect, Alignment.BOTTOM_RIGHT);
-        return footer;
-    }
+		Button connect = new Button("Connect");
+		connect.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				graph.addConnection(parent, child);
+				CourseEditorView.refreshGraph(graph);
+				close();
+				Notification success = new Notification(
+						"Units are connected successfully");
+				success.setDelayMsec(1000);
+				success.setStyleName("bar success small");
+				success.setPosition(Position.BOTTOM_CENTER);
+				success.show(Page.getCurrent());
 
-    private Component buildTitle() {
-        Label title = new Label("Connect units");
-        title.addStyleName(ValoTheme.LABEL_H2);
-        return title;
-    }
+			}
+		});
+		footer.addComponent(connect);
+		footer.setComponentAlignment(connect, Alignment.BOTTOM_RIGHT);
+		return footer;
+	}
 
-
+	private Component buildTitle() {
+		Label title = new Label("Connect units");
+		title.addStyleName(ValoTheme.LABEL_H2);
+		return title;
+	}
 
 	public static void refreshData(Graph graphData) {
 		graph = graphData;
-		
+
 	}
 
-    /*
-     * private Component buildDescription() { return null; }
-     */
+	/*
+	 * private Component buildDescription() { return null; }
+	 */
 }

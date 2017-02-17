@@ -2,15 +2,16 @@ package com.crayons_2_0.component;
 
 import com.crayons_2_0.model.graph.UnitNode.UnitType;
 import com.vaadin.spring.annotation.SpringComponent;
+
 @SpringComponent
 public class Unit {
-	
+
 	private String title;
-	
+
 	private String courseTitle;
-	
+
 	private UnitType type;
-	
+
 	private String content;
 
 	public Unit(String title, UnitType type, String courseTitel, String content) {
@@ -19,13 +20,11 @@ public class Unit {
 		this.setCourseTitle(courseTitel);
 		this.setContent(content);
 	}
-	
+
 	public Unit() {
-        // TODO Auto-generated constructor stub
-    }
-	
-	
-	
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * @return the title
 	 */
@@ -34,7 +33,8 @@ public class Unit {
 	}
 
 	/**
-	 * @param title the title to set
+	 * @param title
+	 *            the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -48,7 +48,8 @@ public class Unit {
 	}
 
 	/**
-	 * @param courseTitle the courseTitle to set
+	 * @param courseTitle
+	 *            the courseTitle to set
 	 */
 	public void setCourseTitle(String courseTitle) {
 		this.courseTitle = courseTitle;
@@ -62,15 +63,12 @@ public class Unit {
 	}
 
 	/**
-	 * @param type the type to set
+	 * @param type
+	 *            the type to set
 	 */
 	public void setType(UnitType type) {
 		this.type = type;
 	}
-
-
-
-
 
 	/**
 	 * @return the content
@@ -79,21 +77,12 @@ public class Unit {
 		return content;
 	}
 
-
-
-
-
 	/**
-	 * @param content the content to set
+	 * @param content
+	 *            the content to set
 	 */
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	
-	
-	
-	
-	
 
 }

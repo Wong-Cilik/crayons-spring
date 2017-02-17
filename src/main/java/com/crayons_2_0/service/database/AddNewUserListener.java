@@ -1,7 +1,5 @@
 package com.crayons_2_0.service.database;
 
-
-
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.view.AboutView;
@@ -28,28 +26,27 @@ public class AddNewUserListener implements Button.ClickListener {
 	public void buttonClick(ClickEvent event) {
 		AboutView view = (AboutView) event.getButton().getParent();
 
-        MyUI current = (MyUI) (UI.getCurrent());
-        ApplicationContext context = current.getApplicationContext();
+		MyUI current = (MyUI) (UI.getCurrent());
+		ApplicationContext context = current.getApplicationContext();
 
-        UserDAO userDAO = context.getBean(UserDAO.class);
+		UserDAO userDAO = context.getBean(UserDAO.class);
 
-        TextField txtUserEMail = view.getTxtUserLabel();
-        String mail = txtUserEMail.getValue();
-        
-        String password = "password";
-        String firstName = "firstName";
-        String lastName = "lastName";
-        String language = "language";
-        int permission = 0;
-        
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("CLIENT"));
-        CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password, language, permission, true, true, false, false, authorities);
-        userDAO.insertUser(user);
+		TextField txtUserEMail = view.getTxtUserLabel();
+		String mail = txtUserEMail.getValue();
 
-        current.getNavigator().navigateTo("users"); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    }
-		
+		String password = "password";
+		String firstName = "firstName";
+		String lastName = "lastName";
+		String language = "language";
+		int permission = 0;
 
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority("CLIENT"));
+		CrayonsUser user = new CrayonsUser(firstName, lastName, mail, password,
+				language, permission, true, true, false, false, authorities);
+		userDAO.insertUser(user);
+
+		current.getNavigator().navigateTo("users"); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
 
 }

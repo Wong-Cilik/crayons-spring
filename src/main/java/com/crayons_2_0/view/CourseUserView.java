@@ -16,80 +16,83 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
- * Course editor view consists of a learning graph and a button to navigate to a learning unit.
+ * Course editor view consists of a learning graph and a button to navigate to a
+ * learning unit.
  *
  */
 @SpringView(name = CourseUserView.VIEW_NAME)
 public class CourseUserView extends VerticalLayout implements View {
-    
-    /**
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final String VIEW_NAME = "User Learning Graph";
 
-    
-    public CourseUserView() {
-        setSizeFull();
-        
-        //TODO: generate graph for a particular user
-        
-        Component footer = buildFooter();
-        addComponent(footer);
-        setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
-    }
-    
-    /**
-     * Builds a footer which includes the control buttons to choose a unit or navigate back to the user library.
-     * @return the footer
-     */
-    private Component buildFooter(){
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.setMargin(true);
-        footer.setSizeFull();
-        footer.setSpacing(true);
-        
-        Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
-        backButton.addClickListener(new ClickListener() {
+	public CourseUserView() {
+		setSizeFull();
 
-            /**
+		// TODO: generate graph for a particular user
+
+		Component footer = buildFooter();
+		addComponent(footer);
+		setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+	}
+
+	/**
+	 * Builds a footer which includes the control buttons to choose a unit or
+	 * navigate back to the user library.
+	 * 
+	 * @return the footer
+	 */
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.setMargin(true);
+		footer.setSizeFull();
+		footer.setSpacing(true);
+
+		Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
+		backButton.addClickListener(new ClickListener() {
+
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo(UserlibraryView.VIEW_NAME);
-            }
-            
-        });
-        footer.addComponent(backButton);  
-        footer.setComponentAlignment(backButton, Alignment.BOTTOM_LEFT);
-        
-        Button chooseUnitButton = new Button("Choose unit");
-        backButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        backButton.addClickListener(new ClickListener() {
+			public void buttonClick(ClickEvent event) {
+				UI.getCurrent().getNavigator()
+						.navigateTo(UserlibraryView.VIEW_NAME);
+			}
 
-            /**
+		});
+		footer.addComponent(backButton);
+		footer.setComponentAlignment(backButton, Alignment.BOTTOM_LEFT);
+
+		Button chooseUnitButton = new Button("Choose unit");
+		backButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		backButton.addClickListener(new ClickListener() {
+
+			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-            public void buttonClick(ClickEvent event) {
-                UI.getCurrent().addWindow(new SelectUnitToLearnWindow());
-            }
-            
-        });
-        footer.addComponent(chooseUnitButton);
-        footer.setComponentAlignment(chooseUnitButton, Alignment.BOTTOM_RIGHT);
-        
-        return footer;
-    }
+			public void buttonClick(ClickEvent event) {
+				UI.getCurrent().addWindow(new SelectUnitToLearnWindow());
+			}
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
-        
-    }
+		});
+		footer.addComponent(chooseUnitButton);
+		footer.setComponentAlignment(chooseUnitButton, Alignment.BOTTOM_RIGHT);
+
+		return footer;
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+		// TODO Auto-generated method stub
+
+	}
 }

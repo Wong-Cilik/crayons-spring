@@ -17,25 +17,25 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 public class AuthorBibManager {
-	
+
 	@Autowired
 	CurrentUser user;
-	
+
 	public Component getCourseTabs(CourseService courseService) {
-		
+
 		TabSheet tabSheet = new TabSheet();
-		
+
 		List<Course> courses = courseService.findAllCoursesOfUser(user.get());
-		
+
 		for (Course tmpCourse : courses) {
 			final VerticalLayout content = new VerticalLayout();
-			
+
 			Label description = new Label(tmpCourse.getDescription());
 			content.addComponent(description);
-			
+
 			Button exampleButton = new Button();
 			exampleButton.addClickListener(new ClickListener() {
-				
+
 				/**
 				 * 
 				 */
@@ -43,14 +43,15 @@ public class AuthorBibManager {
 
 				@Override
 				public void buttonClick(ClickEvent event) {
-					Notification.show("ToDo", "ExampleButton", Notification.Type.WARNING_MESSAGE);
-					
+					Notification.show("ToDo", "ExampleButton",
+							Notification.Type.WARNING_MESSAGE);
+
 				}
 			});
 			content.addComponent(exampleButton);
-			
+
 		}
-		
+
 		// Generate Tabs
 		return tabSheet;
 	}

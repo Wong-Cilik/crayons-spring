@@ -25,175 +25,178 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings({ "serial" })
 public final class UnitCreationWindow extends Window {
 
-    // @DB
+	// @DB
 
-    // sollte noch ein set werden
-    UnitNode parent;
-    // wird noch ausgebessert
-    String unitTitle;
-    // sollte noch ein set werden
-    UnitNode child;
-    static Graph graph;
+	// sollte noch ein set werden
+	UnitNode parent;
+	// wird noch ausgebessert
+	String unitTitle;
+	// sollte noch ein set werden
+	UnitNode child;
+	static Graph graph;
 
-    public UnitCreationWindow(Graph graphData) {
-        setSizeFull();
-        setModal(true);
-        setResizable(false);
-        setClosable(true);
-        setHeight(50.0f, Unit.PERCENTAGE);
-        setWidth(40.0f, Unit.PERCENTAGE);
-        
-        graph = graphData;
+	public UnitCreationWindow(Graph graphData) {
+		setSizeFull();
+		setModal(true);
+		setResizable(false);
+		setClosable(true);
+		setHeight(50.0f, Unit.PERCENTAGE);
+		setWidth(40.0f, Unit.PERCENTAGE);
 
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        content.setMargin(true);
-        setContent(content);
+		graph = graphData;
 
-        Component title = buildTitle();
-        content.addComponent(title);
-        content.setComponentAlignment(title, Alignment.TOP_CENTER);
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		content.setMargin(true);
+		setContent(content);
 
-        TextField titleField = new TextField("Unit title");
-        titleField.setCaption("unit title");
-        titleField.addValueChangeListener(new ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                unitTitle = titleField.getValue();
-            }
-        });
+		Component title = buildTitle();
+		content.addComponent(title);
+		content.setComponentAlignment(title, Alignment.TOP_CENTER);
 
-        content.addComponent(titleField);
+		TextField titleField = new TextField("Unit title");
+		titleField.setCaption("unit title");
+		titleField.addValueChangeListener(new ValueChangeListener() {
+			public void valueChange(ValueChangeEvent event) {
+				unitTitle = titleField.getValue();
+			}
+		});
 
-        content.setComponentAlignment(titleField, Alignment.MIDDLE_LEFT);
+		content.addComponent(titleField);
 
-        // content.addComponent(buildDescription());
+		content.setComponentAlignment(titleField, Alignment.MIDDLE_LEFT);
 
-        Component unitTypeChoice = buildUnitTypeChoice();
-        content.addComponent(unitTypeChoice);
-        content.setComponentAlignment(unitTypeChoice, Alignment.MIDDLE_LEFT);
+		// content.addComponent(buildDescription());
 
-        Component connectedUnitsChoice = buildConnectedUnitsChoice();
-        content.addComponent(connectedUnitsChoice);
-        content.setComponentAlignment(connectedUnitsChoice, Alignment.MIDDLE_LEFT);
+		Component unitTypeChoice = buildUnitTypeChoice();
+		content.addComponent(unitTypeChoice);
+		content.setComponentAlignment(unitTypeChoice, Alignment.MIDDLE_LEFT);
 
-        Component footer = buildFooter();
-        content.addComponent(footer);
-        content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
-    }
+		Component connectedUnitsChoice = buildConnectedUnitsChoice();
+		content.addComponent(connectedUnitsChoice);
+		content.setComponentAlignment(connectedUnitsChoice,
+				Alignment.MIDDLE_LEFT);
 
-    private Component buildConnectedUnitsChoice() {
-        HorizontalLayout comboBoxes = new HorizontalLayout();
-        comboBoxes.setMargin(true);
-        comboBoxes.setSpacing(true);
+		Component footer = buildFooter();
+		content.addComponent(footer);
+		content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+	}
 
+	private Component buildConnectedUnitsChoice() {
+		HorizontalLayout comboBoxes = new HorizontalLayout();
+		comboBoxes.setMargin(true);
+		comboBoxes.setSpacing(true);
 
-        ComboBox selectPredecessor = new ComboBox("Select the previous unit");
-        comboBoxes.addComponent(selectPredecessor);
+		ComboBox selectPredecessor = new ComboBox("Select the previous unit");
+		comboBoxes.addComponent(selectPredecessor);
 
-        // Set<Node> predecessors = new HashSet<Node>();
-        // predecessors.add(new Node("Node 1"));
-        // predecessors.add(new Node("Node 2"));
-        // selectPredecessor.addItems(predecessors);
-        for (UnitNode currentNode : graph.getUnitCollection()) {
-            if (currentNode.getUnitNodeTitle() != "End")
-                selectPredecessor.addItem(currentNode.getUnitNodeTitle());
-        }
-        selectPredecessor.addValueChangeListener(new ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                parent = graph.getNodeByName(selectPredecessor.getValue().toString());
-            }
-        });
+		// Set<Node> predecessors = new HashSet<Node>();
+		// predecessors.add(new Node("Node 1"));
+		// predecessors.add(new Node("Node 2"));
+		// selectPredecessor.addItems(predecessors);
+		for (UnitNode currentNode : graph.getUnitCollection()) {
+			if (currentNode.getUnitNodeTitle() != "End")
+				selectPredecessor.addItem(currentNode.getUnitNodeTitle());
+		}
+		selectPredecessor.addValueChangeListener(new ValueChangeListener() {
+			public void valueChange(ValueChangeEvent event) {
+				parent = graph.getNodeByName(selectPredecessor.getValue()
+						.toString());
+			}
+		});
 
-        ComboBox selectSuccessor = new ComboBox("Select the next unit");
-        comboBoxes.addComponent(selectSuccessor);
-        // Set<Node> successors = new HashSet<Node>();
-        // successors.add(new Node("Node 3"));
-        // successors.add(new Node("Node 4"));
-        // selectSuccessor.addItems(successors);
+		ComboBox selectSuccessor = new ComboBox("Select the next unit");
+		comboBoxes.addComponent(selectSuccessor);
+		// Set<Node> successors = new HashSet<Node>();
+		// successors.add(new Node("Node 3"));
+		// successors.add(new Node("Node 4"));
+		// selectSuccessor.addItems(successors);
 
-        for (UnitNode currentNode : graph.getUnitCollection()) {
-            selectSuccessor.addItem(currentNode.getUnitNodeTitle());
-        }
-        selectSuccessor.addValueChangeListener(new ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
-                child = graph.getNodeByName(selectSuccessor.getValue().toString());
-            }
-        });
+		for (UnitNode currentNode : graph.getUnitCollection()) {
+			selectSuccessor.addItem(currentNode.getUnitNodeTitle());
+		}
+		selectSuccessor.addValueChangeListener(new ValueChangeListener() {
+			public void valueChange(ValueChangeEvent event) {
+				child = graph.getNodeByName(selectSuccessor.getValue()
+						.toString());
+			}
+		});
 
-        return comboBoxes;
-    }
+		return comboBoxes;
+	}
 
-    public static void refreshData(Graph graphTmp) {
-    	graph = graphTmp;
-    }
-    
-    private Component buildTitle() {
-        Label title = new Label("Create a new unit");
-        title.addStyleName(ValoTheme.LABEL_H2);
-        return title;
-    }
+	public static void refreshData(Graph graphTmp) {
+		graph = graphTmp;
+	}
 
-    private Component buildUnitTypeChoice() {
-        VerticalLayout unitTypeChoice = new VerticalLayout();
-        CheckBox learningUnit = new CheckBox(UnitType.LEARNING_UNIT.getTitle());
-        CheckBox testUnit = new CheckBox(UnitType.TEST_UNIT.getTitle());
+	private Component buildTitle() {
+		Label title = new Label("Create a new unit");
+		title.addStyleName(ValoTheme.LABEL_H2);
+		return title;
+	}
 
-        learningUnit.addValueChangeListener(event -> // Java 8
-        testUnit.setValue(!learningUnit.getValue()));
+	private Component buildUnitTypeChoice() {
+		VerticalLayout unitTypeChoice = new VerticalLayout();
+		CheckBox learningUnit = new CheckBox(UnitType.LEARNING_UNIT.getTitle());
+		CheckBox testUnit = new CheckBox(UnitType.TEST_UNIT.getTitle());
 
-        testUnit.addValueChangeListener(event -> // Java 8
-        learningUnit.setValue(!testUnit.getValue()));
+		learningUnit.addValueChangeListener(event -> // Java 8
+				testUnit.setValue(!learningUnit.getValue()));
 
-        unitTypeChoice.addComponents(learningUnit, testUnit);
-        return unitTypeChoice;
-    }
+		testUnit.addValueChangeListener(event -> // Java 8
+		learningUnit.setValue(!testUnit.getValue()));
 
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
-        footer.setSpacing(true);
+		unitTypeChoice.addComponents(learningUnit, testUnit);
+		return unitTypeChoice;
+	}
 
-        Button ok = new Button("Create");
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                UnitNode newUnit = new UnitNode(unitTitle, parent, child, graph);
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth(100.0f, Unit.PERCENTAGE);
+		footer.setSpacing(true);
 
-                graph.addUnit(newUnit, parent);
-                CourseEditorView.refreshGraph(graph);
-                close();
-                Notification success = new Notification("Unit created successfully");
-                success.setDelayMsec(1000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
+		Button ok = new Button("Create");
+		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		ok.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UnitNode newUnit = new UnitNode(unitTitle, parent, child, graph);
 
-            }
-        });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
-        return footer;
-    }
+				graph.addUnit(newUnit, parent);
+				CourseEditorView.refreshGraph(graph);
+				close();
+				Notification success = new Notification(
+						"Unit created successfully");
+				success.setDelayMsec(1000);
+				success.setStyleName("bar success small");
+				success.setPosition(Position.BOTTOM_CENTER);
+				success.show(Page.getCurrent());
 
-    /*
-     * private Component buildDescription() { return null; }
-     */
+			}
+		});
+		ok.focus();
+		footer.addComponent(ok);
+		footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
+		return footer;
+	}
 
-    public enum UnitType {
-        LEARNING_UNIT("Learning unit"), TEST_UNIT("Test unit"); // add
-                                                                // description
+	/*
+	 * private Component buildDescription() { return null; }
+	 */
 
-        private final String title;
+	public enum UnitType {
+		LEARNING_UNIT("Learning unit"), TEST_UNIT("Test unit"); // add
+																// description
 
-        UnitType(final String title) {
-            this.title = title;
-        }
+		private final String title;
 
-        public String getTitle() {
-            return title;
-        }
-    }
+		UnitType(final String title) {
+			this.title = title;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+	}
 }

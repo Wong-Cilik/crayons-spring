@@ -5,25 +5,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.model.graph.Graph;
 import com.vaadin.spring.annotation.SpringComponent;
+
 @SpringComponent
 public class GraphService {
-    
-    @Autowired
-    GraphDAO graphDAO;
-    
-    public List<Graph> findAll() {
-        return null;
-    }
-    
-    public Graph findGraphById(long graphId) {
-        return null;
-    }
-    
-    public boolean insertGraph(Graph graph) {
-        return true;
-    }
-    
-    public boolean deleteGraph(Graph graph) {
-        return true;
-    }
+
+	@Autowired
+	GraphDAO graphDAO;
+
+	public List<Graph> findAll() {
+		return null;
+	}
+
+	public Graph findGraphById(long graphId) {
+		return null;
+	}
+
+	public boolean insertGraph(Graph graph) {
+		return true;
+	}
+
+	public boolean deleteGraph(Graph graph) {
+		return true;
+	}
 }

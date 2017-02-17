@@ -11,30 +11,30 @@ import com.vaadin.spring.annotation.SpringComponent;
 
 @SpringComponent
 public class CreateDatabase {
-	
-    @Autowired
-    private CourseDAO courseDAO;
-    
-    @Autowired
-    private UserDAO userDAO;
-    
-    CurrentUser currentUser;
-    
+
+	@Autowired
+	private CourseDAO courseDAO;
+
+	@Autowired
+	private UserDAO userDAO;
+
+	CurrentUser currentUser;
+
 	public void fillDatabase() {
-//		userDAO.createTable();
-//		courseDAO.createDbTable();
-		
+		// userDAO.createTable();
+		// courseDAO.createDbTable();
+
 		List<Course> y = courseDAO.findAll();
 		for (Course tmpCrs : y) {
 			courseDAO.remove(tmpCrs);
 		}
-		
+
 		List<CrayonsUser> x = userDAO.findAll();
 		for (CrayonsUser tmpUser : x) {
-			if (!tmpUser.getEmail().equals(currentUser.get())){
+			if (!tmpUser.getEmail().equals(currentUser.get())) {
 				userDAO.deleteUser(tmpUser);
 			}
 		}
-		
+
 	}
 }

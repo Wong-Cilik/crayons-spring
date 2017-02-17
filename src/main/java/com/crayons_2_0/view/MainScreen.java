@@ -1,6 +1,6 @@
 package com.crayons_2_0.view;
 
-import java.util.ResourceBundle; 
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 
@@ -25,112 +25,114 @@ import com.vaadin.ui.HorizontalLayout;
  * 
  * 
  */
-//@SpringUI
+// @SpringUI
 @ViewScope
 @SpringView(name = MainScreen.VIEW_NAME)
+public class MainScreen extends HorizontalLayout implements View {
 
-public class MainScreen extends HorizontalLayout  implements View {
-    
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
+	public static final String VIEW_NAME = "mainScreen";
 
-    public static final String VIEW_NAME = "mainScreen";
-    
-    private Menu menu;
-    
-    private ResourceBundle lang = LanguageService.getInstance().getRes();
-    
-    @Autowired
-    UserService userService;
-    
-    @Autowired
-    Preferences preferences;
+	private Menu menu;
 
-    @Autowired
-    Authorlibrary authorlibrary;
-    
-    @Autowired
-    UserlibraryView userlibraryView;
-    
-    @Autowired
-    AboutView aboutView;
-    
-    @Autowired
-    Search search;
-    
-    @Autowired
-    AdminView adminView;
-    
-    @Autowired
-    CourseEditorView courseEditorView;
-    
-    public MainScreen() {
-    	
-    }
-        
-    @PostConstruct
-    void init(){
-        
-        setStyleName("main-screen");
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
-        CssLayout viewContainer = new CssLayout();
-        viewContainer.addStyleName("valo-content");
-        viewContainer.setSizeFull();
-        
-        final Navigator navigator = new Navigator(MyUI.get(), viewContainer);
-        navigator.setErrorView(ErrorView.class);
-        menu = new Menu(navigator);
+	@Autowired
+	UserService userService;
 
-        //menu.addView(aboutView, AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME), FontAwesome.INFO_CIRCLE);
-        menu.addView(authorlibrary, Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
-                FontAwesome.BOOK);
-        menu.addView(userlibraryView, UserlibraryView.VIEW_NAME, lang.getString(UserlibraryView.VIEW_NAME),
-                FontAwesome.PENCIL);        
-        menu.addView(preferences, Preferences.VIEW_NAME, lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
-        menu.addView(search, Search.VIEW_NAME, lang.getString(Search.VIEW_NAME), FontAwesome.SEARCH);
-        menu.addView(adminView, AdminView.VIEW_NAME, lang.getString(AdminView.VIEW_NAME), FontAwesome.USERS);
-        
-        navigator.addView(CourseEditorView.VIEW_NAME, courseEditorView);
-        
-        navigator.addView(Uniteditor.VIEW_NAME, new Uniteditor());
+	@Autowired
+	Preferences preferences;
 
-        navigator.addViewChangeListener(viewChangeListener);
-        
-        addComponent(menu);
-        
-        addComponent(viewContainer);
-        setExpandRatio(viewContainer, 1);
-        setSizeFull();
-    }
-    
-    // notify the view menu about view changes so that it can display which view
-    // is currently active
-    ViewChangeListener viewChangeListener = new ViewChangeListener() {
+	@Autowired
+	Authorlibrary authorlibrary;
 
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
+	@Autowired
+	UserlibraryView userlibraryView;
 
-        @Override
-        public boolean beforeViewChange(ViewChangeEvent event) {
-            return true;
-        }
+	@Autowired
+	AboutView aboutView;
 
-        @Override
-        public void afterViewChange(ViewChangeEvent event) {
-            menu.setActiveView(event.getViewName());
-        }
+	@Autowired
+	Search search;
 
-    };
+	@Autowired
+	AdminView adminView;
 
-	public void setUI(MyUI myUI) {
-		
+	@Autowired
+	CourseEditorView courseEditorView;
+
+	public MainScreen() {
+
 	}
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
-        
-    }
+	@PostConstruct
+	void init() {
+
+		setStyleName("main-screen");
+
+		CssLayout viewContainer = new CssLayout();
+		viewContainer.addStyleName("valo-content");
+		viewContainer.setSizeFull();
+
+		final Navigator navigator = new Navigator(MyUI.get(), viewContainer);
+		navigator.setErrorView(ErrorView.class);
+		menu = new Menu(navigator);
+
+		// menu.addView(aboutView, AboutView.VIEW_NAME,
+		// lang.getString(AboutView.VIEW_NAME), FontAwesome.INFO_CIRCLE);
+		menu.addView(authorlibrary, Authorlibrary.VIEW_NAME,
+				lang.getString(Authorlibrary.VIEW_NAME), FontAwesome.BOOK);
+		menu.addView(userlibraryView, UserlibraryView.VIEW_NAME,
+				lang.getString(UserlibraryView.VIEW_NAME), FontAwesome.PENCIL);
+		menu.addView(preferences, Preferences.VIEW_NAME,
+				lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
+		menu.addView(search, Search.VIEW_NAME,
+				lang.getString(Search.VIEW_NAME), FontAwesome.SEARCH);
+		menu.addView(adminView, AdminView.VIEW_NAME,
+				lang.getString(AdminView.VIEW_NAME), FontAwesome.USERS);
+
+		navigator.addView(CourseEditorView.VIEW_NAME, courseEditorView);
+
+		navigator.addView(Uniteditor.VIEW_NAME, new Uniteditor());
+
+		navigator.addViewChangeListener(viewChangeListener);
+
+		addComponent(menu);
+
+		addComponent(viewContainer);
+		setExpandRatio(viewContainer, 1);
+		setSizeFull();
+	}
+
+	// notify the view menu about view changes so that it can display which view
+	// is currently active
+	ViewChangeListener viewChangeListener = new ViewChangeListener() {
+
+		/**
+         * 
+         */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean beforeViewChange(ViewChangeEvent event) {
+			return true;
+		}
+
+		@Override
+		public void afterViewChange(ViewChangeEvent event) {
+			menu.setActiveView(event.getViewName());
+		}
+
+	};
+
+	public void setUI(MyUI myUI) {
+
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+		// TODO Auto-generated method stub
+
+	}
 }

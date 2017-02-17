@@ -19,100 +19,92 @@ import com.vaadin.ui.VerticalLayout;
 
 public class LoginForm extends VerticalLayout {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
      * 
      */
-	
-	
-    private ResourceBundle lang = LanguageService.getInstance().getRes();
-    private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
-    private PasswordField txtPassword = new PasswordField(lang.getString("Password") + ": ");
-    private Button btnLogin = new Button(lang.getString("Login"));
-    // Registrate
-    private Button btnRegistrate = new Button("Register");  //Todo Sprache
-   //Todo Sprache
-   
+
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
+	private PasswordField txtPassword = new PasswordField(
+			lang.getString("Password") + ": ");
+	private Button btnLogin = new Button(lang.getString("Login"));
+	// Registrate
+	private Button btnRegistrate = new Button("Register"); // Todo Sprache
+	// Todo Sprache
+
 	private TextField textFieldPassoword = new TextField();
 
-    public LoginForm() {
-        addComponent(txtLogin);
-        addComponent(txtPassword);
-        addComponent(btnLogin);
-        addComponent(btnRegistrate);
+	public LoginForm() {
+		addComponent(txtLogin);
+		addComponent(txtPassword);
+		addComponent(btnLogin);
+		addComponent(btnRegistrate);
 
-        LoginFormListener loginFormListener = getLoginFormListener();
-        btnLogin.addClickListener(loginFormListener);
-        btnLogin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        createRegisterButton();
-        
-        getRegisterFormListener2();
-    }
-    
-    
+		LoginFormListener loginFormListener = getLoginFormListener();
+		btnLogin.addClickListener(loginFormListener);
+		btnLogin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+		createRegisterButton();
+
+		getRegisterFormListener2();
+	}
 
 	/**
-     * Create Button for registrate new User
-     */
-    private void createRegisterButton() {
+	 * Create Button for registrate new User
+	 */
+	private void createRegisterButton() {
 		btnRegistrate.addClickListener(new ClickListener() {
-		
+
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void buttonClick(ClickEvent event) {	
+			public void buttonClick(ClickEvent event) {
 				UI.getCurrent().getNavigator().navigateTo("registerView");
-				
+
 			}
 		});
-		
-		
+
 	}
 
 	public LoginFormListener getLoginFormListener() {
-        MyUI ui = (MyUI) UI.getCurrent();
-        ApplicationContext context = ui.getApplicationContext();
-        return context.getBean(LoginFormListener.class);
-    }
-	
+		MyUI ui = (MyUI) UI.getCurrent();
+		ApplicationContext context = ui.getApplicationContext();
+		return context.getBean(LoginFormListener.class);
+	}
+
 	private RegisterFormListener2 getRegisterFormListener2() {
 		MyUI ui = (MyUI) UI.getCurrent();
-        ApplicationContext context = ui.getApplicationContext();
-        return context.getBean(RegisterFormListener2.class);
+		ApplicationContext context = ui.getApplicationContext();
+		return context.getBean(RegisterFormListener2.class);
 	}
 
-    public TextField getTxtLogin() {
-        return txtLogin;
-    }
+	public TextField getTxtLogin() {
+		return txtLogin;
+	}
 
-    public PasswordField getTxtPassword() {
-        return txtPassword;
-    }
-    
-    private TextField textFieldEMail = new TextField();
-    public TextField getTextFieldEMail() {
+	public PasswordField getTxtPassword() {
+		return txtPassword;
+	}
+
+	private TextField textFieldEMail = new TextField();
+
+	public TextField getTextFieldEMail() {
 		return textFieldEMail;
 	}
-
-
 
 	public void setTextFieldEMail(TextField textFieldEMail) {
 		this.textFieldEMail = textFieldEMail;
 	}
 
-
-
 	public TextField getTextFieldPassoword() {
 		return textFieldPassoword;
 	}
-
-
 
 	public void setTextFieldPassoword(TextField textFieldPassoword) {
 		this.textFieldPassoword = textFieldPassoword;

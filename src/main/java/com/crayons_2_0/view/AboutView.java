@@ -55,7 +55,7 @@ public class AboutView extends VerticalLayout implements View {
 	private TextField txtUserLabel;
 
 	@SuppressWarnings("serial")
-    public AboutView() {
+	public AboutView() {
 		final Dagre graph = new Dagre();
 		addComponent(graph);
 		VerticalLayout aboutContent = new VerticalLayout();
@@ -232,7 +232,7 @@ public class AboutView extends VerticalLayout implements View {
 																// style='overflow:scroll'
 																// if required
 		@SuppressWarnings("deprecation")
-        Label graphLabel = new Label(lhtml, Label.CONTENT_XHTML);
+		Label graphLabel = new Label(lhtml, Label.CONTENT_XHTML);
 
 		aboutContent.addComponent(graphLabel);
 		aboutContent.addComponent(graphJSComponent);
@@ -354,9 +354,6 @@ public class AboutView extends VerticalLayout implements View {
 		return txtUserLabel;
 	}
 
-	
-	
-	
 	// Builds filter textfield
 	public static Component buildFilter() {
 		final TextField filter = new TextField();
@@ -382,10 +379,12 @@ public class AboutView extends VerticalLayout implements View {
 		// Suchlogik
 	}
 
-	//Lerneinheit speichern - es kann für form und vollständigkeit jaxb annottion angefügt werden
+	// Lerneinheit speichern - es kann für form und vollständigkeit jaxb
+	// annottion angefügt werden
 	public void objektToXml(Unit unit) {
 		try {
-			File file = new File("C:\\example.xml"); //filechooser könnte hier zB rein
+			File file = new File("C:\\example.xml"); // filechooser könnte hier
+														// zB rein
 			JAXBContext jaxbContext = JAXBContext.newInstance(Unit.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -397,11 +396,12 @@ public class AboutView extends VerticalLayout implements View {
 		}
 	}
 
-	//Lereinheit laden
+	// Lereinheit laden
 	public Unit xmlToObjekt() {
 		Unit unit = null;
 		try {
-			File file = new File("C:\\file.xml"); //filechooser könnte hier zB rein
+			File file = new File("C:\\file.xml"); // filechooser könnte hier zB
+													// rein
 			JAXBContext jaxbContext = JAXBContext.newInstance(Unit.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			unit = (Unit) jaxbUnmarshaller.unmarshal(file);

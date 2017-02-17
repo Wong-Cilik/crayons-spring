@@ -19,30 +19,33 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class AuthManager implements AuthenticationManager {
 
-    @Autowired
-    private UserService userService;
-    private static boolean hasAuthority = false;
-    
-    public Authentication authenticate(Authentication auth) throws AuthenticationException, UsernameNotFoundException {
-        String username = (String) auth.getPrincipal();
-        String password = (String) auth.getCredentials();
-        
-        UserDetails user = userService.loadUserByUsername(username);
+	@Autowired
+	private UserService userService;
+	private static boolean hasAuthority = false;
 
-        if (user != null && user.getPassword().equals(password)) {
-            Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-            hasAuthority = true;
-            MyUI.get().showMainView();
-            return new UsernamePasswordAuthenticationToken(username, password, authorities);
-        }
-        throw new BadCredentialsException("Bad Credentials");
-    }
+	public Authentication authenticate(Authentication auth)
+			throws AuthenticationException, UsernameNotFoundException {
+		String username = (String) auth.getPrincipal();
+		String password = (String) auth.getCredentials();
 
-    public static void setHasAuthority(boolean hasAuthority) {
-        AuthManager.hasAuthority = hasAuthority;
-    }
+		UserDetails user = userService.loadUserByUsername(username);
 
-    public static boolean isHasAuthority() {
-        return hasAuthority;
-    }
+		if (user != null && user.getPassword().equals(password)) {
+			Collection<? extends GrantedAuthority> authorities = user
+					.getAuthorities();
+			hasAuthority = true;
+			MyUI.get().showMainView();
+			return new UsernamePasswordAuthenticationToken(username, password,
+					authorities);
+		}
+		throw new BadCredentialsException("Bad Credentials");
+	}
+
+	public static void setHasAuthority(boolean hasAuthority) {
+		AuthManager.hasAuthority = hasAuthority;
+	}
+
+	public static boolean isHasAuthority() {
+		return hasAuthority;
+	}
 }

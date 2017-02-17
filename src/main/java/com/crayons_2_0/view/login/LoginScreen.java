@@ -18,66 +18,62 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("mytheme")
 @SpringView(name = LoginScreen.VIEW_NAME)
 @ViewScope
-public class LoginScreen extends CssLayout implements View{
-    /**
+public class LoginScreen extends CssLayout implements View {
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final String VIEW_NAME = "";
 
-    /**
+	/**
      * 
      */
-    //AccessControl accessControl, LoginListener loginListener
-    public LoginScreen() {
-        //this.loginListener = loginListener;
-        //this.accessControl = accessControl;
-        buildUI();
-        //username.focus();
-    }
+	// AccessControl accessControl, LoginListener loginListener
+	public LoginScreen() {
+		// this.loginListener = loginListener;
+		// this.accessControl = accessControl;
+		buildUI();
+		// username.focus();
+	}
 
-    private void buildUI() {
-        addStyleName("login-screen");
+	private void buildUI() {
+		addStyleName("login-screen");
 
-        // login form, centered in the available part of the screen
-        //Versuch mit Spring 
-        Component loginForm = new LoginForm();
-        //Component loginForm = buildLoginForm();
-        // layout to center login form when there is sufficient screen space
-        // - see the theme for how this is made responsive for various screen
-        // sizes
-        VerticalLayout centeringLayout = new VerticalLayout();
-        centeringLayout.setStyleName("centering-layout");
-        centeringLayout.addComponent(loginForm);
-        centeringLayout.setComponentAlignment(loginForm,
-                Alignment.MIDDLE_CENTER);
+		// login form, centered in the available part of the screen
+		// Versuch mit Spring
+		Component loginForm = new LoginForm();
+		// Component loginForm = buildLoginForm();
+		// layout to center login form when there is sufficient screen space
+		// - see the theme for how this is made responsive for various screen
+		// sizes
+		VerticalLayout centeringLayout = new VerticalLayout();
+		centeringLayout.setStyleName("centering-layout");
+		centeringLayout.addComponent(loginForm);
+		centeringLayout.setComponentAlignment(loginForm,
+				Alignment.MIDDLE_CENTER);
 
-        // information text about logging in
-        CssLayout loginInformation = buildLoginInformation();
-        //addComponent(loginForm);
-        addComponent(centeringLayout);
-        addComponent(loginInformation);
-    }
-    
-    
+		// information text about logging in
+		CssLayout loginInformation = buildLoginInformation();
+		// addComponent(loginForm);
+		addComponent(centeringLayout);
+		addComponent(loginInformation);
+	}
 
-    private CssLayout buildLoginInformation() {
-        CssLayout loginInformation = new CssLayout();
-        loginInformation.setStyleName("login-information");
-        Label loginInfoText = new Label(
-                "<h1>Login Information</h1>"
-                        + "Log in as &quot;admin&quot; to have full access. Log in with any other username to have read-only access. For all users, any password is fine",
-                ContentMode.HTML);
-        loginInformation.addComponent(loginInfoText);
-        return loginInformation;
-    }
+	private CssLayout buildLoginInformation() {
+		CssLayout loginInformation = new CssLayout();
+		loginInformation.setStyleName("login-information");
+		Label loginInfoText = new Label(
+				"<h1>Login Information</h1>"
+						+ "Log in as &quot;admin&quot; to have full access. Log in with any other username to have read-only access. For all users, any password is fine",
+				ContentMode.HTML);
+		loginInformation.addComponent(loginInfoText);
+		return loginInformation;
+	}
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	public void enter(ViewChangeEvent event) {
+		// TODO Auto-generated method stub
 
+	}
 
-    
 }

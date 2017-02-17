@@ -7,11 +7,10 @@ import com.vaadin.spring.annotation.SpringComponent;
 
 @SpringComponent
 public class UserManager {
-	
+
 	@Autowired
-    private UserService userService;
-	
-	
+	private UserService userService;
+
 	public void foo(CrayonsUser user) {
 		userService.insertUser(user);
 	}
