@@ -3,7 +3,9 @@ package com.crayons_2_0.component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ResourceBundle;
 
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
@@ -30,6 +32,8 @@ public class ImportEditor extends Window {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	
 	/**
 	 * Builds together several components of the import editor.
 	 */
@@ -62,7 +66,7 @@ public class ImportEditor extends Window {
 	 * @return the window title
 	 */
 	private Component buildTitle() {
-		Label title = new Label("Import existing learning unit");
+		Label title = new Label(lang.getString("ImportExistingLearningUnit"));
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}
@@ -88,8 +92,7 @@ public class ImportEditor extends Window {
 			public void uploadSucceeded(SucceededEvent event) {
 				for (Window window : UI.getCurrent().getWindows())
 					window.close();
-				Notification success = new Notification(
-						"File is imported successfully");
+				Notification success = new Notification(lang.getString("FileIsImportedSuccessfully"));
 				success.setDelayMsec(2000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);
@@ -106,7 +109,7 @@ public class ImportEditor extends Window {
 							+ filename);
 					stream = new FileOutputStream(file);
 				} catch (final java.io.FileNotFoundException e) {
-					new Notification("Could not open file<br/>",
+					new Notification(lang.getString("CouldNotOpenFile") + "<br/>",
 							e.getMessage(), Notification.Type.ERROR_MESSAGE)
 							.show(Page.getCurrent());
 					return null;
@@ -119,7 +122,7 @@ public class ImportEditor extends Window {
 		UnitReceiver receiver = new UnitReceiver();
 
 		final Upload upload = new Upload(null, receiver);
-		upload.setButtonCaption("Import");
+		upload.setButtonCaption(lang.getString("Import"));
 		upload.addSucceededListener(receiver);
 		layout.addComponents(upload);
 		layout.setComponentAlignment(upload, Alignment.MIDDLE_CENTER);
@@ -128,7 +131,7 @@ public class ImportEditor extends Window {
 		String username = System.getProperty("user.name");
 		File uploads = new File("C:/Users/" + username + "/vaadin-uploads");
 		if (!uploads.exists() && !uploads.mkdir())
-			layout.addComponent(new Label("ERROR: Could not create upload dir"));
+			layout.addComponent(new Label(lang.getString("ERRORCouldNotCreateUploadDir")));
 
 		return layout;
 	}

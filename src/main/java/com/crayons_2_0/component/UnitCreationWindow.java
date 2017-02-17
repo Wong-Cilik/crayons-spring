@@ -1,7 +1,10 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.view.CourseEditorView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -34,6 +37,8 @@ public final class UnitCreationWindow extends Window {
 	// sollte noch ein set werden
 	UnitNode child;
 	static Graph graph;
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public UnitCreationWindow(Graph graphData) {
 		setSizeFull();
@@ -54,8 +59,8 @@ public final class UnitCreationWindow extends Window {
 		content.addComponent(title);
 		content.setComponentAlignment(title, Alignment.TOP_CENTER);
 
-		TextField titleField = new TextField("Unit title");
-		titleField.setCaption("unit title");
+		TextField titleField = new TextField(lang.getString("UnitTitle"));
+		titleField.setCaption(lang.getString("UnitTitle"));
 		titleField.addValueChangeListener(new ValueChangeListener() {
 			public void valueChange(ValueChangeEvent event) {
 				unitTitle = titleField.getValue();
@@ -87,7 +92,7 @@ public final class UnitCreationWindow extends Window {
 		comboBoxes.setMargin(true);
 		comboBoxes.setSpacing(true);
 
-		ComboBox selectPredecessor = new ComboBox("Select the previous unit");
+		ComboBox selectPredecessor = new ComboBox(lang.getString("SelectThePreviousUnit"));
 		comboBoxes.addComponent(selectPredecessor);
 
 		// Set<Node> predecessors = new HashSet<Node>();
@@ -105,7 +110,7 @@ public final class UnitCreationWindow extends Window {
 			}
 		});
 
-		ComboBox selectSuccessor = new ComboBox("Select the next unit");
+		ComboBox selectSuccessor = new ComboBox(lang.getString("SelectTheNextUnit"));
 		comboBoxes.addComponent(selectSuccessor);
 		// Set<Node> successors = new HashSet<Node>();
 		// successors.add(new Node("Node 3"));
@@ -130,7 +135,7 @@ public final class UnitCreationWindow extends Window {
 	}
 
 	private Component buildTitle() {
-		Label title = new Label("Create a new unit");
+		Label title = new Label(lang.getString("CreateANewUnit"));
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}
@@ -156,7 +161,7 @@ public final class UnitCreationWindow extends Window {
 		footer.setWidth(100.0f, Unit.PERCENTAGE);
 		footer.setSpacing(true);
 
-		Button ok = new Button("Create");
+		Button ok = new Button(lang.getString("Create"));
 		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		ok.addClickListener(new ClickListener() {
 			@Override
@@ -166,8 +171,7 @@ public final class UnitCreationWindow extends Window {
 				graph.addUnit(newUnit, parent);
 				CourseEditorView.refreshGraph(graph);
 				close();
-				Notification success = new Notification(
-						"Unit created successfully");
+				Notification success = new Notification(lang.getString("UnitCreatedSuccessfully"));
 				success.setDelayMsec(1000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);

@@ -1,5 +1,8 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.view.UnitUserView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -20,6 +23,8 @@ public class SelectUnitToLearnWindow extends Window {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	// TODO: put user and course as parameters to get information from db
 	public SelectUnitToLearnWindow(/* User user, Course course */) {
@@ -51,7 +56,7 @@ public class SelectUnitToLearnWindow extends Window {
 	}
 
 	private Component buildUnitChoice() {
-		ComboBox selectUnit = new ComboBox("Select unit");
+		ComboBox selectUnit = new ComboBox(lang.getString("SelectUnit"));
 		/*
 		 * for (all units of the user in the course which are available) {
 		 * selectUnit.addItem("unit name"); }
@@ -66,7 +71,7 @@ public class SelectUnitToLearnWindow extends Window {
 		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
 		footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-		Button learn = new Button("Learn");
+		Button learn = new Button(lang.getString("Learn"));
 		learn.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		learn.addClickListener(new ClickListener() {
 			/**
@@ -84,7 +89,7 @@ public class SelectUnitToLearnWindow extends Window {
 		});
 		learn.focus();
 
-		Button cancel = new Button("Cancel");
+		Button cancel = new Button(lang.getString("Cancel"));
 		cancel.addClickListener(new ClickListener() {
 			/**
 			 * 
@@ -103,7 +108,7 @@ public class SelectUnitToLearnWindow extends Window {
 	}
 
 	private Component buildTitle() {
-		Label title = new Label("Open a learning unit");
+		Label title = new Label("OpenALearningUnit");
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}

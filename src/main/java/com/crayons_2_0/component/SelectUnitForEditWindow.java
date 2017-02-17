@@ -1,7 +1,10 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.view.Uniteditor;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -23,6 +26,8 @@ public class SelectUnitForEditWindow extends Window {
 	 */
 	private static final long serialVersionUID = 1L;
 	static Graph graph;
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public SelectUnitForEditWindow(Graph graphData) {
 		graph = graphData;
@@ -54,7 +59,7 @@ public class SelectUnitForEditWindow extends Window {
 	}
 
 	private Component buildUnitChoice() {
-		ComboBox selectUnit = new ComboBox("Select the unit for edit");
+		ComboBox selectUnit = new ComboBox(lang.getString("SelectTheUnitForEdit"));
 		for (UnitNode tmp : graph.getUnitCollection()) {
 			selectUnit.addItem(tmp.getUnitNodeTitle());
 		}
@@ -66,7 +71,7 @@ public class SelectUnitForEditWindow extends Window {
 		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
 		footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-		Button ok = new Button("Edit");
+		Button ok = new Button(lang.getString("Edit"));
 		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		ok.addClickListener(new ClickListener() {
 			/**
@@ -88,7 +93,7 @@ public class SelectUnitForEditWindow extends Window {
 	}
 
 	private Component buildTitle() {
-		Label title = new Label("Open the unit editor");
+		Label title = new Label(lang.getString("OpenTheUnitEditor"));
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}

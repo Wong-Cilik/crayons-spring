@@ -3,7 +3,9 @@ package com.crayons_2_0.component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ResourceBundle;
 
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
@@ -43,6 +45,8 @@ public class ImageUploadEditor extends CustomComponent {
 	private final Property<String> imageSource = new ObjectProperty<String>("");
 	private final Component selectImageEditor;
 	private final Component showImage;
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public ImageUploadEditor() {
 		setWidth(100.0f, Unit.PERCENTAGE);
@@ -121,7 +125,7 @@ public class ImageUploadEditor extends CustomComponent {
 							+ filename);
 					stream = new FileOutputStream(file);
 				} catch (final java.io.FileNotFoundException e) {
-					new Notification("Could not open file<br/>",
+					new Notification(lang.getString("CouldNotOpenFile") + "<br/>",
 							e.getMessage(), Notification.Type.ERROR_MESSAGE)
 							.show(Page.getCurrent());
 					return null;
@@ -133,8 +137,8 @@ public class ImageUploadEditor extends CustomComponent {
 
 		ImageReceiver receiver = new ImageReceiver();
 
-		final Upload upload = new Upload("Upload image", receiver);
-		upload.setButtonCaption("Upload");
+		final Upload upload = new Upload(lang.getString("UploadImage"), receiver);
+		upload.setButtonCaption(lang.getString("Upload"));
 		upload.addSucceededListener(receiver);
 
 		// TODO: set upload limit
@@ -145,7 +149,7 @@ public class ImageUploadEditor extends CustomComponent {
 			@Override
 			public void uploadStarted(StartedEvent event) {
 				if (event.getContentLength() > UPLOAD_LIMIT) {
-					Notification.show("Too big file",
+					Notification.show(lang.getString("TooBigFile"),
 							Notification.Type.ERROR_MESSAGE);
 					upload.interruptUpload();
 				}
@@ -159,7 +163,7 @@ public class ImageUploadEditor extends CustomComponent {
 			@Override
 			public void updateProgress(long readBytes, long contentLength) {
 				if (readBytes > UPLOAD_LIMIT) {
-					Notification.show("Too big file",
+					Notification.show(lang.getString("TooBigFile"),
 							Notification.Type.ERROR_MESSAGE);
 					upload.interruptUpload();
 				}
@@ -168,7 +172,7 @@ public class ImageUploadEditor extends CustomComponent {
 
 		image.setWidth(400, Unit.PIXELS);
 
-		final Label titleFieldLabel = new Label("Image title");
+		final Label titleFieldLabel = new Label(lang.getString("ImageTitle"));
 		final TextField titleField = new TextField(imageTitle);
 		titleField.setWidth(100.0f, Unit.PERCENTAGE);
 		HorizontalLayout titleLayout = new HorizontalLayout(titleFieldLabel,
@@ -189,7 +193,7 @@ public class ImageUploadEditor extends CustomComponent {
 			}
 		});
 
-		final Label sourceFieldLabel = new Label("Image sourse");
+		final Label sourceFieldLabel = new Label(lang.getString("ImageSourse"));    // SourCe Tippfehler??
 		final TextField sourceField = new TextField(imageSource);
 		sourceField.setWidth(100.0f, Unit.PERCENTAGE);
 		HorizontalLayout sourceLayout = new HorizontalLayout(sourceFieldLabel,
@@ -217,7 +221,7 @@ public class ImageUploadEditor extends CustomComponent {
 		String username = System.getProperty("user.name");
 		File uploads = new File("C:/Users/" + username + "/vaadin-uploads");
 		if (!uploads.exists() && !uploads.mkdir())
-			layout.addComponent(new Label("ERROR: Could not create upload dir"));
+			layout.addComponent(new Label(lang.getString("ERRORCouldNotCreateUploadDir")));
 
 		return layout;
 	}
