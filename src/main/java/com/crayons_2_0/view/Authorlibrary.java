@@ -27,9 +27,7 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -155,10 +153,10 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         tabSheet.setHeight("100%");
         tabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         tabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
+        tabSheet.addTab(buildAddNewCourseTab());
         for (Course tmpCourse: authorCoursesList) {
         	tabSheet.addComponent(buildCourseTab(tmpCourse.getTitle()));
         }
-        tabSheet.addTab(buildAddNewCourseTab());
 		return tabSheet;
     }
 

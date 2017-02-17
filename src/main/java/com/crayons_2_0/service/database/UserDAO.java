@@ -15,7 +15,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.crayons_2_0.model.CrayonsUser;
-import com.crayons_2_0.service.Language;
 import com.vaadin.spring.annotation.SpringComponent;
 
 // LINKS:

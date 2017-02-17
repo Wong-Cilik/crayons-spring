@@ -5,27 +5,18 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.stereotype.Component;
-
 import com.crayons_2_0.controller.RegisterFormListener;
-import com.crayons_2_0.controller.RegisterFormListener2;
-import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.spring.annotation.ViewScope;
-import com.vaadin.spring.internal.Conventions;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SpringView(name = RegisterView.VIEW_NAME)

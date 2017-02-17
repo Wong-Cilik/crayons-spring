@@ -1,24 +1,15 @@
 package com.crayons_2_0.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-
 import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.authentication.CurrentCourses;
-import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.DeleteVerification;
-import com.crayons_2_0.model.Course;
-import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
