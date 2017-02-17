@@ -83,8 +83,7 @@ public class MainScreen extends HorizontalLayout  implements View {
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
 
-        menu.addView(aboutView, AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME),
-                FontAwesome.INFO_CIRCLE);
+        //menu.addView(aboutView, AboutView.VIEW_NAME, lang.getString(AboutView.VIEW_NAME), FontAwesome.INFO_CIRCLE);
         menu.addView(authorlibrary, Authorlibrary.VIEW_NAME, lang.getString(Authorlibrary.VIEW_NAME),
                 FontAwesome.BOOK);
         menu.addView(userlibraryView, UserlibraryView.VIEW_NAME, lang.getString(UserlibraryView.VIEW_NAME),

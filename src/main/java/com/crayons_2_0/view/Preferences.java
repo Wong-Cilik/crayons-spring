@@ -171,13 +171,6 @@ public class Preferences extends VerticalLayout implements View {
 			}
 		});
         root.addComponent(selectLanguage);
-
-        Label message = new Label(lang.getString("NotImplementedInThisDemo"));
-        message.setSizeUndefined();
-        message.addStyleName(ValoTheme.LABEL_LIGHT);
-        root.addComponent(message);
-        root.setComponentAlignment(message, Alignment.MIDDLE_CENTER);
-
         return root;
     }
 
@@ -197,16 +190,6 @@ public class Preferences extends VerticalLayout implements View {
                 "img/profile-pic-300px.jpg"));
         profilePic.setWidth(100.0f, Unit.PIXELS);
         pic.addComponent(profilePic);
-
-        Button upload = new Button(lang.getString("Change…"), new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                Notification.show(lang.getString("NotImplementedInThisDemo"));
-            }
-        });
-        upload.addStyleName(ValoTheme.BUTTON_TINY);
-        pic.addComponent(upload);
-
         root.addComponent(pic);
 
         FormLayout details = new FormLayout();
@@ -245,15 +228,12 @@ public class Preferences extends VerticalLayout implements View {
         emailField.setValue(currentUser.get().getEmail());
         
         emailField.setWidth("100%");
-        emailField.setRequired(true);
         emailField.setNullRepresentation("");
         details.addComponent(emailField);
 
         locationField = new TextField(lang.getString("Location"));
         locationField.setWidth("100%");
         locationField.setNullRepresentation("");
-        locationField.setComponentError(new UserError(
-                lang.getString("ThisAddressDoesn'tExist")));
         details.addComponent(locationField);
 
         phoneField = new TextField(lang.getString("Phone"));

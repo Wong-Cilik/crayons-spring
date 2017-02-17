@@ -61,8 +61,10 @@ public class UserlibraryView extends VerticalLayout implements View {
     void init(){
         VerticalLayout content = new VerticalLayout();
         HorizontalLayout header = new HorizontalLayout();
+        
         setSpacing(true);
         setMargin(false);
+        
         this.filter = buildFilter();
         header.setSizeFull();
         header.setWidth("100%");

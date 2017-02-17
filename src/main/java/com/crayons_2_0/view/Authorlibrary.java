@@ -49,7 +49,6 @@ import com.vaadin.ui.themes.ValoTheme;
  * modify existing and create new courses. 
  */
 @SpringView(name = Authorlibrary.VIEW_NAME)
-@ViewScope
 @SpringComponent
 public class Authorlibrary extends VerticalLayout implements View, CourseEditorListener {
 	@Autowired
@@ -93,24 +92,25 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
     @PostConstruct
     void init(){
         authorCoursesList = courseService.findAllAuthorCoursesOfUser(c.get());
+        
         VerticalLayout content = new VerticalLayout();
-        HorizontalLayout title = new HorizontalLayout();
-        title.setMargin(true);
-        // setSizeFull();
-        title.setSpacing(true);
-        title.setSizeFull();
+        HorizontalLayout header = new HorizontalLayout();
+        
+        setSpacing(true);
         setMargin(false);
-        title.addComponent(buildTitle());
+        
         this.filter = buildFilter();
-        title.addComponent(this.filter);
-        title.setComponentAlignment(this.filter, Alignment.BOTTOM_RIGHT);
-        content.addComponent(title);
+        header.setSizeFull();
+        header.setWidth("100%");
+        header.setSpacing(false);
+        header.addComponent(buildTitle());
+        header.addComponent(this.filter);
+        header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
+        header.setMargin(true);
+        
+        content.addComponent(buildCoursesTabSheet());
+        addComponent(header);
         addComponent(content);
-        content.setMargin(false);
-        //for every author course adding a tab
-        this.tabSheet = buildCoursesTabSheet();
-        content.addComponent(this.tabSheet);
-        content.setSizeFull();
     }
     public Authorlibrary() {
     	
@@ -150,16 +150,16 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
      */
     private TabSheet buildCoursesTabSheet() {
     	
-        TabSheet coursesTabSheet = new TabSheet();
-        coursesTabSheet.setSizeFull();
-        coursesTabSheet.setHeight("100%");
-        coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
-        coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
+        this.tabSheet = new TabSheet();
+        tabSheet.setSizeFull();
+        tabSheet.setHeight("100%");
+        tabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
+        tabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
         for (Course tmpCourse: authorCoursesList) {
-            coursesTabSheet.addComponent(buildCourseTab(tmpCourse.getTitle()));
+        	tabSheet.addComponent(buildCourseTab(tmpCourse.getTitle()));
         }
-        coursesTabSheet.addTab(buildAddNewCourseTab());
-		return coursesTabSheet;
+        tabSheet.addTab(buildAddNewCourseTab());
+		return tabSheet;
     }
 
     /**
@@ -200,7 +200,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
 
         Button createCourse = new Button("Kurs erstellen");
         tabContent.addComponent(createCourse);
-        tabContent.setComponentAlignment(createCourse, Alignment.BOTTOM_CENTER);
+        tabContent.setComponentAlignment(createCourse, Alignment.MIDDLE_CENTER);
 
         createCourse.addClickListener(new ClickListener() {
             private static final long serialVersionUID = 1422665458088821660L;
@@ -353,7 +353,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
      * @return layout with search field
      */
     public Component buildFilter() {
-        final VerticalLayout search = new VerticalLayout();
+        VerticalLayout search = new VerticalLayout();
         search.setStyleName("search");
         search.setMargin(false);
         search.setSizeUndefined();
@@ -363,7 +363,7 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             @Override
             public void textChange(final TextChangeEvent event) {
                 TabSheet tabs = getTabSheet();
-                Iterator<Component> it = tabs.getComponentIterator();
+                Iterator<Component> it = tabs.iterator();
                 Component comp;
                 if (event.getText().equals("")) {
                     while (it.hasNext()) {
@@ -371,13 +371,17 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                         tabs.getTab(comp).setVisible(true);
                     }
                 } else {
-                    comp = it.next();
-                    while (it.hasNext()) {
+                    while (it.hasNext()){
                         comp = it.next();
+                        if (comp.getCaption() == null){
+                        	tabs.getTab(comp).setVisible(true);
+                        } else {
+                        System.out.println(comp.getCaption() + "    " + event.getText());
                         if (comp.getCaption().toLowerCase().contains(event.getText().toLowerCase())) {
                             tabs.getTab(comp).setVisible(true);
                         } else {
                             tabs.getTab(comp).setVisible(false);
+                        }
                         }
                     }
                 }
@@ -389,7 +393,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         filter.setSizeUndefined();
         search.addComponent(filter);
         search.setComponentAlignment(filter, Alignment.MIDDLE_RIGHT);
-        return filter;
+        return search;
     }
-
 }
