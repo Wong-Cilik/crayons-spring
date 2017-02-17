@@ -12,6 +12,8 @@ import org.vaadin.maddon.ListContainer;
 import com.crayons_2_0.service.CourseDisplay;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
+import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -98,6 +100,18 @@ public final class Search extends VerticalLayout implements View {
         final TextField filter = new TextField();
         filter.setIcon(FontAwesome.SEARCH);
         filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+        filter.addTextChangeListener(new TextChangeListener() {
+            @Override
+            public void textChange(final TextChangeEvent event) {
+		        collection.removeAll(collection);
+		        if (!event.getText().equals("")){
+			        collection.addAll(courseService.searchAll(event.getText()));
+		        } else {
+		        	collection.add(new CourseDisplay(null, "", "", ""));
+		        }
+		        table.setContainerDataSource(new TempContainer(collection));
+            }
+            });
         return filter;
     }
 
@@ -118,8 +132,8 @@ public final class Search extends VerticalLayout implements View {
         table.setSortContainerPropertyId("Release");
         table.setSortAscending(false);
 
-        table.setVisibleColumns("release", "title", "author", "status");
-        table.setColumnHeaders("Release", "Title", "Author", "Status");
+        table.setVisibleColumns("author", "release", "title", "status");
+        table.setColumnHeaders("Author", "Release", "Title", "Status");
         table.addListener(new ItemClickListener(){
 			@Override
 			public void itemClick(ItemClickEvent event) {

@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -165,6 +167,9 @@ public class CourseService {
 			out = new ObjectOutputStream(new FileOutputStream(file));
             out.writeObject(data);
             courseDAO.saveData(file, title);
+            out.flush();
+            out.close();
+            Files.delete(file.toPath());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -175,11 +180,13 @@ public class CourseService {
 	public Graph getCourseData (String title) {
 		ObjectInputStream in;
 		Graph graph = null;
+		File file = new File (title + ".bin");
 		try {
 			courseDAO.getData(title);
-			in = new ObjectInputStream(new FileInputStream(title + ".bin"));
+			in = new ObjectInputStream(new FileInputStream(file));
 			graph = (Graph) in.readObject();
-			
+			in.close();
+            Files.delete(file.toPath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
