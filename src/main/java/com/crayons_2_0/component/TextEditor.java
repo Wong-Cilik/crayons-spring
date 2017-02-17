@@ -1,8 +1,11 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
 import org.vaadin.openesignforms.ckeditor.CKEditorConfig;
 import org.vaadin.openesignforms.ckeditor.CKEditorTextField;
 
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.ObjectProperty;
@@ -29,6 +32,8 @@ public class TextEditor extends CustomComponent {
 			"Enter text here...");
 	private final Component textEditor;
 	private final Component readOnly;
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public TextEditor(String prefillData) {
 		setWidth(100.0f, Unit.PERCENTAGE);
@@ -122,7 +127,7 @@ public class TextEditor extends CustomComponent {
 		 * @Override public void attach(final AttachEvent event) {
 		 * textArea.focus(); textArea.selectAll(); } });
 		 */
-		Button save = new Button("Save");
+		Button save = new Button(lang.getString("Save"));
 		save.addClickListener(new ClickListener() {
 			private static final long serialVersionUID = -4688758527425055901L;
 

@@ -1,7 +1,10 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.view.CourseEditorView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -29,6 +32,8 @@ public final class DeleteVerification extends Window {
 
 	// TODO von DB holen
 	static Graph graph;
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public DeleteVerification(Graph graphData) {
 
@@ -61,7 +66,7 @@ public final class DeleteVerification extends Window {
 	}
 
 	private Component buildUnitChoice() {
-		ComboBox selectUnit = new ComboBox("Select the unit to be deleted");
+		ComboBox selectUnit = new ComboBox(lang.getString("SelectTheUnitToBeDeleted"));
 		for (UnitNode currentNode : graph.getUnitCollection()) {
 			selectUnit.addItem(currentNode.getUnitNodeTitle());
 		}
@@ -79,7 +84,7 @@ public final class DeleteVerification extends Window {
 		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
 		footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-		Button ok = new Button("Delete");
+		Button ok = new Button(lang.getString("Delete"));
 		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		ok.addClickListener(new ClickListener() {
 			@Override
@@ -87,16 +92,14 @@ public final class DeleteVerification extends Window {
 				if (graph.deleteUnit(deleteUnit)) {
 					CourseEditorView.refreshGraph(graph);
 					close();
-					Notification success = new Notification(
-							"Unit is deleted successfully");
+					Notification success = new Notification(lang.getString("UnitIsDeletedSuccessfully"));
 					success.setDelayMsec(500);
 					success.setStyleName("bar success small");
 					success.setPosition(Position.BOTTOM_CENTER);
 					success.show(Page.getCurrent());
 					deleteUnit = null;
 				} else {
-					Notification failed = new Notification(
-							"Unit failed to delete");
+					Notification failed = new Notification(lang.getString("UnitFailedToDelete"));
 					failed.setDelayMsec(500);
 					failed.setStyleName("bar success small");
 					failed.setPosition(Position.BOTTOM_CENTER);
@@ -111,7 +114,7 @@ public final class DeleteVerification extends Window {
 	}
 
 	private Component buildTitle() {
-		Label title = new Label("Delete a unit");
+		Label title = new Label(lang.getString("DeleteAUnit"));
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}

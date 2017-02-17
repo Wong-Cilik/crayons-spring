@@ -1,6 +1,9 @@
 package com.crayons_2_0.component;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -27,6 +30,8 @@ public class MultipleChoiceEditor extends CustomComponent {
 	private final Property<String> questionText = new ObjectProperty<String>(
 			"Enter the question here...");
 	private String rightAnswer = "";
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public MultipleChoiceEditor(String questionText, ArrayList<String> answers,
 			String rightAnswer) {
@@ -92,7 +97,7 @@ public class MultipleChoiceEditor extends CustomComponent {
 			}
 		});
 
-		Button addQuestionButton = new Button("Add question");
+		Button addQuestionButton = new Button(lang.getString("AddQuestion"));
 		addQuestionButton.addClickListener(new ClickListener() {
 			private static final long serialVersionUID = -6884263769895434223L;
 
@@ -107,13 +112,13 @@ public class MultipleChoiceEditor extends CustomComponent {
 				addQuestionButton);
 		addQuestion.setSpacing(true);
 
-		Button save = new Button("Save");
+		Button save = new Button(lang.getString("Save"));
 		save.addClickListener(new ClickListener() {
 			private static final long serialVersionUID = 8068966193937340344L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				System.out.println(rightAnswer);
+				System.out.println(rightAnswer);	
 				setCompositionRoot(buildReadOnly());
 			}
 		});

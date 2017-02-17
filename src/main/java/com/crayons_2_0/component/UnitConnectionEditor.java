@@ -1,7 +1,10 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.view.CourseEditorView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -32,6 +35,8 @@ public class UnitConnectionEditor extends Window {
 	UnitNode child;
 	static Graph graph;
 
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	
 	public UnitConnectionEditor(Graph graphData) {
 		graph = graphData;
 		setSizeFull();
@@ -65,7 +70,7 @@ public class UnitConnectionEditor extends Window {
 		comboBoxes.setMargin(true);
 		comboBoxes.setSpacing(true);
 
-		ComboBox selectPredecessor = new ComboBox("From");
+		ComboBox selectPredecessor = new ComboBox(lang.getString("From"));
 		comboBoxes.addComponent(selectPredecessor);
 		// Set<Node> predecessors = new HashSet<Node>();
 		// predecessors.add(new Node("Node 1"));
@@ -81,7 +86,7 @@ public class UnitConnectionEditor extends Window {
 			}
 		});
 
-		ComboBox selectSuccessor = new ComboBox("To");
+		ComboBox selectSuccessor = new ComboBox(lang.getString("To"));
 		comboBoxes.addComponent(selectSuccessor);
 		// Set<Node> successors = new HashSet<Node>();
 		// successors.add(new Node("Node 3"));
@@ -105,15 +110,14 @@ public class UnitConnectionEditor extends Window {
 		footer.setWidth(100.0f, Unit.PERCENTAGE);
 		footer.setSpacing(true);
 
-		Button disconnect = new Button("Disconnect");
+		Button disconnect = new Button(lang.getString("Disconnect"));
 		disconnect.addClickListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				graph.deleteConnection(parent, child);
 				CourseEditorView.refreshGraph(graph);
 				close();
-				Notification success = new Notification(
-						"Units are disconnected successfully");
+				Notification success = new Notification(lang.getString("UnitsAreDisconnectedSuccessfully"));
 				success.setDelayMsec(1000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);
@@ -124,15 +128,14 @@ public class UnitConnectionEditor extends Window {
 		footer.addComponent(disconnect);
 		footer.setComponentAlignment(disconnect, Alignment.BOTTOM_LEFT);
 
-		Button connect = new Button("Connect");
+		Button connect = new Button(lang.getString("Connect"));
 		connect.addClickListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				graph.addConnection(parent, child);
 				CourseEditorView.refreshGraph(graph);
 				close();
-				Notification success = new Notification(
-						"Units are connected successfully");
+				Notification success = new Notification(lang.getString("UitsAreConnectedSuccessfully"));
 				success.setDelayMsec(1000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);
@@ -146,7 +149,7 @@ public class UnitConnectionEditor extends Window {
 	}
 
 	private Component buildTitle() {
-		Label title = new Label("Connect units");
+		Label title = new Label(lang.getString("ConnectUnits"));
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}
