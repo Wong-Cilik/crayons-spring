@@ -405,7 +405,6 @@ public class AboutView extends VerticalLayout implements View {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Unit.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			unit = (Unit) jaxbUnmarshaller.unmarshal(file);
-			System.out.println(unit);
 
 		} catch (JAXBException e) {
 			e.printStackTrace();

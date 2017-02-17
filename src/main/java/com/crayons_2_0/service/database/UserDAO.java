@@ -148,9 +148,6 @@ public class UserDAO implements CommandLineRunner {
 	@Override
 	public void run(String... arg0) throws Exception {
 		new ArrayList<GrantedAuthority>();
-		log.info("@@ create user");
-		log.info("@@ insert user");
-		log.info("@@ findAll() call...");
 		findAll().forEach(entry -> log.info(entry.toString()));
 
 	}
