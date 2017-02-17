@@ -30,37 +30,17 @@ import com.vaadin.ui.themes.ValoTheme;
 // auskommentieren erst wenn findAllCoursesOfUser() implementiert ist.
 public class AuthorlibraryForm extends VerticalLayout {
 	
-
 	@Autowired
 	CurrentUser user;
 	
     @Resource
     private CourseService courseService;
     
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
-	
-	
-//	private Component title; falsch!!
-	
 	private TabSheet coursesTabSheet = new TabSheet();
-	
-
-	
-	
-	
-	ResourceBundle lang = LanguageService.getInstance().getRes();
-
-	
-	
+    ResourceBundle lang = LanguageService.getInstance().getRes();
 	
 	public AuthorlibraryForm() {
-		
-//		title = buildTitle();
-//		addComponent(title);
 		
 		createCoursesTabSheet();
 		addComponent(coursesTabSheet);
@@ -72,7 +52,7 @@ public class AuthorlibraryForm extends VerticalLayout {
 	
 	
 	private Component buildTitle() {
-        Label title = new Label("Kursübersicht");
+        Label title = new Label(lang.getString("Overview"));
         title.addStyleName(ValoTheme.LABEL_H2);
         return title;
     }
@@ -131,10 +111,9 @@ public class AuthorlibraryForm extends VerticalLayout {
         controlButtons.setMargin(true);
         controlButtons.setSpacing(true);
         
-        Button studentView = new Button("Student view");
+        Button studentView = new Button(lang.getString("StudentView"));
         controlButtons.addComponent(studentView);
-        
-        Button graphEditor = new Button("Graph editor");
+        Button graphEditor = new Button(lang.getString("GraphEditor"));
         controlButtons.addComponent(graphEditor);
         graphEditor.addClickListener(new ClickListener() {
             @Override

@@ -1,8 +1,11 @@
 package com.crayons_2_0.component;
 
+import java.util.ResourceBundle;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.model.Course;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
@@ -26,6 +29,8 @@ import com.vaadin.ui.Button.ClickListener;
 @ViewScope
 @SpringComponent
 public class CourseModificationWindow extends Window {
+
+    ResourceBundle lang = LanguageService.getInstance().getRes();
     private TabSheet tabSheet;
     private Component tab;
 	private Course course;
@@ -58,7 +63,7 @@ public class CourseModificationWindow extends Window {
         
         HorizontalLayout course = new HorizontalLayout();
         course.setSpacing(true);
-        Label courseTitleLabel = new Label("Kurstitel");
+        Label courseTitleLabel = new Label(lang.getString("CourseTitle"));
         TextField courseTitleField = new TextField(null, this.course.getTitle());
         course.addComponents(courseTitleLabel, courseTitleField);
         //courseTitleField.addValueChangeListener();
@@ -67,7 +72,7 @@ public class CourseModificationWindow extends Window {
         
         VerticalLayout couseDescription = new VerticalLayout();
         couseDescription.setSizeFull();
-        Label couseDescriptionLabel = new Label("Kursbeschreibung");
+        Label couseDescriptionLabel = new Label(lang.getString("CourseDescription"));
         TextField couseDescriptionField = new TextField();
         couseDescriptionField.setSizeFull();
         
@@ -89,7 +94,7 @@ public class CourseModificationWindow extends Window {
         controlButtons.setMargin(true);
         controlButtons.setSpacing(true);
         
-        Button saveCourse = new Button("Save");
+        Button saveCourse = new Button(lang.getString("Save"));
         controlButtons.addComponent(saveCourse);
         controlButtons.setComponentAlignment(saveCourse, Alignment.BOTTOM_LEFT);
         saveCourse.addClickListener(new ClickListener() {
@@ -102,7 +107,7 @@ public class CourseModificationWindow extends Window {
                 tabSheet.getTab(tab).setDescription(couseDescriptionField.getValue());
                 close();
                 Notification success = new Notification(
-                        "Course is modified successfully");
+                		lang.getString("CourseIsModifiedSuccessfully"));
                 success.setDelayMsec(2000);
                 success.setStyleName("bar success small");
                 success.setPosition(Position.BOTTOM_CENTER);

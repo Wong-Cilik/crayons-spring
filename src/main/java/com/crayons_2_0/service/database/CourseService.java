@@ -200,7 +200,6 @@ public class CourseService {
 	 * @param title of course to save dummyGraph
 	 */
 	public void saveDummyGraph(String title) {
-		System.out.println(title);
 		//courseDAO.getData();
 		
 		String dummy = "dummy";
@@ -263,7 +262,6 @@ public class CourseService {
 		Collection <CourseDisplay> collector = new ArrayList<CourseDisplay>();
 		List <Course> courseList = courseDAO.searchAll(input);
 		for (Course tmpCourse : courseList) {
-			System.out.println(tmpCourse.getTitle() + tmpCourse.getAuthor().getFirstName() + " " + tmpCourse.getAuthor().getLastName());
 			collector.add(new CourseDisplay("", tmpCourse.getTitle(), tmpCourse.getAuthor().getFirstName() + " " + tmpCourse.getAuthor().getLastName(), "Angemeldet!"));
 		}
 		if (collector.size() == 0){

@@ -128,7 +128,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
-            	System.out.println(currentCourse.getTitle());
                 courseService.saveCourseData(graphData, currentCourse.getTitle());
             }
         });

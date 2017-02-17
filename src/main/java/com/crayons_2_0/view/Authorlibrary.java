@@ -329,7 +329,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
             @Override
             public void buttonClick(ClickEvent event) {
             	currentCourse.setTitle(title);
-            	System.out.println(currentCourse.getTitle());
             	CourseEditorView.refreshGraph(courseService.getCourseData(title));
                 UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
             }
@@ -376,7 +375,6 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
                         if (comp.getCaption() == null){
                         	tabs.getTab(comp).setVisible(true);
                         } else {
-                        System.out.println(comp.getCaption() + "    " + event.getText());
                         if (comp.getCaption().toLowerCase().contains(event.getText().toLowerCase())) {
                             tabs.getTab(comp).setVisible(true);
                         } else {

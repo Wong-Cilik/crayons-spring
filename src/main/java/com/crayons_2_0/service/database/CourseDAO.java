@@ -90,7 +90,6 @@ public class CourseDAO implements CommandLineRunner {
 				CrayonsUser author = userService.findByEMail(rs
 						.getString("author"));
 				String[] studentsArray = students.split("/");
-				System.out.println(title + description + author);
 				Course course = new Course(title, description, author, students);
 				List<CrayonsUser> users = new ArrayList<>();
 				for (int i = 1; i < studentsArray.length; i++) {
@@ -190,7 +189,6 @@ public class CourseDAO implements CommandLineRunner {
 		fos.write(data, 0, data.length);
 		fos.flush();
 		fos.close();
-		System.out.println(data);
 	}
 
 	@Override
