@@ -9,6 +9,10 @@ import com.crayons_2_0.service.Language;
 
 public class CrayonsUser extends User {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
 	private String password;

@@ -16,7 +16,12 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public class SelectUnitToLearnWindow extends Window {
     
-    //TODO: put user and course as parameters to get information from db
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	//TODO: put user and course as parameters to get information from db
     public SelectUnitToLearnWindow(/*User user, Course course*/) {
         setSizeFull();
         setModal(true);
@@ -64,7 +69,12 @@ public class SelectUnitToLearnWindow extends Window {
         Button learn = new Button("Learn");
         learn.addStyleName(ValoTheme.BUTTON_PRIMARY);
         learn.addClickListener(new ClickListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 close();
                 //TODO: return selected unit 
@@ -75,7 +85,12 @@ public class SelectUnitToLearnWindow extends Window {
         
         Button cancel = new Button("Cancel");
         cancel.addClickListener(new ClickListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 close();
             }

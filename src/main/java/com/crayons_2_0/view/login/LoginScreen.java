@@ -19,7 +19,11 @@ import com.vaadin.ui.VerticalLayout;
 @SpringView(name = LoginScreen.VIEW_NAME)
 @ViewScope
 public class LoginScreen extends CssLayout implements View{
-    public static final String VIEW_NAME = "";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final String VIEW_NAME = "";
 
     /**
      * 

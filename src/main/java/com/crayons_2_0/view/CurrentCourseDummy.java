@@ -6,10 +6,6 @@ public class CurrentCourseDummy {
 	
 	private String courseTitle;
 	
-	private void CurrentCourseDummy() {
-		
-	}
-	
 	public static CurrentCourseDummy getInstance() {
 		return dummy;
 	}

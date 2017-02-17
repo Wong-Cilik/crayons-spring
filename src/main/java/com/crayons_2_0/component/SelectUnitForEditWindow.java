@@ -18,6 +18,10 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public class SelectUnitForEditWindow extends Window {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static Graph graph;
     public SelectUnitForEditWindow(Graph graphData) {
     	graph = graphData;
@@ -64,7 +68,12 @@ public class SelectUnitForEditWindow extends Window {
         Button ok = new Button("Edit");
         ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
         ok.addClickListener(new ClickListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 close();
                 UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);

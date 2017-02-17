@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,8 +28,6 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class CourseDAO implements CommandLineRunner {
 
-	private static final Logger log = LoggerFactory.getLogger(CourseDAO.class);
-
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -49,9 +45,10 @@ public class CourseDAO implements CommandLineRunner {
 	 * 
 	 * @return all courses of DB
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Course> findAll() {
 		String query = "select * from courses";
-		RowMapper mapper = new RowMapper() {
+		RowMapper mapper = new RowMapper<Object>() {
 
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 
@@ -75,10 +72,12 @@ public class CourseDAO implements CommandLineRunner {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Course> searchAll(String input) {
 		String query = "SELECT * FROM courses WHERE title LIKE '%" + input
 				+ "%'";
-		RowMapper mapper = new RowMapper() {
+		@SuppressWarnings("rawtypes")
+		RowMapper mapper = new RowMapper<Object>() {
 
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 				String title = rs.getString("title");

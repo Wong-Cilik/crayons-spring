@@ -178,7 +178,12 @@ public class ImageUploadEditor extends CustomComponent {
         layout.addComponent(titleLayout);
         
         titleField.addAttachListener(new AttachListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void attach(final AttachEvent event) {
                 titleField.focus();
                 titleField.selectAll();
@@ -193,7 +198,12 @@ public class ImageUploadEditor extends CustomComponent {
         layout.addComponent(sourceLayout);
         
         sourceField.addAttachListener(new AttachListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void attach(final AttachEvent event) {
                 sourceField.focus();
                 sourceField.selectAll();

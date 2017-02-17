@@ -41,7 +41,11 @@ import com.vaadin.ui.themes.ValoTheme;
 public final class Search extends VerticalLayout implements View {
 
 
-    List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
     public static final String VIEW_NAME = "Search";
     private Table table;
     private Button createSearch;
@@ -85,6 +89,11 @@ public final class Search extends VerticalLayout implements View {
     private Button buildSearch() {
         final Button search = new Button("Search");
         search.addClickListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 		        collection.removeAll(collection);
@@ -101,7 +110,12 @@ public final class Search extends VerticalLayout implements View {
         filter.setIcon(FontAwesome.SEARCH);
         filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
         filter.addTextChangeListener(new TextChangeListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void textChange(final TextChangeEvent event) {
 		        collection.removeAll(collection);
 		        if (!event.getText().equals("")){
@@ -135,6 +149,11 @@ public final class Search extends VerticalLayout implements View {
         table.setVisibleColumns("author", "release", "title", "status");
         table.setColumnHeaders("Author", "Release", "Title", "Status");
         table.addListener(new ItemClickListener(){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void itemClick(ItemClickEvent event) {
                 Notification fail = new Notification("Course doesn't exist");
@@ -155,7 +174,12 @@ public final class Search extends VerticalLayout implements View {
     private class TempContainer extends
             ListContainer<CourseDisplay> {
 
-        public TempContainer(final Collection<CourseDisplay> collection) {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public TempContainer(final Collection<CourseDisplay> collection) {
             super(collection);
         }
 

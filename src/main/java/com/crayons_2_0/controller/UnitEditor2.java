@@ -25,7 +25,7 @@ public class UnitEditor2 {
 	
 	public UnitEditor2() {
 		
-		String courseTitle = CurrentCourseDummy.getInstance().getCourseTitle();
+		CurrentCourseDummy.getInstance().getCourseTitle();
 		
 //		this.course = courseService.findCourseByTitle(courseTitle); ToDO
 		

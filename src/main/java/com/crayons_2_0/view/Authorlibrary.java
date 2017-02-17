@@ -298,7 +298,12 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         controlButtons.setComponentAlignment(deleteCourse, Alignment.BOTTOM_RIGHT);
         deleteCourse.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
             	courseService.removeCourse(courseService.findCourseByTitle(title));
             	getTabSheet().removeTab(getTabSheet().getTab(getTabSheet().getSelectedTab()));
@@ -357,7 +362,12 @@ public class Authorlibrary extends VerticalLayout implements View, CourseEditorL
         
         final TextField filter = new TextField();
         filter.addTextChangeListener(new TextChangeListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void textChange(final TextChangeEvent event) {
                 TabSheet tabs = getTabSheet();
                 Iterator<Component> it = tabs.iterator();

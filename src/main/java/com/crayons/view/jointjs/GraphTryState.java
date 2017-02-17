@@ -6,7 +6,11 @@ import com.vaadin.shared.ui.JavaScriptComponentState;
 
 public class GraphTryState extends JavaScriptComponentState {
     
-    private ArrayList<Integer> coords;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Integer> coords;
  
     public ArrayList<Integer> getCoords() {
         return coords;

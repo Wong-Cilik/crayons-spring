@@ -5,7 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UnitNode implements Serializable{
-    // the graph for the course
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// the graph for the course
     private final Graph graph;
     private String unitNodeTitle;
     // private UnitType unitType;

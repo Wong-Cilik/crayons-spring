@@ -57,7 +57,11 @@ import com.vaadin.data.fieldgroup.PropertyId;
 public class Preferences extends VerticalLayout implements View {
 	
 
-    //public static final String ID = "profilepreferenceswindow";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//public static final String ID = "profilepreferenceswindow";
     public static final String VIEW_NAME = "Preferences";
     ResourceBundle lang = LanguageService.getInstance().getRes();
     @Autowired
@@ -152,6 +156,11 @@ public class Preferences extends VerticalLayout implements View {
 			
         	// ToDO Makeup Hardcoded. 
         	
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				Language newLanguage;
@@ -275,7 +284,12 @@ public class Preferences extends VerticalLayout implements View {
         Button ok = new Button(lang.getString("OK"));
         ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
         ok.addClickListener(new ClickListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 
                     // fieldGroup.commit();

@@ -157,7 +157,12 @@ public class UserlibraryView extends VerticalLayout implements View {
         controlButtons.setComponentAlignment(leaveCourse, Alignment.MIDDLE_LEFT);
         leaveCourse.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
             	courseService.removeStudent(title, c.get().getEmail());
                 coursesTabSheet.removeComponent(tab);
@@ -171,7 +176,12 @@ public class UserlibraryView extends VerticalLayout implements View {
         
         study.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
             	
             }
@@ -197,6 +207,11 @@ public class UserlibraryView extends VerticalLayout implements View {
 	    
 		final TextField filter = new TextField();
 		filter.addTextChangeListener(new TextChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void textChange(final TextChangeEvent event) {
 				TabSheet tabs = getTabSheet();

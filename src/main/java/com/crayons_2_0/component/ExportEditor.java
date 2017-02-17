@@ -23,7 +23,12 @@ public class ExportEditor   {
         export.addStyleName(ValoTheme.BUTTON_PRIMARY);
         export.addClickListener(new ClickListener() {
             
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 for (Window window : UI.getCurrent().getWindows())
                     window.close();

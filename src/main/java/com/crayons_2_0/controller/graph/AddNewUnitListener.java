@@ -10,7 +10,12 @@ import com.vaadin.ui.Window;
 
 public class AddNewUnitListener implements Button.ClickListener {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public void buttonClick(ClickEvent event) {
         for (Window window: UI.getCurrent().getWindows()) window.close();
         Notification success = new Notification(

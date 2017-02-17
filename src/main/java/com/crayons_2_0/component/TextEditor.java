@@ -87,14 +87,24 @@ public class TextEditor extends CustomComponent {
         final CKEditorTextField ckEditorTextField = new CKEditorTextField(config);
         ckEditorTextField.setWidth(100.0f, Unit.PERCENTAGE);
         ckEditorTextField.addAttachListener(new AttachListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void attach(final AttachEvent event) {
                 ckEditorTextField.focus();
             }
         });
         ckEditorTextField.setValue(property.getValue());
         ckEditorTextField.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(ValueChangeEvent event) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void valueChange(ValueChangeEvent event) {
                 Notification.show("CKEditor v" + ckEditorTextField.getVersion() + " - contents: " + event.getProperty().getValue().toString());
             }
         });

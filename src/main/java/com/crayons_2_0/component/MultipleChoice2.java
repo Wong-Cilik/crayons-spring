@@ -28,6 +28,11 @@ public class MultipleChoice2 extends VerticalLayout {
 		this.addComponent(checkBox);
 		
 		this.addContextClickListener(new ContextClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void contextClick(ContextClickEvent event) {
 				

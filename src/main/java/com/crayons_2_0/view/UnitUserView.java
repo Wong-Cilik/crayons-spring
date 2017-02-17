@@ -31,7 +31,12 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringView(name = UnitUserView.VIEW_NAME)
 public class UnitUserView extends VerticalLayout implements View{
     
-    public static final String VIEW_NAME = "Unit User View";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static final String VIEW_NAME = "Unit User View";
     
     private VerticalLayout page;
     private final Button doneButton;
@@ -45,7 +50,12 @@ public class UnitUserView extends VerticalLayout implements View{
         doneButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
         doneButton.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 UI.getCurrent().addWindow(new EvaluationWindow(responces));
             }
@@ -56,7 +66,12 @@ public class UnitUserView extends VerticalLayout implements View{
         cancelButton.setStyleName(ValoTheme.BUTTON_DANGER);
         cancelButton.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 // TODO: are you sure?
                 UI.getCurrent().getNavigator().navigateTo(CourseUserView.VIEW_NAME);
@@ -158,7 +173,12 @@ public class UnitUserView extends VerticalLayout implements View{
         layout.addComponents(question, answers);
         
         answers.addValueChangeListener(new ValueChangeListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void valueChange(ValueChangeEvent event) {
                 responces.put(questionText, ((String) answers.getValue()).equals(rightAnswer)); 
             }

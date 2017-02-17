@@ -15,7 +15,11 @@ import com.vaadin.ui.Notification;
 
 @SpringComponent
 public class RegisterFormListener2 implements Button.ClickListener {
-        @Autowired
+        /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		@Autowired
 	    private UserManager userManager;
 
 	    @Override

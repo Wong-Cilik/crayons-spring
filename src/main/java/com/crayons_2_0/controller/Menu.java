@@ -31,6 +31,10 @@ import com.vaadin.ui.themes.ValoTheme;
 public class Menu extends CssLayout {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * 
      */
     private static final String VALO_MENUITEMS = "valo-menuitems";
@@ -39,7 +43,6 @@ public class Menu extends CssLayout {
     private Navigator navigator;
     private Map<String, Button> viewButtons = new HashMap<String, Button>();
     
-    private MenuItem profileItem;
     private CssLayout menuItemsLayout;
     private CssLayout menuPart;
     

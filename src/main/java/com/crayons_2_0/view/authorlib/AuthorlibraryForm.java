@@ -51,13 +51,6 @@ public class AuthorlibraryForm extends VerticalLayout {
 	}
 	
 	
-	private Component buildTitle() {
-        Label title = new Label(lang.getString("Overview"));
-        title.addStyleName(ValoTheme.LABEL_H2);
-        return title;
-    }
-	
-	
 	private void createCoursesTabSheet() {
 		coursesTabSheet = new TabSheet();
 		
@@ -73,6 +66,11 @@ public class AuthorlibraryForm extends VerticalLayout {
 			
 			Button exampleButton = new Button();
 			exampleButton.addClickListener(new ClickListener() {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public void buttonClick(ClickEvent event) {
 					Notification.show("ToDo", "ExampleButton", Notification.Type.WARNING_MESSAGE);
@@ -116,7 +114,12 @@ public class AuthorlibraryForm extends VerticalLayout {
         Button graphEditor = new Button(lang.getString("GraphEditor"));
         controlButtons.addComponent(graphEditor);
         graphEditor.addClickListener(new ClickListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 
                 //get courseeditor listener from db

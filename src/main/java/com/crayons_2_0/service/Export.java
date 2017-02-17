@@ -2,7 +2,6 @@ package com.crayons_2_0.service;
 
 import java.util.ArrayList;
 
-import com.crayons_2_0.component.ExportEditor;
 import com.crayons_2_0.service.database.CourseDAO ;
 import com.crayons_2_0.service.impExpPath.ExportToPath;
 
@@ -21,7 +20,6 @@ public class Export {
     }
 
     public ExportToPath compressData() {
-        ExportEditor expEd;
         return null;
         
     }

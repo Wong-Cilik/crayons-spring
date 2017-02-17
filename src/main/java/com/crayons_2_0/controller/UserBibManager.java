@@ -52,6 +52,11 @@ public class UserBibManager {
 		Button exampleButton = new Button();
 		exampleButton.addClickListener(new ClickListener() {
 			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Notification.show("ToDo", "ExampleButton", Notification.Type.WARNING_MESSAGE);
@@ -65,6 +70,11 @@ public class UserBibManager {
 		
 		Button buttonLearn = new Button("Learn");
 		buttonLearn.addClickListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Notification.show("ToDo", "ExampleButton", Notification.Type.WARNING_MESSAGE);	
@@ -74,6 +84,11 @@ public class UserBibManager {
 		
 		Button buttonDelete = new Button("Delete");
 		buttonDelete.addClickListener(new ClickListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Notification.show("ToDo", "ExampleButton", Notification.Type.WARNING_MESSAGE);	

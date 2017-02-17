@@ -11,6 +11,10 @@ import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
 @Component
 public class Course implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//checked
 	private String title;
 	private String description;

@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import com.crayons_2_0.model.CrayonsUser;
 import com.vaadin.spring.annotation.SpringComponent;
 
@@ -33,9 +34,10 @@ public class UserDAO implements CommandLineRunner {
     @Autowired
     UserService userService;
 
-    public List<CrayonsUser> findAll() {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<CrayonsUser> findAll() {
         String query = "select * from users";
-        RowMapper mapper = new RowMapper() {
+        RowMapper mapper = new RowMapper<Object>() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 
@@ -139,8 +141,7 @@ public class UserDAO implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
-//        createTable();
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+new ArrayList<GrantedAuthority>();
         log.info("@@ create user");
         log.info("@@ insert user");
         log.info("@@ findAll() call...");

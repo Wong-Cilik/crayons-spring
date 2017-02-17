@@ -49,6 +49,11 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringView(name = Uniteditor.VIEW_NAME)
 public class Uniteditor extends VerticalLayout implements View {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final String VIEW_NAME = "Unit Editor";
 
 	private final PageLayout page;
@@ -103,7 +108,12 @@ public class Uniteditor extends VerticalLayout implements View {
 
         // Click listener implements drag and drop functionality of the items 
         paletteLayout.addLayoutClickListener(new LayoutClickListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void layoutClick(final LayoutClickEvent event) {
                 if (event.getChildComponent() != null) {
                     PageItemType data = (PageItemType) ((DragAndDropWrapper) event
@@ -131,7 +141,12 @@ public class Uniteditor extends VerticalLayout implements View {
         dropArea.setSizeUndefined();
         dropArea.setDropHandler(new DropHandler() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void drop(final DragAndDropEvent event) {
                 Transferable transferable = event.getTransferable();
                 Component sourceComponent = transferable
@@ -153,7 +168,12 @@ public class Uniteditor extends VerticalLayout implements View {
         dropAreaLayout.setSizeUndefined();
         dropAreaLayout.addLayoutClickListener(new LayoutClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void layoutClick(final LayoutClickEvent event) {
                 Notification instruction = new Notification(
                         "Drag and drop the elemenets to be deleted over the button");
@@ -168,7 +188,12 @@ public class Uniteditor extends VerticalLayout implements View {
         saveButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
         saveButton.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 // TODO: save changes in the learning unit
                 Notification savedSuccessful = new Notification(
@@ -184,7 +209,12 @@ public class Uniteditor extends VerticalLayout implements View {
         Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
         backButton.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 //if (unit was modified)
                 UI.getCurrent().addWindow(new UnsavedChangesWindow());
@@ -197,7 +227,12 @@ public class Uniteditor extends VerticalLayout implements View {
         Button importButton = new Button("Import", FontAwesome.DOWNLOAD);
         importButton.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 UI.getCurrent().addWindow(new ImportEditor());
             }
@@ -207,7 +242,12 @@ public class Uniteditor extends VerticalLayout implements View {
         Button exportButton = new Button("Export", FontAwesome.UPLOAD);
         exportButton.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                // TODO: download learning unit
                 Notification success = new Notification("File is exported successfully");
@@ -268,7 +308,11 @@ public class Uniteditor extends VerticalLayout implements View {
      * 
      */
     public final class PageLayout extends CustomComponent {
-    	//TODO check if here save unit to save the unit
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		//TODO check if here save unit to save the unit
         private VerticalLayout layout;
         private final DropHandler dropHandler;
         private DragAndDropWrapper dropArea;
@@ -312,7 +356,12 @@ public class Uniteditor extends VerticalLayout implements View {
             dropArea.addStyleName("placeholder");
             dropArea.setDropHandler(new DropHandler() {
 
-                @Override
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
                 public AcceptCriterion getAcceptCriterion() {
                     return AcceptAll.get();
                 }
@@ -394,7 +443,12 @@ public class Uniteditor extends VerticalLayout implements View {
          */
         private class WrappedPageItem extends DragAndDropWrapper {
 
-            public WrappedPageItem(final Component content) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public WrappedPageItem(final Component content) {
                 super(content);
                 setDragStartMode(DragStartMode.WRAPPER);
             }
@@ -411,7 +465,12 @@ public class Uniteditor extends VerticalLayout implements View {
          */
         private class ReorderLayoutDropHandler implements DropHandler {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public AcceptCriterion getAcceptCriterion() {
                 return AcceptAll.get();
             }
@@ -531,6 +590,11 @@ public class Uniteditor extends VerticalLayout implements View {
      */
     private class UnsavedChangesWindow extends Window {
         /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
          * Builds together several components of the window.
          */
         public UnsavedChangesWindow() {
@@ -568,7 +632,12 @@ public class Uniteditor extends VerticalLayout implements View {
             yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
             yesButton.focus();
             yesButton.addClickListener(new ClickListener() {
-                @Override
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
                 public void buttonClick(ClickEvent event) {
                    close();
                    //TODO: save changes
@@ -578,7 +647,12 @@ public class Uniteditor extends VerticalLayout implements View {
             
             Button noButton = new Button("No");
             noButton.addClickListener(new ClickListener() {
-                @Override
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
                 public void buttonClick(ClickEvent event) {
                    close();
                    //TODO: discard changes
@@ -589,7 +663,12 @@ public class Uniteditor extends VerticalLayout implements View {
             Button cancelButton = new Button("Cancel");
             
             cancelButton.addClickListener(new ClickListener() {
-                @Override
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
                 public void buttonClick(ClickEvent event) {
                    close();
                 }

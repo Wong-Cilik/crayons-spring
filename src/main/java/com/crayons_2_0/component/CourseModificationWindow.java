@@ -30,7 +30,11 @@ import com.vaadin.ui.Button.ClickListener;
 @SpringComponent
 public class CourseModificationWindow extends Window {
 
-    ResourceBundle lang = LanguageService.getInstance().getRes();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	ResourceBundle lang = LanguageService.getInstance().getRes();
     private TabSheet tabSheet;
     private Component tab;
 	private Course course;
@@ -99,7 +103,12 @@ public class CourseModificationWindow extends Window {
         controlButtons.setComponentAlignment(saveCourse, Alignment.BOTTOM_LEFT);
         saveCourse.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 //TODO: check why null at CourseDAO findAll()
                 courseService.update(courseService.findCourseByTitle(course.getTitle()));

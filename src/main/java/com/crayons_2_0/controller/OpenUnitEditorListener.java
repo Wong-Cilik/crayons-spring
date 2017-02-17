@@ -11,6 +11,11 @@ import com.vaadin.ui.UI;
 
 public class OpenUnitEditorListener implements Button.ClickListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void buttonClick(ClickEvent event) {
 		

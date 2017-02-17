@@ -15,7 +15,6 @@ import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.UserService;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
-import com.vaadin.data.validator.IntegerRangeValidator;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 
@@ -26,11 +25,6 @@ import javax.xml.bind.Unmarshaller;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.pontus.vizcomponent.VizComponent;
-import com.vaadin.pontus.vizcomponent.VizComponent.EdgeClickEvent;
-import com.vaadin.pontus.vizcomponent.VizComponent.NodeClickEvent;
-import com.vaadin.pontus.vizcomponent.VizComponent.NodeClickListener;
-import com.vaadin.pontus.vizcomponent.model.Graph;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Version;
@@ -342,8 +336,7 @@ public class AboutView extends VerticalLayout implements View {
 		final VerticalLayout layout = new VerticalLayout();
 		// Joint.js
 		final GraphTry diagram = new GraphTry();
-		// Dagred3
-		final Dagre graph = new Dagre();
+		new Dagre();
 
 		// now we build the layout.
 		layout.setSpacing(true);
@@ -351,69 +344,6 @@ public class AboutView extends VerticalLayout implements View {
 
 		return layout;
 
-	}
-
-	private void configureIntegerField(final TextField integerField) {
-		integerField.setConverter(Integer.class);
-		integerField.addValidator(new IntegerRangeValidator(
-				"only integer, 0-500", 0, 500));
-		integerField.setRequired(true);
-		integerField.setImmediate(true);
-	}
-
-	private Component buildGraph() {
-		VerticalLayout GraphView = new VerticalLayout();
-		final VizComponent component = new VizComponent();
-		Graph.Node node1 = new Graph.Node("n1");
-		Graph.Node node2 = new Graph.Node("n2");
-
-		Graph graph = new Graph("G", Graph.DIGRAPH);
-		graph.addEdge(node1, node2);
-		graph.addEdge(node2, node1);
-		Graph.Edge edge1 = graph.getEdge(node1, node2);
-		edge1.setParam("color", "red");
-		node1.setParam("shape", "box");
-		node1.setParam("label", "\"First!\"");
-		edge1.setParam("label", "e1");
-
-		component.setWidth("300px");
-		component.setHeight("200px");
-		component.drawGraph(graph);
-
-		Label label = new Label(
-				"In this example there are two nodes. "
-						+ "The color of the nodes and edges is changed when clicking on them. "
-						+ "Note also the tooltip");
-
-		GraphView.setSizeFull();
-		GraphView.addComponent(label);
-		GraphView.addComponent(component);
-		GraphView.setExpandRatio(component, 1);
-		GraphView.setComponentAlignment(component, Alignment.MIDDLE_CENTER);
-
-		component.addClickListener(new NodeClickListener() {
-
-			@Override
-			public void nodeClicked(NodeClickEvent e) {
-				Graph.Node node = e.getNode();
-				component.addCss(node, "stroke", "blue");
-				component.addTextCss(node, "fill", "blue");
-			}
-
-		});
-
-		component.addClickListener(new VizComponent.EdgeClickListener() {
-
-			@Override
-			public void edgeClicked(EdgeClickEvent e) {
-				component.addCss(e.getEdge(), "stroke", "blue");
-				component.addTextCss(e.getEdge(), "fill", "blue");
-
-			}
-
-		});
-
-		return GraphView;
 	}
 
 	@Override
@@ -431,6 +361,11 @@ public class AboutView extends VerticalLayout implements View {
 	public static Component buildFilter() {
 		final TextField filter = new TextField();
 		filter.addTextChangeListener(new TextChangeListener() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void textChange(final TextChangeEvent event) {
 				// refresh tabsheet view

@@ -42,6 +42,11 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringComponent
 public final class AdminView extends VerticalLayout implements View {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	UserService userService;
 	
@@ -96,7 +101,6 @@ public final class AdminView extends VerticalLayout implements View {
         return header;
     }
 
-	@SuppressWarnings("deprecation")
 	private Table buildTable() {
         final Table table = new Table();
         table.setSizeFull();
@@ -126,6 +130,11 @@ public final class AdminView extends VerticalLayout implements View {
         table.setColumnHeaders("eMail", "Name", "Rechte", "Erstellte Kurse", "Besuchte Kurse");
         table.setEditable(false);
         table.addItemClickListener(new ItemClickListener(){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				UserDisplay userDisplay = (UserDisplay)event.getItemId();
@@ -162,6 +171,11 @@ public final class AdminView extends VerticalLayout implements View {
 	}
 
 	private class TempContainer extends ListContainer<UserDisplay> {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		public TempContainer(final Collection<UserDisplay> collection) {
 			super(collection);

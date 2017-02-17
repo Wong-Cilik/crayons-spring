@@ -10,6 +10,7 @@ import com.crayons_2_0.model.graph.UnitNode.UnitType;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -32,9 +33,10 @@ public class UnitDAO2 {
      * Returns all units of DB
      * @return all units of DB
      */
-    public List<Unit> findAll() {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Unit> findAll() {
         String query = "select * from units";
-        RowMapper mapper = new RowMapper() {
+        RowMapper mapper = new RowMapper<Object>() {
 
             public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
                 

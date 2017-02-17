@@ -38,7 +38,12 @@ public class MultipleChoice extends VerticalLayout {
     disableOptionsCheckBox.setImmediate(true);
     disableOptionsCheckBox
             .addValueChangeListener(new ValueChangeListener() {
-                @Override
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
                 public void valueChange(final ValueChangeEvent event) {
                     final boolean value = (Boolean) event.getProperty()
                             .getValue();

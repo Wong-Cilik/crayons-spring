@@ -22,7 +22,11 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringView(name = CourseUserView.VIEW_NAME)
 public class CourseUserView extends VerticalLayout implements View {
     
-    public static final String VIEW_NAME = "User Learning Graph";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final String VIEW_NAME = "User Learning Graph";
 
     
     public CourseUserView() {
@@ -48,7 +52,12 @@ public class CourseUserView extends VerticalLayout implements View {
         Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
         backButton.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 UI.getCurrent().getNavigator().navigateTo(UserlibraryView.VIEW_NAME);
             }
@@ -61,7 +70,12 @@ public class CourseUserView extends VerticalLayout implements View {
         backButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
         backButton.addClickListener(new ClickListener() {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 UI.getCurrent().addWindow(new SelectUnitToLearnWindow());
             }

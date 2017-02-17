@@ -18,7 +18,11 @@ import com.vaadin.ui.Notification;
 @Component
 public class LoginFormListener implements Button.ClickListener {
 
-    @Autowired
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Autowired
     private AuthManager authManager;
 
     @Override

@@ -26,6 +26,11 @@ import com.vaadin.ui.themes.ValoTheme;
 public class ImportEditor extends Window {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Builds together several components of the import editor. 
      */
     public ImportEditor() {
@@ -71,7 +76,11 @@ public class ImportEditor extends Window {
         layout.setSpacing(true);
         
         class UnitReceiver implements Receiver, SucceededListener {
-            public File file;
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			public File file;
             
             @Override
             public void uploadSucceeded(SucceededEvent event) {

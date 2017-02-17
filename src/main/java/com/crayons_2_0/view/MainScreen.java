@@ -40,8 +40,6 @@ public class MainScreen extends HorizontalLayout  implements View {
     
     private ResourceBundle lang = LanguageService.getInstance().getRes();
     
-    private MyUI ui;
-    
     @Autowired
     UserService userService;
     
@@ -127,7 +125,6 @@ public class MainScreen extends HorizontalLayout  implements View {
     };
 
 	public void setUI(MyUI myUI) {
-		ui = myUI;
 		
 	}
 

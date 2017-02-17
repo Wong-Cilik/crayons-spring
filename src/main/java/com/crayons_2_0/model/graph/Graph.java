@@ -8,7 +8,11 @@ import java.util.Set;
 import com.crayons_2_0.model.Course;
 
 public class Graph implements Serializable{
-    private final Course course;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final Course course;
     private final UnitNode startNode;
     private final UnitNode endNode;
     // this holds not just the start and end node!

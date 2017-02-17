@@ -36,6 +36,11 @@ public class AuthorBibManager {
 			Button exampleButton = new Button();
 			exampleButton.addClickListener(new ClickListener() {
 				
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public void buttonClick(ClickEvent event) {
 					Notification.show("ToDo", "ExampleButton", Notification.Type.WARNING_MESSAGE);

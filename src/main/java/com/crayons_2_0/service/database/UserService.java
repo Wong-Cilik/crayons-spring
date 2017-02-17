@@ -30,8 +30,7 @@ public class UserService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        // fetch user from e.g. DB
+        new ArrayList<GrantedAuthority>();
         
         /*
         if ("client".equals(username)) {

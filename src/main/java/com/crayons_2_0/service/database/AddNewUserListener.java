@@ -19,6 +19,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class AddNewUserListener implements Button.ClickListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void buttonClick(ClickEvent event) {
 		AboutView view = (AboutView) event.getButton().getParent();

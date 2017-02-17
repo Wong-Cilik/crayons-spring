@@ -45,6 +45,11 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public class UnitEditorView extends VerticalLayout implements View {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final String VIEW_NAME = "Unit Editor LevinNeu";   // Todo: Change Name!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	private final SortableLayout canvas;
@@ -117,7 +122,12 @@ public class UnitEditorView extends VerticalLayout implements View {
         paletteLayout.addComponent(buildPaletteItem(PaletteItemType.IMAGE));
 
         paletteLayout.addLayoutClickListener(new LayoutClickListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void layoutClick(final LayoutClickEvent event) {
                 if (event.getChildComponent() != null) {
                     PaletteItemType data = (PaletteItemType) ((DragAndDropWrapper) event
@@ -138,7 +148,12 @@ public class UnitEditorView extends VerticalLayout implements View {
         Button ok = new Button(lang.getString("Save"));
         ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
         ok.addClickListener(new ClickListener() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void buttonClick(ClickEvent event) {
                 //close();
                 Notification success = new Notification(
@@ -175,7 +190,11 @@ public class UnitEditorView extends VerticalLayout implements View {
 
     public final class SortableLayout extends CustomComponent {
 
-        private VerticalLayout layout;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private VerticalLayout layout;
         private final DropHandler dropHandler;
         private TextField titleLabel;
         private DragAndDropWrapper placeholder;
@@ -191,7 +210,12 @@ public class UnitEditorView extends VerticalLayout implements View {
             df.applyPattern("M/dd/yyyy");
 
             titleLabel.addValueChangeListener(new ValueChangeListener() {
-                @Override
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
                 public void valueChange(final ValueChangeEvent event) {
                     String t = titleLabel.getValue();
                     if (t == null || t.equals("")) {
@@ -212,7 +236,12 @@ public class UnitEditorView extends VerticalLayout implements View {
             placeholder.addStyleName("placeholder");
             placeholder.setDropHandler(new DropHandler() {
 
-                @Override
+                /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
                 public AcceptCriterion getAcceptCriterion() {
                     return AcceptAll.get();
                 }
@@ -271,7 +300,12 @@ public class UnitEditorView extends VerticalLayout implements View {
 
         private class WrappedComponent extends DragAndDropWrapper {
 
-            public WrappedComponent(final Component content) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public WrappedComponent(final Component content) {
                 super(content);
                 setDragStartMode(DragStartMode.WRAPPER);
             }
@@ -285,7 +319,12 @@ public class UnitEditorView extends VerticalLayout implements View {
 
         private class ReorderLayoutDropHandler implements DropHandler {
 
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public AcceptCriterion getAcceptCriterion() {
                  //return new SourceIs()
                 return AcceptAll.get();

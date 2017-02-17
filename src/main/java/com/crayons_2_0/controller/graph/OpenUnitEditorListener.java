@@ -5,7 +5,12 @@ import com.vaadin.ui.Button.ClickEvent;
 
 public class OpenUnitEditorListener  implements Button.ClickListener {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public void buttonClick(ClickEvent event) {
         // TODO Auto-generated method stub
         

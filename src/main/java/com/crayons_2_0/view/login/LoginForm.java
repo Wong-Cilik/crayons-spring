@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContext;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.LoginFormListener;
-import com.crayons_2_0.controller.RegisterFormListener;
 import com.crayons_2_0.controller.RegisterFormListener2;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.event.ShortcutAction;
@@ -21,6 +20,10 @@ import com.vaadin.ui.VerticalLayout;
 public class LoginForm extends VerticalLayout {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * 
      */
 	
@@ -46,7 +49,7 @@ public class LoginForm extends VerticalLayout {
         btnLogin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         createRegisterButton();
         
-        RegisterFormListener2 registerFormListener2 = getRegisterFormListener2();
+        getRegisterFormListener2();
     }
     
     
@@ -57,6 +60,11 @@ public class LoginForm extends VerticalLayout {
     private void createRegisterButton() {
 		btnRegistrate.addClickListener(new ClickListener() {
 		
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {	
 				UI.getCurrent().getNavigator().navigateTo("registerView");
@@ -72,12 +80,6 @@ public class LoginForm extends VerticalLayout {
         ApplicationContext context = ui.getApplicationContext();
         return context.getBean(LoginFormListener.class);
     }
-	
-	private RegisterFormListener getRegisterFormListener() {
-		MyUI ui = (MyUI) UI.getCurrent();
-        ApplicationContext context = ui.getApplicationContext();
-        return context.getBean(RegisterFormListener.class);
-	}
 	
 	private RegisterFormListener2 getRegisterFormListener2() {
 		MyUI ui = (MyUI) UI.getCurrent();
