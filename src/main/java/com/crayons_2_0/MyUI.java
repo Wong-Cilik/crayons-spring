@@ -7,14 +7,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.vaadin.annotations.Theme;
-
+import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.WrappedHttpSession;
 import com.vaadin.server.WrappedSession;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
-
 import com.vaadin.ui.UI;
+import com.vaadin.ui.themes.ValoTheme;
 
 @SpringUI
 @SpringViewDisplay
@@ -27,6 +27,8 @@ public class MyUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
+	    Responsive.makeResponsive(this);
+        addStyleName(ValoTheme.UI_WITH_MENU);
 
 		httpSession(request);
 		getPage().setTitle("Crayons");
