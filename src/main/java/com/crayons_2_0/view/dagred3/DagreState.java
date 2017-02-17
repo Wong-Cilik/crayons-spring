@@ -1,4 +1,4 @@
-package com.crayons.view.dagred3;
+package com.crayons_2_0.view.dagred3;
 
 import java.util.ArrayList;
 import com.vaadin.shared.ui.JavaScriptComponentState;

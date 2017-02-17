@@ -12,10 +12,10 @@ import com.vaadin.spring.annotation.SpringComponent;
 public class UnitService {
 
 	@Autowired
-	private UnitDAO2 unitDAO2;
+	private UnitDAO unitDAO;
 
 	public List<Unit> findAll() {
-		List<Unit> res = unitDAO2.findAll();
+		List<Unit> res = unitDAO.findAll();
 		return res;
 	}
 

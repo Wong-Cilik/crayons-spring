@@ -4,50 +4,63 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
-import com.crayons_2_0.model.graph.UnitNode;
+import com.crayons_2_0.component.Unit;
+import com.crayons_2_0.model.graph.UnitNode.UnitType;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 /**
  * Class for Unit Data Access Object
  *
  */
+
 @Component
 public class UnitDAO {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	public void createDbTable() {
-		jdbcTemplate
-				.execute("create table if not exists units (title varchar(100), unitType varchar(100))");
-	}
+	// public void createDbTable() {
+	// jdbcTemplate.execute("create table if not exists units (title varchar(100), unitType varchar(100))");
+	// }
 
 	/**
-	 * Returns all Units of DB
+	 * Returns all units of DB
 	 * 
-	 * @return
+	 * @return all units of DB
 	 */
-	public List<UnitNode> findAll() {
-		/*
-		 * String query = "select * from units"; RowMapper mapper = new
-		 * RowMapper() {
-		 * 
-		 * public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-		 * 
-		 * String title = rs.getString("title"); UnitType unitType =
-		 * createUnitType(rs.getString("unitType")); Graph graph =
-		 * getGraphFromAnyway();
-		 * 
-		 * Unit unit = new Unit("myunit", unitType, true, graph); return unit; }
-		 * 
-		 * 
-		 * }; return jdbcTemplate.query(query, mapper);
-		 */
-		return null;
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Unit> findAll() {
+		String query = "select * from units";
+		RowMapper mapper = new RowMapper<Object>() {
+
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				String title = rs.getString("title");
+				UnitType unitType = createUnitType(rs.getString("unitType"));
+				String content = rs.getString("content");
+				String courseTitel = rs.getString("course");
+				Unit unit = new Unit(title, unitType, courseTitel, content);
+				return unit;
+			}
+
+		};
+		return jdbcTemplate.query(query, mapper);
+
 	}
 
-	public boolean save(UnitNode unit) {
+	private UnitType createUnitType(String string) {
+		// TODO
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		return UnitType.LEARNING;
+	}
+
+	public boolean save(Unit unit) {
 		return true;
 	}
 

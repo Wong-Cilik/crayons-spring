@@ -1,4 +1,4 @@
-package com.crayons.view.jointjs;
+package com.crayons_2_0.view.jointjs;
 
 import java.util.ArrayList;
 
