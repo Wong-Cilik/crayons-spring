@@ -3,6 +3,7 @@ package com.crayons_2_0.view;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitCreationWindow;
@@ -14,6 +15,7 @@ import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Responsive;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.ViewScope;
@@ -22,6 +24,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
@@ -57,6 +60,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 	@PostConstruct
 	void init() {
 		setSizeFull();
+		Responsive.makeResponsive(this);
+		this.addStyleName("mytheme");
 		graphData = courseService.getDummyGraph();
 		graph.setGraph(graphData.getNodeNameList(), graphData.getEdgeSequence());
 		graph.setSizeFull();
@@ -64,7 +69,9 @@ public class CourseEditorView extends VerticalLayout implements View {
 		setComponentAlignment(graph, Alignment.TOP_CENTER);
 
 		Component footer = buildFooter();
+		Responsive.makeResponsive(footer);
 		addComponent(footer);
+		footer.setSizeUndefined();
 		setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
 	}
 
@@ -80,16 +87,19 @@ public class CourseEditorView extends VerticalLayout implements View {
 	 * @return the footer
 	 */
 	private Component buildFooter() {
-		HorizontalLayout footer = new HorizontalLayout();
-		footer.setMargin(true);
+		CssLayout footer = new CssLayout();
+		footer.addStyleName("courseeditor-footer");
+		//footer.setMargin(true);
 		footer.setSizeFull();
-		footer.setSpacing(true);
+		//footer.setSpacing(true);
 		Component controlButtons = buildControlButtons();
 		footer.addComponent(controlButtons);
-		footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_LEFT);
+		controlButtons.addStyleName("courseeditor-footer-left");
+		//footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_LEFT);
 		Component editMenu = buildEditMenu();
+		editMenu.addStyleName("courseeditor-footer-right");
 		footer.addComponent(editMenu);
-		footer.setComponentAlignment(editMenu, Alignment.BOTTOM_RIGHT);
+		//footer.setComponentAlignment(editMenu, Alignment.BOTTOM_RIGHT);
 		return footer;
 	}
 
