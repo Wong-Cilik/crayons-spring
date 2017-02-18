@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.view.login.LoginForm;
@@ -13,12 +14,13 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 
+@SuppressWarnings("serial")
 @SpringComponent
 public class RegisterFormListener2 implements Button.ClickListener {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private UserManager userManager;
 

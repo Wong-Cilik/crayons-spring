@@ -26,6 +26,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 //@org.springframework.stereotype.Component
 // auskommentieren erst wenn findAllCoursesOfUser() implementiert ist.
+@SuppressWarnings("serial")
 public class AuthorlibraryForm extends VerticalLayout {
 
 	@Autowired
@@ -34,7 +35,6 @@ public class AuthorlibraryForm extends VerticalLayout {
 	@Resource
 	private CourseService courseService;
 
-	private static final long serialVersionUID = 1L;
 	private TabSheet coursesTabSheet = new TabSheet();
 	ResourceBundle lang = LanguageService.getInstance().getRes();
 
@@ -66,7 +66,6 @@ public class AuthorlibraryForm extends VerticalLayout {
 				/**
 				 * 
 				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void buttonClick(ClickEvent event) {
@@ -114,7 +113,6 @@ public class AuthorlibraryForm extends VerticalLayout {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {

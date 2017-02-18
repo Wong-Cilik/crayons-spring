@@ -23,14 +23,14 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class MultipleChoiceEditor extends CustomComponent {
-	private static final long serialVersionUID = 5884398958435787340L;
 
 	private final OptionGroup answers = new OptionGroup();
 	private final Property<String> questionText = new ObjectProperty<String>(
 			"Enter the question here...");
 	private String rightAnswer = "";
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public MultipleChoiceEditor(String questionText, ArrayList<String> answers,
@@ -58,7 +58,6 @@ public class MultipleChoiceEditor extends CustomComponent {
 		editButton.addStyleName(ValoTheme.BUTTON_SMALL);
 		editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
 		editButton.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = 2128892506778715818L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
@@ -76,8 +75,6 @@ public class MultipleChoiceEditor extends CustomComponent {
 		final TextArea questionText = new TextArea(this.questionText);
 		questionText.setWidth(100.0f, Unit.PERCENTAGE);
 		questionText.addAttachListener(new AttachListener() {
-			private static final long serialVersionUID = -585304752892396542L;
-
 			@Override
 			public void attach(final AttachEvent event) {
 				questionText.focus();
@@ -89,8 +86,6 @@ public class MultipleChoiceEditor extends CustomComponent {
 		textField.setWidth(100.0f, Unit.PERCENTAGE);
 
 		answers.addValueChangeListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 8103764137753316059L;
-
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				rightAnswer = (String) event.getProperty().getValue();
@@ -99,7 +94,6 @@ public class MultipleChoiceEditor extends CustomComponent {
 
 		Button addQuestionButton = new Button(lang.getString("AddQuestion"));
 		addQuestionButton.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -6884263769895434223L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
@@ -114,11 +108,10 @@ public class MultipleChoiceEditor extends CustomComponent {
 
 		Button save = new Button(lang.getString("Save"));
 		save.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = 8068966193937340344L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				System.out.println(rightAnswer);	
+				System.out.println(rightAnswer);
 				setCompositionRoot(buildReadOnly());
 			}
 		});

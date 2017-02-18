@@ -16,19 +16,18 @@ import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 @SpringUI
 @SpringViewDisplay
 @Theme("mytheme")
 public class MyUI extends UI {
 
-	private static final long serialVersionUID = 1L;
-
 	private ApplicationContext applicationContext;
 
 	@Override
 	protected void init(VaadinRequest request) {
-	    Responsive.makeResponsive(this);
-        addStyleName(ValoTheme.UI_WITH_MENU);
+		Responsive.makeResponsive(this);
+		addStyleName(ValoTheme.UI_WITH_MENU);
 
 		httpSession(request);
 		getPage().setTitle("Crayons");

@@ -15,6 +15,7 @@ import com.vaadin.ui.VerticalLayout;
 /**
  * UI content when the user is not logged in yet.
  */
+@SuppressWarnings("serial")
 @Theme("mytheme")
 @SpringView(name = LoginScreen.VIEW_NAME)
 @ViewScope
@@ -22,7 +23,7 @@ public class LoginScreen extends CssLayout implements View {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	public static final String VIEW_NAME = "";
 
 	/**

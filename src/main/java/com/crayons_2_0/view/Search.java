@@ -35,6 +35,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 @SpringView(name = Search.VIEW_NAME)
 @ViewScope
 @SpringComponent
@@ -43,7 +44,7 @@ public final class Search extends VerticalLayout implements View {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
 	public static final String VIEW_NAME = "Search";
 	private Table table;
@@ -90,7 +91,6 @@ public final class Search extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -111,7 +111,6 @@ public final class Search extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void textChange(final TextChangeEvent event) {
@@ -150,7 +149,6 @@ public final class Search extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void itemClick(ItemClickEvent event) {
@@ -174,7 +172,6 @@ public final class Search extends VerticalLayout implements View {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		public TempContainer(final Collection<CourseDisplay> collection) {
 			super(collection);

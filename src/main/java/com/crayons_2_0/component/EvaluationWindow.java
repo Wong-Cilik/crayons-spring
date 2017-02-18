@@ -20,7 +20,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 public class EvaluationWindow extends Window {
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public EvaluationWindow(Map<String, Boolean> responces) {
@@ -94,7 +94,7 @@ public class EvaluationWindow extends Window {
 	}
 
 	private Component buildTitle() {
-		Label title = new Label(lang.getString("TestResults"));		
+		Label title = new Label(lang.getString("TestResults"));
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}

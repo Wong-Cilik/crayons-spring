@@ -1,6 +1,5 @@
 package com.crayons_2_0.view;
 
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,8 +15,6 @@ import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.UserDisplay;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UserService;
-import com.vaadin.data.Container.ItemSetChangeEvent;
-import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.fieldgroup.PropertyId;
@@ -43,6 +40,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 @SpringView(name = AdminView.VIEW_NAME)
 @ViewScope
 @SpringComponent
@@ -51,7 +49,6 @@ public final class AdminView extends VerticalLayout implements View {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	UserService userService;
@@ -125,11 +122,10 @@ public final class AdminView extends VerticalLayout implements View {
 		}
 		return collection;
 	}
-	
-	@SuppressWarnings("serial")
+
 	private Table buildTable() {
 		container = new TempContainer(getTableContents());
-		
+
 		table.setSizeFull();
 		table.setColumnReorderingAllowed(false);
 		table.addStyleName(ValoTheme.TABLE_BORDERLESS);
@@ -142,7 +138,7 @@ public final class AdminView extends VerticalLayout implements View {
 		table.setColumnHeaders("eMail", "Name", "Rechte", "Erstellte Kurse",
 				"Besuchte Kurse");
 		table.addItemClickListener(new ItemClickListener() {
-			
+
 			/**
 			 * 
 			 */
@@ -155,7 +151,6 @@ public final class AdminView extends VerticalLayout implements View {
 				ad.nameField.setReadOnly(false);
 				ad.nameField.setValue(userDisplay.getName());
 				ad.nameField.setReadOnly(true);
-
 
 				ad.emailField.setReadOnly(false);
 				ad.emailField.setValue(userDisplay.getEmail());
@@ -180,7 +175,6 @@ public final class AdminView extends VerticalLayout implements View {
 	public void enter(final ViewChangeEvent event) {
 	}
 
-	@SuppressWarnings("serial")
 	private class TempContainer extends ListContainer<UserDisplay> {
 
 		public TempContainer(final Collection<UserDisplay> collection) {
@@ -189,7 +183,6 @@ public final class AdminView extends VerticalLayout implements View {
 
 	}
 
-	@SuppressWarnings("serial")
 	private HorizontalLayout buildProfileTab(UserDisplay uD) {
 		root = new HorizontalLayout();
 		root.setWidth(100.0f, Unit.PERCENTAGE);
@@ -222,10 +215,11 @@ public final class AdminView extends VerticalLayout implements View {
 		details.addComponent(title);
 
 		rights.addItems("Schüler", "Autor", "Admin");
-		rights.addValueChangeListener (new ValueChangeListener() {
-			
+		rights.addValueChangeListener(new ValueChangeListener() {
+
 			public void valueChange(ValueChangeEvent event) {
-				userService.updateRights(emailField.getValue(), rights.getValue().toString());
+				userService.updateRights(emailField.getValue(), rights
+						.getValue().toString());
 				container = new TempContainer(getTableContents());
 				table.setContainerDataSource(container);
 			}

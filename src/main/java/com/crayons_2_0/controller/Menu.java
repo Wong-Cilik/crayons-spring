@@ -28,15 +28,13 @@ import com.vaadin.ui.themes.ValoTheme;
 /**
  * Responsive navigation menu presenting a list of available views to the user.
  */
+@SuppressWarnings("serial")
 public class Menu extends CssLayout {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	/**
-     * 
-     */
+
 	private static final String VALO_MENUITEMS = "valo-menuitems";
 	private static final String VALO_MENU_TOGGLE = "valo-menu-toggle";
 	private static final String VALO_MENU_VISIBLE = "valo-menu-visible";
@@ -84,8 +82,6 @@ public class Menu extends CssLayout {
 		logoutMenu.addItem(lang.getString("Logout"), FontAwesome.SIGN_OUT,
 				new Command() {
 
-					private static final long serialVersionUID = 1L;
-
 					@Override
 					public void menuSelected(MenuItem selectedItem) {
 						SecurityContextHolder.clearContext();
@@ -105,7 +101,6 @@ public class Menu extends CssLayout {
 					/**
              * 
              */
-					private static final long serialVersionUID = 1L;
 
 					@Override
 					public void buttonClick(final ClickEvent event) {
@@ -189,7 +184,6 @@ public class Menu extends CssLayout {
 			/**
              * 
              */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {

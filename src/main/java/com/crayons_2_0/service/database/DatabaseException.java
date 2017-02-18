@@ -1,11 +1,12 @@
 package com.crayons_2_0.service.database;
 
+@SuppressWarnings("serial")
 public class DatabaseException extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	private String reason = null;
 
 	public DatabaseException(String reason) {

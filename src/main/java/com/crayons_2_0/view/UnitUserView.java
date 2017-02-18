@@ -28,13 +28,13 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 @SpringView(name = UnitUserView.VIEW_NAME)
 public class UnitUserView extends VerticalLayout implements View {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 
 	public static final String VIEW_NAME = "Unit User View";
 
@@ -53,7 +53,6 @@ public class UnitUserView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -69,7 +68,6 @@ public class UnitUserView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -182,7 +180,6 @@ public class UnitUserView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {

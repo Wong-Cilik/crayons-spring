@@ -42,12 +42,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 public class UnitEditorView extends VerticalLayout implements View {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public static final String VIEW_NAME = "Unit Editor LevinNeu"; // Todo:
 																	// Change
@@ -126,7 +122,6 @@ public class UnitEditorView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void layoutClick(final LayoutClickEvent event) {
@@ -152,7 +147,6 @@ public class UnitEditorView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -194,7 +188,7 @@ public class UnitEditorView extends VerticalLayout implements View {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
+
 		private VerticalLayout layout;
 		private final DropHandler dropHandler;
 		private TextField titleLabel;
@@ -214,7 +208,6 @@ public class UnitEditorView extends VerticalLayout implements View {
 				/**
 				 * 
 				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void valueChange(final ValueChangeEvent event) {
@@ -240,7 +233,6 @@ public class UnitEditorView extends VerticalLayout implements View {
 				/**
 				 * 
 				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public AcceptCriterion getAcceptCriterion() {
@@ -304,7 +296,6 @@ public class UnitEditorView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			public WrappedComponent(final Component content) {
 				super(content);
@@ -323,7 +314,6 @@ public class UnitEditorView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public AcceptCriterion getAcceptCriterion() {

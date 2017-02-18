@@ -17,15 +17,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class LoginForm extends VerticalLayout {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
-     * 
-     */
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	private TextField txtLogin = new TextField(lang.getString("Login") + ": ");
@@ -57,11 +50,6 @@ public class LoginForm extends VerticalLayout {
 	 */
 	private void createRegisterButton() {
 		btnRegistrate.addClickListener(new ClickListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {

@@ -43,18 +43,18 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 @SpringView(name = AboutView.VIEW_NAME)
 public class AboutView extends VerticalLayout implements View {
 
 	/**
      * 
      */
-	private static final long serialVersionUID = 1L;
+
 	public static final String VIEW_NAME = "About";
 	ResourceBundle lang = LanguageService.getInstance().getRes();
 	private TextField txtUserLabel;
 
-	@SuppressWarnings("serial")
 	public AboutView() {
 		final Dagre graph = new Dagre();
 		addComponent(graph);
@@ -98,28 +98,6 @@ public class AboutView extends VerticalLayout implements View {
 		sample.addValueChangeListener(e -> Notification.show("Value changed:"));
 		aboutContent.addComponent(sample);
 
-		// NEW-DATENBANK----TEST--------------------------------------------------------------------
-		/*
-		 * Button testDB = new Button("Teste Datenbank");
-		 * testDB.addClickListener(new ClickListener() {
-		 * 
-		 * @Override public void buttonClick(ClickEvent event) {
-		 * 
-		 * try { Statement statement =
-		 * JDBCConnection.getInstance().getStatement(); ResultSet set =
-		 * statement.executeQuery("SELECT * FROM user");
-		 * 
-		 * while (set.next()) { Label levin = new Label(set.getString(1));
-		 * aboutContent.addComponent(levin); } } catch (DatabaseException |
-		 * SQLException e1) { e1.printStackTrace(); } Label levin = new
-		 * Label("Hier müssten die Namen erscheinen");
-		 * aboutContent.addComponent(levin);
-		 * 
-		 * } }); aboutContent.addComponent(testDB);
-		 */
-		// -------- DATENBANK NEU
-		// ----------------------------------------------------------------------
-
 		TextField txtUserLabel = new TextField("User label: ");
 		aboutContent.addComponent(txtUserLabel);
 
@@ -143,38 +121,12 @@ public class AboutView extends VerticalLayout implements View {
 		});
 		aboutContent.addComponent(dbTest);
 
-		// -------------------------------------------------------------------------------
-
-		// NEW-DATENBANK----TEST--------------------------------------------------------------------
-		/*
-		 * Button testDB = new Button("Teste Datenbank");
-		 * testDB.addClickListener(new ClickListener() {
-		 * 
-		 * @Override public void buttonClick(ClickEvent event) {
-		 * 
-		 * try { Statement statement =
-		 * JDBCConnection.getInstance().getStatement(); ResultSet set =
-		 * statement.executeQuery("SELECT * FROM user");
-		 * 
-		 * while (set.next()) { Label levin = new Label(set.getString(1));
-		 * aboutContent.addComponent(levin); } } catch (DatabaseException |
-		 * SQLException e1) { e1.printStackTrace(); } Label levin = new
-		 * Label("Hier müssten die Namen erscheinen");
-		 * aboutContent.addComponent(levin);
-		 * 
-		 * } }); aboutContent.addComponent(testDB);
-		 */
-		// -------- DATENBANK NEU
-		// ----------------------------------------------------------------------
-
 		TextField txtUserLabel1 = new TextField("User label: ");
 		aboutContent.addComponent(txtUserLabel1);
 
 		Button btnAddNewUser1 = new Button("Add New User");
 		// btnAddNewUser.addClickListener(new AddNewUserListener());
 		aboutContent.addComponent(btnAddNewUser1);
-
-		// DatenBank ganzNeu
 
 		Button dbTest1 = new Button("Teste Datenbank");
 		dbTest1.addClickListener(new Button.ClickListener() {
@@ -189,8 +141,6 @@ public class AboutView extends VerticalLayout implements View {
 			}
 		});
 		aboutContent.addComponent(dbTest1);
-
-		// -------------------------------------------------------------------------------
 
 		Button buttonGerman = new Button(lang.getString("German"));
 		buttonGerman.setIcon(FontAwesome.BEER);
@@ -361,7 +311,6 @@ public class AboutView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void textChange(final TextChangeEvent event) {

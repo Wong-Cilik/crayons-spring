@@ -9,9 +9,9 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class MultipleChoice extends VerticalLayout {
 
-	private static final long serialVersionUID = 1L;
 	ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	/**
@@ -39,7 +39,6 @@ public class MultipleChoice extends VerticalLayout {
 					/**
 				 * 
 				 */
-					private static final long serialVersionUID = 1L;
 
 					@Override
 					public void valueChange(final ValueChangeEvent event) {
@@ -57,7 +56,6 @@ public class MultipleChoice extends VerticalLayout {
 			/**
          * 
          */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void valueChange(final ValueChangeEvent event) {

@@ -100,26 +100,27 @@ public class Authorlibrary extends VerticalLayout implements View,
 		setMargin(false);
 
 		if (Page.getCurrent().getBrowserWindowWidth() > 1024) {
-		    this.filter = buildFilter();
-		    header.setSizeFull();
-	        header.setWidth("100%");
-	        header.setSpacing(false);
-	        header.addComponent(buildTitle());
-	        header.addComponent(this.filter);
-	        header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
-	        header.setMargin(true);
+			this.filter = buildFilter();
+			header.setSizeFull();
+			header.setWidth("100%");
+			header.setSpacing(false);
+			header.addComponent(buildTitle());
+			header.addComponent(this.filter);
+			header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
+			header.setMargin(true);
 
-	        content.addComponent(buildCoursesTabSheet());
-	        addComponent(header);
-	        addComponent(content);
+			content.addComponent(buildCoursesTabSheet());
+			addComponent(header);
+			addComponent(content);
 		} else {
-		    Panel panel = new Panel();
-		    panel.setStyleName(ValoTheme.PANEL_BORDERLESS);
-		    panel.setSizeFull();
-		    panel.setContent(new Label(lang.getString("AuthorLibraryUnavailable")));
-            content.addComponent(panel);
-            content.setMargin(true);
-            addComponent(content);
+			Panel panel = new Panel();
+			panel.setStyleName(ValoTheme.PANEL_BORDERLESS);
+			panel.setSizeFull();
+			panel.setContent(new Label(lang
+					.getString("AuthorLibraryUnavailable")));
+			content.addComponent(panel);
+			content.setMargin(true);
+			addComponent(content);
 		}
 	}
 
@@ -257,11 +258,13 @@ public class Authorlibrary extends VerticalLayout implements View,
 		TwinColSelect selectStudents = new TwinColSelect();
 		selectStudents.setMultiSelect(true);
 		selectStudents.setCaptionAsHtml(true);
-		selectStudents.setCaption("<h3>" + lang.getString("SelectParticipants") + "</h3>");
+		selectStudents.setCaption("<h3>" + lang.getString("SelectParticipants")
+				+ "</h3>");
 
 		selectStudents.setRows(10);
 		selectStudents.setSizeFull();
-		selectStudents.setLeftColumnCaption(lang.getString("ListOfAllStudents"));
+		selectStudents
+				.setLeftColumnCaption(lang.getString("ListOfAllStudents"));
 		selectStudents.setRightColumnCaption(lang.getString("Participants"));
 		// adding all users to the select Student Table
 		List<CrayonsUser> allUsers = userService.findAll();
@@ -320,6 +323,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 	 *            course title
 	 * @return layout with the control buttons
 	 */
+	@SuppressWarnings("serial")
 	private Component buildControlButtons(Component tab, String title) {
 		HorizontalLayout controlButtons = new HorizontalLayout();
 		controlButtons.setMargin(true);
@@ -334,7 +338,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -393,6 +396,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 	 * 
 	 * @return layout with search field
 	 */
+	@SuppressWarnings("serial")
 	public Component buildFilter() {
 		VerticalLayout search = new VerticalLayout();
 		search.setStyleName("search");
@@ -404,7 +408,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void textChange(final TextChangeEvent event) {

@@ -15,13 +15,14 @@ import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.Component;
 
 public class ExportEditor {
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public ExportEditor() {
 		// TODO Auto-generated constructor stub
 	}
 
+	@SuppressWarnings("serial")
 	public Component ExportButton() {
 
 		Button export = new Button(lang.getString("Export"));
@@ -31,13 +32,12 @@ public class ExportEditor {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				for (Window window : UI.getCurrent().getWindows())
 					window.close();
-				Notification success = new Notification(lang.getString("fileIsExportedSuccessfully"));
+				Notification success = new Notification(lang
+						.getString("fileIsExportedSuccessfully"));
 				success.setDelayMsec(2000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);

@@ -7,11 +7,12 @@ import java.util.Set;
 
 import com.crayons_2_0.model.Course;
 
+@SuppressWarnings("serial")
 public class Graph implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	private final Course course;
 	private final UnitNode startNode;
 	private final UnitNode endNode;

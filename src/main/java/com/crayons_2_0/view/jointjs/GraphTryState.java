@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import com.vaadin.shared.ui.JavaScriptComponentState;
 
+@SuppressWarnings("serial")
 public class GraphTryState extends JavaScriptComponentState {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	private ArrayList<Integer> coords;
 
 	public ArrayList<Integer> getCoords() {

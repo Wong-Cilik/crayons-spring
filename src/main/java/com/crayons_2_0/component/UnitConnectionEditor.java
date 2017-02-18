@@ -36,7 +36,7 @@ public class UnitConnectionEditor extends Window {
 	static Graph graph;
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
-	
+
 	public UnitConnectionEditor(Graph graphData) {
 		graph = graphData;
 		setSizeFull();
@@ -64,10 +64,10 @@ public class UnitConnectionEditor extends Window {
 	}
 
 	private Component buildUnitsChoiceBoxes() {
-	    VerticalLayout layout = new VerticalLayout();
-	    Label selectUnits = new Label(lang.getString("SelectLearningUnits"));
-	    layout.addComponent(selectUnits);
-        
+		VerticalLayout layout = new VerticalLayout();
+		Label selectUnits = new Label(lang.getString("SelectLearningUnits"));
+		layout.addComponent(selectUnits);
+
 		HorizontalLayout comboBoxes = new HorizontalLayout();
 		comboBoxes.setSpacing(true);
 
@@ -94,7 +94,7 @@ public class UnitConnectionEditor extends Window {
 						.toString());
 			}
 		});
-		
+
 		layout.addComponent(comboBoxes);
 		return layout;
 	}
@@ -112,7 +112,8 @@ public class UnitConnectionEditor extends Window {
 				graph.deleteConnection(parent, child);
 				CourseEditorView.refreshGraph(graph);
 				close();
-				Notification success = new Notification(lang.getString("UnitsAreDisconnectedSuccessfully"));
+				Notification success = new Notification(lang
+						.getString("UnitsAreDisconnectedSuccessfully"));
 				success.setDelayMsec(1000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);
@@ -130,7 +131,8 @@ public class UnitConnectionEditor extends Window {
 				graph.addConnection(parent, child);
 				CourseEditorView.refreshGraph(graph);
 				close();
-				Notification success = new Notification(lang.getString("UitsAreConnectedSuccessfully"));
+				Notification success = new Notification(lang
+						.getString("UitsAreConnectedSuccessfully"));
 				success.setDelayMsec(1000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);

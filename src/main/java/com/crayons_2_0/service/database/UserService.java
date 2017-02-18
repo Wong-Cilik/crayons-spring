@@ -96,18 +96,18 @@ public class UserService implements UserDetailsService {
 			String lastName) {
 		return userDAO.updateUser(user, eMail, firstName, lastName);
 	}
-	
+
 	public boolean updateRights(String eMail, String role) {
 		int r = 2;
-		if (role.equals("Autor")){
+		if (role.equals("Autor")) {
 			r = 1;
 		}
-		if (role.equals("Admin")){
+		if (role.equals("Admin")) {
 			r = 0;
 		}
 		return userDAO.updateRights(eMail, r);
 	}
-	
+
 	/**
 	 * removes an User
 	 * 

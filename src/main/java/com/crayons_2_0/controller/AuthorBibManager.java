@@ -21,6 +21,7 @@ public class AuthorBibManager {
 	@Autowired
 	CurrentUser user;
 
+	@SuppressWarnings("serial")
 	public Component getCourseTabs(CourseService courseService) {
 
 		TabSheet tabSheet = new TabSheet();
@@ -35,11 +36,6 @@ public class AuthorBibManager {
 
 			Button exampleButton = new Button();
 			exampleButton.addClickListener(new ClickListener() {
-
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void buttonClick(ClickEvent event) {

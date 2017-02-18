@@ -20,13 +20,14 @@ import com.vaadin.ui.themes.ValoTheme;
  * learning unit.
  *
  */
+@SuppressWarnings("serial")
 @SpringView(name = CourseUserView.VIEW_NAME)
 public class CourseUserView extends VerticalLayout implements View {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	public static final String VIEW_NAME = "User Learning Graph";
 
 	public CourseUserView() {
@@ -57,7 +58,6 @@ public class CourseUserView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -76,7 +76,6 @@ public class CourseUserView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {

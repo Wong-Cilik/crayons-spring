@@ -25,14 +25,14 @@ import com.vaadin.ui.themes.ValoTheme;
 
 // Code is based on https://github.com/vaadin/dashboard-demo/blob/7.7/src/main/java/com/vaadin/demo/dashboard/component/InlineTextEditor.java
 
+@SuppressWarnings("serial")
 public class TextEditor extends CustomComponent {
-	private static final long serialVersionUID = 4186796136009413559L;
 
 	private final Property<String> property = new ObjectProperty<String>(
 			"Enter text here...");
 	private final Component textEditor;
 	private final Component readOnly;
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public TextEditor(String prefillData) {
@@ -57,7 +57,6 @@ public class TextEditor extends CustomComponent {
 		editButton.addStyleName(ValoTheme.BUTTON_SMALL);
 		editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
 		editButton.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -8467021048199100945L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
@@ -69,7 +68,6 @@ public class TextEditor extends CustomComponent {
 		result.addStyleName("text-editor");
 		result.setSizeFull();
 		result.addLayoutClickListener(new LayoutClickListener() {
-			private static final long serialVersionUID = 7363639788653598603L;
 
 			@Override
 			public void layoutClick(final LayoutClickEvent event) {
@@ -96,7 +94,6 @@ public class TextEditor extends CustomComponent {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void attach(final AttachEvent event) {
@@ -109,7 +106,6 @@ public class TextEditor extends CustomComponent {
 					/**
 			 * 
 			 */
-					private static final long serialVersionUID = 1L;
 
 					public void valueChange(ValueChangeEvent event) {
 						Notification.show("CKEditor v"
@@ -129,7 +125,6 @@ public class TextEditor extends CustomComponent {
 		 */
 		Button save = new Button(lang.getString("Save"));
 		save.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -4688758527425055901L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
@@ -139,7 +134,6 @@ public class TextEditor extends CustomComponent {
 		});
 
 		save.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = 6125553410927864047L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {

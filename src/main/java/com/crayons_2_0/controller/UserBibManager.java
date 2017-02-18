@@ -42,6 +42,7 @@ public class UserBibManager {
 		return tabSheet;
 	}
 
+	@SuppressWarnings("serial")
 	private static VerticalLayout createContentForTab(Course tmpCourse) {
 		VerticalLayout content = new VerticalLayout();
 
@@ -56,7 +57,6 @@ public class UserBibManager {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -75,7 +75,6 @@ public class UserBibManager {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -90,7 +89,6 @@ public class UserBibManager {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {

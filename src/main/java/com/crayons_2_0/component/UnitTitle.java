@@ -18,8 +18,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 public class UnitTitle extends CustomComponent {
-	private static final long serialVersionUID = 2343588123846949111L;
 
 	private final Property<String> property = new ObjectProperty<String>(
 			"Enter unit title here...");
@@ -51,7 +51,6 @@ public class UnitTitle extends CustomComponent {
 		editButton.addStyleName(ValoTheme.BUTTON_SMALL);
 		editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
 		editButton.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -6863363158492604043L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
@@ -63,8 +62,6 @@ public class UnitTitle extends CustomComponent {
 		result.addStyleName("text-editor");
 		result.setSizeFull();
 		result.addLayoutClickListener(new LayoutClickListener() {
-			private static final long serialVersionUID = 2211766026521962658L;
-
 			@Override
 			public void layoutClick(final LayoutClickEvent event) {
 				if (event.getChildComponent() == title && event.isDoubleClick()) {
@@ -79,8 +76,6 @@ public class UnitTitle extends CustomComponent {
 		final TextField textField = new TextField(property);
 		textField.setWidth(100.0f, Unit.PERCENTAGE);
 		textField.addAttachListener(new AttachListener() {
-			private static final long serialVersionUID = -3246635949197534220L;
-
 			@Override
 			public void attach(final AttachEvent event) {
 				textField.focus();
@@ -90,8 +85,6 @@ public class UnitTitle extends CustomComponent {
 
 		Button save = new Button("Save");
 		save.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = 7805400627427951016L;
-
 			@Override
 			public void buttonClick(final ClickEvent event) {
 				setCompositionRoot(readOnly);

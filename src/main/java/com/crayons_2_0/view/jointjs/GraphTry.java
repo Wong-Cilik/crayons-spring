@@ -3,6 +3,7 @@ package com.crayons_2_0.view.jointjs;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.ui.AbstractJavaScriptComponent;
 
+@SuppressWarnings("serial")
 @JavaScript({
 		"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js",
 		"https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js",
@@ -14,7 +15,7 @@ public class GraphTry extends AbstractJavaScriptComponent {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	/*
 	 * public void setCoords(final ArrayList<Integer> coords) {
 	 * getState().setCoords(coords); } s

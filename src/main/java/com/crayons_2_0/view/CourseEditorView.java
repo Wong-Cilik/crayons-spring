@@ -58,7 +58,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 	public static final String VIEW_NAME = "Learning Graph";
 	// javascript element
 	final static Dagre graph = new Dagre();
-	
+
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	@PostConstruct
@@ -109,7 +109,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 	private Component buildControlButtons() {
 		HorizontalLayout layout = new HorizontalLayout();
 		layout.setSpacing(true);
-		Button backButton = new Button(lang.getString("Back"), FontAwesome.ARROW_LEFT);
+		Button backButton = new Button(lang.getString("Back"),
+				FontAwesome.ARROW_LEFT);
 		layout.addComponent(backButton);
 		backButton.addClickListener(new ClickListener() {
 
@@ -211,9 +212,9 @@ public class CourseEditorView extends VerticalLayout implements View {
 	 */
 	public enum EditMenuButtonType {
 		ADD_UNIT(lang.getString("AddUnit"), FontAwesome.PLUS), CONNECT_UNITS(
-		        lang.getString("ModifyConnections"), FontAwesome.LINK), DELETE_UNIT(
+				lang.getString("ModifyConnections"), FontAwesome.LINK), DELETE_UNIT(
 				lang.getString("DeleteUnit"), FontAwesome.TRASH), EDIT_UNIT(
-				lang.getString("SelectUnit"),FontAwesome.PENCIL);
+				lang.getString("SelectUnit"), FontAwesome.PENCIL);
 
 		private final String title;
 		private final FontAwesome icon;

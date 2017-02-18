@@ -34,13 +34,14 @@ import com.vaadin.ui.themes.ValoTheme;
  * User library view represents the courses which are available for current
  * user.
  */
+@SuppressWarnings("serial")
 @SpringView(name = UserlibraryView.VIEW_NAME)
 public class UserlibraryView extends VerticalLayout implements View {
 
 	/**
      * 
      */
-	private static final long serialVersionUID = 1L;
+
 	public static final String VIEW_NAME = "Userlibrary";
 	ResourceBundle lang = LanguageService.getInstance().getRes();
 
@@ -175,7 +176,6 @@ public class UserlibraryView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -194,7 +194,6 @@ public class UserlibraryView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -226,7 +225,6 @@ public class UserlibraryView extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void textChange(final TextChangeEvent event) {

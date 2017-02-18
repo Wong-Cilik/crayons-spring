@@ -37,7 +37,7 @@ public final class UnitCreationWindow extends Window {
 	// sollte noch ein set werden
 	UnitNode child;
 	static Graph graph;
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public UnitCreationWindow(Graph graphData) {
@@ -92,7 +92,8 @@ public final class UnitCreationWindow extends Window {
 		comboBoxes.setMargin(true);
 		comboBoxes.setSpacing(true);
 
-		ComboBox selectPredecessor = new ComboBox(lang.getString("SelectThePreviousUnit"));
+		ComboBox selectPredecessor = new ComboBox(
+				lang.getString("SelectThePreviousUnit"));
 		comboBoxes.addComponent(selectPredecessor);
 
 		// Set<Node> predecessors = new HashSet<Node>();
@@ -110,7 +111,8 @@ public final class UnitCreationWindow extends Window {
 			}
 		});
 
-		ComboBox selectSuccessor = new ComboBox(lang.getString("SelectTheNextUnit"));
+		ComboBox selectSuccessor = new ComboBox(
+				lang.getString("SelectTheNextUnit"));
 		comboBoxes.addComponent(selectSuccessor);
 		// Set<Node> successors = new HashSet<Node>();
 		// successors.add(new Node("Node 3"));
@@ -171,7 +173,8 @@ public final class UnitCreationWindow extends Window {
 				graph.addUnit(newUnit, parent);
 				CourseEditorView.refreshGraph(graph);
 				close();
-				Notification success = new Notification(lang.getString("UnitCreatedSuccessfully"));
+				Notification success = new Notification(lang
+						.getString("UnitCreatedSuccessfully"));
 				success.setDelayMsec(1000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);

@@ -25,6 +25,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
+@SuppressWarnings("serial")
 @SpringUI
 @ViewScope
 @SpringComponent
@@ -33,7 +34,6 @@ public class CourseModificationWindow extends Window {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	ResourceBundle lang = LanguageService.getInstance().getRes();
 	private TabSheet tabSheet;
 	private Component tab;
@@ -112,8 +112,6 @@ public class CourseModificationWindow extends Window {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				// TODO: check why null at CourseDAO findAll()

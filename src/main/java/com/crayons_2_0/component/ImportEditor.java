@@ -25,15 +25,14 @@ import com.vaadin.ui.themes.ValoTheme;
  * Creates a window for choosing a learning unit to be imported.
  *
  */
+@SuppressWarnings("serial")
 public class ImportEditor extends Window {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
-	
+
 	/**
 	 * Builds together several components of the import editor.
 	 */
@@ -85,14 +84,14 @@ public class ImportEditor extends Window {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 			public File file;
 
 			@Override
 			public void uploadSucceeded(SucceededEvent event) {
 				for (Window window : UI.getCurrent().getWindows())
 					window.close();
-				Notification success = new Notification(lang.getString("FileIsImportedSuccessfully"));
+				Notification success = new Notification(
+						lang.getString("FileIsImportedSuccessfully"));
 				success.setDelayMsec(2000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);
@@ -109,9 +108,10 @@ public class ImportEditor extends Window {
 							+ filename);
 					stream = new FileOutputStream(file);
 				} catch (final java.io.FileNotFoundException e) {
-					new Notification(lang.getString("CouldNotOpenFile") + "<br/>",
-							e.getMessage(), Notification.Type.ERROR_MESSAGE)
-							.show(Page.getCurrent());
+					new Notification(lang.getString("CouldNotOpenFile")
+							+ "<br/>", e.getMessage(),
+							Notification.Type.ERROR_MESSAGE).show(Page
+							.getCurrent());
 					return null;
 				}
 				return stream;
@@ -131,7 +131,8 @@ public class ImportEditor extends Window {
 		String username = System.getProperty("user.name");
 		File uploads = new File("C:/Users/" + username + "/vaadin-uploads");
 		if (!uploads.exists() && !uploads.mkdir())
-			layout.addComponent(new Label(lang.getString("ERRORCouldNotCreateUploadDir")));
+			layout.addComponent(new Label(lang
+					.getString("ERRORCouldNotCreateUploadDir")));
 
 		return layout;
 	}

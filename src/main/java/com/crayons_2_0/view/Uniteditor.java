@@ -47,13 +47,13 @@ import com.vaadin.ui.themes.ValoTheme;
  * drop editor.
  *
  */
+@SuppressWarnings("serial")
 @SpringView(name = Uniteditor.VIEW_NAME)
 public class Uniteditor extends VerticalLayout implements View {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 
 	public static final String VIEW_NAME = "Unit Editor";
 
@@ -114,7 +114,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void layoutClick(final LayoutClickEvent event) {
@@ -149,7 +148,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void drop(final DragAndDropEvent event) {
@@ -174,7 +172,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void layoutClick(final LayoutClickEvent event) {
@@ -194,7 +191,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -215,7 +211,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -233,7 +228,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -248,7 +242,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -321,7 +314,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
+
 		// TODO check if here save unit to save the unit
 		private VerticalLayout layout;
 		private final DropHandler dropHandler;
@@ -370,7 +363,6 @@ public class Uniteditor extends VerticalLayout implements View {
 				/**
 				 * 
 				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public AcceptCriterion getAcceptCriterion() {
@@ -464,7 +456,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			public WrappedPageItem(final Component content) {
 				super(content);
@@ -487,7 +478,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public AcceptCriterion getAcceptCriterion() {
@@ -612,7 +602,6 @@ public class Uniteditor extends VerticalLayout implements View {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		/**
 		 * Builds together several components of the window.
@@ -656,7 +645,6 @@ public class Uniteditor extends VerticalLayout implements View {
 				/**
 				 * 
 				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void buttonClick(ClickEvent event) {
@@ -672,7 +660,6 @@ public class Uniteditor extends VerticalLayout implements View {
 				/**
 				 * 
 				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void buttonClick(ClickEvent event) {
@@ -689,7 +676,6 @@ public class Uniteditor extends VerticalLayout implements View {
 				/**
 				 * 
 				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public void buttonClick(ClickEvent event) {

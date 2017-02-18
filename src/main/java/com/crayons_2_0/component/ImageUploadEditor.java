@@ -37,15 +37,15 @@ import com.vaadin.ui.themes.ValoTheme;
 
 // Code is based on https://github.com/vaadin/book-examples/blob/master/src/com/vaadin/book/examples/component/UploadExample.java
 
+@SuppressWarnings("serial")
 public class ImageUploadEditor extends CustomComponent {
-	private static final long serialVersionUID = -8880121539345363049L;
 
 	private final Image image = new Image();
 	private final Property<String> imageTitle = new ObjectProperty<String>("");
 	private final Property<String> imageSource = new ObjectProperty<String>("");
 	private final Component selectImageEditor;
 	private final Component showImage;
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public ImageUploadEditor() {
@@ -85,8 +85,6 @@ public class ImageUploadEditor extends CustomComponent {
 		result.addStyleName("text-editor");
 		result.setSizeFull();
 		result.addLayoutClickListener(new LayoutClickListener() {
-			private static final long serialVersionUID = -8289333071983502304L;
-
 			@Override
 			public void layoutClick(final LayoutClickEvent event) {
 				if (event.getChildComponent() == image && event.isDoubleClick()) {
@@ -105,7 +103,6 @@ public class ImageUploadEditor extends CustomComponent {
 		image.setVisible(false);
 
 		class ImageReceiver implements Receiver, SucceededListener {
-			private static final long serialVersionUID = -5899511248623876868L;
 
 			public File file;
 
@@ -125,9 +122,10 @@ public class ImageUploadEditor extends CustomComponent {
 							+ filename);
 					stream = new FileOutputStream(file);
 				} catch (final java.io.FileNotFoundException e) {
-					new Notification(lang.getString("CouldNotOpenFile") + "<br/>",
-							e.getMessage(), Notification.Type.ERROR_MESSAGE)
-							.show(Page.getCurrent());
+					new Notification(lang.getString("CouldNotOpenFile")
+							+ "<br/>", e.getMessage(),
+							Notification.Type.ERROR_MESSAGE).show(Page
+							.getCurrent());
 					return null;
 				}
 				return stream;
@@ -137,14 +135,14 @@ public class ImageUploadEditor extends CustomComponent {
 
 		ImageReceiver receiver = new ImageReceiver();
 
-		final Upload upload = new Upload(lang.getString("UploadImage"), receiver);
+		final Upload upload = new Upload(lang.getString("UploadImage"),
+				receiver);
 		upload.setButtonCaption(lang.getString("Upload"));
 		upload.addSucceededListener(receiver);
 
 		// TODO: set upload limit
 		final long UPLOAD_LIMIT = 1000000l;
 		upload.addStartedListener(new StartedListener() {
-			private static final long serialVersionUID = 4728847902678459488L;
 
 			@Override
 			public void uploadStarted(StartedEvent event) {
@@ -158,7 +156,6 @@ public class ImageUploadEditor extends CustomComponent {
 
 		// Check the size also during progress
 		upload.addProgressListener(new ProgressListener() {
-			private static final long serialVersionUID = 8587352676703174995L;
 
 			@Override
 			public void updateProgress(long readBytes, long contentLength) {
@@ -184,8 +181,6 @@ public class ImageUploadEditor extends CustomComponent {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void attach(final AttachEvent event) {
 				titleField.focus();
@@ -193,7 +188,8 @@ public class ImageUploadEditor extends CustomComponent {
 			}
 		});
 
-		final Label sourceFieldLabel = new Label(lang.getString("ImageSourse"));    // SourCe Tippfehler??
+		final Label sourceFieldLabel = new Label(lang.getString("ImageSourse")); // SourCe
+																					// Tippfehler??
 		final TextField sourceField = new TextField(imageSource);
 		sourceField.setWidth(100.0f, Unit.PERCENTAGE);
 		HorizontalLayout sourceLayout = new HorizontalLayout(sourceFieldLabel,
@@ -205,8 +201,6 @@ public class ImageUploadEditor extends CustomComponent {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void attach(final AttachEvent event) {
 				sourceField.focus();
@@ -221,7 +215,8 @@ public class ImageUploadEditor extends CustomComponent {
 		String username = System.getProperty("user.name");
 		File uploads = new File("C:/Users/" + username + "/vaadin-uploads");
 		if (!uploads.exists() && !uploads.mkdir())
-			layout.addComponent(new Label(lang.getString("ERRORCouldNotCreateUploadDir")));
+			layout.addComponent(new Label(lang
+					.getString("ERRORCouldNotCreateUploadDir")));
 
 		return layout;
 	}

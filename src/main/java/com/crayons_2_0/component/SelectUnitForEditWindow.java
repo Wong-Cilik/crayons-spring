@@ -19,14 +19,14 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 public class SelectUnitForEditWindow extends Window {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	static Graph graph;
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public SelectUnitForEditWindow(Graph graphData) {
@@ -59,7 +59,8 @@ public class SelectUnitForEditWindow extends Window {
 	}
 
 	private Component buildUnitChoice() {
-		ComboBox selectUnit = new ComboBox(lang.getString("SelectTheUnitForEdit"));
+		ComboBox selectUnit = new ComboBox(
+				lang.getString("SelectTheUnitForEdit"));
 		for (UnitNode tmp : graph.getUnitCollection()) {
 			selectUnit.addItem(tmp.getUnitNodeTitle());
 		}
@@ -77,8 +78,6 @@ public class SelectUnitForEditWindow extends Window {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				close();

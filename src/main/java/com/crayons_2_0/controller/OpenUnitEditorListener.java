@@ -8,13 +8,12 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 
+@SuppressWarnings("serial")
 public class OpenUnitEditorListener implements Button.ClickListener {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
 	@Override
 	public void buttonClick(ClickEvent event) {
 

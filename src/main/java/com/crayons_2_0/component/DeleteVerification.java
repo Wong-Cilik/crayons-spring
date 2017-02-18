@@ -32,7 +32,7 @@ public final class DeleteVerification extends Window {
 
 	// TODO von DB holen
 	static Graph graph;
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public DeleteVerification(Graph graphData) {
@@ -66,7 +66,8 @@ public final class DeleteVerification extends Window {
 	}
 
 	private Component buildUnitChoice() {
-		ComboBox selectUnit = new ComboBox(lang.getString("SelectTheUnitToBeDeleted"));
+		ComboBox selectUnit = new ComboBox(
+				lang.getString("SelectTheUnitToBeDeleted"));
 		for (UnitNode currentNode : graph.getUnitCollection()) {
 			selectUnit.addItem(currentNode.getUnitNodeTitle());
 		}
@@ -92,14 +93,16 @@ public final class DeleteVerification extends Window {
 				if (graph.deleteUnit(deleteUnit)) {
 					CourseEditorView.refreshGraph(graph);
 					close();
-					Notification success = new Notification(lang.getString("UnitIsDeletedSuccessfully"));
+					Notification success = new Notification(lang
+							.getString("UnitIsDeletedSuccessfully"));
 					success.setDelayMsec(500);
 					success.setStyleName("bar success small");
 					success.setPosition(Position.BOTTOM_CENTER);
 					success.show(Page.getCurrent());
 					deleteUnit = null;
 				} else {
-					Notification failed = new Notification(lang.getString("UnitFailedToDelete"));
+					Notification failed = new Notification(lang
+							.getString("UnitFailedToDelete"));
 					failed.setDelayMsec(500);
 					failed.setStyleName("bar success small");
 					failed.setPosition(Position.BOTTOM_CENTER);

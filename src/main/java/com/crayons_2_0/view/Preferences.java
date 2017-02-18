@@ -48,6 +48,7 @@ import com.vaadin.ui.themes.ValoTheme;
 //import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.fieldgroup.PropertyId;
 
+@SuppressWarnings("serial")
 @SpringView(name = Preferences.VIEW_NAME)
 @ViewScope
 @SpringComponent
@@ -56,7 +57,7 @@ public class Preferences extends VerticalLayout implements View {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	// public static final String ID = "profilepreferenceswindow";
 	public static final String VIEW_NAME = "Preferences";
 	ResourceBundle lang = LanguageService.getInstance().getRes();
@@ -154,7 +155,6 @@ public class Preferences extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
@@ -282,7 +282,6 @@ public class Preferences extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {

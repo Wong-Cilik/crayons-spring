@@ -153,7 +153,8 @@ public class UserDAO implements CommandLineRunner {
 	}
 
 	public boolean updateRights(String eMail, int r) {
-		jdbcTemplate.update("UPDATE users SET permission=? WHERE email=?", r, eMail);
+		jdbcTemplate.update("UPDATE users SET permission=? WHERE email=?", r,
+				eMail);
 		return true;
 	}
 }

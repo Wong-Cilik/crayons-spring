@@ -8,13 +8,12 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+@SuppressWarnings("serial")
 public class AddNewUnitListener implements Button.ClickListener {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
 	@Override
 	public void buttonClick(ClickEvent event) {
 		for (Window window : UI.getCurrent().getWindows())

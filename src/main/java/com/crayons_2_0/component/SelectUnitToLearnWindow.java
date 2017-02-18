@@ -17,13 +17,12 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
+@SuppressWarnings("serial")
 public class SelectUnitToLearnWindow extends Window {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	// TODO: put user and course as parameters to get information from db
@@ -77,8 +76,6 @@ public class SelectUnitToLearnWindow extends Window {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				close();
@@ -94,8 +91,6 @@ public class SelectUnitToLearnWindow extends Window {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				close();

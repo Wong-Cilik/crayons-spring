@@ -14,6 +14,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 
+@SuppressWarnings("serial")
 @SpringComponent
 @Component
 public class LoginFormListener implements Button.ClickListener {
@@ -21,7 +22,7 @@ public class LoginFormListener implements Button.ClickListener {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private AuthManager authManager;
 
