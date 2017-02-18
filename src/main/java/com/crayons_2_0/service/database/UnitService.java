@@ -73,8 +73,9 @@ public class UnitService {
 		return null;
 	}
 
+	//TODO fix return of UnitPageLayou
 	public UnitPageLayout getDummyLayout() {
-		return new UnitPageLayout();
+		return 	null;		//new UnitPageLayout();
 	}
 
 	public void saveLayout(UnitPageLayout layout, Graph graph,
