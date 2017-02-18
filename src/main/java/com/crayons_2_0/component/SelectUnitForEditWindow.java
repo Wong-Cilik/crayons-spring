@@ -85,11 +85,10 @@ public class SelectUnitForEditWindow extends Window {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				currentGraph.setUnitTitle((String)selectUnit.getValue());
+				CurrentGraph.getInstance().setUnitTitle(selectUnit.getValue().toString());
 				Uniteditor.refreshLayout(graph.getNodeByName((String)selectUnit.getValue()).getLayout());
 				close();
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
-
 			}
 		});
 		ok.focus();
