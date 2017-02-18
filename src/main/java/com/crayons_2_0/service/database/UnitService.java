@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.Course;
+import com.crayons_2_0.view.Uniteditor;
+import com.crayons_2_0.component.PageLayout;
 import com.vaadin.spring.annotation.SpringComponent;
 
 @SpringComponent
@@ -66,6 +68,10 @@ public class UnitService {
 	public List<Unit> getUnitsOfCourse(Course course) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public PageLayout getDummyLayout() {
+		return Uniteditor.getPageLayout();
 	}
 
 }
