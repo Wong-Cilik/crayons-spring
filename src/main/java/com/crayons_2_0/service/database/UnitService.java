@@ -71,7 +71,7 @@ public class UnitService {
 	}
 
 	public PageLayout getDummyLayout() {
-		return Uniteditor.getPageLayout();
+		return Uniteditor.getPageLayout();	//or new PageLayout(); but same java.lang.ClassCastException
 	}
 
 }
