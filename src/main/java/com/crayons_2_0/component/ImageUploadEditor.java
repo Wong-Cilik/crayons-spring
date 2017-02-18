@@ -62,7 +62,6 @@ public class ImageUploadEditor extends CustomComponent {
 		editButton.addStyleName(ValoTheme.BUTTON_SMALL);
 		editButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
 		editButton.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = 7359038534128275984L;
 
 			@Override
 			public void buttonClick(final ClickEvent event) {

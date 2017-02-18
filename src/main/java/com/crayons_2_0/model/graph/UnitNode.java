@@ -3,7 +3,8 @@ package com.crayons_2_0.model.graph;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import com.crayons_2_0.component.PageLayout;
+
+import com.crayons_2_0.component.UnitPageLayout;
 
 @SuppressWarnings("serial")
 public class UnitNode implements Serializable {
@@ -14,7 +15,7 @@ public class UnitNode implements Serializable {
 	// the graph for the course
 	private final Graph graph;
 	private String unitNodeTitle;
-	private PageLayout layout;
+	private UnitPageLayout layout;
 
 	private Set<UnitNode> parentNodes = new HashSet<UnitNode>();
 	private Set<UnitNode> childNodes = new HashSet<UnitNode>();
@@ -85,11 +86,11 @@ public class UnitNode implements Serializable {
 
 	}
 
-	public PageLayout getLayout() {
+	public UnitPageLayout getLayout() {
 		return layout;
 	}
 
-	public void setLayout(PageLayout layout) {
+	public void setLayout(UnitPageLayout layout) {
 		this.layout = layout;
 	}
 }

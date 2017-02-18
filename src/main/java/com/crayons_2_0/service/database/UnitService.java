@@ -4,10 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.crayons_2_0.component.Unit;
+import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.view.Uniteditor;
-import com.crayons_2_0.component.PageLayout;
 import com.vaadin.spring.annotation.SpringComponent;
 
 @SpringComponent
@@ -70,7 +71,7 @@ public class UnitService {
 		return null;
 	}
 
-	public PageLayout getDummyLayout() {
+	public UnitPageLayout getDummyLayout() {
 		return Uniteditor.getPageLayout();	//or new PageLayout(); but same java.lang.ClassCastException
 	}
 

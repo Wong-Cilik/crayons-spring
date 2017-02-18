@@ -127,7 +127,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 		save.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		layout.addComponent(save);
 		save.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -5973844872374695493L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -153,7 +152,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 				EditMenuButtonType.ADD_UNIT.getIcon());
 		editMenuLayout.addComponent(unitCreationButton);
 		unitCreationButton.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -5973844872374695493L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -166,7 +164,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 				EditMenuButtonType.EDIT_UNIT.getIcon());
 		editMenuLayout.addComponent(selectUnitForEdit);
 		selectUnitForEdit.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -5973844872374695493L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -181,8 +178,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 				EditMenuButtonType.CONNECT_UNITS.getIcon());
 		editMenuLayout.addComponent(unitConnection);
 		unitConnection.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -5973844872374695493L;
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				UnitConnectionEditor.refreshData(graphData);
@@ -195,7 +190,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 				EditMenuButtonType.DELETE_UNIT.getIcon());
 		editMenuLayout.addComponent(deleteUnit);
 		deleteUnit.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -5973844872374695493L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {

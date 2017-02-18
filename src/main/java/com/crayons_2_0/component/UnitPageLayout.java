@@ -18,7 +18,6 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 
 /**
  * Content of a learning unit represented as a vertical layout. Consists of
@@ -26,11 +25,11 @@ import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
  * unit such as text, image, and multiple choice test are located.
  * 
  */
-public final class PageLayout extends CustomComponent {
+@SuppressWarnings("serial")
+public final class UnitPageLayout extends CustomComponent {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private VerticalLayout layout;
 	private final DropHandler dropHandler;
 	private DragAndDropWrapper dropArea;
@@ -38,7 +37,7 @@ public final class PageLayout extends CustomComponent {
 	/**
 	 * Builds together several components of the page layout.
 	 */
-	public PageLayout() {
+	public UnitPageLayout() {
 		layout = new VerticalLayout();
 		setCompositionRoot(layout);
 		layout.addStyleName("canvas-layout");
@@ -67,7 +66,6 @@ public final class PageLayout extends CustomComponent {
 	 * 
 	 * @return drop area as a DragAndDropWrapper
 	 */
-	@SuppressWarnings("serial")
 	private Component buildDropArea() {
 		Label dropAreaLabel = new Label("Drag items here");
 		dropAreaLabel.setSizeUndefined();
@@ -166,7 +164,6 @@ public final class PageLayout extends CustomComponent {
      * 
      *
      */
-	@SuppressWarnings("serial")
 	private class WrappedPageItem extends DragAndDropWrapper {
 
 		/**
@@ -193,7 +190,6 @@ public final class PageLayout extends CustomComponent {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public AcceptCriterion getAcceptCriterion() {

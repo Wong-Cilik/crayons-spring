@@ -47,6 +47,7 @@ import com.vaadin.ui.themes.ValoTheme;
  * Author library view represents the courses which were created by current
  * user, allows to modify existing and create new courses.
  */
+@SuppressWarnings("serial")
 @SpringView(name = Authorlibrary.VIEW_NAME)
 @SpringComponent
 public class Authorlibrary extends VerticalLayout implements View,
@@ -62,8 +63,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 	@Autowired
 	UserService userService;
-
-	private static final long serialVersionUID = -9161951961270902856L;
 
 	public static final String VIEW_NAME = "Authorlibrary";
 	ResourceBundle lang = LanguageService.getInstance().getRes();
@@ -222,7 +221,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 		tabContent.setComponentAlignment(createCourse, Alignment.MIDDLE_CENTER);
 
 		createCourse.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = 1422665458088821660L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -290,7 +288,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 		Button saveStudents = new Button(lang.getString("SaveStudents"));
 		saveStudents.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -1559422159846748318L;
 
 			// TODO known bugg: after adding yourself to a course need to update
 			// the userlibrary
@@ -323,7 +320,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 	 *            course title
 	 * @return layout with the control buttons
 	 */
-	@SuppressWarnings("serial")
 	private Component buildControlButtons(Component tab, String title) {
 		HorizontalLayout controlButtons = new HorizontalLayout();
 		controlButtons.setMargin(true);
@@ -353,7 +349,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 		Button modifyCourse = new Button(lang.getString("ModifyCourse"));
 		controlButtons.addComponent(modifyCourse);
 		modifyCourse.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -1559422159846748318L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -367,7 +362,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 		graphEditor.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		controlButtons.addComponent(graphEditor);
 		graphEditor.addClickListener(new ClickListener() {
-			private static final long serialVersionUID = -5973844872374695493L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
@@ -396,7 +390,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 	 * 
 	 * @return layout with search field
 	 */
-	@SuppressWarnings("serial")
 	public Component buildFilter() {
 		VerticalLayout search = new VerticalLayout();
 		search.setStyleName("search");
