@@ -9,8 +9,6 @@ import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.UnitNode;
-import com.crayons_2_0.view.Uniteditor;
 import com.vaadin.spring.annotation.SpringComponent;
 
 @SpringComponent
@@ -79,7 +77,8 @@ public class UnitService {
 		return new UnitPageLayout();
 	}
 
-	public void saveLayout(UnitPageLayout layout, Graph graph, String unitTitle, String courseTitle) {
+	public void saveLayout(UnitPageLayout layout, Graph graph,
+			String unitTitle, String courseTitle) {
 		graph.getNodeByName(unitTitle).setLayout(layout);
 		courseService.saveCourseData(graph, courseTitle);
 	}

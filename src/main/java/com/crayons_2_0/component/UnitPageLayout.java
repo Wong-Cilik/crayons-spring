@@ -20,9 +20,9 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 /**
- * Content of a learning unit represented as a vertical layout. Consists of
- * the unit title and drag and drop area where the elements of the learning
- * unit such as text, image, and multiple choice test are located.
+ * Content of a learning unit represented as a vertical layout. Consists of the
+ * unit title and drag and drop area where the elements of the learning unit
+ * such as text, image, and multiple choice test are located.
  * 
  */
 @SuppressWarnings("serial")
@@ -52,8 +52,8 @@ public final class UnitPageLayout extends CustomComponent {
 	}
 
 	/**
-	 * Adds a drop area to the page. It is used when the page is empty to
-	 * show the user where the components can be dropped.
+	 * Adds a drop area to the page. It is used when the page is empty to show
+	 * the user where the components can be dropped.
 	 */
 	public void addDropArea() {
 		layout.addComponent(buildDropArea());
@@ -85,8 +85,7 @@ public final class UnitPageLayout extends CustomComponent {
 			@Override
 			public void drop(final DragAndDropEvent event) {
 				Transferable transferable = event.getTransferable();
-				Component sourceComponent = transferable
-						.getSourceComponent();
+				Component sourceComponent = transferable.getSourceComponent();
 
 				if (sourceComponent != layout.getParent()) {
 					Object type = ((AbstractComponent) sourceComponent)
@@ -109,8 +108,7 @@ public final class UnitPageLayout extends CustomComponent {
 	}
 
 	/**
-	 * Checks if the page is empty. Is used only after a component was
-	 * removed.
+	 * Checks if the page is empty. Is used only after a component was removed.
 	 * 
 	 * @return true if the page is empty, false otherwise.
 	 */
@@ -131,8 +129,9 @@ public final class UnitPageLayout extends CustomComponent {
 		if (dropArea.getParent() != null) {
 			layout.removeComponent(dropArea);
 		}
-		layout.addComponent(new WrappedPageItem(
-				createComponentFromPageItem(pageItemType, prefillData)), 1);
+		layout.addComponent(
+				new WrappedPageItem(createComponentFromPageItem(pageItemType,
+						prefillData)), 1);
 	}
 
 	/**
@@ -149,8 +148,7 @@ public final class UnitPageLayout extends CustomComponent {
 		Component result = null;
 		if (type == PageItemType.TEXT) {
 			result = new TextEditor(
-					prefillData != null ? String.valueOf(prefillData)
-							: null);
+					prefillData != null ? String.valueOf(prefillData) : null);
 		} else if (type == PageItemType.IMAGE) {
 			result = new ImageUploadEditor();
 		} else if (type == PageItemType.MULTIPLE_CHOICE) {
@@ -181,8 +179,8 @@ public final class UnitPageLayout extends CustomComponent {
 	}
 
 	/**
-	 * DropHandler for the drop area of the page layout. Allows to reorder
-	 * the components of the page. The implementation is based on
+	 * DropHandler for the drop area of the page layout. Allows to reorder the
+	 * components of the page. The implementation is based on
 	 * "QuickTicketsDashboard" demo from Vaadin.
 	 */
 	private class ReorderLayoutDropHandler implements DropHandler {

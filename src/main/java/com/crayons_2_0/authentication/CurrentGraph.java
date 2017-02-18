@@ -1,11 +1,6 @@
 package com.crayons_2_0.authentication;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.UnitNode;
-import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.spring.annotation.SpringComponent;
 
 @SpringComponent

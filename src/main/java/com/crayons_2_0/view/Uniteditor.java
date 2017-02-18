@@ -6,6 +6,7 @@ import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.component.ImportEditor;
 import com.crayons_2_0.component.UnitPageLayout;
+import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
@@ -20,6 +21,7 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -44,22 +46,23 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 @SuppressWarnings("serial")
 @SpringView(name = Uniteditor.VIEW_NAME)
+@SpringComponent
 public class Uniteditor extends VerticalLayout implements View {
 
 	/**
 	 * 
 	 */
-
+	@Autowired
+	CourseService courseService;
+	
 	public static final String VIEW_NAME = "Unit Editor";
 
 	private static UnitPageLayout page;
-	
+
 	@Autowired
 	UnitService unitService;
 	@Autowired
 	CurrentCourses currentCourse;
-	@Autowired
-	CurrentGraph currentGraph;
 
 	/**
 	 * Builds together several components of the unit editor view.
@@ -92,8 +95,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
 		setExpandRatio(footer, 1);
 	}
-	
-	
+
 	public static void refreshLayout(UnitPageLayout layout) {
 		page = layout;
 	}
@@ -198,16 +200,9 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-
 			@Override
 			public void buttonClick(ClickEvent event) {
-				unitService.saveLayout(page, currentGraph.getGraph(), currentGraph.getUnitTitle(), currentGraph.getCourseTitle());
-				Notification savedSuccessful = new Notification(
-						"Learning unit saved successfully");
-				savedSuccessful.setDelayMsec(1000);
-				savedSuccessful.setStyleName("bar success small");
-				savedSuccessful.setPosition(Position.BOTTOM_CENTER);
-				savedSuccessful.show(Page.getCurrent());
+				
 			}
 
 		});

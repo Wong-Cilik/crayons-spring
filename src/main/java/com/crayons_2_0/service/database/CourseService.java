@@ -37,7 +37,7 @@ public class CourseService {
 
 	@Autowired
 	private UnitService unitService;
-	
+
 	@Autowired
 	private CurrentUser currentUser;
 
@@ -236,7 +236,7 @@ public class CourseService {
 		one.setLayout(unitService.getDummyLayout());
 		two.setLayout(unitService.getDummyLayout());
 		three.setLayout(unitService.getDummyLayout());
-		
+
 		dummyGraph.addUnit(one, one.getParentNodes());
 		dummyGraph.addUnit(two, two.getParentNodes());
 		dummyGraph.addUnit(three, three.getParentNodes());
@@ -287,14 +287,14 @@ public class CourseService {
 
 	public Collection<CourseDisplay> searchAll(String input) {
 		Collection<CourseDisplay> collector = new ArrayList<CourseDisplay>();
-		List<Course> courseList = new ArrayList <Course>();
+		List<Course> courseList = new ArrayList<Course>();
 		courseList.addAll(courseDAO.searchAll(input, "title"));
 		courseList.addAll(courseDAO.searchAll(input, "description"));
 		for (Course tmpCourse : courseList) {
 			String status = "";
-			if (currentUser.get().getEmail().equals(tmpCourse.getAuthor())){
+			if (currentUser.get().getEmail().equals(tmpCourse.getAuthor())) {
 				status = "Autor";
-			} else if (tmpCourse.getUsers().contains(currentUser.get())){
+			} else if (tmpCourse.getUsers().contains(currentUser.get())) {
 				status = "Beigetreten";
 			} else {
 				status = "Privat";

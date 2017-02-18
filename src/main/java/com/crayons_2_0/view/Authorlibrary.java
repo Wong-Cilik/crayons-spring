@@ -61,8 +61,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 	@Autowired
 	CurrentCourses currentCourse;
-	@Autowired
-	CurrentGraph currentGraph;
 
 	@Autowired
 	UserService userService;
@@ -368,10 +366,12 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				currentGraph.setCourseTitle(title);
+				CurrentGraph.getInstance().setCourseTitle(title);
+				CurrentGraph.getInstance().setGraph(courseService.getCourseData(title));
 				System.out.println(title);
 				currentCourse.setTitle(title);
-				CourseEditorView.refreshGraph(courseService.getCourseData(title));
+				CourseEditorView.refreshGraph(courseService
+						.getCourseData(title));
 				System.out.println(title);
 				UI.getCurrent().getNavigator()
 						.navigateTo(CourseEditorView.VIEW_NAME);

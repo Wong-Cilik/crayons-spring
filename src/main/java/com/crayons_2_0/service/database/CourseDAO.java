@@ -74,8 +74,8 @@ public class CourseDAO implements CommandLineRunner {
 
 	@SuppressWarnings("unchecked")
 	public List<Course> searchAll(String input, String coll) {
-		String query = "SELECT * FROM courses WHERE " + coll + " LIKE '%" + input
-				+ "%'";
+		String query = "SELECT * FROM courses WHERE " + coll + " LIKE '%"
+				+ input + "%'";
 		@SuppressWarnings("rawtypes")
 		RowMapper mapper = new RowMapper<Object>() {
 

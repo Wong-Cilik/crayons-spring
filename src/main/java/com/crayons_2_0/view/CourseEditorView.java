@@ -53,8 +53,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 	@Autowired
 	CurrentCourses currentCourse;
-	@Autowired
-	CurrentGraph currentGraph;
 
 	static Graph graphData;
 
@@ -170,7 +168,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				currentGraph.setGraph(graphData);
+				CurrentGraph.getInstance().setGraph(graphData);
 				SelectUnitForEditWindow.refreshData(graphData);
 				UI.getCurrent().addWindow(
 						new SelectUnitForEditWindow(graphData));

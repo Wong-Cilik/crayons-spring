@@ -2,8 +2,6 @@ package com.crayons_2_0.component;
 
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
@@ -24,9 +22,6 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 public class SelectUnitForEditWindow extends Window {
-	
-	@Autowired
-	CurrentGraph currentGraph;
 
 	/**
 	 * 
@@ -85,8 +80,11 @@ public class SelectUnitForEditWindow extends Window {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentGraph.getInstance().setUnitTitle(selectUnit.getValue().toString());
-				Uniteditor.refreshLayout(graph.getNodeByName((String)selectUnit.getValue()).getLayout());
+				CurrentGraph.getInstance().setUnitTitle(
+						selectUnit.getValue().toString());
+				System.out.println(selectUnit.getValue());
+				Uniteditor.refreshLayout(graph.getNodeByName(
+						(String) selectUnit.getValue()).getLayout());
 				close();
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 			}
