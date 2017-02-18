@@ -16,7 +16,6 @@ import com.vaadin.ui.Notification;
 
 @SuppressWarnings("serial")
 @SpringComponent
-@Component
 public class LoginFormListener implements Button.ClickListener {
 
 	/**

@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.crayons_2_0.model.CrayonsUser;
+import com.crayons_2_0.service.Language;
 import com.vaadin.spring.annotation.SpringComponent;
 
 // LINKS:
@@ -84,18 +85,15 @@ public class UserDAO implements CommandLineRunner {
 	}
 
 	public void updateUser(CrayonsUser user) {
-
-		String mail = user.getEmail();
-		String password = user.getPassword();
-		String firstName = user.getFirstName();
-		String lastName = user.getLastName();
-		String language = user.getLanguage().toString();
-		int permission = user.getPermission();
-		// jdbcTemplate.update("update users set password = " + password + "
-		// where email = " + mail);
-		// Returns numer of changed rows
+	    String mail = user.getEmail();
+        String password = user.getPassword();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String language = user.getLanguage().toString();
+        Integer permission = user.getPermission();
+	
 		jdbcTemplate
-				.update("UPDATE realm.users SET password=?, firstname=?, lastname=?, language=? permission=? WHERE email=? ",
+				.update("update users set  password=?, firstname=?, lastname=?, language=?, permission=? where email=?",
 						password, firstName, lastName, mail, language,
 						permission);
 
@@ -147,7 +145,10 @@ public class UserDAO implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg0) throws Exception {
-		new ArrayList<GrantedAuthority>();
+	    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+	    CrayonsUser dummy = new CrayonsUser("joe", "campel", "user", "pass", Language.German.toString(), 0, true, true, true, true, authorities);
+	    userService.insertUser(dummy);
+	
 		findAll().forEach(entry -> log.info(entry.toString()));
 
 	}
