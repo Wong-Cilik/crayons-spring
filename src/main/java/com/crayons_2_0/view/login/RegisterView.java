@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import com.crayons_2_0.controller.RegisterFormListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Button;
@@ -19,14 +20,15 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 @SpringView(name = RegisterView.VIEW_NAME)
 @ViewScope
+@SpringComponent
 public class RegisterView extends VerticalLayout implements View {
 	/**
      * 
      */
 	public static final String VIEW_NAME = "registerView";
-	private static final long serialVersionUID = 1L;
 	private TextField email = new TextField();
 	private PasswordField password = new PasswordField();
 	private TextField firstname = new TextField();
@@ -99,7 +101,6 @@ public class RegisterView extends VerticalLayout implements View {
 
 		Button btnInsertUser = new Button("create a user");
 		btnInsertUser.addClickListener(new RegisterFormListener());
-		//
 		// Trivial logic for closing the sub-window
 		setMargin(true);
 		setSpacing(true);

@@ -151,4 +151,9 @@ public class UserDAO implements CommandLineRunner {
 		findAll().forEach(entry -> log.info(entry.toString()));
 
 	}
+
+	public boolean updateRights(String eMail, int r) {
+		jdbcTemplate.update("UPDATE users SET permission=? WHERE email=?", r, eMail);
+		return true;
+	}
 }

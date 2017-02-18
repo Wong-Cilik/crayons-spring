@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.MyUI;
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.controller.Menu;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.UserService;
@@ -62,6 +63,9 @@ public class MainScreen extends HorizontalLayout implements View {
 	@Autowired
 	CourseEditorView courseEditorView;
 
+	@Autowired
+	CurrentUser currentUser;
+	
 	public MainScreen() {
 
 	}
@@ -81,16 +85,21 @@ public class MainScreen extends HorizontalLayout implements View {
 
 		// menu.addView(aboutView, AboutView.VIEW_NAME,
 		// lang.getString(AboutView.VIEW_NAME), FontAwesome.INFO_CIRCLE);
+		
+		if (currentUser.get().getPermission() < 2){
 		menu.addView(authorlibrary, Authorlibrary.VIEW_NAME,
 				lang.getString(Authorlibrary.VIEW_NAME), FontAwesome.BOOK);
+		}
 		menu.addView(userlibraryView, UserlibraryView.VIEW_NAME,
 				lang.getString(UserlibraryView.VIEW_NAME), FontAwesome.PENCIL);
 		menu.addView(preferences, Preferences.VIEW_NAME,
 				lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
 		menu.addView(search, Search.VIEW_NAME,
 				lang.getString(Search.VIEW_NAME), FontAwesome.SEARCH);
+		if (currentUser.get().getPermission() < 1){
 		menu.addView(adminView, AdminView.VIEW_NAME,
 				lang.getString(AdminView.VIEW_NAME), FontAwesome.USERS);
+		}
 
 		navigator.addView(CourseEditorView.VIEW_NAME, courseEditorView);
 
@@ -105,6 +114,7 @@ public class MainScreen extends HorizontalLayout implements View {
 		setSizeFull();
 	}
 
+	@SuppressWarnings("serial")
 	// notify the view menu about view changes so that it can display which view
 	// is currently active
 	ViewChangeListener viewChangeListener = new ViewChangeListener() {
@@ -112,8 +122,6 @@ public class MainScreen extends HorizontalLayout implements View {
 		/**
          * 
          */
-		private static final long serialVersionUID = 1L;
-
 		@Override
 		public boolean beforeViewChange(ViewChangeEvent event) {
 			return true;

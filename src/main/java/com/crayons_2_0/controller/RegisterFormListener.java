@@ -14,13 +14,13 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 
+@SuppressWarnings("serial")
 @SpringComponent
 public class RegisterFormListener implements Button.ClickListener {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	@Autowired
 	private UserManager userManager;
 
