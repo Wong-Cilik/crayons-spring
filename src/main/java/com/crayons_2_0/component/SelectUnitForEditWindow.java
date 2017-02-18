@@ -25,9 +25,9 @@ public class SelectUnitForEditWindow extends Window {
 	/**
 	 * 
 	 */
-	static Graph graph;
-
+	private static Graph graph;
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ComboBox selectUnit;
 
 	public SelectUnitForEditWindow(Graph graphData) {
 		graph = graphData;
@@ -59,8 +59,7 @@ public class SelectUnitForEditWindow extends Window {
 	}
 
 	private Component buildUnitChoice() {
-		ComboBox selectUnit = new ComboBox(
-				lang.getString("SelectTheUnitForEdit"));
+		selectUnit = new ComboBox(lang.getString("SelectTheUnitForEdit"));
 		for (UnitNode tmp : graph.getUnitCollection()) {
 			selectUnit.addItem(tmp.getUnitNodeTitle());
 		}
@@ -80,6 +79,7 @@ public class SelectUnitForEditWindow extends Window {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
+				Uniteditor.refreshLayout(graph.getNodeByName((String)selectUnit.getValue()).getLayout());
 				close();
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 

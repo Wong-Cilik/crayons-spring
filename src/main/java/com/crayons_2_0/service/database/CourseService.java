@@ -226,25 +226,24 @@ public class CourseService {
 
 		String dummy = "dummy";
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		// CrayonsUser dummyUser = new User(dummy, "pass", true, true, false,
-		// false, authorities);
 		CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy",
 				"pass", "German", 2, true, true, false, false, authorities);
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 
-		// @DB UnitNodes will be created and added to their courses in the
-		// UnitCreationWindow
 		UnitNode one = new UnitNode("1", dummyGraph.getStartUnit(), dummyGraph);
 		UnitNode two = new UnitNode("2", one, dummyGraph);
 		UnitNode three = new UnitNode("3", two, dummyGraph);
 
+		one.setLayout(unitService.getDummyLayout());
+		two.setLayout(unitService.getDummyLayout());
+		three.setLayout(unitService.getDummyLayout());
+		
 		dummyGraph.addUnit(one, one.getParentNodes());
 		dummyGraph.addUnit(two, two.getParentNodes());
 		dummyGraph.addUnit(three, three.getParentNodes());
 
 		saveCourseData(dummyGraph, title);
-		// return new Graph(findCourseByTitle(title));
 	}
 
 	/**

@@ -1,19 +1,13 @@
 package com.crayons_2_0.view;
 
-import java.util.Iterator;
-
-import com.crayons_2_0.component.ImageUploadEditor;
 import com.crayons_2_0.component.ImportEditor;
-import com.crayons_2_0.component.MultipleChoiceEditor;
-import com.crayons_2_0.component.TextEditor;
+import com.crayons_2_0.component.PageLayout;
 import com.crayons_2_0.component.UnitTitle;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.event.Transferable;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
-import com.vaadin.event.dd.DropTarget;
-import com.vaadin.event.dd.TargetDetails;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.navigator.View;
@@ -21,14 +15,11 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
-import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -57,7 +48,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	public static final String VIEW_NAME = "Unit Editor";
 
-	private final PageLayout page;
+	private static PageLayout page;
 
 	/**
 	 * Builds together several components of the unit editor view.
@@ -89,6 +80,11 @@ public class Uniteditor extends VerticalLayout implements View {
 		addComponent(footer);
 		setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
 		setExpandRatio(footer, 1);
+	}
+	
+	
+	public static void refreshLayout(PageLayout layout) {
+		page = layout;
 	}
 
 	/**
@@ -194,7 +190,6 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// TODO: save changes in the learning unit
 				Notification savedSuccessful = new Notification(
 						"Learning unit saved successfully");
 				savedSuccessful.setDelayMsec(1000);
@@ -245,7 +240,6 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// TODO: download learning unit
 				Notification success = new Notification(
 						"File is exported successfully");
 				success.setDelayMsec(2000);
@@ -302,6 +296,7 @@ public class Uniteditor extends VerticalLayout implements View {
 	public void addPageComponent(final PageItemType pageItemType,
 			final Object prefillData) {
 		page.addComponent(pageItemType, prefillData);
+<<<<<<< HEAD
 	}
 
 	/**
@@ -564,6 +559,8 @@ public class Uniteditor extends VerticalLayout implements View {
 			}
 		}
 
+=======
+>>>>>>> branch 'master' of https://github.com/jubusch/crayons-spring.git
 	}
 
 	/**
@@ -709,5 +706,9 @@ public class Uniteditor extends VerticalLayout implements View {
 	public void enter(ViewChangeEvent event) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public static PageLayout getPageLayout() {
+		return page;
 	}
 }

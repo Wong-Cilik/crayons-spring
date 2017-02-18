@@ -3,6 +3,7 @@ package com.crayons_2_0.model.graph;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import com.crayons_2_0.component.PageLayout;
 
 @SuppressWarnings("serial")
 public class UnitNode implements Serializable {
@@ -13,13 +14,10 @@ public class UnitNode implements Serializable {
 	// the graph for the course
 	private final Graph graph;
 	private String unitNodeTitle;
-	// private UnitType unitType;
-	// private boolean availability;
+	private PageLayout layout;
 
 	private Set<UnitNode> parentNodes = new HashSet<UnitNode>();
 	private Set<UnitNode> childNodes = new HashSet<UnitNode>();
-
-	// TODO: how to store the content?
 
 	// Constructor for Start and EndNodes
 	public UnitNode(String unitTitle, Graph graph) {
@@ -71,23 +69,6 @@ public class UnitNode implements Serializable {
 		this.unitNodeTitle = unitTitle;
 	}
 
-	/*
-	 * public UnitType getUnitType() { return unitType; }
-	 * 
-	 * public void setUnitType(UnitType unitType) { this.unitType = unitType; }
-	 * public boolean isAvailability() { return availability; }
-	 * 
-	 * public void setAvailability(boolean availability) { this.availability =
-	 * availability; }
-	 * 
-	 * public Set<UnitNode> getNextUnits() { return nextUnits; }
-	 * 
-	 * public void addNextUnit(UnitNode unit) { this.nextUnits.add(unit); }
-	 * 
-	 * public void removeNextUnit(UnitNode unit) { this.nextUnits.remove(unit);
-	 * }
-	 */
-
 	public enum UnitType {
 		// START,
 		// END,
@@ -102,5 +83,13 @@ public class UnitNode implements Serializable {
 	public void removeParentNode(UnitNode parent) {
 		this.parentNodes.remove(parent);
 
+	}
+
+	public PageLayout getLayout() {
+		return layout;
+	}
+
+	public void setLayout(PageLayout layout) {
+		this.layout = layout;
 	}
 }
