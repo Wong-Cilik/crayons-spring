@@ -16,6 +16,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
@@ -36,6 +37,9 @@ public class CourseService {
 
 	@Autowired
 	private UnitService unitService;
+	
+	@Autowired
+	private CurrentUser currentUser;
 
 	/**
 	 * Returns all Courses of DB
@@ -290,10 +294,18 @@ public class CourseService {
 		courseList.addAll(courseDAO.searchAll(input, "title"));
 		courseList.addAll(courseDAO.searchAll(input, "description"));
 		for (Course tmpCourse : courseList) {
+			String status = "";
+			if (currentUser.get().getEmail().equals(tmpCourse.getAuthor())){
+				status = "Autor";
+			} else if (tmpCourse.getUsers().contains(currentUser.get())){
+				status = "Beigetreten";
+			} else {
+				status = "Privat";
+			}
 			collector.add(new CourseDisplay("", tmpCourse.getTitle(), tmpCourse
 					.getAuthor().getFirstName()
 					+ " "
-					+ tmpCourse.getAuthor().getLastName(), "Angemeldet!"));
+					+ tmpCourse.getAuthor().getLastName(), status));
 		}
 		if (collector.size() == 0) {
 			collector.add(new CourseDisplay("", "", "", ""));
