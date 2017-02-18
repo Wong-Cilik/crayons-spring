@@ -42,8 +42,8 @@ public final class DeleteVerification extends Window {
 		setModal(true);
 		setResizable(false);
 		setClosable(true);
-		setHeight(40.0f, Unit.PERCENTAGE);
-		setWidth(40.0f, Unit.PERCENTAGE);
+		setHeight(30.0f, Unit.PERCENTAGE);
+		setWidth(30.0f, Unit.PERCENTAGE);
 
 		VerticalLayout content = new VerticalLayout();
 		content.setSizeFull();
@@ -52,7 +52,7 @@ public final class DeleteVerification extends Window {
 
 		Component title = buildTitle();
 		content.addComponent(title);
-		content.setComponentAlignment(title, Alignment.TOP_CENTER);
+		content.setComponentAlignment(title, Alignment.TOP_LEFT);
 
 		// content.addComponent(buildDescription());
 

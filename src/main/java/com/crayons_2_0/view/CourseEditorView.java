@@ -1,15 +1,18 @@
 package com.crayons_2_0.view;
 
+import java.util.ResourceBundle;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.crayons_2_0.component.SelectUnitForEditWindow;
-import com.crayons_2_0.component.UnitCreationWindow;
-import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.DeleteVerification;
+import com.crayons_2_0.component.SelectUnitForEditWindow;
+import com.crayons_2_0.component.UnitConnectionEditor;
+import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.view.dagred3.Dagre;
 import com.vaadin.navigator.View;
@@ -23,6 +26,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
@@ -54,6 +58,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 	public static final String VIEW_NAME = "Learning Graph";
 	// javascript element
 	final static Dagre graph = new Dagre();
+	
+	private static ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	@PostConstruct
 	void init() {
@@ -66,6 +72,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 		Component footer = buildFooter();
 		addComponent(footer);
+		footer.setSizeUndefined();
 		setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
 	}
 
@@ -81,16 +88,15 @@ public class CourseEditorView extends VerticalLayout implements View {
 	 * @return the footer
 	 */
 	private Component buildFooter() {
-		HorizontalLayout footer = new HorizontalLayout();
-		footer.setMargin(true);
+		CssLayout footer = new CssLayout();
+		footer.addStyleName("courseeditor-footer");
 		footer.setSizeFull();
-		footer.setSpacing(true);
 		Component controlButtons = buildControlButtons();
 		footer.addComponent(controlButtons);
-		footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_LEFT);
+		controlButtons.addStyleName("courseeditor-footer-left");
 		Component editMenu = buildEditMenu();
+		editMenu.addStyleName("courseeditor-footer-right");
 		footer.addComponent(editMenu);
-		footer.setComponentAlignment(editMenu, Alignment.BOTTOM_RIGHT);
 		return footer;
 	}
 
@@ -103,7 +109,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 	private Component buildControlButtons() {
 		HorizontalLayout layout = new HorizontalLayout();
 		layout.setSpacing(true);
-		Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
+		Button backButton = new Button(lang.getString("Back"), FontAwesome.ARROW_LEFT);
 		layout.addComponent(backButton);
 		backButton.addClickListener(new ClickListener() {
 
@@ -116,7 +122,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 			}
 
 		});
-		Button save = new Button("Save");
+		Button save = new Button(lang.getString("Save"));
 		save.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		layout.addComponent(save);
 		save.addClickListener(new ClickListener() {
@@ -204,10 +210,10 @@ public class CourseEditorView extends VerticalLayout implements View {
 	 * Defines title and icon for the edit menu buttons.
 	 */
 	public enum EditMenuButtonType {
-		ADD_UNIT("Add unit", FontAwesome.PLUS), CONNECT_UNITS(
-				"Modify connections", FontAwesome.LINK), DELETE_UNIT(
-				"Delete unit", FontAwesome.TRASH), EDIT_UNIT("Select unit",
-				FontAwesome.PENCIL);
+		ADD_UNIT(lang.getString("AddUnit"), FontAwesome.PLUS), CONNECT_UNITS(
+		        lang.getString("ModifyConnections"), FontAwesome.LINK), DELETE_UNIT(
+				lang.getString("DeleteUnit"), FontAwesome.TRASH), EDIT_UNIT(
+				lang.getString("SelectUnit"),FontAwesome.PENCIL);
 
 		private final String title;
 		private final FontAwesome icon;
@@ -266,7 +272,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 		 *         the window
 		 */
 		private Component buildFooter() {
-			Button yesButton = new Button("Yes");
+			Button yesButton = new Button(lang.getString("Yes"));
 			yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 			yesButton.focus();
 			yesButton.addClickListener(new ClickListener() {
@@ -280,7 +286,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 				}
 			});
 
-			Button noButton = new Button("No");
+			Button noButton = new Button(lang.getString("No"));
 			noButton.addClickListener(new ClickListener() {
 				@Override
 				public void buttonClick(ClickEvent event) {
@@ -291,7 +297,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 				}
 			});
 
-			Button cancelButton = new Button("Cancel");
+			Button cancelButton = new Button(lang.getString("Cancel"));
 
 			cancelButton.addClickListener(new ClickListener() {
 				@Override
@@ -312,8 +318,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 		 * @return title of the window
 		 */
 		private Component buildTitle() {
-			Label title = new Label(
-					"The graph was modified. Do you want to save changes?");
+			Label title = new Label(lang.getString("GraphModified"));
 			title.addStyleName(ValoTheme.LABEL_H3);
 			HorizontalLayout layout = new HorizontalLayout(title);
 			layout.setSizeUndefined();

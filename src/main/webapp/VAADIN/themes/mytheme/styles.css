@@ -13241,6 +13241,21 @@ div.v-layout.v-horizontal.v-widget {
 	left: 60%;
 }
 
+.mytheme .courseeditor-footer {
+	bottom: 40px;
+	position: fixed;
+}
+
+.mytheme .courseeditor-footer-right {
+	right: 5px;
+	position: fixed;
+}
+
+.mytheme .courseeditor-footer-left {
+	left: 230px;
+	position: fixed;
+}
+
 .mytheme .search {
 	right: -200px;
 }

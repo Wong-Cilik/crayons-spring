@@ -65,10 +65,25 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 @import "../valo/valo.scss";
 
 
+
 @mixin mytheme {
   @include valo; 
   @include uniteditor-view;
 
+  .courseeditor-footer {
+    bottom: 40px;
+    position: fixed;
+  }
+  
+  .courseeditor-footer-right {
+    right: 5px;
+    position: fixed;
+  }
+  
+  .courseeditor-footer-left {
+    left: 230px;
+    position: fixed;
+  }
   
   .search{
     

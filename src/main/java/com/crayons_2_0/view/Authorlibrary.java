@@ -117,7 +117,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 		    Panel panel = new Panel();
 		    panel.setStyleName(ValoTheme.PANEL_BORDERLESS);
 		    panel.setSizeFull();
-		    panel.setContent(new Label("Sorry, the author library is only available in the desktop version."));
+		    panel.setContent(new Label(lang.getString("AuthorLibraryUnavailable")));
             content.addComponent(panel);
             content.setMargin(true);
             addComponent(content);
@@ -152,7 +152,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 	 * @return title of the author library
 	 */
 	private Component buildTitle() {
-		Label title = new Label("Kursübersicht");
+		Label title = new Label(lang.getString("Overview"));
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}
@@ -192,8 +192,8 @@ public class Authorlibrary extends VerticalLayout implements View,
 		HorizontalLayout courseTitle = new HorizontalLayout();
 		courseTitle.setSpacing(true);
 		Label courseTitleLabel = new Label();
-		courseTitleLabel.setContentMode(ContentMode.HTML);
-		courseTitleLabel.setValue("<h3>Kurstitel</h3>");
+		courseTitleLabel.addStyleName(ValoTheme.LABEL_H3);
+		courseTitleLabel.setValue(lang.getString("CourseTitle"));
 		TextField courseTitleField = new TextField();
 		courseTitle.addComponents(courseTitleLabel, courseTitleField);
 		courseTitle.setComponentAlignment(courseTitleLabel,
@@ -207,8 +207,8 @@ public class Authorlibrary extends VerticalLayout implements View,
 		VerticalLayout couseDescription = new VerticalLayout();
 		couseDescription.setSizeFull();
 		Label couseDescriptionLabel = new Label();
-		couseDescriptionLabel.setContentMode(ContentMode.HTML);
-		couseDescriptionLabel.setValue("<h3>Kursbeschreibung</h3>");
+		couseDescriptionLabel.addStyleName(ValoTheme.LABEL_H3);
+		couseDescriptionLabel.setValue(lang.getString("CourseDescription"));
 		TextField couseDescriptionField = new TextField();
 		couseDescriptionField.setSizeFull();
 		couseDescription.addComponents(couseDescriptionLabel,
@@ -217,7 +217,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 		// couseDescriptionField.addValueChangeListener();
 		tabContent.addComponent(couseDescription);
 
-		Button createCourse = new Button("Kurs erstellen");
+		Button createCourse = new Button(lang.getString("CreateCourse"));
 		tabContent.addComponent(createCourse);
 		tabContent.setComponentAlignment(createCourse, Alignment.MIDDLE_CENTER);
 
@@ -256,14 +256,14 @@ public class Authorlibrary extends VerticalLayout implements View,
 		tabContent.setMargin(true);
 
 		TwinColSelect selectStudents = new TwinColSelect();
-		selectStudents.setCaptionAsHtml(true);
 		selectStudents.setMultiSelect(true);
-		selectStudents.setCaption("<h3>Select course participants</h3>");
+		selectStudents.setCaptionAsHtml(true);
+		selectStudents.setCaption("<h3>" + lang.getString("SelectParticipants") + "</h3>");
 
 		selectStudents.setRows(10);
 		selectStudents.setSizeFull();
-		selectStudents.setLeftColumnCaption("List of all students");
-		selectStudents.setRightColumnCaption("Participants");
+		selectStudents.setLeftColumnCaption(lang.getString("ListOfAllStudents"));
+		selectStudents.setRightColumnCaption(lang.getString("Participants"));
 		// adding all users to the select Student Table
 		List<CrayonsUser> allUsers = userService.findAll();
 		String[] emailOfStudentsInCourse = courseService.getStudents(title);
@@ -286,7 +286,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 		}
 		selectStudents.setValue(rightColumn);
 
-		Button saveStudents = new Button("Save Students");
+		Button saveStudents = new Button(lang.getString("SaveStudents"));
 		saveStudents.addClickListener(new ClickListener() {
 			private static final long serialVersionUID = -1559422159846748318L;
 
@@ -326,7 +326,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 		controlButtons.setMargin(true);
 		controlButtons.setSpacing(true);
 
-		Button deleteCourse = new Button("Delete course");
+		Button deleteCourse = new Button(lang.getString("DeleteCourse"));
 		controlButtons.addComponent(deleteCourse);
 		controlButtons.setComponentAlignment(deleteCourse,
 				Alignment.BOTTOM_RIGHT);
@@ -348,7 +348,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 		});
 
-		Button modifyCourse = new Button("Modify course");
+		Button modifyCourse = new Button(lang.getString("ModifyCourse"));
 		controlButtons.addComponent(modifyCourse);
 		modifyCourse.addClickListener(new ClickListener() {
 			private static final long serialVersionUID = -1559422159846748318L;
@@ -361,7 +361,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 			}
 		});
 
-		Button graphEditor = new Button("Graph editor");
+		Button graphEditor = new Button(lang.getString("GraphEditor"));
 		graphEditor.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		controlButtons.addComponent(graphEditor);
 		graphEditor.addClickListener(new ClickListener() {
@@ -434,7 +434,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 				}
 			}
 		});
-		filter.setInputPrompt("Suche");
+		filter.setInputPrompt(lang.getString("Search"));
 		filter.setIcon(FontAwesome.SEARCH);
 		filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 		filter.setSizeUndefined();

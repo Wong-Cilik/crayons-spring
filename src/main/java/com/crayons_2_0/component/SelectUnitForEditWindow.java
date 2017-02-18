@@ -35,8 +35,8 @@ public class SelectUnitForEditWindow extends Window {
 		setModal(true);
 		setResizable(false);
 		setClosable(true);
-		setHeight(40.0f, Unit.PERCENTAGE);
-		setWidth(40.0f, Unit.PERCENTAGE);
+		setHeight(30.0f, Unit.PERCENTAGE);
+		setWidth(30.0f, Unit.PERCENTAGE);
 
 		VerticalLayout content = new VerticalLayout();
 		content.setSizeFull();
