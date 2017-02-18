@@ -6,13 +6,13 @@ import java.util.ResourceBundle;
 
 import org.springframework.security.core.userdetails.User;
 
+import com.crayons.view.dagred3.Dagre;
+import com.crayons.view.jointjs.GraphTry;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.MultipleChoice;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.UserService;
-import com.crayons_2_0.view.dagred3.Dagre;
-import com.crayons_2_0.view.jointjs.GraphTry;
 import com.hs18.vaadin.addon.graph.GraphJSComponent;
 import com.hs18.vaadin.addon.graph.listener.GraphJsLeftClickListener;
 import com.vaadin.event.FieldEvents.TextChangeEvent;

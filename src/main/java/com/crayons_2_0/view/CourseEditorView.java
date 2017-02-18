@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.DeleteVerification;
 import com.crayons_2_0.component.SelectUnitForEditWindow;
@@ -14,7 +15,6 @@ import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
-import com.crayons_2_0.view.dagred3.Dagre;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
