@@ -286,7 +286,9 @@ public class CourseService {
 
 	public Collection<CourseDisplay> searchAll(String input) {
 		Collection<CourseDisplay> collector = new ArrayList<CourseDisplay>();
-		List<Course> courseList = courseDAO.searchAll(input);
+		List<Course> courseList = new ArrayList <Course>();
+		courseList.addAll(courseDAO.searchAll(input, "title"));
+		courseList.addAll(courseDAO.searchAll(input, "description"));
 		for (Course tmpCourse : courseList) {
 			collector.add(new CourseDisplay("", tmpCourse.getTitle(), tmpCourse
 					.getAuthor().getFirstName()
