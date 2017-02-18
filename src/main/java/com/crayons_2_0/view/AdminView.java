@@ -62,6 +62,7 @@ public final class AdminView extends VerticalLayout implements View {
 	HorizontalLayout root;
 	private Table table = new Table();;
 	private TempContainer container;
+	VerticalLayout content = new VerticalLayout();
 	@PropertyId("name")
 	private TextField nameField = new TextField(lang.getString("Name"));
 	@PropertyId("title")
@@ -87,9 +88,9 @@ public final class AdminView extends VerticalLayout implements View {
 		table = buildTable();
 		addComponent(table);
 		Responsive.makeResponsive(this);
-		VerticalLayout content = new VerticalLayout();
 		content.setSizeFull();
 		content.setMargin(new MarginInfo(true, false, false, false));
+		content.setEnabled(false);
 		addComponent(content);
 		content.addComponent(buildProfileTab(null));
 		setComponentAlignment(content, Alignment.BOTTOM_LEFT);
@@ -165,6 +166,7 @@ public final class AdminView extends VerticalLayout implements View {
 				ad.phoneField.setReadOnly(true);
 
 				ad.rights.setValue(userDisplay.getRole());
+				ad.content.setEnabled(true);
 			}
 
 		});
@@ -224,6 +226,7 @@ public final class AdminView extends VerticalLayout implements View {
 				table.setContainerDataSource(container);
 			}
 		});
+		rights.setNullSelectionAllowed(false);
 		details.addComponent(rights);
 
 		Label section = new Label(lang.getString("ContactInfo"));
