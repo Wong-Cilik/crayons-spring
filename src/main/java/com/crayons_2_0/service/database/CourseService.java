@@ -222,8 +222,6 @@ public class CourseService {
 	 *            of course to save dummyGraph
 	 */
 	public void saveDummyGraph(String title) {
-		// courseDAO.getData();
-
 		String dummy = "dummy";
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy",
