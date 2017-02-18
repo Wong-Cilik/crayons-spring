@@ -43,8 +43,8 @@ public class UnitConnectionEditor extends Window {
 		setModal(true);
 		setResizable(false);
 		setClosable(true);
-		setHeight(40.0f, Unit.PERCENTAGE);
-		setWidth(40.0f, Unit.PERCENTAGE);
+		setHeight(32.0f, Unit.PERCENTAGE);
+		setWidth(35.0f, Unit.PERCENTAGE);
 
 		VerticalLayout content = new VerticalLayout();
 		content.setSizeFull();
@@ -52,13 +52,11 @@ public class UnitConnectionEditor extends Window {
 		setContent(content);
 		Component title = buildTitle();
 		content.addComponent(title);
-		content.setComponentAlignment(title, Alignment.TOP_CENTER);
-
-		// content.addComponent(buildDescription());
+		content.setComponentAlignment(title, Alignment.TOP_LEFT);
 
 		Component unitChoiseBoxes = buildUnitsChoiceBoxes();
 		content.addComponent(unitChoiseBoxes);
-		content.setComponentAlignment(unitChoiseBoxes, Alignment.MIDDLE_LEFT);
+		content.setComponentAlignment(unitChoiseBoxes, Alignment.TOP_LEFT);
 
 		Component footer = buildFooter();
 		content.addComponent(footer);
@@ -66,16 +64,15 @@ public class UnitConnectionEditor extends Window {
 	}
 
 	private Component buildUnitsChoiceBoxes() {
+	    VerticalLayout layout = new VerticalLayout();
+	    Label selectUnits = new Label(lang.getString("SelectLearningUnits"));
+	    layout.addComponent(selectUnits);
+        
 		HorizontalLayout comboBoxes = new HorizontalLayout();
-		comboBoxes.setMargin(true);
 		comboBoxes.setSpacing(true);
 
 		ComboBox selectPredecessor = new ComboBox(lang.getString("From"));
 		comboBoxes.addComponent(selectPredecessor);
-		// Set<Node> predecessors = new HashSet<Node>();
-		// predecessors.add(new Node("Node 1"));
-		// predecessors.add(new Node("Node 2"));
-		// selectPredecessor.addItems(predecessors);
 		for (UnitNode currentNode : graph.getUnitCollection()) {
 			selectPredecessor.addItem(currentNode.getUnitNodeTitle());
 		}
@@ -88,10 +85,6 @@ public class UnitConnectionEditor extends Window {
 
 		ComboBox selectSuccessor = new ComboBox(lang.getString("To"));
 		comboBoxes.addComponent(selectSuccessor);
-		// Set<Node> successors = new HashSet<Node>();
-		// successors.add(new Node("Node 3"));
-		// successors.add(new Node("Node 4"));
-		// selectSuccessor.addItems(successors);
 		for (UnitNode currentNode : graph.getUnitCollection()) {
 			selectSuccessor.addItem(currentNode.getUnitNodeTitle());
 		}
@@ -101,7 +94,9 @@ public class UnitConnectionEditor extends Window {
 						.toString());
 			}
 		});
-		return comboBoxes;
+		
+		layout.addComponent(comboBoxes);
+		return layout;
 	}
 
 	private Component buildFooter() {
@@ -158,8 +153,4 @@ public class UnitConnectionEditor extends Window {
 		graph = graphData;
 
 	}
-
-	/*
-	 * private Component buildDescription() { return null; }
-	 */
 }
