@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentCourses;
+import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
@@ -60,6 +61,8 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 	@Autowired
 	CurrentCourses currentCourse;
+	@Autowired
+	CurrentGraph currentGraph;
 
 	@Autowired
 	UserService userService;
@@ -365,9 +368,11 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 			@Override
 			public void buttonClick(ClickEvent event) {
+				currentGraph.setCourseTitle(title);
+				System.out.println(title);
 				currentCourse.setTitle(title);
-				CourseEditorView.refreshGraph(courseService
-						.getCourseData(title));
+				CourseEditorView.refreshGraph(courseService.getCourseData(title));
+				System.out.println(title);
 				UI.getCurrent().getNavigator()
 						.navigateTo(CourseEditorView.VIEW_NAME);
 			}
