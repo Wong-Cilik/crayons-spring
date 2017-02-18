@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.authentication.CurrentCourses;
+import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.component.DeleteVerification;
 import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
@@ -52,6 +53,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 	@Autowired
 	CurrentCourses currentCourse;
+	@Autowired
+	CurrentGraph currentGraph;
 
 	static Graph graphData;
 
@@ -167,6 +170,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
+				currentGraph.setGraph(graphData);
 				SelectUnitForEditWindow.refreshData(graphData);
 				UI.getCurrent().addWindow(
 						new SelectUnitForEditWindow(graphData));

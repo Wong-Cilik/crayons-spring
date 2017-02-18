@@ -1,7 +1,12 @@
 package com.crayons_2_0.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crayons_2_0.authentication.CurrentCourses;
+import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.component.ImportEditor;
 import com.crayons_2_0.component.UnitPageLayout;
+import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.event.Transferable;
@@ -48,6 +53,13 @@ public class Uniteditor extends VerticalLayout implements View {
 	public static final String VIEW_NAME = "Unit Editor";
 
 	private static UnitPageLayout page;
+	
+	@Autowired
+	UnitService unitService;
+	@Autowired
+	CurrentCourses currentCourse;
+	@Autowired
+	CurrentGraph currentGraph;
 
 	/**
 	 * Builds together several components of the unit editor view.
@@ -189,6 +201,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
+				unitService.saveLayout(page, currentGraph.getGraph(), currentGraph.getUnitTitle(), currentGraph.getCourseTitle());
 				Notification savedSuccessful = new Notification(
 						"Learning unit saved successfully");
 				savedSuccessful.setDelayMsec(1000);

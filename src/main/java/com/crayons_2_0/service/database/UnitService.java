@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.model.Course;
+import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.view.Uniteditor;
 import com.vaadin.spring.annotation.SpringComponent;
 
@@ -16,6 +18,8 @@ public class UnitService {
 
 	@Autowired
 	private UnitDAO unitDAO;
+	@Autowired
+	private CourseService courseService;
 
 	public List<Unit> findAll() {
 		List<Unit> res = unitDAO.findAll();
@@ -72,7 +76,11 @@ public class UnitService {
 	}
 
 	public UnitPageLayout getDummyLayout() {
-		return Uniteditor.getPageLayout();	//or new PageLayout(); but same java.lang.ClassCastException
+		return new UnitPageLayout();
 	}
 
+	public void saveLayout(UnitPageLayout layout, Graph graph, String unitTitle, String courseTitle) {
+		graph.getNodeByName(unitTitle).setLayout(layout);
+		courseService.saveCourseData(graph, courseTitle);
+	}
 }
