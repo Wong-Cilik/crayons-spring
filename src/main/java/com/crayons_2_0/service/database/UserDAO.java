@@ -95,7 +95,7 @@ public class UserDAO implements CommandLineRunner {
 		// where email = " + mail);
 		// Returns numer of changed rows
 		jdbcTemplate
-				.update("UPDATE realm.users SET password=?, firstname=?, lastname=?, language=? permission=? WHERE email=? ",
+				.update("UPDATE users SET password=?, firstname=?, lastname=?, language=?, permission=? WHERE email=? ",
 						password, firstName, lastName, mail, language,
 						permission);
 
@@ -132,8 +132,8 @@ public class UserDAO implements CommandLineRunner {
 		try {
 			jdbcTemplate.update(deleteStatement, user);
 		} catch (RuntimeException e) {
-			throw new UsernameNotFoundException("User with mail:"
-					+ user + "doesnt exists!");
+			throw new UsernameNotFoundException("User with mail:" + user
+					+ "doesnt exists!");
 		}
 	}
 

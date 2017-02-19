@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.maddon.ListContainer;
 
 import com.crayons_2_0.service.CourseDisplay;
-import com.crayons_2_0.service.UserDisplay;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
@@ -19,18 +18,12 @@ import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Page;
 import com.vaadin.server.Responsive;
-import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -134,7 +127,7 @@ public final class Search extends VerticalLayout implements View {
 			public void itemClick(ItemClickEvent event) {
 				CourseDisplay courseDisplay = (CourseDisplay) event.getItemId();
 				System.out.println("HIER  " + courseDisplay.getTitle());
-				
+
 			}
 
 		});

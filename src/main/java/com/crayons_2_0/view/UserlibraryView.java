@@ -49,10 +49,10 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 	@Autowired
 	CourseService courseService;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	private TabSheet coursesTabSheet;
 	private Component filter;
 
@@ -112,7 +112,8 @@ public class UserlibraryView extends VerticalLayout implements View {
 		coursesTabSheet.setSizeFull();
 		coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
 		coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-		for (Course tmp : courseService.findAllCoursesOfUser(userService.findByEMail(CurrentUser.getInstance().geteMail()))) {
+		for (Course tmp : courseService.findAllCoursesOfUser(userService
+				.findByEMail(CurrentUser.getInstance().geteMail()))) {
 			coursesTabSheet.addComponent(buildCourseTab(tmp));
 		}
 		return coursesTabSheet;
@@ -182,7 +183,8 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				courseService.removeStudent(title, CurrentUser.getInstance().geteMail());
+				courseService.removeStudent(title, CurrentUser.getInstance()
+						.geteMail());
 				coursesTabSheet.removeComponent(tab);
 			}
 
@@ -200,7 +202,8 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				UI.getCurrent().getNavigator().navigateTo(UnitUserView.VIEW_NAME);
+				UI.getCurrent().getNavigator()
+						.navigateTo(UnitUserView.VIEW_NAME);
 			}
 
 		});

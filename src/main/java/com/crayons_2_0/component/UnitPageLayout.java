@@ -27,7 +27,8 @@ import com.vaadin.ui.VerticalLayout;
  * 
  */
 @SuppressWarnings("serial")
-public final class UnitPageLayout extends CustomComponent implements Serializable{
+public final class UnitPageLayout extends CustomComponent implements
+		Serializable {
 	/**
 	 * 
 	 */

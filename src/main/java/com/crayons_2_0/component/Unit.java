@@ -20,8 +20,8 @@ public class Unit {
 		this.setCourseTitle(courseTitel);
 		this.setContent(content);
 	}
-	
-	public Unit(String title,String courseTitel) {
+
+	public Unit(String title, String courseTitel) {
 		this.setTitle(title);
 		this.setCourseTitle(courseTitel);
 	}

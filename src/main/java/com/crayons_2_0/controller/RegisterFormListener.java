@@ -9,10 +9,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.model.CrayonsUser;
+import com.crayons_2_0.view.login.LoginScreen;
 import com.crayons_2_0.view.login.RegisterView;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 @SpringComponent
@@ -42,7 +44,7 @@ public class RegisterFormListener implements Button.ClickListener {
 					password, language, permission, true, true, false, false,
 					authorities);
 			userManager.foo(user);
-
+			UI.getCurrent().getNavigator().navigateTo(LoginScreen.VIEW_NAME);
 		} catch (Exception e) {
 			Notification.show("Registration failed: " + e.getMessage());
 		}

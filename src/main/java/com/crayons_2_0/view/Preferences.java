@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentUser;
-import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.UserService;
@@ -103,7 +102,7 @@ public class Preferences extends VerticalLayout implements View {
 
 	@PostConstruct
 	void init() {
-		
+
 		// addStyleName("profile-window");
 		// setId(ID);
 		Responsive.makeResponsive(this);
@@ -177,7 +176,8 @@ public class Preferences extends VerticalLayout implements View {
 	}
 
 	private Component buildProfileTab() {
-		CurrentUser.getInstance().setUser(userService.findByEMail(CurrentUser.getInstance().geteMail()));
+		CurrentUser.getInstance().setUser(
+				userService.findByEMail(CurrentUser.getInstance().geteMail()));
 		HorizontalLayout root = new HorizontalLayout();
 		root.setCaption(lang.getString("Profile"));
 		root.setIcon(FontAwesome.USER);
@@ -201,10 +201,12 @@ public class Preferences extends VerticalLayout implements View {
 		root.setExpandRatio(details, 1);
 
 		firstNameField = new TextField(lang.getString("FirstName"));
-		firstNameField.setValue(CurrentUser.getInstance().getUser().getFirstName());
+		firstNameField.setValue(CurrentUser.getInstance().getUser()
+				.getFirstName());
 		details.addComponent(firstNameField);
 		lastNameField = new TextField(lang.getString("LastName"));
-		lastNameField.setValue(CurrentUser.getInstance().getUser().getLastName());
+		lastNameField.setValue(CurrentUser.getInstance().getUser()
+				.getLastName());
 		details.addComponent(lastNameField);
 		titleField = new ComboBox(lang.getString("Title"));
 		titleField.setInputPrompt(lang.getString("PleaseSpecify"));
@@ -288,14 +290,15 @@ public class Preferences extends VerticalLayout implements View {
 				// fieldGroup.commit();
 				// Updated user should also be persisted to database. But
 				// not in this demo.
-				if (CurrentUser.getInstance().getUser().getUsername() != emailField.getValue()
+				if (CurrentUser.getInstance().getUser().getUsername() != emailField
+						.getValue()
 						|| CurrentUser.getInstance().getUser().getFirstName() != firstNameField
 								.getValue()
 						|| CurrentUser.getInstance().getUser().getLastName() != lastNameField
 								.getValue()) {
-					if (userService.updateUser(CurrentUser.getInstance().getUser(),
-							emailField.getValue(), firstNameField.getValue(),
-							lastNameField.getValue())) {
+					if (userService.updateUser(CurrentUser.getInstance()
+							.getUser(), emailField.getValue(), firstNameField
+							.getValue(), lastNameField.getValue())) {
 						Notification success = new Notification(lang
 								.getString("ProfileUpdatedSuccessfully"));
 						success.setDelayMsec(2000);
@@ -333,7 +336,7 @@ public class Preferences extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		
+
 	}
 
 }

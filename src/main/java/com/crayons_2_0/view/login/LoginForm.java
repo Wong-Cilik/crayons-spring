@@ -54,7 +54,6 @@ public class LoginForm extends VerticalLayout {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				UI.getCurrent().getNavigator().navigateTo("registerView");
-
 			}
 		});
 

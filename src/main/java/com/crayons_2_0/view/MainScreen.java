@@ -49,7 +49,7 @@ public class MainScreen extends HorizontalLayout implements View {
 
 	@Autowired
 	UserlibraryView userlibraryView;
-	
+
 	@Autowired
 	UnitUserView unitUserView;
 
@@ -64,14 +64,14 @@ public class MainScreen extends HorizontalLayout implements View {
 
 	@Autowired
 	CourseEditorView courseEditorView;
-	
+
 	@Autowired
 	Uniteditor uniteditor;
-	
+
 	public MainScreen() {
 
 	}
-	
+
 	@PostConstruct
 	void init() {
 
@@ -102,7 +102,8 @@ public class MainScreen extends HorizontalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		CurrentUser.getInstance().setUser(userService.findByEMail(CurrentUser.getInstance().geteMail()));
+		CurrentUser.getInstance().setUser(
+				userService.findByEMail(CurrentUser.getInstance().geteMail()));
 		setStyleName("main-screen");
 
 		CssLayout viewContainer = new CssLayout();
@@ -111,11 +112,12 @@ public class MainScreen extends HorizontalLayout implements View {
 
 		final Navigator navigator = new Navigator(MyUI.get(), viewContainer);
 		navigator.setErrorView(ErrorView.class);
-		menu = new Menu (navigator);
+		menu = new Menu(navigator);
 		// menu.addView(aboutView, AboutView.VIEW_NAME,
 		// lang.getString(AboutView.VIEW_NAME), FontAwesome.INFO_CIRCLE);
-		if (userService.findByEMail(CurrentUser.getInstance().geteMail()).getPermission() < 2) {
-		menu.addView(authorlibrary, Authorlibrary.VIEW_NAME,
+		if (userService.findByEMail(CurrentUser.getInstance().geteMail())
+				.getPermission() < 2) {
+			menu.addView(authorlibrary, Authorlibrary.VIEW_NAME,
 					lang.getString(Authorlibrary.VIEW_NAME), FontAwesome.BOOK);
 		}
 		menu.addView(userlibraryView, UserlibraryView.VIEW_NAME,
@@ -124,7 +126,8 @@ public class MainScreen extends HorizontalLayout implements View {
 				lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
 		menu.addView(search, Search.VIEW_NAME,
 				lang.getString(Search.VIEW_NAME), FontAwesome.SEARCH);
-		if (userService.findByEMail(CurrentUser.getInstance().geteMail()).getPermission() < 1) {
+		if (userService.findByEMail(CurrentUser.getInstance().geteMail())
+				.getPermission() < 1) {
 			menu.addView(adminView, AdminView.VIEW_NAME,
 					lang.getString(AdminView.VIEW_NAME), FontAwesome.USERS);
 		}

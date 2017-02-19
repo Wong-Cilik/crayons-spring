@@ -5,7 +5,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentCourses;
-import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.component.ImportEditor;
 import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.service.database.CourseService;
@@ -56,7 +55,7 @@ public class Uniteditor extends VerticalLayout implements View {
 	 */
 	@Autowired
 	CourseService courseService;
-	
+
 	public static final String VIEW_NAME = "Unit Editor";
 
 	private static UnitPageLayout page;
@@ -93,12 +92,11 @@ public class Uniteditor extends VerticalLayout implements View {
 		setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
 		setExpandRatio(footer, 1);
 	}
-	
+
 	/**
 	 * Builds together several components of the unit editor view.
 	 */
 	public Uniteditor() {
-
 
 	}
 
@@ -208,7 +206,9 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				unitService.saveUnitData(page, CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle());
+				unitService.saveUnitData(page, CurrentCourses.getInstance()
+						.getUnitTitle(), CurrentCourses.getInstance()
+						.getTitle());
 			}
 		});
 

@@ -85,7 +85,9 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 	@PostConstruct
 	void init() {
-		authorCoursesList = courseService.findAllAuthorCoursesOfUser(CurrentUser.getInstance().geteMail());
+		authorCoursesList = courseService
+				.findAllAuthorCoursesOfUser(CurrentUser.getInstance()
+						.geteMail());
 
 		VerticalLayout content = new VerticalLayout();
 		HorizontalLayout header = new HorizontalLayout();
@@ -220,7 +222,9 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				courseService.insertCourse(new Course(courseTitleField
-						.getValue(), couseDescriptionField.getValue(), userService.findByEMail(CurrentUser.getInstance().geteMail()), ""));
+						.getValue(), couseDescriptionField.getValue(),
+						userService.findByEMail(CurrentUser.getInstance()
+								.geteMail()), ""));
 				courseService.saveDummyGraph(courseTitleField.getValue());
 				String title = (String) courseTitleField.getValue();
 				Component newTab = buildCourseTab(title);
@@ -360,10 +364,13 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				CurrentGraph.getInstance().setCourseTitle(title);
-				CurrentGraph.getInstance().setGraph(courseService.getCourseData(title));
+				CurrentGraph.getInstance().setGraph(
+						courseService.getCourseData(title));
 				CurrentCourses.getInstance().setTitle(title);
-				CourseEditorView.refreshGraph(courseService.getCourseData(title));
-				UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
+				CourseEditorView.refreshGraph(courseService
+						.getCourseData(title));
+				UI.getCurrent().getNavigator()
+						.navigateTo(CourseEditorView.VIEW_NAME);
 			}
 		});
 

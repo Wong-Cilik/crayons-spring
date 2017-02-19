@@ -10,7 +10,6 @@ import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.component.DeleteVerification;
-import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.model.graph.Graph;
@@ -56,7 +55,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 	@Autowired
 	CurrentCourses currentCourse;
-	
+
 	@Autowired
 	UnitService unitService;
 
@@ -156,7 +155,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 		HorizontalLayout editMenuLayout = new HorizontalLayout();
 		editMenuLayout.setSpacing(true);
 		editMenuLayout.setWidthUndefined();
-		
+
 		selectUnit = new ComboBox(lang.getString("SelectTheUnitForEdit"));
 		for (UnitNode tmp : graphData.getUnitCollection()) {
 			selectUnit.addItem(tmp.getUnitNodeTitle());
@@ -183,8 +182,11 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentCourses.getInstance().setUnitTitle((String)selectUnit.getValue());
-				Uniteditor.refreshLayout(unitService.getUnitData((String)selectUnit.getValue(), CurrentGraph.getInstance().getCourseTitle()));
+				CurrentCourses.getInstance().setUnitTitle(
+						(String) selectUnit.getValue());
+				Uniteditor.refreshLayout(unitService.getUnitData(
+						(String) selectUnit.getValue(), CurrentGraph
+								.getInstance().getCourseTitle()));
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 			}
 		});

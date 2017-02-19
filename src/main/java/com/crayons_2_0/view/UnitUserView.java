@@ -47,7 +47,7 @@ public class UnitUserView extends VerticalLayout implements View {
 	private Button doneButton;
 	private Button cancelButton;
 	private Map<String, Boolean> responces;
-	
+
 	@Autowired
 	CurrentCourses currentCourse;
 
@@ -89,7 +89,8 @@ public class UnitUserView extends VerticalLayout implements View {
 
 		responces = new HashMap<String, Boolean>();
 
-		Component pageTitle = buildTitle(currentCourse.getInstance().getUnitTitle());
+		Component pageTitle = buildTitle(currentCourse.getInstance()
+				.getUnitTitle());
 		addComponent(pageTitle);
 		setComponentAlignment(pageTitle, Alignment.TOP_CENTER);
 		setExpandRatio(pageTitle, 1);
@@ -123,10 +124,8 @@ public class UnitUserView extends VerticalLayout implements View {
 		setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
 		setExpandRatio(controlButtons, 1);
 	}
-	
-	
+
 	public UnitUserView() {
-		
 
 	}
 

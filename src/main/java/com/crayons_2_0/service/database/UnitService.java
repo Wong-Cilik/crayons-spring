@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.model.Course;
-import com.crayons_2_0.model.graph.Graph;
 import com.vaadin.spring.annotation.SpringComponent;
 
 @SpringComponent
@@ -26,7 +25,6 @@ public class UnitService {
 	private UnitDAO unitDAO;
 	@Autowired
 	private CourseService courseService;
-
 
 	public List<Unit> findAll() {
 		List<Unit> res = unitDAO.findAll();
@@ -39,7 +37,7 @@ public class UnitService {
 	 * @param course
 	 *            to find the Units of
 	 * @return the Units of the course
-	 */	
+	 */
 	public List<Unit> findUnitsOfCourse(Course course) {
 		List<Unit> allUnits = findAll();
 		List<Unit> unitsOfCourse = new LinkedList<Unit>();
@@ -82,14 +80,14 @@ public class UnitService {
 		return null;
 	}
 
-
 	public void storeUnitDummyData(String unitTitle, String courseTitle) {
 		unitDAO.insertUnit(unitTitle, courseTitle);
 		saveUnitData(new UnitPageLayout(), unitTitle, courseTitle);
 	}
-	
-	public void saveUnitData(UnitPageLayout data, String titleUnit, String titleCourse) {
-		
+
+	public void saveUnitData(UnitPageLayout data, String titleUnit,
+			String titleCourse) {
+
 		File file = new File(titleUnit + ".bin");
 		ObjectOutputStream out;
 		try {
@@ -105,8 +103,7 @@ public class UnitService {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public UnitPageLayout getUnitData(String unitTitle, String courseTitle) {
 		ObjectInputStream in;
 		UnitPageLayout layout = null;

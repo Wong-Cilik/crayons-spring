@@ -7,9 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 
 import com.crayons_2_0.component.Unit;
-import com.crayons_2_0.model.Course;
-import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.model.graph.UnitNode.UnitType;
 
 import java.io.File;
@@ -71,7 +68,8 @@ public class UnitDAO {
 		return true;
 	}
 
-	public void saveData(File file, String titleUnit, String titleCourse) throws IOException {
+	public void saveData(File file, String titleUnit, String titleCourse)
+			throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		jdbcTemplate.update("UPDATE units SET data=? WHERE unitTitle=?",
 				new PreparedStatementSetter() {
@@ -83,26 +81,29 @@ public class UnitDAO {
 				});
 		fis.close();
 	}
+
 	public void insertUnit(String unitTitle, String courseTitle) {
-		jdbcTemplate.update("insert into units (coursetitle, unittitle) VALUES (?, ?)",
+		jdbcTemplate.update(
+				"insert into units (coursetitle, unittitle) VALUES (?, ?)",
 				courseTitle, unitTitle);
-		
+
 	}
 
-	public void getData(String unitTitle, String courseTitle) throws IOException {
+	public void getData(String unitTitle, String courseTitle)
+			throws IOException {
 		File file = new File(unitTitle + ".bin");
 		FileOutputStream fos = new FileOutputStream(file);
-		byte[] data = jdbcTemplate
-				.queryForObject("SELECT data FROM units WHERE unittitle = ?",
-						byte[].class, unitTitle);
+		byte[] data = jdbcTemplate.queryForObject(
+				"SELECT data FROM units WHERE unittitle = ?", byte[].class,
+				unitTitle);
 		fos.write(data, 0, data.length);
 		fos.flush();
-		fos.close(); {
-		// TODO Auto-generated method stub
-		
+		fos.close();
+		{
+			// TODO Auto-generated method stub
+
 		}
 	}
-
 
 	/*
 	 * public void save(Course course) { String query =

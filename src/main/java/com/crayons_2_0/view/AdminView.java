@@ -121,8 +121,10 @@ public final class AdminView extends VerticalLayout implements View {
 			}
 			collection.add(new UserDisplay(tmpUser.getEmail(), tmpUser
 					.getFirstName() + " " + tmpUser.getLastName(), permission,
-					courseService.findAllAuthorCoursesOfUser(tmpUser.getEmail()).size(),
-					courseService.findAllCoursesOfUser(tmpUser).size()));
+					courseService
+							.findAllAuthorCoursesOfUser(tmpUser.getEmail())
+							.size(), courseService
+							.findAllCoursesOfUser(tmpUser).size()));
 		}
 		return collection;
 	}
@@ -251,7 +253,7 @@ public final class AdminView extends VerticalLayout implements View {
 		phoneField.setWidth("100%");
 		phoneField.setReadOnly(true);
 		details.addComponent(phoneField);
-		
+
 		Button deleteUser = new Button("Delete User");
 		details.addComponent(deleteUser);
 		details.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
@@ -259,15 +261,17 @@ public final class AdminView extends VerticalLayout implements View {
 		deleteUser.addClickListener(new ClickListener() {
 			@Override
 			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-				for(Course tmp : courseService.findAllAuthorCoursesOfUser(emailField.getValue())) {
+				for (Course tmp : courseService
+						.findAllAuthorCoursesOfUser(emailField.getValue())) {
 					courseService.removeCourse(tmp);
 				}
-				for(Course tmp: courseService.findAll()) {
-					courseService.removeStudent(tmp.getTitle(), emailField.getValue());
+				for (Course tmp : courseService.findAll()) {
+					courseService.removeStudent(tmp.getTitle(),
+							emailField.getValue());
 				}
 				userService.removeUser(emailField.getValue());
 			}
-			
+
 		});
 
 		return root;

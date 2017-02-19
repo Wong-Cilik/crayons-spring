@@ -85,8 +85,11 @@ public class SelectUnitForEditWindow extends Window {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentGraph.getInstance().setUnitTitle(selectUnit.getValue().toString());
-				Uniteditor.refreshLayout(unitService.getUnitData((String)selectUnit.getValue(), CurrentGraph.getInstance().getCourseTitle()));
+				CurrentGraph.getInstance().setUnitTitle(
+						selectUnit.getValue().toString());
+				Uniteditor.refreshLayout(unitService.getUnitData(
+						(String) selectUnit.getValue(), CurrentGraph
+								.getInstance().getCourseTitle()));
 				close();
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 			}

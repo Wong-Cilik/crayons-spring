@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.crayons_2_0.controller.RegisterFormListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -12,10 +14,11 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -28,37 +31,22 @@ public class RegisterView extends VerticalLayout implements View {
 	/**
      * 
      */
+	@Autowired
+	RegisterFormListener registerFormListener;
+
 	public static final String VIEW_NAME = "registerView";
 	private TextField email = new TextField();
 	private PasswordField password = new PasswordField();
 	private TextField firstname = new TextField();
 	private TextField lastname = new TextField();
 	private NativeSelect selectLanguage = new NativeSelect("Select language");
-	private NativeSelect selectRole = new NativeSelect("Select a role");
 
 	@PostConstruct
 	void init() {
 		registerViewBuilder();
-
 	}
 
 	private void registerViewBuilder() {
-		List<String> roles = new ArrayList<String>();
-		roles.add("user");
-		roles.add("admin");
-
-		for (String obj : roles) {
-
-			selectRole.addItem(obj);
-		}
-
-		selectRole.setNullSelectionAllowed(false);
-		selectRole.setImmediate(true);
-
-		selectRole.addValueChangeListener(e -> Notification.show(
-				"Value changed:", String.valueOf(e.getProperty().getValue()),
-				Type.TRAY_NOTIFICATION));
-
 		List<String> languages = new ArrayList<String>();
 		languages.add("English");
 		languages.add("German");
@@ -70,10 +58,6 @@ public class RegisterView extends VerticalLayout implements View {
 
 		selectLanguage.setNullSelectionAllowed(false);
 		selectLanguage.setImmediate(true);
-
-		selectLanguage.addValueChangeListener(e -> Notification.show(
-				"Value changed:", String.valueOf(e.getProperty().getValue()),
-				Type.TRAY_NOTIFICATION));
 
 		getEmail().setRequired(true);
 		getPassword().setRequired(true);
@@ -95,16 +79,27 @@ public class RegisterView extends VerticalLayout implements View {
 
 		addComponent(getPassword());
 
-		addComponent(getSelectRole());
-
 		addComponent(getSelectLanguage());
 
 		Button btnInsertUser = new Button("create a user");
-		btnInsertUser.addClickListener(new RegisterFormListener());
+		btnInsertUser.addClickListener(registerFormListener);
 		// Trivial logic for closing the sub-window
+
+		Button btnCancel = new Button("abbrechen");
+		btnCancel.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UI.getCurrent().getNavigator()
+						.navigateTo(LoginScreen.VIEW_NAME);
+			}
+
+		});
+
 		setMargin(true);
 		setSpacing(true);
 		addComponents(btnInsertUser);
+		addComponents(btnCancel);
 	}
 
 	public TextField getEmail() {
@@ -143,14 +138,6 @@ public class RegisterView extends VerticalLayout implements View {
 	public void enter(ViewChangeEvent event) {
 		// TODO Auto-generated method stub
 
-	}
-
-	public NativeSelect getSelectRole() {
-		return selectRole;
-	}
-
-	public void setSelectRole(NativeSelect selectRole) {
-		this.selectRole = selectRole;
 	}
 
 	public NativeSelect getSelectLanguage() {
