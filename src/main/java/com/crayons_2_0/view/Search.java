@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.maddon.ListContainer;
 
 import com.crayons_2_0.service.CourseDisplay;
+import com.crayons_2_0.service.UserDisplay;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
@@ -48,7 +49,6 @@ public final class Search extends VerticalLayout implements View {
 	List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
 	public static final String VIEW_NAME = "Search";
 	private Table table;
-	private Button createSearch;
 
 	@Autowired
 	CourseService courseService;
@@ -74,33 +74,13 @@ public final class Search extends VerticalLayout implements View {
 		header.setSpacing(true);
 		Responsive.makeResponsive(header);
 
-		createSearch = buildSearch();
 		Component createFilter = buildFilter();
-		HorizontalLayout tools = new HorizontalLayout(createFilter,
-				createSearch);
+		HorizontalLayout tools = new HorizontalLayout(createFilter);
 		tools.setSpacing(true);
 		tools.addStyleName("toolbar");
 		header.addComponent(tools);
 
 		return header;
-	}
-
-	private Button buildSearch() {
-		final Button search = new Button("Search");
-		search.addClickListener(new ClickListener() {
-			/**
-			 * 
-			 */
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				collection.removeAll(collection);
-				collection.addAll(courseService.searchAll("algo"));
-				table.setContainerDataSource(new TempContainer(collection));
-			}
-
-		});
-		return search;
 	}
 
 	private Component buildFilter() {
@@ -152,11 +132,9 @@ public final class Search extends VerticalLayout implements View {
 
 			@Override
 			public void itemClick(ItemClickEvent event) {
-				Notification fail = new Notification("Course doesn't exist");
-				fail.setDelayMsec(2000);
-				fail.setStyleName("bar fail small");
-				fail.setPosition(Position.BOTTOM_CENTER);
-				fail.show(Page.getCurrent());
+				CourseDisplay courseDisplay = (CourseDisplay) event.getItemId();
+				System.out.println("HIER  " + courseDisplay.getTitle());
+				
 			}
 
 		});

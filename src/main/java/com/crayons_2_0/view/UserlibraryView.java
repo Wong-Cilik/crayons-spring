@@ -11,6 +11,7 @@ import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
+import com.crayons_2_0.service.database.UserService;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
@@ -48,9 +49,10 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 	@Autowired
 	CourseService courseService;
+	
 	@Autowired
-	CurrentUser c;
-
+	UserService userService;
+	
 	private TabSheet coursesTabSheet;
 	private Component filter;
 
@@ -110,7 +112,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 		coursesTabSheet.setSizeFull();
 		coursesTabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
 		coursesTabSheet.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-		for (Course tmp : courseService.findAllCoursesOfUser(c.get())) {
+		for (Course tmp : courseService.findAllCoursesOfUser(userService.findByEMail(CurrentUser.getInstance().geteMail()))) {
 			coursesTabSheet.addComponent(buildCourseTab(tmp));
 		}
 		return coursesTabSheet;
@@ -180,7 +182,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				courseService.removeStudent(title, c.get().getEmail());
+				courseService.removeStudent(title, CurrentUser.getInstance().geteMail());
 				coursesTabSheet.removeComponent(tab);
 			}
 
