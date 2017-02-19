@@ -80,7 +80,11 @@ public class CourseEditorView extends VerticalLayout implements View {
 		footer.setSizeUndefined();
 		setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
 	}
-
+	
+	/**
+	 * general refresher
+	 * @param graphTmp
+	 */
 	public static void refreshGraph(Graph graphTmp) {
 		selectUnit.removeAllItems();
 		selectUnit.addItems(graphTmp.getNodeNameList());
@@ -88,6 +92,13 @@ public class CourseEditorView extends VerticalLayout implements View {
 		graphData = graphTmp;
 	}
 	
+	/**
+	 * refresher for UnitCreationWindow
+	 * 
+	 * @param graphTmp
+	 * @param unitTitle
+	 * @param courseTitle
+	 */
 	public static void refreshGraph(Graph graphTmp, String unitTitle, String courseTitle) {
 		System.out.println(unitTitle + " " + courseTitle);
 		unitService.storeUnitDummyData(unitTitle + "-" + courseTitle, CurrentCourses.getInstance().getTitle());
