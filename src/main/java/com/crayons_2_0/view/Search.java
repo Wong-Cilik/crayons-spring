@@ -26,6 +26,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -84,7 +85,6 @@ public final class Search extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-
 			@Override
 			public void textChange(final TextChangeEvent event) {
 				collection.removeAll(collection);
@@ -119,15 +119,14 @@ public final class Search extends VerticalLayout implements View {
 		table.setVisibleColumns("author", "release", "title", "status");
 		table.setColumnHeaders("Author", "Release", "Title", "Status");
 		table.addListener(new ItemClickListener() {
+			
 			/**
 			 * 
 			 */
-
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				CourseDisplay courseDisplay = (CourseDisplay) event.getItemId();
-				System.out.println("HIER  " + courseDisplay.getTitle());
-
+				UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
 			}
 
 		});
