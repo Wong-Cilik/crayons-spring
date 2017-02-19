@@ -4,10 +4,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 
 import com.crayons_2_0.component.Unit;
+import com.crayons_2_0.model.Course;
+import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.model.graph.UnitNode.UnitType;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -41,11 +50,9 @@ public class UnitDAO {
 
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-				String title = rs.getString("title");
-				UnitType unitType = createUnitType(rs.getString("unitType"));
-				String content = rs.getString("content");
-				String courseTitel = rs.getString("course");
-				Unit unit = new Unit(title, unitType, courseTitel, content);
+				String unitTitle = rs.getString("unittitle");
+				String courseTitle = rs.getString("coursetitle");
+				Unit unit = new Unit(unitTitle, courseTitle);
 				return unit;
 			}
 
@@ -63,6 +70,40 @@ public class UnitDAO {
 	public boolean save(Unit unit) {
 		return true;
 	}
+
+	public void saveData(File file, String titleUnit, String titleCourse) throws IOException {
+		FileInputStream fis = new FileInputStream(file);
+		jdbcTemplate.update("UPDATE units SET data=? WHERE unitTitle=?",
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setBinaryStream(1, fis, (int) file.length());
+						ps.setString(2, titleUnit);
+					}
+				});
+		fis.close();
+	}
+	public void insertUnit(String unitTitle, String courseTitle) {
+		jdbcTemplate.update("insert into units (coursetitle, unittitle) VALUES (?, ?)",
+				courseTitle, unitTitle);
+		
+	}
+
+	public void getData(String unitTitle, String courseTitle) throws IOException {
+		System.out.println("in der DAO" + unitTitle);
+		File file = new File(unitTitle + ".bin");
+		FileOutputStream fos = new FileOutputStream(file);
+		byte[] data = jdbcTemplate
+				.queryForObject("SELECT data FROM units WHERE unittitle = ?",
+						byte[].class, unitTitle);
+		fos.write(data, 0, data.length);
+		fos.flush();
+		fos.close(); {
+		// TODO Auto-generated method stub
+		
+		}
+	}
+
 
 	/*
 	 * public void save(Course course) { String query =

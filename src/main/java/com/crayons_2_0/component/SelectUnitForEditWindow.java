@@ -2,10 +2,13 @@ package com.crayons_2_0.component;
 
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.UnitService;
 import com.crayons_2_0.view.Uniteditor;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -29,6 +32,8 @@ public class SelectUnitForEditWindow extends Window {
 	private static Graph graph;
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	private ComboBox selectUnit;
+	@Autowired
+	UnitService unitService;
 
 	public SelectUnitForEditWindow(Graph graphData) {
 		graph = graphData;
@@ -80,11 +85,8 @@ public class SelectUnitForEditWindow extends Window {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentGraph.getInstance().setUnitTitle(
-						selectUnit.getValue().toString());
-				System.out.println(selectUnit.getValue());
-				Uniteditor.refreshLayout(graph.getNodeByName(
-						(String) selectUnit.getValue()).getLayout());
+				CurrentGraph.getInstance().setUnitTitle(selectUnit.getValue().toString());
+				Uniteditor.refreshLayout(unitService.getUnitData((String)selectUnit.getValue(), CurrentGraph.getCourseTitle()));
 				close();
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 			}
@@ -105,8 +107,4 @@ public class SelectUnitForEditWindow extends Window {
 		graph = graphData;
 
 	}
-
-	/*
-	 * private Component buildDescription() { return null; }
-	 */
 }

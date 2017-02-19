@@ -20,6 +20,11 @@ public class Unit {
 		this.setCourseTitle(courseTitel);
 		this.setContent(content);
 	}
+	
+	public Unit(String title,String courseTitel) {
+		this.setTitle(title);
+		this.setCourseTitle(courseTitel);
+	}
 
 	public Unit() {
 		// TODO Auto-generated constructor stub

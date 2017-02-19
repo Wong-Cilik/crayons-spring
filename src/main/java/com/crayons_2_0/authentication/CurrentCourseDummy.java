@@ -1,4 +1,4 @@
-package com.crayons_2_0.view;
+package com.crayons_2_0.authentication;
 
 public class CurrentCourseDummy {
 

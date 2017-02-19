@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.database.CourseService;
-import com.crayons_2_0.view.CurrentCourseDummy;
+import com.crayons_2_0.authentication.CurrentCourseDummy;
 
 @Component
 public class UnitEditor2 {

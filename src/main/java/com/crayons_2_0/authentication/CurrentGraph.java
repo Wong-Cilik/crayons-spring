@@ -7,7 +7,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 public class CurrentGraph {
 
 	private Graph graph;
-	private String courseTitle;
+	private static String courseTitle;
 	private String unitTitle;
 	private static CurrentGraph instance = null;
 
@@ -32,7 +32,7 @@ public class CurrentGraph {
 		this.graph = graph;
 	}
 
-	public String getCourseTitle() {
+	public static String getCourseTitle() {
 		return courseTitle;
 	}
 

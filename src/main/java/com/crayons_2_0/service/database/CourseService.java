@@ -229,13 +229,17 @@ public class CourseService {
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 
-		UnitNode one = new UnitNode("1", dummyGraph.getStartUnit(), dummyGraph);
-		UnitNode two = new UnitNode("2", one, dummyGraph);
-		UnitNode three = new UnitNode("3", two, dummyGraph);
+		UnitNode one = new UnitNode("1-" + title, dummyGraph.getStartUnit(), dummyGraph);
+		UnitNode two = new UnitNode("2-" + title, one, dummyGraph);
+		UnitNode three = new UnitNode("3-" + title, two, dummyGraph);
 
-		one.setLayout(unitService.getDummyLayout());
+		/*one.setLayout(unitService.getDummyLayout());
 		two.setLayout(unitService.getDummyLayout());
-		three.setLayout(unitService.getDummyLayout());
+		three.setLayout(unitService.getDummyLayout());*/
+		
+		unitService.storeUnitDummyData(one.getUnitNodeTitle(), title);
+		unitService.storeUnitDummyData(two.getUnitNodeTitle(), title);
+		unitService.storeUnitDummyData(three.getUnitNodeTitle(), title);
 
 		dummyGraph.addUnit(one, one.getParentNodes());
 		dummyGraph.addUnit(two, two.getParentNodes());

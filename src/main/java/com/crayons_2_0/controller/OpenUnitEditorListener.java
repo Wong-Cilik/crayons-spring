@@ -1,6 +1,6 @@
 package com.crayons_2_0.controller;
 
-import com.crayons_2_0.view.CurrentCourseDummy;
+import com.crayons_2_0.authentication.CurrentCourseDummy;
 import com.crayons_2_0.view.UnitEditorView;
 import com.crayons_2_0.view.authorlib.AuthorlibraryForm;
 import com.vaadin.ui.Button;
