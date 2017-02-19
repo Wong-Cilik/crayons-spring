@@ -67,7 +67,10 @@ public class MainScreen extends HorizontalLayout implements View {
 
 	@Autowired
 	CurrentUser currentUser;
-
+	
+	@Autowired
+	Uniteditor uniteditor;
+	
 	public MainScreen() {
 
 	}

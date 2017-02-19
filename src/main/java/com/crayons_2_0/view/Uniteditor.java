@@ -1,5 +1,7 @@
 package com.crayons_2_0.view;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentCourses;
@@ -62,10 +64,8 @@ public class Uniteditor extends VerticalLayout implements View {
 	@Autowired
 	UnitService unitService;
 
-	/**
-	 * Builds together several components of the unit editor view.
-	 */
-	public Uniteditor() {
+	@PostConstruct
+	void init() {
 		setSizeFull();
 		/*
 		 * Responsive.makeResponsive(this); Label editorNotAvailable = new
@@ -92,6 +92,14 @@ public class Uniteditor extends VerticalLayout implements View {
 		addComponent(footer);
 		setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
 		setExpandRatio(footer, 1);
+	}
+	
+	/**
+	 * Builds together several components of the unit editor view.
+	 */
+	public Uniteditor() {
+
+
 	}
 
 	public static void refreshLayout(UnitPageLayout layout) {
@@ -201,9 +209,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				unitService.saveUnitData(page, CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle());
-				
 			}
-
 		});
 
 		Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
