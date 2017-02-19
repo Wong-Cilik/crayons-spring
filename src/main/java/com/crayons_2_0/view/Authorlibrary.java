@@ -368,7 +368,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 			public void buttonClick(ClickEvent event) {
 				CurrentGraph.getInstance().setCourseTitle(title);
 				CurrentGraph.getInstance().setGraph(courseService.getCourseData(title));
-				System.out.println("Kurstitel von Autorbib aus: " + CurrentGraph.getCourseTitle());
 				currentCourse.setTitle(title);
 				CourseEditorView.refreshGraph(courseService.getCourseData(title));
 				UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);

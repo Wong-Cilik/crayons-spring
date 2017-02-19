@@ -109,7 +109,6 @@ public class UnitService {
 	public UnitPageLayout getUnitData(String unitTitle, String courseTitle) {
 		ObjectInputStream in;
 		UnitPageLayout layout = null;
-		System.out.println("in der Service" + unitTitle);
 		File file = new File(unitTitle + ".bin");
 		try {
 			unitDAO.getData(unitTitle, courseTitle);

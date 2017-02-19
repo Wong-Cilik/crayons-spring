@@ -13,6 +13,7 @@ public class CurrentCourses {
 	CourseService courseService;
 	private Course course;
 	private String title;
+	private String unitTitle;
 	private static CurrentCourses instance = null;
 
 	private CurrentCourses() {
@@ -53,5 +54,13 @@ public class CurrentCourses {
 	public void setTitle(String title) {
 
 		this.title = title;
+	}
+
+	public String getUnitTitle() {
+		return unitTitle;
+	}
+
+	public void setUnitTitle(String unitTitle) {
+		this.unitTitle = unitTitle;
 	}
 }

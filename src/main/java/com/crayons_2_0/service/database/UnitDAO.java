@@ -90,7 +90,6 @@ public class UnitDAO {
 	}
 
 	public void getData(String unitTitle, String courseTitle) throws IOException {
-		System.out.println("in der DAO" + unitTitle);
 		File file = new File(unitTitle + ".bin");
 		FileOutputStream fos = new FileOutputStream(file);
 		byte[] data = jdbcTemplate

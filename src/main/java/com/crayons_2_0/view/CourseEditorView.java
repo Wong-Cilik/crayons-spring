@@ -14,8 +14,10 @@ import com.crayons_2_0.component.SelectUnitForEditWindow;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.component.UnitCreationWindow;
 import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
+import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
@@ -24,6 +26,7 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
@@ -53,6 +56,9 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 	@Autowired
 	CurrentCourses currentCourse;
+	
+	@Autowired
+	UnitService unitService;
 
 	static Graph graphData;
 
@@ -61,6 +67,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 	final static Dagre graph = new Dagre();
 
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
+	private static ComboBox selectUnit;
 
 	@PostConstruct
 	void init() {
@@ -78,6 +85,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 	}
 
 	public static void refreshGraph(Graph graphTmp) {
+		selectUnit.removeAllItems();
+		selectUnit.addItems(graphTmp.getNodeNameList());
 		graph.setGraph(graphTmp.getNodeNameList(), graphTmp.getEdgeSequence());
 		graphData = graphTmp;
 	}
@@ -147,6 +156,12 @@ public class CourseEditorView extends VerticalLayout implements View {
 		HorizontalLayout editMenuLayout = new HorizontalLayout();
 		editMenuLayout.setSpacing(true);
 		editMenuLayout.setWidthUndefined();
+		
+		selectUnit = new ComboBox(lang.getString("SelectTheUnitForEdit"));
+		for (UnitNode tmp : graphData.getUnitCollection()) {
+			selectUnit.addItem(tmp.getUnitNodeTitle());
+		}
+		editMenuLayout.addComponent(selectUnit);
 		// create buttons with refresh data
 		Button unitCreationButton = new Button(
 				EditMenuButtonType.ADD_UNIT.getTitle(),
@@ -168,10 +183,9 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentGraph.getInstance().setGraph(graphData);
-				SelectUnitForEditWindow.refreshData(graphData);
-				UI.getCurrent().addWindow(
-						new SelectUnitForEditWindow(graphData));
+				CurrentCourses.getInstance().setUnitTitle((String)selectUnit.getValue());
+				Uniteditor.refreshLayout(unitService.getUnitData((String)selectUnit.getValue(), CurrentGraph.getInstance().getCourseTitle()));
+				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 			}
 		});
 

@@ -61,8 +61,6 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	@Autowired
 	UnitService unitService;
-	@Autowired
-	CurrentCourses currentCourse;
 
 	/**
 	 * Builds together several components of the unit editor view.
@@ -97,7 +95,8 @@ public class Uniteditor extends VerticalLayout implements View {
 	}
 
 	public static void refreshLayout(UnitPageLayout layout) {
-		page = layout;
+		page = (UnitPageLayout) layout;
+		Page.getCurrent().reload();
 	}
 
 	/**
@@ -202,6 +201,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
+				unitService.saveUnitData(page, CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle());
 				
 			}
 
