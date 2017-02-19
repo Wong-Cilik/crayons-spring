@@ -64,9 +64,6 @@ public class MainScreen extends HorizontalLayout implements View {
 
 	@Autowired
 	CourseEditorView courseEditorView;
-
-	@Autowired
-	CurrentUser currentUser;
 	
 	@Autowired
 	Uniteditor uniteditor;
@@ -74,51 +71,10 @@ public class MainScreen extends HorizontalLayout implements View {
 	public MainScreen() {
 
 	}
-
+	
 	@PostConstruct
 	void init() {
 
-		setStyleName("main-screen");
-
-		CssLayout viewContainer = new CssLayout();
-		viewContainer.addStyleName("valo-content");
-		viewContainer.setSizeFull();
-
-		final Navigator navigator = new Navigator(MyUI.get(), viewContainer);
-		navigator.setErrorView(ErrorView.class);
-		menu = new Menu(navigator);
-
-		// menu.addView(aboutView, AboutView.VIEW_NAME,
-		// lang.getString(AboutView.VIEW_NAME), FontAwesome.INFO_CIRCLE);
-
-		if (currentUser.get().getPermission() < 2) {
-			menu.addView(authorlibrary, Authorlibrary.VIEW_NAME,
-					lang.getString(Authorlibrary.VIEW_NAME), FontAwesome.BOOK);
-		}
-		menu.addView(userlibraryView, UserlibraryView.VIEW_NAME,
-				lang.getString(UserlibraryView.VIEW_NAME), FontAwesome.PENCIL);
-		menu.addView(preferences, Preferences.VIEW_NAME,
-				lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
-		menu.addView(search, Search.VIEW_NAME,
-				lang.getString(Search.VIEW_NAME), FontAwesome.SEARCH);
-		if (currentUser.get().getPermission() < 1) {
-			menu.addView(adminView, AdminView.VIEW_NAME,
-					lang.getString(AdminView.VIEW_NAME), FontAwesome.USERS);
-		}
-
-		navigator.addView(CourseEditorView.VIEW_NAME, courseEditorView);
-
-		navigator.addView(Uniteditor.VIEW_NAME, new Uniteditor());
-		
-		navigator.addView(UnitUserView.VIEW_NAME, unitUserView);
-
-		navigator.addViewChangeListener(viewChangeListener);
-
-		addComponent(menu);
-
-		addComponent(viewContainer);
-		setExpandRatio(viewContainer, 1);
-		setSizeFull();
 	}
 
 	// notify the view menu about view changes so that it can display which view
@@ -146,7 +102,45 @@ public class MainScreen extends HorizontalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+		CurrentUser.getInstance().setUser(userService.findByEMail(CurrentUser.getInstance().geteMail()));
+		setStyleName("main-screen");
 
+		CssLayout viewContainer = new CssLayout();
+		viewContainer.addStyleName("valo-content");
+		viewContainer.setSizeFull();
+
+		final Navigator navigator = new Navigator(MyUI.get(), viewContainer);
+		navigator.setErrorView(ErrorView.class);
+		menu = new Menu (navigator);
+		// menu.addView(aboutView, AboutView.VIEW_NAME,
+		// lang.getString(AboutView.VIEW_NAME), FontAwesome.INFO_CIRCLE);
+		if (userService.findByEMail(CurrentUser.getInstance().geteMail()).getPermission() < 2) {
+		menu.addView(authorlibrary, Authorlibrary.VIEW_NAME,
+					lang.getString(Authorlibrary.VIEW_NAME), FontAwesome.BOOK);
+		}
+		menu.addView(userlibraryView, UserlibraryView.VIEW_NAME,
+				lang.getString(UserlibraryView.VIEW_NAME), FontAwesome.PENCIL);
+		menu.addView(preferences, Preferences.VIEW_NAME,
+				lang.getString(Preferences.VIEW_NAME), FontAwesome.GEAR);
+		menu.addView(search, Search.VIEW_NAME,
+				lang.getString(Search.VIEW_NAME), FontAwesome.SEARCH);
+		if (userService.findByEMail(CurrentUser.getInstance().geteMail()).getPermission() < 1) {
+			menu.addView(adminView, AdminView.VIEW_NAME,
+					lang.getString(AdminView.VIEW_NAME), FontAwesome.USERS);
+		}
+
+		navigator.addView(CourseEditorView.VIEW_NAME, courseEditorView);
+
+		navigator.addView(Uniteditor.VIEW_NAME, uniteditor);
+
+		navigator.addViewChangeListener(viewChangeListener);
+
+		navigator.addView(UnitUserView.VIEW_NAME, unitUserView);
+
+		addComponent(menu);
+
+		addComponent(viewContainer);
+		setExpandRatio(viewContainer, 1);
+		setSizeFull();
 	}
 }
