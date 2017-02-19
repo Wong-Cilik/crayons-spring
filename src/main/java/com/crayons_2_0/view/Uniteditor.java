@@ -1,5 +1,7 @@
 package com.crayons_2_0.view;
 
+import java.util.ResourceBundle;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.ImportEditor;
 import com.crayons_2_0.component.UnitPageLayout;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
@@ -57,7 +60,8 @@ public class Uniteditor extends VerticalLayout implements View {
 	CourseService courseService;
 
 	public static final String VIEW_NAME = "Unit Editor";
-
+	private static ResourceBundle lang = LanguageService.getInstance().getRes();
+	
 	private static UnitPageLayout page;
 
 	@Autowired
@@ -66,18 +70,11 @@ public class Uniteditor extends VerticalLayout implements View {
 	@PostConstruct
 	void init() {
 		setSizeFull();
-		/*
-		 * Responsive.makeResponsive(this); Label editorNotAvailable = new
-		 * Label("Sorry"); editorNotAvailable.addStyleName("unavailable");
-		 * addComponent(editorNotAvailable);
-		 */
 		addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
-		// addStyleName("unitEditor");
 
 		Component pageItemsPalette = buildPageItemsPalette();
 		addComponent(pageItemsPalette);
 		setComponentAlignment(pageItemsPalette, Alignment.TOP_CENTER);
-		// pageItemsPalette.addStyleName("available");
 
 		page = new UnitPageLayout();
 		page.setWidth(100.0f, Unit.PERCENTAGE);
@@ -86,7 +83,6 @@ public class Uniteditor extends VerticalLayout implements View {
 		setExpandRatio(page, 8);
 
 		Component footer = buildFooter();
-		footer.addStyleName("available");
 		footer.setSizeFull();
 		addComponent(footer);
 		setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
@@ -148,7 +144,7 @@ public class Uniteditor extends VerticalLayout implements View {
 	 * @return the footer
 	 */
 	private Component buildFooter() {
-		Label deleteButton = new Label(FontAwesome.TRASH.getHtml() + "Delete",
+		Label deleteButton = new Label(FontAwesome.TRASH.getHtml() + lang.getString("Delete"),
 				ContentMode.HTML);
 		deleteButton.setSizeUndefined();
 		deleteButton.setStyleName(ValoTheme.LABEL_LARGE);
@@ -189,7 +185,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			@Override
 			public void layoutClick(final LayoutClickEvent event) {
 				Notification instruction = new Notification(
-						"Drag and drop the elemenets to be deleted over the button");
+				        lang.getString("DragAndDropDeleteButton"));
 				instruction.setDelayMsec(2000);
 				instruction.setStyleName("bar success small");
 				instruction.setPosition(Position.BOTTOM_CENTER);
@@ -197,7 +193,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			}
 		});
 
-		Button saveButton = new Button("Save", FontAwesome.CHECK);
+		Button saveButton = new Button(lang.getString("Save"), FontAwesome.CHECK);
 		saveButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 		saveButton.addClickListener(new ClickListener() {
 
@@ -212,7 +208,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			}
 		});
 
-		Button backButton = new Button("Back", FontAwesome.ARROW_LEFT);
+		Button backButton = new Button(lang.getString("Back"), FontAwesome.ARROW_LEFT);
 		backButton.addClickListener(new ClickListener() {
 
 			/**
@@ -229,7 +225,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 		});
 
-		Button importButton = new Button("Import", FontAwesome.DOWNLOAD);
+		Button importButton = new Button(lang.getString("Import"), FontAwesome.DOWNLOAD);
 		importButton.addClickListener(new ClickListener() {
 
 			/**
@@ -243,7 +239,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 		});
 
-		Button exportButton = new Button("Export", FontAwesome.UPLOAD);
+		Button exportButton = new Button(lang.getString("Export"), FontAwesome.UPLOAD);
 		exportButton.addClickListener(new ClickListener() {
 
 			/**
@@ -253,7 +249,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Notification success = new Notification(
-						"File is exported successfully");
+				        lang.getString("FileIsExportedSuccessfully"));
 				success.setDelayMsec(2000);
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);
@@ -315,9 +311,9 @@ public class Uniteditor extends VerticalLayout implements View {
 	 * choice exercise.
 	 */
 	public enum PageItemType {
-		TEXT("Text Block", FontAwesome.FONT), IMAGE("Image",
+		TEXT(lang.getString("TextBlock"), FontAwesome.FONT), IMAGE(lang.getString("Image"),
 				FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE(
-				"Multiple choice exercise", FontAwesome.CHECK_SQUARE_O);
+				lang.getString("MultipleChoiceExercise"), FontAwesome.CHECK_SQUARE_O);
 
 		private final String title;
 		private final FontAwesome icon;
@@ -382,7 +378,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		 *         the window
 		 */
 		private Component buildFooter() {
-			Button yesButton = new Button("Yes");
+			Button yesButton = new Button(lang.getString("Yes"));
 			yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 			yesButton.focus();
 			yesButton.addClickListener(new ClickListener() {
@@ -399,7 +395,7 @@ public class Uniteditor extends VerticalLayout implements View {
 				}
 			});
 
-			Button noButton = new Button("No");
+			Button noButton = new Button(lang.getString("No"));
 			noButton.addClickListener(new ClickListener() {
 				/**
 				 * 
@@ -414,7 +410,7 @@ public class Uniteditor extends VerticalLayout implements View {
 				}
 			});
 
-			Button cancelButton = new Button("Cancel");
+			Button cancelButton = new Button(lang.getString("Cancel"));
 
 			cancelButton.addClickListener(new ClickListener() {
 				/**
@@ -440,7 +436,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		 */
 		private Component buildTitle() {
 			Label title = new Label(
-					"The learning unit was modified. Do you want to save changes?");
+			        lang.getString("LearningUnitModified"));
 			title.addStyleName(ValoTheme.LABEL_H3);
 			HorizontalLayout layout = new HorizontalLayout(title);
 			layout.setSizeUndefined();
