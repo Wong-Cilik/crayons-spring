@@ -24,6 +24,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -119,14 +120,46 @@ public final class Search extends VerticalLayout implements View {
 		table.setVisibleColumns("author", "release", "title", "status");
 		table.setColumnHeaders("Author", "Release", "Title", "Status");
 		table.addListener(new ItemClickListener() {
-			
+
 			/**
 			 * 
 			 */
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				CourseDisplay courseDisplay = (CourseDisplay) event.getItemId();
-				UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
+
+				if (courseDisplay.getStatus().equals("Author")) {
+					UI.getCurrent().getNavigator()
+							.navigateTo(Authorlibrary.VIEW_NAME);
+					Authorlibrary a = (Authorlibrary) UI.getCurrent()
+							.getNavigator().getCurrentView();
+					VerticalLayout v = (VerticalLayout) a.getComponent(1);
+					TabSheet t = (TabSheet) v.getComponent(0);
+					for (Component x : t) {
+						if (x.getCaption() != null) {
+							if (x.getCaption().equals(courseDisplay.getTitle())) {
+								t.setSelectedTab(x);
+							}
+						}
+					}
+				}
+
+				if (courseDisplay.getStatus().equals("Beigetreten")) {
+					UI.getCurrent().getNavigator()
+							.navigateTo(UserlibraryView.VIEW_NAME);
+					UserlibraryView a = (UserlibraryView) UI.getCurrent()
+							.getNavigator().getCurrentView();
+					VerticalLayout v = (VerticalLayout) a.getComponent(1);
+					TabSheet t = (TabSheet) v.getComponent(0);
+					for (Component x : t) {
+						if (x.getCaption() != null) {
+							if (x.getCaption().equals(courseDisplay.getTitle())) {
+								t.setSelectedTab(x);
+							}
+						}
+					}
+				}
+
 			}
 
 		});
