@@ -11,7 +11,6 @@ public class UnitNode implements Serializable {
 	/**
 	 * 
 	 */
-
 	// the graph for the course
 	private final Graph graph;
 	private String unitNodeTitle;
