@@ -57,9 +57,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 	CourseService courseService;
 
 	@Autowired
-	CurrentUser c;
-
-	@Autowired
 	UserService userService;
 
 	public static final String VIEW_NAME = "Authorlibrary";
@@ -88,7 +85,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 	@PostConstruct
 	void init() {
-		authorCoursesList = courseService.findAllAuthorCoursesOfUser(c.get());
+		authorCoursesList = courseService.findAllAuthorCoursesOfUser(userService.findByEMail(CurrentUser.getInstance().geteMail()));
 
 		VerticalLayout content = new VerticalLayout();
 		HorizontalLayout header = new HorizontalLayout();
@@ -223,7 +220,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				courseService.insertCourse(new Course(courseTitleField
-						.getValue(), couseDescriptionField.getValue(), c.get(),
+						.getValue(), couseDescriptionField.getValue(), userService.findByEMail(CurrentUser.getInstance().geteMail()),
 						""));
 				courseService.saveDummyGraph(courseTitleField.getValue());
 				String title = (String) courseTitleField.getValue();
