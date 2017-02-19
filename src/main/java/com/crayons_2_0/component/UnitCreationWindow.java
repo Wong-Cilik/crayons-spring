@@ -177,7 +177,6 @@ public final class UnitCreationWindow extends Window {
 				UnitNode newUnit = new UnitNode(unitTitle, parent, child, graph);
 				graph.addUnit(newUnit, parent);
 				System.out.println(CurrentCourses.getInstance().getTitle());
-				CourseEditorView.refreshGraph(graph, unitTitle, CurrentCourses.getInstance().getTitle());
 				close();
 				Notification success = new Notification(lang
 						.getString("UnitCreatedSuccessfully"));

@@ -54,7 +54,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 	CourseService courseService;
 
 	@Autowired
-	static
 	UnitService unitService;
 
 	static Graph graphData;
@@ -88,7 +87,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 		graphData = graphTmp;
 	}
 	
-	public static void refreshGraph(Graph graphTmp, String unitTitle, String courseTitle) {
+	public void refreshGraph(Graph graphTmp, String unitTitle, String courseTitle) {
 		System.out.println(unitTitle + " " + courseTitle);
 		unitService.storeUnitDummyData(unitTitle + "-" + courseTitle, CurrentCourses.getInstance().getTitle());
 		selectUnit.removeAllItems();
@@ -349,7 +348,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
 
 	}
 }
