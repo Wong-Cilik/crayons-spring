@@ -93,16 +93,16 @@ public class CourseService {
 	/**
 	 * Return all AuthorCourses of user
 	 * 
-	 * @param user
+	 * @param author
 	 *            to find all AuthorCourses of
 	 * @return all AuthorCourses of the user searched for
 	 */
-	public List<Course> findAllAuthorCoursesOfUser(CrayonsUser user) {
+	public List<Course> findAllAuthorCoursesOfUser(String author) {
 		List<Course> allCourses = courseDAO.findAll();
 		List<Course> authorCoursesOfUser = new LinkedList<Course>();
 
 		for (Course tmpCourse : allCourses) {
-			if (tmpCourse.getAuthor().equals(user)) {
+			if (tmpCourse.getAuthor().getUsername().equals(author)) {
 				authorCoursesOfUser.add(tmpCourse);
 			}
 		}

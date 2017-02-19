@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.maddon.ListContainer;
 
+import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.UserDisplay;
@@ -29,6 +30,8 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -118,7 +121,7 @@ public final class AdminView extends VerticalLayout implements View {
 			}
 			collection.add(new UserDisplay(tmpUser.getEmail(), tmpUser
 					.getFirstName() + " " + tmpUser.getLastName(), permission,
-					courseService.findAllAuthorCoursesOfUser(tmpUser).size(),
+					courseService.findAllAuthorCoursesOfUser(tmpUser.getEmail()).size(),
 					courseService.findAllCoursesOfUser(tmpUser).size()));
 		}
 		return collection;
@@ -248,6 +251,31 @@ public final class AdminView extends VerticalLayout implements View {
 		phoneField.setWidth("100%");
 		phoneField.setReadOnly(true);
 		details.addComponent(phoneField);
+		
+		Button deleteUser = new Button("Delete User");
+		details.addComponent(deleteUser);
+		details.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
+
+		deleteUser.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
+				for(Course tmp : courseService.findAllAuthorCoursesOfUser(emailField.getValue())) {
+					courseService.removeCourse(tmp);
+				}
+				for(Course tmp: courseService.findAll()) {
+					String[] tmpStudent = tmp.getStudents().split("/");
+					String students = "";
+					for(int i = 0; i < tmpStudent.length; i++) {
+						if(!tmpStudent[i].equals(emailField.getValue())) {
+							students = students + "/" + tmpStudent[i];
+						}
+					}
+					tmp.setStudents(students);
+				}
+				userService.removeUser(emailField.getValue());
+			}
+			
+		});
 
 		return root;
 	}

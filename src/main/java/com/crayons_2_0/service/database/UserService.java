@@ -115,7 +115,7 @@ public class UserService implements UserDetailsService {
 	 *            to remove
 	 * @return true if successfull
 	 */
-	public boolean removeUser(CrayonsUser user) {
+	public boolean removeUser(String user) {
 		userDAO.deleteUser(user);
 		return true;
 	}

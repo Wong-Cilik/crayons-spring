@@ -88,7 +88,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 	@PostConstruct
 	void init() {
-		authorCoursesList = courseService.findAllAuthorCoursesOfUser(c.get());
+		authorCoursesList = courseService.findAllAuthorCoursesOfUser(c.get().getEmail());
 
 		VerticalLayout content = new VerticalLayout();
 		HorizontalLayout header = new HorizontalLayout();
