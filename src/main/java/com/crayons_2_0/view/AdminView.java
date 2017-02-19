@@ -263,15 +263,7 @@ public final class AdminView extends VerticalLayout implements View {
 					courseService.removeCourse(tmp);
 				}
 				for(Course tmp: courseService.findAll()) {
-					String[] tmpStudent = tmp.getStudents().split("/");
-					String students = "";
-					for(int i = 0; i < tmpStudent.length; i++) {
-						if(!tmpStudent[i].equals(emailField.getValue())) {
-							students = students + "/" + tmpStudent[i];
-						}
-					}
-					System.out.println(students);
-					tmp.setStudents(students);
+					courseService.removeStudent(tmp.getTitle(), emailField.getValue());
 				}
 				userService.removeUser(emailField.getValue());
 			}
