@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.EvaluationWindow;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -39,11 +44,15 @@ public class UnitUserView extends VerticalLayout implements View {
 	public static final String VIEW_NAME = "Unit User View";
 
 	private VerticalLayout page;
-	private final Button doneButton;
-	private final Button cancelButton;
-	private final Map<String, Boolean> responces;
+	private Button doneButton;
+	private Button cancelButton;
+	private Map<String, Boolean> responces;
+	
+	@Autowired
+	CurrentCourses currentCourse;
 
-	public UnitUserView(String unitName) {
+	@PostConstruct
+	void init() {
 		setSizeFull();
 
 		doneButton = new Button("Done", FontAwesome.CHECK);
@@ -80,7 +89,7 @@ public class UnitUserView extends VerticalLayout implements View {
 
 		responces = new HashMap<String, Boolean>();
 
-		Component pageTitle = buildTitle(unitName);
+		Component pageTitle = buildTitle(currentCourse.getInstance().getUnitTitle());
 		addComponent(pageTitle);
 		setComponentAlignment(pageTitle, Alignment.TOP_CENTER);
 		setExpandRatio(pageTitle, 1);
@@ -113,6 +122,11 @@ public class UnitUserView extends VerticalLayout implements View {
 		addComponent(controlButtons);
 		setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
 		setExpandRatio(controlButtons, 1);
+	}
+	
+	
+	public UnitUserView() {
+		
 
 	}
 
