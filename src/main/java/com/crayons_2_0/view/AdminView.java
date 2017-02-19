@@ -270,6 +270,7 @@ public final class AdminView extends VerticalLayout implements View {
 							students = students + "/" + tmpStudent[i];
 						}
 					}
+					System.out.println(students);
 					tmp.setStudents(students);
 				}
 				userService.removeUser(emailField.getValue());
