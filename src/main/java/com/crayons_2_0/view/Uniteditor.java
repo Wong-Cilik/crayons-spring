@@ -69,18 +69,11 @@ public class Uniteditor extends VerticalLayout implements View {
 	 */
 	public Uniteditor() {
 		setSizeFull();
-		/*
-		 * Responsive.makeResponsive(this); Label editorNotAvailable = new
-		 * Label("Sorry"); editorNotAvailable.addStyleName("unavailable");
-		 * addComponent(editorNotAvailable);
-		 */
 		addStyleName(ValoTheme.DRAG_AND_DROP_WRAPPER_NO_HORIZONTAL_DRAG_HINTS);
-		// addStyleName("unitEditor");
 
 		Component pageItemsPalette = buildPageItemsPalette();
 		addComponent(pageItemsPalette);
 		setComponentAlignment(pageItemsPalette, Alignment.TOP_CENTER);
-		// pageItemsPalette.addStyleName("available");
 
 		page = new UnitPageLayout();
 		page.setWidth(100.0f, Unit.PERCENTAGE);
@@ -89,7 +82,6 @@ public class Uniteditor extends VerticalLayout implements View {
 		setExpandRatio(page, 8);
 
 		Component footer = buildFooter();
-		footer.addStyleName("available");
 		footer.setSizeFull();
 		addComponent(footer);
 		setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
