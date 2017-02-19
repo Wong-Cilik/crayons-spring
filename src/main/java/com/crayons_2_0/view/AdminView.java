@@ -271,7 +271,6 @@ public final class AdminView extends VerticalLayout implements View {
 				}
 				userService.removeUser(emailField.getValue());
 			}
-
 		});
 
 		return root;

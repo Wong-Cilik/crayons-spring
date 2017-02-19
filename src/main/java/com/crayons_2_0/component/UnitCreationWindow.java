@@ -2,9 +2,13 @@ package com.crayons_2_0.component;
 
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.UnitService;
 import com.crayons_2_0.view.CourseEditorView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -37,6 +41,8 @@ public final class UnitCreationWindow extends Window {
 	// sollte noch ein set werden
 	UnitNode child;
 	static Graph graph;
+	@Autowired
+	UnitService unitService;
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
@@ -169,7 +175,7 @@ public final class UnitCreationWindow extends Window {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				UnitNode newUnit = new UnitNode(unitTitle, parent, child, graph);
-
+				unitService.storeUnitDummyData(unitTitle + "-" + CurrentCourses.getInstance().getTitle(), CurrentCourses.getInstance().getTitle());
 				graph.addUnit(newUnit, parent);
 				CourseEditorView.refreshGraph(graph);
 				close();

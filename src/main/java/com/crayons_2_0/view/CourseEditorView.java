@@ -54,9 +54,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 	CourseService courseService;
 
 	@Autowired
-	CurrentCourses currentCourse;
-
-	@Autowired
 	UnitService unitService;
 
 	static Graph graphData;
@@ -140,7 +137,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				courseService.saveCourseData(graphData,
-						currentCourse.getTitle());
+						CurrentCourses.getInstance().getTitle());
 			}
 		});
 		return layout;
@@ -293,7 +290,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 				public void buttonClick(ClickEvent event) {
 					close();
 					courseService.saveCourseData(graphData,
-							currentCourse.getTitle());
+							CurrentCourses.getInstance().getTitle());
 					UI.getCurrent().getNavigator()
 							.navigateTo(Authorlibrary.VIEW_NAME);
 				}
