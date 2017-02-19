@@ -96,7 +96,6 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	public static void refreshLayout(UnitPageLayout layout) {
 		page = (UnitPageLayout) layout;
-		Page.getCurrent().reload();
 	}
 
 	/**

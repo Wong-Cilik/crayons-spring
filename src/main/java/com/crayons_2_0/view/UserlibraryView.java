@@ -25,6 +25,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -197,7 +198,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-
+				UI.getCurrent().getNavigator().navigateTo(UnitUserView.VIEW_NAME);
 			}
 
 		});
