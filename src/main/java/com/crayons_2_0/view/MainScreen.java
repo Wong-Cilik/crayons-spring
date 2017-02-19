@@ -64,6 +64,9 @@ public class MainScreen extends HorizontalLayout implements View {
 
 	@Autowired
 	CurrentUser currentUser;
+	
+	@Autowired
+	Uniteditor uniteditor;
 
 	public MainScreen() {
 
@@ -102,7 +105,7 @@ public class MainScreen extends HorizontalLayout implements View {
 
 		navigator.addView(CourseEditorView.VIEW_NAME, courseEditorView);
 
-		navigator.addView(Uniteditor.VIEW_NAME, new Uniteditor());
+		navigator.addView(Uniteditor.VIEW_NAME, uniteditor);
 
 		navigator.addViewChangeListener(viewChangeListener);
 
