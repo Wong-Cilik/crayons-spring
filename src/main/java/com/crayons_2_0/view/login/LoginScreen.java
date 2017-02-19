@@ -1,5 +1,8 @@
 package com.crayons_2_0.view.login;
 
+import java.util.ResourceBundle;
+
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -25,6 +28,7 @@ public class LoginScreen extends CssLayout implements View {
 	 */
 
 	public static final String VIEW_NAME = "";
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	/**
      * 
@@ -64,7 +68,7 @@ public class LoginScreen extends CssLayout implements View {
 		CssLayout loginInformation = new CssLayout();
 		loginInformation.setStyleName("login-information");
 		Label loginInfoText = new Label(
-				"<h1>Login Information</h1>"
+				"<h1>" + lang.getString("LoginInformation") + "</h1>"
 						+ "Log in as &quot;admin&quot; to have full access. Log in with any other username to have read-only access. For all users, any password is fine",
 				ContentMode.HTML);
 		loginInformation.addComponent(loginInfoText);
