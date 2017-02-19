@@ -3,6 +3,7 @@ package com.crayons_2_0.view;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.maddon.ListContainer;
 
 import com.crayons_2_0.service.CourseDisplay;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
@@ -43,6 +45,8 @@ public final class Search extends VerticalLayout implements View {
 
 	List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
 	public static final String VIEW_NAME = "Search";
+	private static ResourceBundle lang = LanguageService.getInstance().getRes();
+	
 	private Table table;
 
 	@Autowired
@@ -118,7 +122,7 @@ public final class Search extends VerticalLayout implements View {
 		table.setSortAscending(false);
 
 		table.setVisibleColumns("author", "release", "title", "status");
-		table.setColumnHeaders("Author", "Release", "Title", "Status");
+		table.setColumnHeaders(lang.getString("Author"), lang.getString("Release"), lang.getString("Title"), lang.getString("Status"));
 		table.addListener(new ItemClickListener() {
 
 			/**
