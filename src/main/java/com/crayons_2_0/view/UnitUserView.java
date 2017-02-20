@@ -82,7 +82,7 @@ public class UnitUserView extends VerticalLayout implements View {
 			public void buttonClick(ClickEvent event) {
 				// TODO: are you sure?
 				UI.getCurrent().getNavigator()
-						.navigateTo(CourseUserView.VIEW_NAME);
+						.navigateTo(UserlibraryView.VIEW_NAME);
 			}
 
 		});
