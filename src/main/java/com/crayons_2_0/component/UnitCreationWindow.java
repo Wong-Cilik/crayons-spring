@@ -74,9 +74,9 @@ public final class UnitCreationWindow extends Window {
 
 		content.setComponentAlignment(titleField, Alignment.MIDDLE_LEFT);
 
-		Component unitTypeChoice = buildUnitTypeChoice();
+		/*Component unitTypeChoice = buildUnitTypeChoice();
 		content.addComponent(unitTypeChoice);
-		content.setComponentAlignment(unitTypeChoice, Alignment.MIDDLE_LEFT);
+		content.setComponentAlignment(unitTypeChoice, Alignment.MIDDLE_LEFT);*/
 
 		Component connectedUnitsChoice = buildConnectedUnitsChoice();
 		content.addComponent(connectedUnitsChoice);
@@ -143,7 +143,7 @@ public final class UnitCreationWindow extends Window {
 		return title;
 	}
 
-	private Component buildUnitTypeChoice() {
+	/*private Component buildUnitTypeChoice() {
 		VerticalLayout unitTypeChoice = new VerticalLayout();
 		CheckBox learningUnit = new CheckBox(UnitType.LEARNING_UNIT.getTitle());
 		CheckBox testUnit = new CheckBox(UnitType.TEST_UNIT.getTitle());
@@ -156,7 +156,7 @@ public final class UnitCreationWindow extends Window {
 
 		unitTypeChoice.addComponents(learningUnit, testUnit);
 		return unitTypeChoice;
-	}
+	}*/
 
 	private Component buildFooter() {
 		HorizontalLayout footer = new HorizontalLayout();
