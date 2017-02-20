@@ -170,6 +170,7 @@ public final class UnitCreationWindow extends Window {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				UnitNode newUnit = new UnitNode(unitTitle, parent, child, graph);
+				unitService.storeUnitDummyData(unitTitle + "-" + CurrentCourses.getInstance().getTitle(), CurrentCourses.getInstance().getTitle());
 				graph.addUnit(newUnit, parent);
 				CourseEditorView.refreshGraph(graph);
 				close();

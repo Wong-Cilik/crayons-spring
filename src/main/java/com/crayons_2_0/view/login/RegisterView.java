@@ -2,12 +2,14 @@ package com.crayons_2_0.view.login;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.controller.RegisterFormListener;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -35,11 +37,13 @@ public class RegisterView extends VerticalLayout implements View {
 	RegisterFormListener registerFormListener;
 
 	public static final String VIEW_NAME = "registerView";
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	
 	private TextField email = new TextField();
 	private PasswordField password = new PasswordField();
 	private TextField firstname = new TextField();
 	private TextField lastname = new TextField();
-	private NativeSelect selectLanguage = new NativeSelect("Select language");
+	private NativeSelect selectLanguage = new NativeSelect(lang.getString("SelectYourLanguage"));
 
 	@PostConstruct
 	void init() {
@@ -48,8 +52,8 @@ public class RegisterView extends VerticalLayout implements View {
 
 	private void registerViewBuilder() {
 		List<String> languages = new ArrayList<String>();
-		languages.add("English");
-		languages.add("German");
+		languages.add(lang.getString("English"));
+		languages.add(lang.getString("German"));
 
 		for (String obj : languages) {
 
@@ -63,29 +67,29 @@ public class RegisterView extends VerticalLayout implements View {
 		getPassword().setRequired(true);
 		getFirstname().setRequired(true);
 		getLastname().setRequired(true);
-		addComponent(new Label("firstname"));
+		addComponent(new Label(lang.getString("FirstName")));
 
 		addComponent(getFirstname());
 
-		addComponent(new Label("lastname"));
+		addComponent(new Label(lang.getString("LastName")));
 
 		addComponent(getLastname());
 
-		addComponent(new Label("eMail:"));
+		addComponent(new Label(lang.getString("Email")));
 
 		addComponent(getEmail());
 
-		addComponent(new Label("password"));
+		addComponent(new Label(lang.getString("Password")));
 
 		addComponent(getPassword());
 
 		addComponent(getSelectLanguage());
 
-		Button btnInsertUser = new Button("create a user");
+		Button btnInsertUser = new Button(lang.getString("CreateUser"));
 		btnInsertUser.addClickListener(registerFormListener);
 		// Trivial logic for closing the sub-window
 
-		Button btnCancel = new Button("abbrechen");
+		Button btnCancel = new Button(lang.getString("Cancel"));
 		btnCancel.addClickListener(new ClickListener() {
 
 			@Override

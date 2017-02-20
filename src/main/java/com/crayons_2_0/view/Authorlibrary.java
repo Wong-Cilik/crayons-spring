@@ -94,7 +94,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 		setSpacing(true);
 		setMargin(false);
 
-		if (Page.getCurrent().getBrowserWindowWidth() > 1024) {
 			this.filter = buildFilter();
 			header.setSizeFull();
 			header.setWidth("100%");
@@ -107,16 +106,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 			content.addComponent(buildCoursesTabSheet());
 			addComponent(header);
 			addComponent(content);
-		} else {
-			Panel panel = new Panel();
-			panel.setStyleName(ValoTheme.PANEL_BORDERLESS);
-			panel.setSizeFull();
-			panel.setContent(new Label(lang
-					.getString("AuthorLibraryUnavailable")));
-			content.addComponent(panel);
-			content.setMargin(true);
-			addComponent(content);
-		}
 	}
 
 	public Authorlibrary() {
@@ -363,13 +352,11 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				CurrentGraph.getInstance().setCourseTitle(title);
-				CurrentGraph.getInstance().setGraph(
-						courseService.getCourseData(title));
+				CurrentGraph.getInstance().setGraph(courseService.getCourseData(title));
 				CurrentCourses.getInstance().setTitle(title);
 				CourseEditorView.refreshGraph(courseService
 						.getCourseData(title));
-				UI.getCurrent().getNavigator()
-						.navigateTo(CourseEditorView.VIEW_NAME);
+				UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
 			}
 		});
 

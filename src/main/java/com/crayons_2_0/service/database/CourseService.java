@@ -294,13 +294,11 @@ public class CourseService {
 		courseList.addAll(courseDAO.searchAll(input, "title"));
 		courseList.addAll(courseDAO.searchAll(input, "description"));
 		for (Course tmpCourse : courseList) {
-			String status = "";
-			if (currentUser.get().getEmail().equals(tmpCourse.getAuthor())) {
-				status = "Autor";
-			} else if (tmpCourse.getUsers().contains(currentUser.get())) {
+			String status = "Privat";
+			if (CurrentUser.getInstance().geteMail().equals(tmpCourse.getAuthor().getEmail())) {
+				status = "Author";
+			} else if (tmpCourse.getStudents().contains(CurrentUser.getInstance().geteMail())) {
 				status = "Beigetreten";
-			} else {
-				status = "Privat";
 			}
 			collector.add(new CourseDisplay("", tmpCourse.getTitle(), tmpCourse
 					.getAuthor().getFirstName()
