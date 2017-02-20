@@ -137,15 +137,11 @@ public class CourseService {
 
 	/**
 	 * 
-	 * @param courseTitle
-	 *            Old course title
-	 * @param value
-	 *            new course title
-	 * @param value2
-	 *            new description
+	 * @param course	course to update
+	 * @param oldTitle	old title of course to update
 	 */
-	public void update(Course course) {
-		courseDAO.update(course);
+	public void update(Course course, String oldTitle) {
+		courseDAO.update(course, oldTitle);
 	}
 
 	/**

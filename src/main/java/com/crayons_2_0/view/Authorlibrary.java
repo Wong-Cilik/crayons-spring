@@ -55,7 +55,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 		CourseEditorListener {
 	@Autowired
 	CourseService courseService;
-
 	@Autowired
 	UserService userService;
 
@@ -308,7 +307,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 		return tabContent;
 	}
-
+	
 	/**
 	 * Builds a layout with the control buttons which allows modify a course.
 	 * 

@@ -34,11 +34,8 @@ public final class UnitCreationWindow extends Window {
 
 	// @DB
 
-	// sollte noch ein set werden
 	UnitNode parent;
-	// wird noch ausgebessert
 	String unitTitle;
-	// sollte noch ein set werden
 	UnitNode child;
 	static Graph graph;
 	@Autowired
@@ -76,8 +73,6 @@ public final class UnitCreationWindow extends Window {
 		content.addComponent(titleField);
 
 		content.setComponentAlignment(titleField, Alignment.MIDDLE_LEFT);
-
-		// content.addComponent(buildDescription());
 
 		Component unitTypeChoice = buildUnitTypeChoice();
 		content.addComponent(unitTypeChoice);
@@ -176,8 +171,7 @@ public final class UnitCreationWindow extends Window {
 			public void buttonClick(ClickEvent event) {
 				UnitNode newUnit = new UnitNode(unitTitle, parent, child, graph);
 				graph.addUnit(newUnit, parent);
-				System.out.println(CurrentCourses.getInstance().getTitle());
-				CourseEditorView.refreshGraph(graph, unitTitle, CurrentCourses.getInstance().getTitle());
+				CourseEditorView.refreshGraph(graph);
 				close();
 				Notification success = new Notification(lang
 						.getString("UnitCreatedSuccessfully"));
@@ -185,7 +179,6 @@ public final class UnitCreationWindow extends Window {
 				success.setStyleName("bar success small");
 				success.setPosition(Position.BOTTOM_CENTER);
 				success.show(Page.getCurrent());
-
 			}
 		});
 		ok.focus();
@@ -199,8 +192,7 @@ public final class UnitCreationWindow extends Window {
 	 */
 
 	public enum UnitType {
-		LEARNING_UNIT("Learning unit"), TEST_UNIT("Test unit"); // add
-																// description
+		LEARNING_UNIT("Learning unit"), TEST_UNIT("Test unit"); 
 
 		private final String title;
 

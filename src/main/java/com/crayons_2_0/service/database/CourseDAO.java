@@ -121,15 +121,15 @@ public class CourseDAO implements CommandLineRunner {
 	 * @param course
 	 *            to update in DB
 	 */
-	public void update(Course course) {
+	public void update(Course course, String oldTitle) {
 
 		String title = course.getTitle();
 		String description = course.getDescription();
 		String author = course.getAuthor().getEmail();
 
 		jdbcTemplate.update(
-				"UPDATE courses SET description=?, author=? WHERE title=? ",
-				description, author, title);
+				"UPDATE courses SET title=?, description=?, author=? WHERE title=? ",
+				title, description, author, oldTitle);
 	}
 
 	/**

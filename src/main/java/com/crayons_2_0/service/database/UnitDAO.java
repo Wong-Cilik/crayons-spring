@@ -31,10 +31,6 @@ public class UnitDAO {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	// public void createDbTable() {
-	// jdbcTemplate.execute("create table if not exists units (title varchar(100), unitType varchar(100))");
-	// }
-
 	/**
 	 * Returns all units of DB
 	 * 
@@ -44,9 +40,7 @@ public class UnitDAO {
 	public List<Unit> findAll() {
 		String query = "select * from units";
 		RowMapper mapper = new RowMapper<Object>() {
-
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-
 				String unitTitle = rs.getString("unittitle");
 				String courseTitle = rs.getString("coursetitle");
 				Unit unit = new Unit(unitTitle, courseTitle);
@@ -59,8 +53,6 @@ public class UnitDAO {
 	}
 
 	private UnitType createUnitType(String string) {
-		// TODO
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		return UnitType.LEARNING;
 	}
 
@@ -104,20 +96,5 @@ public class UnitDAO {
 
 		}
 	}
-
-	/*
-	 * public void save(Course course) { String query =
-	 * "insert into courses (name) values (?)"; jdbcTemplate.update(query, new
-	 * Object[]{course.getTitle()}); }
-	 * 
-	 * private UnitType createUnitType(String unitType) { //
-	 * TODO!!!!!!!!!!!!!!!!!!!!!!!! (Ergänzen) if
-	 * (unitType.equals(UnitType.START)) { return UnitType.START; } else if
-	 * (unitType.equals(UnitType.LEARNING)) { return UnitType.LEARNING; } else {
-	 * return null; } }
-	 * 
-	 * protected Graph getGraphFromAnyway() { // TODO !!!!!!!!!!!!!!!!!!!!!!!!!
-	 * return null; }
-	 */
 
 }

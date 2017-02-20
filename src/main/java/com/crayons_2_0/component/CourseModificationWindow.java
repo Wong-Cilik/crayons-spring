@@ -4,9 +4,11 @@ import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
+import com.crayons_2_0.view.Authorlibrary;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -114,12 +116,12 @@ public class CourseModificationWindow extends Window {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// TODO: check why null at CourseDAO findAll()
-				courseService.update(courseService.findCourseByTitle(course
-						.getTitle()));
+				Course tmp = courseService.findCourseByTitle(course.getTitle());
+				tmp.setTitle(courseTitleField.getValue());
+				tmp.setDescription(couseDescriptionField.getValue());
+				courseService.update(tmp, course.getTitle());
 				tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
-				tabSheet.getTab(tab).setDescription(
-						couseDescriptionField.getValue());
+				tabSheet.getTab(tab).setDescription(couseDescriptionField.getValue());
 				close();
 				Notification success = new Notification(lang
 						.getString("CourseIsModifiedSuccessfully"));
