@@ -185,9 +185,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 			public void buttonClick(ClickEvent event) {
 				CurrentCourses.getInstance().setUnitTitle(
 						(String) selectUnit.getValue());
-				Uniteditor.refreshLayout(unitService.getUnitData(
-						(String) selectUnit.getValue(), CurrentGraph
-								.getInstance().getCourseTitle()));
+				//Uniteditor.refreshLayout(unitService.getUnitData((String) selectUnit.getValue(), CurrentGraph.getInstance().getCourseTitle()));
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 			}
 		});
