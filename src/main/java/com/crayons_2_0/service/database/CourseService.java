@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.crayons_2_0.authentication.CurrentUser;
+import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
@@ -193,6 +194,39 @@ public class CourseService {
 		}
 	}
 
+	public void saveUnitData(UnitPageLayout unitPageLayout) {
+		File file = new File("Unit.bin");
+		ObjectOutputStream out;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream(file));
+			out.writeObject(unitPageLayout);
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Graph getUnitData(String title) {
+		ObjectInputStream in;
+		Graph graph = null;
+		File file = new File(title + ".bin");
+		try {
+			courseDAO.getData(title);
+			in = new ObjectInputStream(new FileInputStream(file));
+			graph = (Graph) in.readObject();
+			in.close();
+			Files.delete(file.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return graph;
+	}
+	
 	public Graph getCourseData(String title) {
 		ObjectInputStream in;
 		Graph graph = null;

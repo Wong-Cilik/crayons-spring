@@ -248,12 +248,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Notification success = new Notification(
-				        lang.getString("FileIsExportedSuccessfully"));
-				success.setDelayMsec(2000);
-				success.setStyleName("bar success small");
-				success.setPosition(Position.BOTTOM_CENTER);
-				success.show(Page.getCurrent());
+				
 			}
 
 		});
