@@ -1,5 +1,6 @@
 package com.crayons_2_0.component;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import com.crayons_2_0.view.Uniteditor.PageItemType;
@@ -26,7 +27,8 @@ import com.vaadin.ui.VerticalLayout;
  * 
  */
 @SuppressWarnings("serial")
-public final class UnitPageLayout extends CustomComponent {
+public final class UnitPageLayout extends CustomComponent implements
+		Serializable {
 	/**
 	 * 
 	 */
