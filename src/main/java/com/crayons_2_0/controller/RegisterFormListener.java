@@ -36,6 +36,8 @@ public class RegisterFormListener implements Button.ClickListener {
 			String firstname = parent.getFirstname().getValue();
 			String lastname = parent.getLastname().getValue();
 			String language = (String) parent.getSelectLanguage().getValue();
+			if (language.equals("Deutsch")) language = "German";
+			else if (language.equals("Englisch")) language = "English";
 			int permission = 0;
 
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
