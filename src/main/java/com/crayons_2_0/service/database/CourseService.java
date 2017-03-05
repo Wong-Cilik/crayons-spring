@@ -209,22 +209,20 @@ public class CourseService {
 		}
 	}
 	
-	public Graph getUnitData(String title) {
+	public UnitPageLayout getUnitData() {
 		ObjectInputStream in;
-		Graph graph = null;
-		File file = new File(title + ".bin");
+		UnitPageLayout unitPageLayout = null;
+		File file = new File("Unit.bin");
 		try {
-			courseDAO.getData(title);
 			in = new ObjectInputStream(new FileInputStream(file));
-			graph = (Graph) in.readObject();
+			unitPageLayout = (UnitPageLayout) in.readObject();
 			in.close();
-			Files.delete(file.toPath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return graph;
+		return unitPageLayout;
 	}
 	
 	public Graph getCourseData(String title) {

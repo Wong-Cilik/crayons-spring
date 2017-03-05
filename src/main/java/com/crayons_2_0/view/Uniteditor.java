@@ -61,7 +61,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	public static final String VIEW_NAME = "Unit Editor";
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
-	
+
 	private static UnitPageLayout page;
 
 	@Autowired
@@ -98,6 +98,23 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	public static void refreshLayout(UnitPageLayout layout) {
 		page = (UnitPageLayout) layout;
+	}
+
+	public void refresh(UnitPageLayout upl) {
+		removeAllComponents();
+		Component pageItemsPalette = buildPageItemsPalette();
+		addComponent(pageItemsPalette);
+		setComponentAlignment(pageItemsPalette, Alignment.TOP_CENTER);
+
+		page = upl;
+		page.setWidth(100.0f, Unit.PERCENTAGE);
+		page.setStyleName("canvas");
+		addComponent(page);
+		setExpandRatio(page, 8);
+
+		Component footer = buildFooter();
+		footer.setSizeFull();
+		addComponent(footer);
 	}
 
 	/**
@@ -144,8 +161,8 @@ public class Uniteditor extends VerticalLayout implements View {
 	 * @return the footer
 	 */
 	private Component buildFooter() {
-		Label deleteButton = new Label(FontAwesome.TRASH.getHtml() + lang.getString("Delete"),
-				ContentMode.HTML);
+		Label deleteButton = new Label(FontAwesome.TRASH.getHtml()
+				+ lang.getString("Delete"), ContentMode.HTML);
 		deleteButton.setSizeUndefined();
 		deleteButton.setStyleName(ValoTheme.LABEL_LARGE);
 		DragAndDropWrapper dropArea = new DragAndDropWrapper(deleteButton);
@@ -184,8 +201,8 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void layoutClick(final LayoutClickEvent event) {
-				Notification instruction = new Notification(
-				        lang.getString("DragAndDropDeleteButton"));
+				Notification instruction = new Notification(lang
+						.getString("DragAndDropDeleteButton"));
 				instruction.setDelayMsec(2000);
 				instruction.setStyleName("bar success small");
 				instruction.setPosition(Position.BOTTOM_CENTER);
@@ -193,7 +210,8 @@ public class Uniteditor extends VerticalLayout implements View {
 			}
 		});
 
-		Button saveButton = new Button(lang.getString("Save"), FontAwesome.CHECK);
+		Button saveButton = new Button(lang.getString("Save"),
+				FontAwesome.CHECK);
 		saveButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 		saveButton.addClickListener(new ClickListener() {
 
@@ -208,7 +226,8 @@ public class Uniteditor extends VerticalLayout implements View {
 			}
 		});
 
-		Button backButton = new Button(lang.getString("Back"), FontAwesome.ARROW_LEFT);
+		Button backButton = new Button(lang.getString("Back"),
+				FontAwesome.ARROW_LEFT);
 		backButton.addClickListener(new ClickListener() {
 
 			/**
@@ -225,7 +244,8 @@ public class Uniteditor extends VerticalLayout implements View {
 
 		});
 
-		Button importButton = new Button(lang.getString("Import"), FontAwesome.DOWNLOAD);
+		Button importButton = new Button(lang.getString("Import"),
+				FontAwesome.DOWNLOAD);
 		importButton.addClickListener(new ClickListener() {
 
 			/**
@@ -234,12 +254,13 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				UI.getCurrent().addWindow(new ImportEditor());
+				refresh(courseService.getUnitData());
 			}
 
 		});
 
-		Button exportButton = new Button(lang.getString("Export"), FontAwesome.UPLOAD);
+		Button exportButton = new Button(lang.getString("Export"),
+				FontAwesome.UPLOAD);
 		exportButton.addClickListener(new ClickListener() {
 
 			/**
@@ -248,7 +269,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				
+				courseService.saveUnitData(page);
 			}
 
 		});
@@ -298,6 +319,14 @@ public class Uniteditor extends VerticalLayout implements View {
 	 */
 	public void addPageComponent(final PageItemType pageItemType,
 			final Object prefillData) {
+		System.out.println(pageItemType.title);
+		System.out.println(pageItemType.name());
+		System.out.println(pageItemType.getClass());
+		if (prefillData != null){
+			System.out.println(prefillData.toString());
+		} else {
+			System.out.println("dtrghdtr");
+		}
 		page.addComponent(pageItemType, prefillData);
 	}
 
@@ -306,9 +335,10 @@ public class Uniteditor extends VerticalLayout implements View {
 	 * choice exercise.
 	 */
 	public enum PageItemType {
-		TEXT(lang.getString("TextBlock"), FontAwesome.FONT), IMAGE(lang.getString("Image"),
-				FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE(
-				lang.getString("MultipleChoiceExercise"), FontAwesome.CHECK_SQUARE_O);
+		TEXT(lang.getString("TextBlock"), FontAwesome.FONT), IMAGE(lang
+				.getString("Image"), FontAwesome.FILE_IMAGE_O), MULTIPLE_CHOICE(
+				lang.getString("MultipleChoiceExercise"),
+				FontAwesome.CHECK_SQUARE_O);
 
 		private final String title;
 		private final FontAwesome icon;
@@ -430,8 +460,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		 * @return title of the window
 		 */
 		private Component buildTitle() {
-			Label title = new Label(
-			        lang.getString("LearningUnitModified"));
+			Label title = new Label(lang.getString("LearningUnitModified"));
 			title.addStyleName(ValoTheme.LABEL_H3);
 			HorizontalLayout layout = new HorizontalLayout(title);
 			layout.setSizeUndefined();
