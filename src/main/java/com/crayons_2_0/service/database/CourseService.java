@@ -17,13 +17,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.crayons_2_0.authentication.CurrentUser;
+import com.crayons_2_0.component.ImageUploadEditor;
+import com.crayons_2_0.component.MultipleChoiceEditor;
+import com.crayons_2_0.component.TextEditor;
 import com.crayons_2_0.component.UnitPageLayout;
+import com.crayons_2_0.component.UnitPageLayout.WrappedPageItem;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.CourseDisplay;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * Services for Access of Courses of DB (via CourseDAO)
@@ -192,37 +198,6 @@ public class CourseService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void saveUnitData(UnitPageLayout unitPageLayout) {
-		File file = new File("Unit.bin");
-		ObjectOutputStream out;
-		try {
-			out = new ObjectOutputStream(new FileOutputStream(file));
-			out.writeObject(unitPageLayout);
-			out.flush();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public UnitPageLayout getUnitData() {
-		ObjectInputStream in;
-		UnitPageLayout unitPageLayout = null;
-		File file = new File("Unit.bin");
-		try {
-			in = new ObjectInputStream(new FileInputStream(file));
-			unitPageLayout = (UnitPageLayout) in.readObject();
-			in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return unitPageLayout;
 	}
 	
 	public Graph getCourseData(String title) {

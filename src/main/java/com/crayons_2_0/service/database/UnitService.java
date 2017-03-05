@@ -13,10 +13,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crayons_2_0.component.ImageUploadEditor;
+import com.crayons_2_0.component.MultipleChoiceEditor;
+import com.crayons_2_0.component.TextEditor;
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.component.UnitPageLayout;
+import com.crayons_2_0.component.UnitPageLayout.WrappedPageItem;
 import com.crayons_2_0.model.Course;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.VerticalLayout;
 
 @SpringComponent
 public class UnitService {
@@ -120,5 +125,76 @@ public class UnitService {
 			e.printStackTrace();
 		}
 		return layout;
+	}
+	
+	public void saveUnitLayout(VerticalLayout layout) {
+		WrappedPageItem c = null;
+		File file = new File("Unit.bin");
+		ObjectOutputStream out;
+		
+		for (int i = 1; i < layout.getComponentCount(); i++){
+			c = (WrappedPageItem) layout.getComponent(i);
+			
+			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.TextEditor")) {
+				TextEditor x = (TextEditor) c.getContent();
+				try {
+					out = new ObjectOutputStream(new FileOutputStream(file));
+					out.writeObject(x);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
+				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
+				try {
+					out = new ObjectOutputStream(new FileOutputStream(file));
+					out.writeObject(c);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.com.crayons_2_0.component.ImageUploadEditor")) {
+				ImageUploadEditor x = (ImageUploadEditor) c.getContent();
+				try {
+					out = new ObjectOutputStream(new FileOutputStream(file));
+					out.writeObject(c);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	
+	public UnitPageLayout getUnitLayout() {
+		ObjectInputStream in;
+		UnitPageLayout unitPageLayout = null;
+		File file = new File("Unit.bin");
+		try {
+			in = new ObjectInputStream(new FileInputStream(file));
+			unitPageLayout = (UnitPageLayout) in.readObject();
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return unitPageLayout;
 	}
 }

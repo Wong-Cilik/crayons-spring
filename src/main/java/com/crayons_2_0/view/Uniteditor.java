@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.ImportEditor;
 import com.crayons_2_0.component.UnitPageLayout;
+import com.crayons_2_0.component.UnitPageLayout.WrappedPageItem;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UnitService;
@@ -254,7 +255,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				refresh(courseService.getUnitData());
+				
 			}
 
 		});
@@ -269,7 +270,8 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				courseService.saveUnitData(page);
+				VerticalLayout layout = page.getLayout();
+				unitService.saveUnitLayout(layout);
 			}
 
 		});
@@ -319,14 +321,6 @@ public class Uniteditor extends VerticalLayout implements View {
 	 */
 	public void addPageComponent(final PageItemType pageItemType,
 			final Object prefillData) {
-		System.out.println(pageItemType.title);
-		System.out.println(pageItemType.name());
-		System.out.println(pageItemType.getClass());
-		if (prefillData != null){
-			System.out.println(prefillData.toString());
-		} else {
-			System.out.println("dtrghdtr");
-		}
 		page.addComponent(pageItemType, prefillData);
 	}
 

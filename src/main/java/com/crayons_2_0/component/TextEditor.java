@@ -1,5 +1,6 @@
 package com.crayons_2_0.component;
 
+import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import org.vaadin.openesignforms.ckeditor.CKEditorConfig;
@@ -43,7 +44,7 @@ public class TextEditor extends CustomComponent {
 		readOnly = buildReadOnly();
 
 		if (prefillData != null) {
-			property.setValue(prefillData);
+			property.setValue("srghmspähjdtpiä" + prefillData);
 		}
 
 		setCompositionRoot(textEditor);
@@ -128,6 +129,7 @@ public class TextEditor extends CustomComponent {
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
+				System.out.println(ckEditorTextField.getValue());
 				property.setValue(ckEditorTextField.getValue());
 				setCompositionRoot(readOnly);
 			}

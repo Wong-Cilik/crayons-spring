@@ -27,8 +27,7 @@ import com.vaadin.ui.VerticalLayout;
  * 
  */
 @SuppressWarnings("serial")
-public final class UnitPageLayout extends CustomComponent implements
-		Serializable {
+public final class UnitPageLayout extends CustomComponent {
 	/**
 	 * 
 	 */
@@ -61,6 +60,14 @@ public final class UnitPageLayout extends CustomComponent implements
 		layout.addComponent(buildDropArea());
 	}
 
+	public VerticalLayout getLayout () {
+		return layout;
+	}
+	
+	public void setLayout (VerticalLayout layout) {
+		this.layout = layout;
+	}
+	
 	/**
 	 * Builds a drop area for an empty page. The drop area can/will be later
 	 * replaced by a page component such as text, image, or multiple choice
@@ -164,16 +171,22 @@ public final class UnitPageLayout extends CustomComponent implements
      * 
      *
      */
-	private class WrappedPageItem extends DragAndDropWrapper {
-
+	public class WrappedPageItem extends DragAndDropWrapper {
+		private Component content;
+		
 		/**
 		 * 
 		 */
 		public WrappedPageItem(final Component content) {
 			super(content);
+			this.content = content;
 			setDragStartMode(DragStartMode.WRAPPER);
 		}
-
+		
+		public Component getContent() {
+			return content;
+		}
+		
 		@Override
 		public DropHandler getDropHandler() {
 			return dropHandler;

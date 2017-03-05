@@ -1,5 +1,6 @@
 package com.crayons_2_0.component;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
