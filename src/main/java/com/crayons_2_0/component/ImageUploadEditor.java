@@ -220,4 +220,8 @@ public class ImageUploadEditor extends CustomComponent {
 
 		return layout;
 	}
+	
+	public Image getImage() {
+		return image;
+	}
 }

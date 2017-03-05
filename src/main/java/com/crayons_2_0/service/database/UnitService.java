@@ -134,12 +134,12 @@ public class UnitService {
 		
 		for (int i = 1; i < layout.getComponentCount(); i++){
 			c = (WrappedPageItem) layout.getComponent(i);
-			
 			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.TextEditor")) {
 				TextEditor x = (TextEditor) c.getContent();
 				try {
 					out = new ObjectOutputStream(new FileOutputStream(file));
-					out.writeObject(x);
+					System.out.print(x.getContent());
+					out.writeObject(x.getContent());
 					out.flush();
 					out.close();
 				} catch (FileNotFoundException e) {
@@ -154,7 +154,7 @@ public class UnitService {
 				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
 				try {
 					out = new ObjectOutputStream(new FileOutputStream(file));
-					out.writeObject(c);
+					//out.writeObject();
 					out.flush();
 					out.close();
 				} catch (FileNotFoundException e) {
@@ -164,12 +164,12 @@ public class UnitService {
 				}
 			}
 			
-			
-			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.com.crayons_2_0.component.ImageUploadEditor")) {
+			System.out.println(c.getContent().getClass().getName());
+			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.ImageUploadEditor")) {
 				ImageUploadEditor x = (ImageUploadEditor) c.getContent();
 				try {
 					out = new ObjectOutputStream(new FileOutputStream(file));
-					out.writeObject(c);
+					out.writeObject(x.getImage());
 					out.flush();
 					out.close();
 				} catch (FileNotFoundException e) {

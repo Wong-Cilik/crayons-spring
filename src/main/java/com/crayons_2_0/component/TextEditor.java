@@ -33,7 +33,8 @@ public class TextEditor extends CustomComponent {
 			"Enter text here...");
 	private final Component textEditor;
 	private final Component readOnly;
-
+	private CKEditorTextField ckEditorTextField;
+			
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public TextEditor(String prefillData) {
@@ -88,8 +89,7 @@ public class TextEditor extends CustomComponent {
 		config.setResizeDir(CKEditorConfig.RESIZE_DIR.HORIZONTAL);
 		config.disableSpellChecker();
 		config.setWidth("100%");
-		final CKEditorTextField ckEditorTextField = new CKEditorTextField(
-				config);
+		ckEditorTextField = new CKEditorTextField(config);
 		ckEditorTextField.setWidth(100.0f, Unit.PERCENTAGE);
 		ckEditorTextField.addAttachListener(new AttachListener() {
 			/**
@@ -148,5 +148,9 @@ public class TextEditor extends CustomComponent {
 		result.addStyleName("edit");
 		result.setSizeFull();
 		return result;
+	}
+	
+	public String getContent() {
+		return ckEditorTextField.getValue();
 	}
 }
