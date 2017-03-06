@@ -471,7 +471,9 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		
+		UnitPageLayout upl = new UnitPageLayout();
+		upl.addComponent(PageItemType.TEXT, null);
+		this.page = upl;
 	}
 
 	public static UnitPageLayout getPageLayout() {
