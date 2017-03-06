@@ -121,6 +121,7 @@ public class UnitService {
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(file));
 			out.writeObject(dataList);
+			unitDAO.saveData(file, titleUnit, titleCourse);
 			out.flush();
 			out.close();
 		} catch (FileNotFoundException e) {

@@ -157,7 +157,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 		editMenuLayout.setSpacing(true);
 		editMenuLayout.setWidthUndefined();
 
-		selectUnit = new ComboBox(lang.getString("SelectTheUnitForEdit"));
+		selectUnit = new ComboBox();
 		for (UnitNode tmp : graphData.getUnitCollection()) {
 			selectUnit.addItem(tmp.getUnitNodeTitle());
 		}
@@ -183,8 +183,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentCourses.getInstance().setUnitTitle(
-						(String) selectUnit.getValue());
+				CurrentCourses.getInstance().setUnitTitle((String) selectUnit.getValue());
 				//Uniteditor.refreshLayout(unitService.getUnitData((String) selectUnit.getValue(), CurrentGraph.getInstance().getCourseTitle()));
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 			}
