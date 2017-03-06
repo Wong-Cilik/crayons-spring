@@ -221,9 +221,9 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				unitService.saveUnitData(page, CurrentCourses.getInstance()
-						.getUnitTitle(), CurrentCourses.getInstance()
-						.getTitle());
+				//unitService.saveUnitData(page, CurrentCourses.getInstance()
+				//		.getUnitTitle(), CurrentCourses.getInstance()
+				//		.getTitle());
 			}
 		});
 

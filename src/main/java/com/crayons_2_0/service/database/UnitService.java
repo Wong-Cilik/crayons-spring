@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.component.UnitPageLayout.WrappedPageItem;
 import com.crayons_2_0.model.Course;
+import com.crayons_2_0.model.UnitData;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.VerticalLayout;
 
@@ -87,21 +89,42 @@ public class UnitService {
 
 	public void storeUnitDummyData(String unitTitle, String courseTitle) {
 		unitDAO.insertUnit(unitTitle, courseTitle);
-		saveUnitData(new UnitPageLayout(), unitTitle, courseTitle);
+		//saveUnitData(new UnitPageLayout(), unitTitle, courseTitle);
 	}
 
-	public void saveUnitData(UnitPageLayout data, String titleUnit,
+	public void saveUnitData(VerticalLayout layout, String titleUnit,
 			String titleCourse) {
 
 		File file = new File(titleUnit + ".bin");
 		ObjectOutputStream out;
+		WrappedPageItem c = null;
+		ArrayList <UnitData> dataList = new ArrayList<UnitData>();
+		
+		for (int i = 1; i < layout.getComponentCount(); i++){
+			c = (WrappedPageItem) layout.getComponent(i);
+			
+			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.TextEditor")) {
+				TextEditor x = (TextEditor) c.getContent();
+				dataList.add(new UnitData (x.getContent()));
+			}
+
+			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
+				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
+
+			}
+			
+			System.out.println(c.getContent().getClass().getName());
+			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.ImageUploadEditor")) {
+				ImageUploadEditor x = (ImageUploadEditor) c.getContent();
+
+			}
+		}
+		
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(file));
-			out.writeObject(data);
-			unitDAO.saveData(file, titleUnit, titleCourse);
+			out.writeObject(dataList);
 			out.flush();
 			out.close();
-			Files.delete(file.toPath());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -128,57 +151,7 @@ public class UnitService {
 	}
 	
 	public void saveUnitLayout(VerticalLayout layout) {
-		WrappedPageItem c = null;
-		File file = new File("Unit.bin");
-		ObjectOutputStream out;
-		
-		for (int i = 1; i < layout.getComponentCount(); i++){
-			c = (WrappedPageItem) layout.getComponent(i);
-			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.TextEditor")) {
-				TextEditor x = (TextEditor) c.getContent();
-				try {
-					out = new ObjectOutputStream(new FileOutputStream(file));
-					System.out.print(x.getContent());
-					out.writeObject(x.getContent());
-					out.flush();
-					out.close();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			
-			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
-				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
-				try {
-					out = new ObjectOutputStream(new FileOutputStream(file));
-					//out.writeObject();
-					out.flush();
-					out.close();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			System.out.println(c.getContent().getClass().getName());
-			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.ImageUploadEditor")) {
-				ImageUploadEditor x = (ImageUploadEditor) c.getContent();
-				try {
-					out = new ObjectOutputStream(new FileOutputStream(file));
-					out.writeObject(x.getImage());
-					out.flush();
-					out.close();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+
 	}
 
 	
