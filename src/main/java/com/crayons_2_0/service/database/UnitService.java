@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.ImageUploadEditor;
 import com.crayons_2_0.component.MultipleChoiceEditor;
 import com.crayons_2_0.component.TextEditor;
@@ -87,11 +88,6 @@ public class UnitService {
 		return null;
 	}
 
-	public void storeUnitDummyData(String unitTitle, String courseTitle) {
-		unitDAO.insertUnit(unitTitle, courseTitle);
-		// saveUnitData(new UnitPageLayout(), unitTitle, courseTitle);
-	}
-
 	public void saveUnitData(VerticalLayout layout, String titleUnit,
 			String titleCourse) {
 
@@ -152,5 +148,9 @@ public class UnitService {
 			e.printStackTrace();
 		}
 		return layout;
+	}
+
+	public void newUnit() {
+		unitDAO.insertUnit(CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle());
 	}
 }

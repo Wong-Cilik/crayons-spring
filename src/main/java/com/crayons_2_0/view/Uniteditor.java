@@ -98,10 +98,6 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	}
 
-	public static void refreshLayout(UnitPageLayout layout) {
-		page = (UnitPageLayout) layout;
-	}
-
 	public void refresh(UnitPageLayout upl) {
 		removeAllComponents();
 		Component pageItemsPalette = buildPageItemsPalette();
@@ -475,8 +471,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	public static UnitPageLayout getPageLayout() {

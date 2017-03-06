@@ -78,7 +78,7 @@ public class UnitDAO {
 	public void insertUnit(String unitTitle, String courseTitle) {
 		jdbcTemplate.update(
 				"insert into units (coursetitle, unittitle) VALUES (?, ?)",
-				courseTitle, unitTitle);
+				courseTitle, courseTitle + "#" + unitTitle);
 
 	}
 

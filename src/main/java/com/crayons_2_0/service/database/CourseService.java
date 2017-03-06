@@ -227,24 +227,10 @@ public class CourseService {
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 
-		UnitNode one = new UnitNode("1-" + title, dummyGraph.getStartUnit(),
+		UnitNode one = new UnitNode("Content", dummyGraph.getStartUnit(), dummyGraph.getEndUnit(),
 				dummyGraph);
-		UnitNode two = new UnitNode("2-" + title, one, dummyGraph);
-		UnitNode three = new UnitNode("3-" + title, two, dummyGraph);
-
-		/*
-		 * one.setLayout(unitService.getDummyLayout());
-		 * two.setLayout(unitService.getDummyLayout());
-		 * three.setLayout(unitService.getDummyLayout());
-		 */
-
-		unitService.storeUnitDummyData(one.getUnitNodeTitle(), title);
-		unitService.storeUnitDummyData(two.getUnitNodeTitle(), title);
-		unitService.storeUnitDummyData(three.getUnitNodeTitle(), title);
 
 		dummyGraph.addUnit(one, one.getParentNodes());
-		dummyGraph.addUnit(two, two.getParentNodes());
-		dummyGraph.addUnit(three, three.getParentNodes());
 
 		saveCourseData(dummyGraph, title);
 	}

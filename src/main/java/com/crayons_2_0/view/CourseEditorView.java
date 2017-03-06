@@ -175,16 +175,17 @@ public class CourseEditorView extends VerticalLayout implements View {
 				UI.getCurrent().addWindow(new UnitCreationWindow(graphData));
 			}
 		});
-		Button selectUnitForEdit = new Button(
+		Button edit = new Button(
 				EditMenuButtonType.EDIT_UNIT.getTitle(),
 				EditMenuButtonType.EDIT_UNIT.getIcon());
-		editMenuLayout.addComponent(selectUnitForEdit);
-		selectUnitForEdit.addClickListener(new ClickListener() {
+		editMenuLayout.addComponent(edit);
+		edit.addClickListener(new ClickListener() {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
 				CurrentCourses.getInstance().setUnitTitle(
 						(String) selectUnit.getValue());
+				unitService.newUnit();
 				// Uniteditor.refreshLayout(unitService.getUnitData((String)
 				// selectUnit.getValue(),
 				// CurrentGraph.getInstance().getCourseTitle()));
