@@ -3,7 +3,6 @@ package com.crayons_2_0.component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import com.crayons_2_0.service.LanguageService;
@@ -220,7 +219,7 @@ public class ImageUploadEditor extends CustomComponent {
 
 		return layout;
 	}
-	
+
 	public Image getImage() {
 		return image;
 	}

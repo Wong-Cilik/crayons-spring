@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons.view.dagred3.Dagre;
 import com.crayons_2_0.authentication.CurrentCourses;
-import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.component.DeleteVerification;
 import com.crayons_2_0.component.UnitConnectionEditor;
 import com.crayons_2_0.component.UnitCreationWindow;
@@ -59,7 +58,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 	static Graph graphData;
 
 	public static final String VIEW_NAME = "Learning Graph";
-	// javascript element
 	final static Dagre graph = new Dagre();
 
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
@@ -79,9 +77,10 @@ public class CourseEditorView extends VerticalLayout implements View {
 		footer.setSizeUndefined();
 		setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
 	}
-	
+
 	/**
 	 * general refresher
+	 * 
 	 * @param graphTmp
 	 */
 	public static void refreshGraph(Graph graphTmp) {
@@ -89,6 +88,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 		selectUnit.addItems(graphTmp.getNodeNameList());
 		graph.setGraph(graphTmp.getNodeNameList(), graphTmp.getEdgeSequence());
 		graphData = graphTmp;
+		graph.setSizeFull();
 	}
 
 	/**
@@ -140,8 +140,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				courseService.saveCourseData(graphData,
-						CurrentCourses.getInstance().getTitle());
+				courseService.saveCourseData(graphData, CurrentCourses
+						.getInstance().getTitle());
 			}
 		});
 		return layout;
@@ -183,8 +183,11 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentCourses.getInstance().setUnitTitle((String) selectUnit.getValue());
-				//Uniteditor.refreshLayout(unitService.getUnitData((String) selectUnit.getValue(), CurrentGraph.getInstance().getCourseTitle()));
+				CurrentCourses.getInstance().setUnitTitle(
+						(String) selectUnit.getValue());
+				// Uniteditor.refreshLayout(unitService.getUnitData((String)
+				// selectUnit.getValue(),
+				// CurrentGraph.getInstance().getCourseTitle()));
 				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
 			}
 		});
@@ -290,8 +293,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 				@Override
 				public void buttonClick(ClickEvent event) {
 					close();
-					courseService.saveCourseData(graphData,
-							CurrentCourses.getInstance().getTitle());
+					courseService.saveCourseData(graphData, CurrentCourses
+							.getInstance().getTitle());
 					UI.getCurrent().getNavigator()
 							.navigateTo(Authorlibrary.VIEW_NAME);
 				}

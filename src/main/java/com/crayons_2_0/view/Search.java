@@ -46,7 +46,7 @@ public final class Search extends VerticalLayout implements View {
 	List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
 	public static final String VIEW_NAME = "Search";
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
-	
+
 	private Table table;
 
 	@Autowired
@@ -122,7 +122,9 @@ public final class Search extends VerticalLayout implements View {
 		table.setSortAscending(false);
 
 		table.setVisibleColumns("author", "release", "title", "status");
-		table.setColumnHeaders(lang.getString("Author"), lang.getString("Release"), lang.getString("Title"), lang.getString("Status"));
+		table.setColumnHeaders(lang.getString("Author"),
+				lang.getString("Release"), lang.getString("Title"),
+				lang.getString("Status"));
 		table.addListener(new ItemClickListener() {
 
 			/**

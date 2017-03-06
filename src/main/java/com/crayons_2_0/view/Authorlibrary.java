@@ -26,7 +26,6 @@ import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Page;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
@@ -36,7 +35,6 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
@@ -94,18 +92,18 @@ public class Authorlibrary extends VerticalLayout implements View,
 		setSpacing(true);
 		setMargin(false);
 
-			this.filter = buildFilter();
-			header.setSizeFull();
-			header.setWidth("100%");
-			header.setSpacing(false);
-			header.addComponent(buildTitle());
-			header.addComponent(this.filter);
-			header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
-			header.setMargin(true);
+		this.filter = buildFilter();
+		header.setSizeFull();
+		header.setWidth("100%");
+		header.setSpacing(false);
+		header.addComponent(buildTitle());
+		header.addComponent(this.filter);
+		header.setComponentAlignment(this.filter, Alignment.MIDDLE_RIGHT);
+		header.setMargin(true);
 
-			content.addComponent(buildCoursesTabSheet());
-			addComponent(header);
-			addComponent(content);
+		content.addComponent(buildCoursesTabSheet());
+		addComponent(header);
+		addComponent(content);
 	}
 
 	public Authorlibrary() {
@@ -296,7 +294,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 		return tabContent;
 	}
-	
+
 	/**
 	 * Builds a layout with the control buttons which allows modify a course.
 	 * 
@@ -352,11 +350,13 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				CurrentGraph.getInstance().setCourseTitle(title);
-				CurrentGraph.getInstance().setGraph(courseService.getCourseData(title));
+				CurrentGraph.getInstance().setGraph(
+						courseService.getCourseData(title));
 				CurrentCourses.getInstance().setTitle(title);
 				CourseEditorView.refreshGraph(courseService
 						.getCourseData(title));
-				UI.getCurrent().getNavigator().navigateTo(CourseEditorView.VIEW_NAME);
+				UI.getCurrent().getNavigator()
+						.navigateTo(CourseEditorView.VIEW_NAME);
 			}
 		});
 

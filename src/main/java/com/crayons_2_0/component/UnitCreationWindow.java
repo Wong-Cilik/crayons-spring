@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.LanguageService;
@@ -18,7 +17,6 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -74,9 +72,11 @@ public final class UnitCreationWindow extends Window {
 
 		content.setComponentAlignment(titleField, Alignment.MIDDLE_LEFT);
 
-		/*Component unitTypeChoice = buildUnitTypeChoice();
-		content.addComponent(unitTypeChoice);
-		content.setComponentAlignment(unitTypeChoice, Alignment.MIDDLE_LEFT);*/
+		/*
+		 * Component unitTypeChoice = buildUnitTypeChoice();
+		 * content.addComponent(unitTypeChoice);
+		 * content.setComponentAlignment(unitTypeChoice, Alignment.MIDDLE_LEFT);
+		 */
 
 		Component connectedUnitsChoice = buildConnectedUnitsChoice();
 		content.addComponent(connectedUnitsChoice);
@@ -95,8 +95,8 @@ public final class UnitCreationWindow extends Window {
 
 		ComboBox selectPredecessor = new ComboBox(
 				lang.getString("SelectThePreviousUnit"));
+		selectPredecessor.setNullSelectionAllowed(false);
 		comboBoxes.addComponent(selectPredecessor);
-
 		// Set<Node> predecessors = new HashSet<Node>();
 		// predecessors.add(new Node("Node 1"));
 		// predecessors.add(new Node("Node 2"));
@@ -114,6 +114,7 @@ public final class UnitCreationWindow extends Window {
 
 		ComboBox selectSuccessor = new ComboBox(
 				lang.getString("SelectTheNextUnit"));
+		selectSuccessor.setNullSelectionAllowed(false);
 		comboBoxes.addComponent(selectSuccessor);
 		// Set<Node> successors = new HashSet<Node>();
 		// successors.add(new Node("Node 3"));
@@ -143,20 +144,21 @@ public final class UnitCreationWindow extends Window {
 		return title;
 	}
 
-	/*private Component buildUnitTypeChoice() {
-		VerticalLayout unitTypeChoice = new VerticalLayout();
-		CheckBox learningUnit = new CheckBox(UnitType.LEARNING_UNIT.getTitle());
-		CheckBox testUnit = new CheckBox(UnitType.TEST_UNIT.getTitle());
-
-		learningUnit.addValueChangeListener(event -> // Java 8
-				testUnit.setValue(!learningUnit.getValue()));
-
-		testUnit.addValueChangeListener(event -> // Java 8
-		learningUnit.setValue(!testUnit.getValue()));
-
-		unitTypeChoice.addComponents(learningUnit, testUnit);
-		return unitTypeChoice;
-	}*/
+	/*
+	 * private Component buildUnitTypeChoice() { VerticalLayout unitTypeChoice =
+	 * new VerticalLayout(); CheckBox learningUnit = new
+	 * CheckBox(UnitType.LEARNING_UNIT.getTitle()); CheckBox testUnit = new
+	 * CheckBox(UnitType.TEST_UNIT.getTitle());
+	 * 
+	 * learningUnit.addValueChangeListener(event -> // Java 8
+	 * testUnit.setValue(!learningUnit.getValue()));
+	 * 
+	 * testUnit.addValueChangeListener(event -> // Java 8
+	 * learningUnit.setValue(!testUnit.getValue()));
+	 * 
+	 * unitTypeChoice.addComponents(learningUnit, testUnit); return
+	 * unitTypeChoice; }
+	 */
 
 	private Component buildFooter() {
 		HorizontalLayout footer = new HorizontalLayout();
@@ -169,16 +171,36 @@ public final class UnitCreationWindow extends Window {
 		ok.addClickListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				UnitNode newUnit = new UnitNode(unitTitle, parent, child, graph);
-				graph.addUnit(newUnit, parent);
-				CourseEditorView.refreshGraph(graph);
-				close();
-				Notification success = new Notification(lang
-						.getString("UnitCreatedSuccessfully"));
-				success.setDelayMsec(1000);
-				success.setStyleName("bar success small");
-				success.setPosition(Position.BOTTOM_CENTER);
-				success.show(Page.getCurrent());
+				if (unitTitle == null || unitTitle.equals("")) {
+					Notification fail = new Notification(lang
+							.getString("UnitCreatedfailure"));
+					fail.setDelayMsec(1000);
+					fail.setStyleName("bar fail small");
+					fail.setPosition(Position.BOTTOM_CENTER);
+					fail.show(Page.getCurrent());
+
+				} else if (parent == null || child == null) {
+					Notification fail = new Notification(lang
+							.getString("UnitCreatedfailure2"));
+					fail.setDelayMsec(1000);
+					fail.setStyleName("bar fail small");
+					fail.setPosition(Position.BOTTOM_CENTER);
+					fail.show(Page.getCurrent());
+
+				} else {
+					UnitNode newUnit = new UnitNode(unitTitle, parent, child,
+							graph);
+					graph.addUnit(newUnit, parent);
+					CourseEditorView.refreshGraph(graph);
+					close();
+					Notification success = new Notification(lang
+							.getString("UnitCreatedSuccessfully"));
+					success.setDelayMsec(1000);
+					success.setStyleName("bar success small");
+					success.setPosition(Position.BOTTOM_CENTER);
+					success.show(Page.getCurrent());
+				}
+
 			}
 		});
 		ok.focus();
@@ -192,7 +214,7 @@ public final class UnitCreationWindow extends Window {
 	 */
 
 	public enum UnitType {
-		LEARNING_UNIT("Learning unit"), TEST_UNIT("Test unit"); 
+		LEARNING_UNIT("Learning unit"), TEST_UNIT("Test unit");
 
 		private final String title;
 

@@ -89,7 +89,7 @@ public class UnitService {
 
 	public void storeUnitDummyData(String unitTitle, String courseTitle) {
 		unitDAO.insertUnit(unitTitle, courseTitle);
-		//saveUnitData(new UnitPageLayout(), unitTitle, courseTitle);
+		// saveUnitData(new UnitPageLayout(), unitTitle, courseTitle);
 	}
 
 	public void saveUnitData(VerticalLayout layout, String titleUnit,
@@ -98,26 +98,29 @@ public class UnitService {
 		File file = new File(titleUnit + ".bin");
 		ObjectOutputStream out;
 		WrappedPageItem c = null;
-		ArrayList <UnitData> dataList = new ArrayList<UnitData>();
-		
-		for (int i = 1; i < layout.getComponentCount(); i++){
+		ArrayList<UnitData> dataList = new ArrayList<UnitData>();
+
+		for (int i = 1; i < layout.getComponentCount(); i++) {
 			c = (WrappedPageItem) layout.getComponent(i);
-			
-			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.TextEditor")) {
+
+			if (c.getContent().getClass().getName()
+					.equals("com.crayons_2_0.component.TextEditor")) {
 				TextEditor x = (TextEditor) c.getContent();
 				System.out.println(x.getContent());
-				dataList.add(new UnitData (x.getContent()));
+				dataList.add(new UnitData(x.getContent()));
 			}
 
-			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
+			if (c.getContent().getClass().getName()
+					.equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
 				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
 			}
-			
-			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.ImageUploadEditor")) {
+
+			if (c.getContent().getClass().getName()
+					.equals("com.crayons_2_0.component.ImageUploadEditor")) {
 				ImageUploadEditor x = (ImageUploadEditor) c.getContent();
 			}
 		}
-		
+
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(file));
 			out.writeObject(dataList);

@@ -17,19 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.crayons_2_0.authentication.CurrentUser;
-import com.crayons_2_0.component.ImageUploadEditor;
-import com.crayons_2_0.component.MultipleChoiceEditor;
-import com.crayons_2_0.component.TextEditor;
-import com.crayons_2_0.component.UnitPageLayout;
-import com.crayons_2_0.component.UnitPageLayout.WrappedPageItem;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.CourseDisplay;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.VerticalLayout;
 
 /**
  * Services for Access of Courses of DB (via CourseDAO)
@@ -144,8 +137,10 @@ public class CourseService {
 
 	/**
 	 * 
-	 * @param course	course to update
-	 * @param oldTitle	old title of course to update
+	 * @param course
+	 *            course to update
+	 * @param oldTitle
+	 *            old title of course to update
 	 */
 	public void update(Course course, String oldTitle) {
 		courseDAO.update(course, oldTitle);
@@ -199,7 +194,7 @@ public class CourseService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Graph getCourseData(String title) {
 		ObjectInputStream in;
 		Graph graph = null;
@@ -302,9 +297,11 @@ public class CourseService {
 		courseList.addAll(courseDAO.searchAll(input, "description"));
 		for (Course tmpCourse : courseList) {
 			String status = "Privat";
-			if (CurrentUser.getInstance().geteMail().equals(tmpCourse.getAuthor().getEmail())) {
+			if (CurrentUser.getInstance().geteMail()
+					.equals(tmpCourse.getAuthor().getEmail())) {
 				status = "Author";
-			} else if (tmpCourse.getStudents().contains(CurrentUser.getInstance().geteMail())) {
+			} else if (tmpCourse.getStudents().contains(
+					CurrentUser.getInstance().geteMail())) {
 				status = "Beigetreten";
 			}
 			collector.add(new CourseDisplay("", tmpCourse.getTitle(), tmpCourse

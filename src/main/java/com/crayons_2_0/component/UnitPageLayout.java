@@ -1,6 +1,5 @@
 package com.crayons_2_0.component;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 import com.crayons_2_0.view.Uniteditor.PageItemType;
@@ -60,14 +59,14 @@ public final class UnitPageLayout extends CustomComponent {
 		layout.addComponent(buildDropArea());
 	}
 
-	public VerticalLayout getLayout () {
+	public VerticalLayout getLayout() {
 		return layout;
 	}
-	
-	public void setLayout (VerticalLayout layout) {
+
+	public void setLayout(VerticalLayout layout) {
 		this.layout = layout;
 	}
-	
+
 	/**
 	 * Builds a drop area for an empty page. The drop area can/will be later
 	 * replaced by a page component such as text, image, or multiple choice
@@ -173,7 +172,7 @@ public final class UnitPageLayout extends CustomComponent {
      */
 	public class WrappedPageItem extends DragAndDropWrapper {
 		private Component content;
-		
+
 		/**
 		 * 
 		 */
@@ -182,11 +181,11 @@ public final class UnitPageLayout extends CustomComponent {
 			this.content = content;
 			setDragStartMode(DragStartMode.WRAPPER);
 		}
-		
+
 		public Component getContent() {
 			return content;
 		}
-		
+
 		@Override
 		public DropHandler getDropHandler() {
 			return dropHandler;

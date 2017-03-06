@@ -33,31 +33,38 @@ public class RegisterFormListener implements Button.ClickListener {
 			Button source = event.getButton();
 			RegisterView parent = (RegisterView) source.getParent();
 			String firstname = parent.getFirstname().getValue().trim();
-            if (firstname.isEmpty()) {
-                throw new IllegalArgumentException("Requireder field First Name cannot be empty or space filled.");
-            }
-            String lastname = parent.getLastname().getValue().trim();
-            if (lastname.isEmpty()) {
-                throw new IllegalArgumentException("Requireder field Last Name cannot be empty or space filled.");
-            }
+			if (firstname.isEmpty()) {
+				throw new IllegalArgumentException(
+						"Requireder field First Name cannot be empty or space filled.");
+			}
+			String lastname = parent.getLastname().getValue().trim();
+			if (lastname.isEmpty()) {
+				throw new IllegalArgumentException(
+						"Requireder field Last Name cannot be empty or space filled.");
+			}
 			String mail = parent.getEmail().getValue();
 			String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
 			Pattern pattern = Pattern.compile(regex);
 			if (!(pattern.matcher(mail).matches())) {
-			    throw new IllegalArgumentException("Email is not valid");
+				throw new IllegalArgumentException("Email is not valid");
 			}
 			if (mail.length() > 30) {
-                throw new IllegalArgumentException("Email cannot be longer than 30 characters.");
-            }
+				throw new IllegalArgumentException(
+						"Email cannot be longer than 30 characters.");
+			}
 			String password = parent.getPassword().getValue();
 			if (password.length() < 6) {
-			    throw new IllegalArgumentException("Password should be at least 6 characters long.");
+				throw new IllegalArgumentException(
+						"Password should be at least 6 characters long.");
 			} else if (password.length() > 15) {
-                throw new IllegalArgumentException("Password should be at most 15 characters long.");
-            }
+				throw new IllegalArgumentException(
+						"Password should be at most 15 characters long.");
+			}
 			String language = (String) parent.getSelectLanguage().getValue();
-			if (language.equals("Deutsch")) language = "German";
-			else if (language.equals("Englisch")) language = "English";
+			if (language.equals("Deutsch"))
+				language = "German";
+			else if (language.equals("Englisch"))
+				language = "English";
 			int permission = 0;
 
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -68,7 +75,7 @@ public class RegisterFormListener implements Button.ClickListener {
 			userManager.foo(user);
 			UI.getCurrent().getNavigator().navigateTo(LoginScreen.VIEW_NAME);
 		} catch (IllegalArgumentException iae) {
-		    Notification.show(iae.getMessage());
+			Notification.show(iae.getMessage());
 		}
 	}
 

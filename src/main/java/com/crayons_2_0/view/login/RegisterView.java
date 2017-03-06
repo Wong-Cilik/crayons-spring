@@ -38,12 +38,13 @@ public class RegisterView extends VerticalLayout implements View {
 
 	public static final String VIEW_NAME = "registerView";
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
-	
+
 	private TextField email = new TextField();
 	private PasswordField password = new PasswordField();
 	private TextField firstname = new TextField();
 	private TextField lastname = new TextField();
-	private NativeSelect selectLanguage = new NativeSelect(lang.getString("SelectYourLanguage"));
+	private NativeSelect selectLanguage = new NativeSelect(
+			lang.getString("SelectYourLanguage"));
 
 	@PostConstruct
 	void init() {

@@ -7,11 +7,10 @@ public class UnitData implements Serializable {
 
 	private String text;
 
-	
-	public UnitData (String text){
+	public UnitData(String text) {
 		this.text = text;
 	}
-	
+
 	public String getText() {
 		return text;
 	}

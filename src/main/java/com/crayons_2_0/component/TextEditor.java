@@ -1,6 +1,5 @@
 package com.crayons_2_0.component;
 
-import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import org.vaadin.openesignforms.ckeditor.CKEditorConfig;
@@ -34,7 +33,7 @@ public class TextEditor extends CustomComponent {
 	private final Component textEditor;
 	private final Component readOnly;
 	private CKEditorTextField ckEditorTextField;
-			
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public TextEditor(String prefillData) {
@@ -149,7 +148,7 @@ public class TextEditor extends CustomComponent {
 		result.setSizeFull();
 		return result;
 	}
-	
+
 	public String getContent() {
 		return ckEditorTextField.getValue();
 	}

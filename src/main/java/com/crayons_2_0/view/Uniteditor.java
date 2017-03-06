@@ -7,9 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentCourses;
-import com.crayons_2_0.component.ImportEditor;
 import com.crayons_2_0.component.UnitPageLayout;
-import com.crayons_2_0.component.UnitPageLayout.WrappedPageItem;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UnitService;
@@ -221,9 +219,9 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//unitService.saveUnitData(page, CurrentCourses.getInstance()
-				//		.getUnitTitle(), CurrentCourses.getInstance()
-				//		.getTitle());
+				// unitService.saveUnitData(page, CurrentCourses.getInstance()
+				// .getUnitTitle(), CurrentCourses.getInstance()
+				// .getTitle());
 			}
 		});
 
@@ -255,7 +253,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				
+
 			}
 
 		});
@@ -272,7 +270,9 @@ public class Uniteditor extends VerticalLayout implements View {
 			public void buttonClick(ClickEvent event) {
 				VerticalLayout layout = page.getLayout();
 				System.out.println(CurrentCourses.getInstance().getUnitTitle());
-				unitService.saveUnitData(layout, CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle());
+				unitService.saveUnitData(layout, CurrentCourses.getInstance()
+						.getUnitTitle(), CurrentCourses.getInstance()
+						.getTitle());
 			}
 
 		});
