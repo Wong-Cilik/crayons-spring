@@ -92,10 +92,6 @@ public class UnitDAO {
 		fos.write(data, 0, data.length);
 		fos.flush();
 		fos.close();
-		{
-			// TODO Auto-generated method stub
-
-		}
 	}
 
 }

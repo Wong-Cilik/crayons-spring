@@ -134,14 +134,16 @@ public class UnitService {
 		}
 	}
 
-	public UnitPageLayout getUnitData(String unitTitle, String courseTitle) {
+	@SuppressWarnings("unchecked")
+	public List<UnitData> getUnitData(String unitTitle, String courseTitle) {
 		ObjectInputStream in;
-		UnitPageLayout layout = null;
+		List<UnitData> layout = null;
 		File file = new File(unitTitle + ".bin");
 		try {
 			unitDAO.getData(unitTitle, courseTitle);
 			in = new ObjectInputStream(new FileInputStream(file));
-			layout = (UnitPageLayout) in.readObject();
+			System.out.println("desrth");
+			layout = (List<UnitData>) in.readObject();
 			in.close();
 			Files.delete(file.toPath());
 		} catch (IOException e) {

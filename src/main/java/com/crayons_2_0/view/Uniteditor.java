@@ -1,5 +1,7 @@
 package com.crayons_2_0.view;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.UnitPageLayout;
+import com.crayons_2_0.model.UnitData;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UnitService;
@@ -253,7 +256,13 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-
+				List<UnitData> x = unitService.getUnitData(CurrentCourses.getInstance()
+						.getUnitTitle(), CurrentCourses.getInstance()
+						.getTitle());
+				Iterator<UnitData> it = x.iterator();
+				while (it.hasNext()) {
+					System.out.println(it.next().getText());
+				}
 			}
 
 		});
