@@ -271,7 +271,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				VerticalLayout layout = page.getLayout();
-				unitService.saveUnitLayout(layout);
+				unitService.saveUnitData(layout, "testUnit", CurrentCourses.getInstance().getTitle());
 			}
 
 		});

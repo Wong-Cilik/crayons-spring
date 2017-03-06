@@ -105,18 +105,16 @@ public class UnitService {
 			
 			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.TextEditor")) {
 				TextEditor x = (TextEditor) c.getContent();
+				System.out.println(x.getContent());
 				dataList.add(new UnitData (x.getContent()));
 			}
 
 			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
 				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
-
 			}
 			
-			System.out.println(c.getContent().getClass().getName());
 			if (c.getContent().getClass().getName().equals("com.crayons_2_0.component.ImageUploadEditor")) {
 				ImageUploadEditor x = (ImageUploadEditor) c.getContent();
-
 			}
 		}
 		
@@ -148,26 +146,5 @@ public class UnitService {
 			e.printStackTrace();
 		}
 		return layout;
-	}
-	
-	public void saveUnitLayout(VerticalLayout layout) {
-
-	}
-
-	
-	public UnitPageLayout getUnitLayout() {
-		ObjectInputStream in;
-		UnitPageLayout unitPageLayout = null;
-		File file = new File("Unit.bin");
-		try {
-			in = new ObjectInputStream(new FileInputStream(file));
-			unitPageLayout = (UnitPageLayout) in.readObject();
-			in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return unitPageLayout;
 	}
 }
