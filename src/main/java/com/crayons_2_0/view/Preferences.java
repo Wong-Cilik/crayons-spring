@@ -160,22 +160,42 @@ public class Preferences extends VerticalLayout implements View {
 			public void valueChange(ValueChangeEvent event) {
 				Language newLanguage;
 				String value = selectLanguage.getValue().toString();
+				
 				if (value.equals(Language.German.toString())) {
 					newLanguage = Language.German;
 				} else if (value.equals(Language.English.toString())) {
 					newLanguage = Language.English;
 				} else {
-					newLanguage = null;
+					// newLanguage = null;
+					throw new IllegalArgumentException("Language not Implemented");
 				}
-				LanguageService.getInstance().setCurrentLocale(newLanguage);
 				
-				Page.getCurrent().reload();												
-				// Problem: Logout - Soloution maybe:   https://vaadin.com/forum#!/thread/11317960
-				// http://stackoverflow.com/questions/23612615/preserveonrefresh-purpose-and-need
-				// https://vaadin.com/tutorial/declarative
+				CurrentUser.getInstance().getUser().setLanguage(newLanguage); // ??
 				
-				Notification.show(lang.getString("LanguageChangedTo") + ": "
-						+ value);
+				if (userService.updateUserLanguage(CurrentUser.getInstance().getUser(), newLanguage)) {
+					Notification success = new Notification(lang.getString("ProfileUpdatedSuccessfully"));
+					success.setDelayMsec(2000);
+					success.setStyleName("barSuccessSmall");
+					success.setPosition(Position.BOTTOM_CENTER);
+					success.show(Page.getCurrent());
+					
+					LanguageService.getInstance().setCurrentLocale(newLanguage);
+					
+					Page.getCurrent().reload();
+					
+					// Problem: Logout - Soloution maybe:   https://vaadin.com/forum#!/thread/11317960
+					// http://stackoverflow.com/questions/23612615/preserveonrefresh-purpose-and-need
+					// https://vaadin.com/tutorial/declarative
+					
+					Notification.show(lang.getString("LanguageChangedTo") + ": "
+							+ value);
+					
+				}
+				
+				
+				
+																
+				
 
 			}
 		});

@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.crayons_2_0.model.CrayonsUser;
+import com.crayons_2_0.service.Language;
 import com.vaadin.spring.annotation.SpringComponent;
 
 // LINKS:
@@ -155,6 +156,12 @@ public class UserDAO implements CommandLineRunner {
 	public boolean updateRights(String eMail, int r) {
 		jdbcTemplate.update("UPDATE users SET permission=? WHERE email=?", r,
 				eMail);
+		return true;
+	}
+
+	public boolean updateLanguage(CrayonsUser user, Language newLanguage) {
+		jdbcTemplate.update("UPDATE users SET language=? WHERE email=?", newLanguage.toString(),
+				user.getEmail());
 		return true;
 	}
 }

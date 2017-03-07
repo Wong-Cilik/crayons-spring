@@ -3,6 +3,7 @@ package com.crayons_2_0.service.database;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.crayons_2_0.model.CrayonsUser;
+import com.crayons_2_0.service.Language;
 import com.vaadin.spring.annotation.SpringComponent;
 //import org.springframework.security.core.authority.GrantedAuthorityImpl;
 //import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -91,9 +93,38 @@ public class UserService implements UserDetailsService {
 	 *            new LastName
 	 * @return true if successfull
 	 */
-	public boolean updateUser(CrayonsUser user, String eMail, String firstName,
-			String lastName) {
+	public boolean updateUser(CrayonsUser user, String eMail, String firstName, String lastName) {
+		// Check if eMail is valid
+		String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
+		Pattern pattern = Pattern.compile(regex);
+		if (!(pattern.matcher(eMail).matches())) {
+			throw new IllegalArgumentException("Email is not valid");
+		}
+		if (eMail.length() > 30) {
+			throw new IllegalArgumentException("Email cannot be longer than 30 characters.");
+		}
+		
+		// Check if firstName is valid
+		if (firstName.isEmpty()) {
+			throw new IllegalArgumentException(
+					"Requireder field First Name cannot be empty or space filled.");
+		}
+		
+		// Check if lastName is valid
+		if (lastName.isEmpty()) {
+			throw new IllegalArgumentException(
+					"Requireder field Last Name cannot be empty or space filled.");
+		}
+		
+		// Go on
 		return userDAO.updateUser(user, eMail, firstName, lastName);
+	}
+	
+	public boolean updateUserLanguage(CrayonsUser user, Language newLanguage) {
+		if ((user == null) || (newLanguage == null)) {
+			throw new IllegalArgumentException("User and new language can't be null");
+		}
+		return userDAO.updateLanguage(user, newLanguage);
 	}
 
 	public boolean updateRights(String eMail, String role) {
@@ -160,4 +191,6 @@ public class UserService implements UserDetailsService {
 		throw new UsernameNotFoundException("User with mail: " + eMail
 				+ " doesnt exists!");
 	}
+
+	
 }
