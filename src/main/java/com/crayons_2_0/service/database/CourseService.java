@@ -220,10 +220,10 @@ public class CourseService {
 	 *            of course to save dummyGraph
 	 */
 	public void saveDummyGraph(String title) {
-		String dummy = "dummy";
+		String dummy = "dummy@web.de";
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy",
-				"pass", "German", 2, true, true, false, false, authorities);
+				"123456", "German", 2, true, true, false, false, authorities);
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 
@@ -260,8 +260,8 @@ public class CourseService {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		// CrayonsUser dummyUser = new User(dummy, "pass", true, true, false,
 		// false, authorities);
-		CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy",
-				"pass", "German", 2, true, true, false, false, authorities);
+		CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy@web.de",
+				"123456", "German", 2, true, true, false, false, authorities);
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 

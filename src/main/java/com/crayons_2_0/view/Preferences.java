@@ -10,6 +10,7 @@ import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.UserService;
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 //import com.vaadin.event.ShortcutAction.KeyCode;
@@ -19,6 +20,7 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -48,6 +50,7 @@ import com.vaadin.ui.themes.ValoTheme;
 //import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.fieldgroup.PropertyId;
 
+// @PreserveOnRefresh
 @SuppressWarnings("serial")
 @SpringView(name = Preferences.VIEW_NAME)
 @ViewScope
@@ -165,7 +168,12 @@ public class Preferences extends VerticalLayout implements View {
 					newLanguage = null;
 				}
 				LanguageService.getInstance().setCurrentLocale(newLanguage);
-				Page.getCurrent().reload();
+				
+				Page.getCurrent().reload();												
+				// Problem: Logout - Soloution maybe:   https://vaadin.com/forum#!/thread/11317960
+				// http://stackoverflow.com/questions/23612615/preserveonrefresh-purpose-and-need
+				// https://vaadin.com/tutorial/declarative
+				
 				Notification.show(lang.getString("LanguageChangedTo") + ": "
 						+ value);
 
