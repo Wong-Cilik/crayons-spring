@@ -76,7 +76,7 @@ public class UnitDAO {
 	}
 
 	public void insertUnit(String unitTitle, String courseTitle) {
-		List <Unit> unitList = findAll();
+		List<Unit> unitList = findAll();
 		for (Unit tmpUnit : unitList) {
 			if (tmpUnit.getTitle().equals(unitTitle)) {
 				return;

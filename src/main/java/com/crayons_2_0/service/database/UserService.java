@@ -93,7 +93,8 @@ public class UserService implements UserDetailsService {
 	 *            new LastName
 	 * @return true if successfull
 	 */
-	public boolean updateUser(CrayonsUser user, String eMail, String firstName, String lastName) {
+	public boolean updateUser(CrayonsUser user, String eMail, String firstName,
+			String lastName) {
 		// Check if eMail is valid
 		String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
 		Pattern pattern = Pattern.compile(regex);
@@ -101,28 +102,30 @@ public class UserService implements UserDetailsService {
 			throw new IllegalArgumentException("Email is not valid");
 		}
 		if (eMail.length() > 30) {
-			throw new IllegalArgumentException("Email cannot be longer than 30 characters.");
+			throw new IllegalArgumentException(
+					"Email cannot be longer than 30 characters.");
 		}
-		
+
 		// Check if firstName is valid
 		if (firstName.isEmpty()) {
 			throw new IllegalArgumentException(
 					"Requireder field First Name cannot be empty or space filled.");
 		}
-		
+
 		// Check if lastName is valid
 		if (lastName.isEmpty()) {
 			throw new IllegalArgumentException(
 					"Requireder field Last Name cannot be empty or space filled.");
 		}
-		
+
 		// Go on
 		return userDAO.updateUser(user, eMail, firstName, lastName);
 	}
-	
+
 	public boolean updateUserLanguage(CrayonsUser user, Language newLanguage) {
 		if ((user == null) || (newLanguage == null)) {
-			throw new IllegalArgumentException("User and new language can't be null");
+			throw new IllegalArgumentException(
+					"User and new language can't be null");
 		}
 		return userDAO.updateLanguage(user, newLanguage);
 	}
@@ -192,5 +195,4 @@ public class UserService implements UserDetailsService {
 				+ " doesnt exists!");
 	}
 
-	
 }

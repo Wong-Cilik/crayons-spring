@@ -85,7 +85,12 @@ public class CourseEditorView extends VerticalLayout implements View {
 	 */
 	public static void refreshGraph(Graph graphTmp) {
 		selectUnit.removeAllItems();
-		selectUnit.addItems(graphTmp.getNodeNameList());
+		for (String tmp : graphTmp.getNodeNameList()) {
+			System.out.println(tmp);
+			if (!tmp.equals("Start") && !tmp.equals("End")) {
+				selectUnit.addItem(tmp);
+			}
+		}
 		graph.setGraph(graphTmp.getNodeNameList(), graphTmp.getEdgeSequence());
 		graphData = graphTmp;
 		graph.setSizeFull();
@@ -126,10 +131,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// if (unit was modified)
 				UI.getCurrent().addWindow(new UnsavedChangesWindow());
-				// else
-				// UI.getCurrent().getNavigator().navigateTo(Authorlibrary.VIEW_NAME);
 			}
 
 		});
@@ -159,7 +161,9 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 		selectUnit = new ComboBox();
 		for (UnitNode tmp : graphData.getUnitCollection()) {
-			if (!tmp.getUnitNodeTitle().equals("Start") && !tmp.getUnitNodeTitle().equals("End")){
+			System.out.println(tmp.getUnitNodeTitle());
+			if (!tmp.getUnitNodeTitle().equals("Start")
+					&& !tmp.getUnitNodeTitle().equals("End")) {
 				selectUnit.addItem(tmp.getUnitNodeTitle());
 			}
 		}
@@ -178,21 +182,22 @@ public class CourseEditorView extends VerticalLayout implements View {
 				UI.getCurrent().addWindow(new UnitCreationWindow(graphData));
 			}
 		});
-		Button edit = new Button(
-				EditMenuButtonType.EDIT_UNIT.getTitle(),
+		Button edit = new Button(EditMenuButtonType.EDIT_UNIT.getTitle(),
 				EditMenuButtonType.EDIT_UNIT.getIcon());
 		editMenuLayout.addComponent(edit);
 		edit.addClickListener(new ClickListener() {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentCourses.getInstance().setUnitTitle(CurrentCourses.getInstance().getTitle() + "#" +
-						(String) selectUnit.getValue());
-				unitService.newUnit();
-				// Uniteditor.refreshLayout(unitService.getUnitData((String)
-				// selectUnit.getValue(),
-				// CurrentGraph.getInstance().getCourseTitle()));
-				UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
+				if (selectUnit.getValue() == null) {
+					
+				} else {
+					CurrentCourses.getInstance().setUnitTitle(
+							CurrentCourses.getInstance().getTitle() + "#"
+									+ (String) selectUnit.getValue());
+					unitService.newUnit();
+					UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
+				}
 			}
 		});
 

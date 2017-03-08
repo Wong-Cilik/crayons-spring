@@ -218,9 +218,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				// unitService.saveUnitData(page, CurrentCourses.getInstance()
-				// .getUnitTitle(), CurrentCourses.getInstance()
-				// .getTitle());
+				
 			}
 		});
 
@@ -231,7 +229,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				// if (unit was modified)
@@ -249,12 +246,11 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-
 			@Override
 			public void buttonClick(ClickEvent event) {
-				List<UnitData> x = unitService.getUnitData(CurrentCourses.getInstance()
-						.getUnitTitle(), CurrentCourses.getInstance()
-						.getTitle());
+				List<UnitData> x = unitService.getUnitData(CurrentCourses
+						.getInstance().getUnitTitle(), CurrentCourses
+						.getInstance().getTitle());
 				Iterator<UnitData> it = x.iterator();
 				while (it.hasNext()) {
 					System.out.println(it.next().getText());
@@ -270,7 +266,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			/**
 			 * 
 			 */
-
 			@Override
 			public void buttonClick(ClickEvent event) {
 				VerticalLayout layout = page.getLayout();
@@ -438,10 +433,10 @@ public class Uniteditor extends VerticalLayout implements View {
 			Button cancelButton = new Button(lang.getString("Cancel"));
 
 			cancelButton.addClickListener(new ClickListener() {
+				
 				/**
 				 * 
 				 */
-
 				@Override
 				public void buttonClick(ClickEvent event) {
 					close();
@@ -471,9 +466,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		UnitPageLayout upl = new UnitPageLayout();
-		upl.addComponent(PageItemType.TEXT, null);
-		this.page = upl;
+		//page.addComponent(PageItemType.TEXT, null);
 	}
 
 	public static UnitPageLayout getPageLayout() {

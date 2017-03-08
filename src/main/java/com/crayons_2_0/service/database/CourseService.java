@@ -222,13 +222,14 @@ public class CourseService {
 	public void saveDummyGraph(String title) {
 		String dummy = "dummy@web.de";
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy@web.de",
-				"123456", "German", 2, true, true, false, false, authorities);
+		CrayonsUser dummyUser = new CrayonsUser("first", "last",
+				"dummy@web.de", "123456", "German", 2, true, true, false,
+				false, authorities);
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 
-		UnitNode one = new UnitNode("Content", dummyGraph.getStartUnit(), dummyGraph.getEndUnit(),
-				dummyGraph);
+		UnitNode one = new UnitNode("Content", dummyGraph.getStartUnit(),
+				dummyGraph.getEndUnit(), dummyGraph);
 
 		dummyGraph.addUnit(one, one.getParentNodes());
 
@@ -260,8 +261,9 @@ public class CourseService {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		// CrayonsUser dummyUser = new User(dummy, "pass", true, true, false,
 		// false, authorities);
-		CrayonsUser dummyUser = new CrayonsUser("first", "last", "dummy@web.de",
-				"123456", "German", 2, true, true, false, false, authorities);
+		CrayonsUser dummyUser = new CrayonsUser("first", "last",
+				"dummy@web.de", "123456", "German", 2, true, true, false,
+				false, authorities);
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 

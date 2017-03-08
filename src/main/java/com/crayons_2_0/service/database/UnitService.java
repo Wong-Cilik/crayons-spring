@@ -88,8 +88,7 @@ public class UnitService {
 	}
 
 	// -----------------------------------------------------------------------------
-	
-	
+
 	public void saveUnitData(VerticalLayout layout, String titleUnit,
 			String titleCourse) {
 
@@ -153,7 +152,8 @@ public class UnitService {
 	}
 
 	public void newUnit() {
-		
-		unitDAO.insertUnit(CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle());
+
+		unitDAO.insertUnit(CurrentCourses.getInstance().getUnitTitle(),
+				CurrentCourses.getInstance().getTitle());
 	}
 }

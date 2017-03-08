@@ -38,13 +38,14 @@ public class Unit {
 	}
 
 	/**
-	 * @param title to set
+	 * @param title
+	 *            to set
 	 */
 	public void setTitle(String title) {
 		if (title.isEmpty()) {
 			throw new IllegalArgumentException("Title of unit can't be empty!");
 		}
-		
+
 		this.title = title;
 	}
 
@@ -61,9 +62,10 @@ public class Unit {
 	 */
 	public void setCourseTitle(String courseTitle) {
 		if (courseTitle.isEmpty()) {
-			throw new IllegalArgumentException("Title of course of unit can't be empty!");
+			throw new IllegalArgumentException(
+					"Title of course of unit can't be empty!");
 		}
-		
+
 		this.courseTitle = courseTitle;
 	}
 
@@ -82,7 +84,7 @@ public class Unit {
 		if (type == null) {
 			throw new IllegalArgumentException("type can't be null!");
 		}
-		
+
 		this.type = type;
 	}
 

@@ -37,8 +37,8 @@ public class CrayonsUser extends User {
 	}
 
 	/**
-	 * Returns the Email of the user.
-	 * Email is also used as ID.
+	 * Returns the Email of the user. Email is also used as ID.
+	 * 
 	 * @return email of user
 	 */
 	public String getEmail() {
@@ -47,8 +47,9 @@ public class CrayonsUser extends User {
 
 	/**
 	 * set the EMail of the user
-	 * @param email to set
-	 * dummy
+	 * 
+	 * @param email
+	 *            to set dummy
 	 */
 	public void setEmail(String email) {
 		String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
@@ -60,12 +61,13 @@ public class CrayonsUser extends User {
 			throw new IllegalArgumentException(
 					"Email cannot be longer than 30 characters.");
 		}
-		
+
 		this.email = email;
 	}
 
 	/**
 	 * Returns the firstName of user
+	 * 
 	 * @return firstName of user
 	 */
 	public String getFirstName() {
@@ -74,7 +76,9 @@ public class CrayonsUser extends User {
 
 	/**
 	 * Sets the firstName of User
-	 * @param firstName to set
+	 * 
+	 * @param firstName
+	 *            to set
 	 */
 	public void setFirstName(String firstName) {
 		if (firstName.isEmpty()) {
@@ -86,6 +90,7 @@ public class CrayonsUser extends User {
 
 	/**
 	 * Returns the lastName of user
+	 * 
 	 * @return lastName of user
 	 */
 	public String getLastName() {
@@ -94,7 +99,9 @@ public class CrayonsUser extends User {
 
 	/**
 	 * Sets the lastName of User
-	 * @param lastName to set
+	 * 
+	 * @param lastName
+	 *            to set
 	 */
 	public void setLastName(String lastName) {
 		if (lastName.isEmpty()) {
@@ -106,15 +113,18 @@ public class CrayonsUser extends User {
 
 	/**
 	 * Returns the password of user
+	 * 
 	 * @return password of user
 	 */
 	public String getPassword() {
 		return password;
 	}
-	
+
 	/**
 	 * Set the Password of CrayonUser
-	 * @param password to set. Length must be between 6 until 15 characters long.
+	 * 
+	 * @param password
+	 *            to set. Length must be between 6 until 15 characters long.
 	 */
 	public void setPassword(String password) {
 		if (password.length() < 6) {
@@ -124,12 +134,13 @@ public class CrayonsUser extends User {
 			throw new IllegalArgumentException(
 					"Password should be at most 15 characters long.");
 		}
-		
+
 		this.password = password;
 	}
 
 	/**
 	 * Returns the Language of User
+	 * 
 	 * @returnlanguage of user
 	 */
 	public Language getLanguage() {
@@ -138,7 +149,9 @@ public class CrayonsUser extends User {
 
 	/**
 	 * Sets the language of user
-	 * @param language to set
+	 * 
+	 * @param language
+	 *            to set
 	 */
 	public void setLanguage(Language language) {
 		if (language == null) {
@@ -149,7 +162,9 @@ public class CrayonsUser extends User {
 
 	/**
 	 * Sets the language of user throw a Stringrepresentation of the language.
-	 * @param language to search for enum "Language" and set.
+	 * 
+	 * @param language
+	 *            to search for enum "Language" and set.
 	 */
 	public void setLanguage(String language) {
 		if (language != null) {
@@ -175,28 +190,29 @@ public class CrayonsUser extends User {
 	}
 
 	/**
-	 * Returns the permission of user
-	 * 0 = ??
-	 * 1 = ??
-	 * 2 = ?? 
+	 * Returns the permission of user 0 = ?? 1 = ?? 2 = ??
+	 * 
 	 * @return permission of user
 	 */
 	public int getPermission() {
 		return permission;
 	}
-	
-	
+
 	/**
 	 * Sets the permission of user
-	 * @param permission to set
+	 * 
+	 * @param permission
+	 *            to set
 	 */
 	public void setPermission(int permission) {
 		if (permission < 0) {
 			throw new IllegalArgumentException("permission can't be negative");
 		} else if (permission > MAX_PERMISSION) {
-			throw new IllegalArgumentException("permission is not allowed. Max value of permission is: " + MAX_PERMISSION);
+			throw new IllegalArgumentException(
+					"permission is not allowed. Max value of permission is: "
+							+ MAX_PERMISSION);
 		}
-		
+
 		this.permission = permission;
 	}
 }

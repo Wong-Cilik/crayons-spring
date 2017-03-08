@@ -160,8 +160,8 @@ public class UserDAO implements CommandLineRunner {
 	}
 
 	public boolean updateLanguage(CrayonsUser user, Language newLanguage) {
-		jdbcTemplate.update("UPDATE users SET language=? WHERE email=?", newLanguage.toString(),
-				user.getEmail());
+		jdbcTemplate.update("UPDATE users SET language=? WHERE email=?",
+				newLanguage.toString(), user.getEmail());
 		return true;
 	}
 }

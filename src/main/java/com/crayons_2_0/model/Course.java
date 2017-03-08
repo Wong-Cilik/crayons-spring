@@ -26,8 +26,8 @@ public class Course implements Serializable {
 	private List<Unit> units = new ArrayList<Unit>();
 	private Date creationTime;
 	private Graph graph;
-	
-	private final int MAX_LENGTH_OF_TITLE = 30; // ????????????????????? 
+
+	private final int MAX_LENGTH_OF_TITLE = 30; // ?????????????????????
 
 	public Course(String title, String description, CrayonsUser author) {
 		this.setTitle(title);
@@ -54,29 +54,32 @@ public class Course implements Serializable {
 		this.setAuthor(author);
 		creationTime = new Date();
 	}
-	
-	
+
 	/**
 	 * Returns the students of course
+	 * 
 	 * @return
 	 */
 	public String getStudents() {
 		return students;
 	}
-	
+
 	/**
 	 * Sets the Studens of Course
-	 * @param students of course
+	 * 
+	 * @param students
+	 *            of course
 	 */
 	public void setStudents(String students) {
-		
-		//ToDo: Regex zur überprüfung
-		
+
+		// ToDo: Regex zur überprüfung
+
 		this.students = students;
 	}
 
 	/**
 	 * Returns the title of course
+	 * 
 	 * @return title of course
 	 */
 	public String getTitle() {
@@ -85,22 +88,26 @@ public class Course implements Serializable {
 
 	/**
 	 * Sets the Title of course
-	 * @param title to set
+	 * 
+	 * @param title
+	 *            to set
 	 */
 	public void setTitle(String title) {
 		if (title.isEmpty()) {
 			throw new IllegalArgumentException("Title of Course can't be empty");
 		}
-		
+
 		if (title.length() > MAX_LENGTH_OF_TITLE) {
-			throw new IllegalArgumentException("Title of Course is longer than allowed");
+			throw new IllegalArgumentException(
+					"Title of Course is longer than allowed");
 		}
-		
+
 		this.title = title;
 	}
 
 	/**
 	 * Returns the description of Course
+	 * 
 	 * @return description of course
 	 */
 	public String getDescription() {
@@ -109,7 +116,9 @@ public class Course implements Serializable {
 
 	/**
 	 * Sets the description of course
-	 * @param description to set
+	 * 
+	 * @param description
+	 *            to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -117,6 +126,7 @@ public class Course implements Serializable {
 
 	/**
 	 * Returns the author of course
+	 * 
 	 * @return the author of course
 	 */
 	public CrayonsUser getAuthor() {
@@ -125,18 +135,21 @@ public class Course implements Serializable {
 
 	/**
 	 * Sets the author of course
-	 * @param author to set
+	 * 
+	 * @param author
+	 *            to set
 	 */
 	public void setAuthor(CrayonsUser author) {
 		if (author == null) {
 			throw new IllegalArgumentException("Author of Course can't be Null");
 		}
-		
+
 		this.author = author;
 	}
 
 	/**
 	 * Returns the list of users of course
+	 * 
 	 * @return the users
 	 */
 	public List<CrayonsUser> getUsers() {
@@ -145,7 +158,9 @@ public class Course implements Serializable {
 
 	/**
 	 * Sets the list of users of course
-	 * @param users list of users to set
+	 * 
+	 * @param users
+	 *            list of users to set
 	 */
 	public void setUsers(List<CrayonsUser> users) {
 		this.users = users;
@@ -153,6 +168,7 @@ public class Course implements Serializable {
 
 	/**
 	 * Returns the units of course
+	 * 
 	 * @return the units of course
 	 */
 	public List<Unit> getUnits() {
@@ -160,7 +176,8 @@ public class Course implements Serializable {
 	}
 
 	/**
-	 * @param units the units to set
+	 * @param units
+	 *            the units to set
 	 */
 	public void setUnits(List<Unit> units) {
 		this.units = units;
@@ -175,7 +192,8 @@ public class Course implements Serializable {
 	}
 
 	/**
-	 * @param creationTime the creationTime to set
+	 * @param creationTime
+	 *            the creationTime to set
 	 */
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
@@ -189,7 +207,8 @@ public class Course implements Serializable {
 	}
 
 	/**
-	 * @param graph the graph to set
+	 * @param graph
+	 *            the graph to set
 	 */
 	public void setGraph(Graph graph) {
 		this.graph = graph;
@@ -202,5 +221,4 @@ public class Course implements Serializable {
 		return MAX_LENGTH_OF_TITLE;
 	}
 
-	
 }
