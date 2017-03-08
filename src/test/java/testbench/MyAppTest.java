@@ -15,6 +15,8 @@ public class MyAppTest extends ParallelTest {
 	private static final String URL="http://localhost";
     private static final String PORT="8080";
     
+    
+    
     @Before
     public void setup() throws Exception {
     	setDriver(new ChromeDriver());
