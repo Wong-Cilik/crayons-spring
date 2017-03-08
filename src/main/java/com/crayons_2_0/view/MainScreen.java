@@ -54,9 +54,6 @@ public class MainScreen extends HorizontalLayout implements View {
 	UnitUserView unitUserView;
 
 	@Autowired
-	AboutView aboutView;
-
-	@Autowired
 	Search search;
 
 	@Autowired
