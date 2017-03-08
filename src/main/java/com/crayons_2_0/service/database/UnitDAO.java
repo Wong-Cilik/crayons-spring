@@ -76,10 +76,15 @@ public class UnitDAO {
 	}
 
 	public void insertUnit(String unitTitle, String courseTitle) {
+		List <Unit> unitList = findAll();
+		for (Unit tmpUnit : unitList) {
+			if (tmpUnit.getTitle().equals(unitTitle)) {
+				return;
+			}
+		}
 		jdbcTemplate.update(
 				"insert into units (coursetitle, unittitle) VALUES (?, ?)",
-				courseTitle, courseTitle + "#" + unitTitle);
-
+				courseTitle, unitTitle);
 	}
 
 	public void getData(String unitTitle, String courseTitle)

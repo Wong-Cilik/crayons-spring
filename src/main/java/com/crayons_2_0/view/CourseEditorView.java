@@ -159,8 +159,11 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 		selectUnit = new ComboBox();
 		for (UnitNode tmp : graphData.getUnitCollection()) {
-			selectUnit.addItem(tmp.getUnitNodeTitle());
+			if (!tmp.getUnitNodeTitle().equals("Start") && !tmp.getUnitNodeTitle().equals("End")){
+				selectUnit.addItem(tmp.getUnitNodeTitle());
+			}
 		}
+		selectUnit.setNullSelectionAllowed(false);
 		editMenuLayout.addComponent(selectUnit);
 		// create buttons with refresh data
 		Button unitCreationButton = new Button(
@@ -183,7 +186,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				CurrentCourses.getInstance().setUnitTitle(
+				CurrentCourses.getInstance().setUnitTitle(CurrentCourses.getInstance().getTitle() + "#" +
 						(String) selectUnit.getValue());
 				unitService.newUnit();
 				// Uniteditor.refreshLayout(unitService.getUnitData((String)

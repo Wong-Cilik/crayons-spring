@@ -154,6 +154,7 @@ public class UnitService {
 	}
 
 	public void newUnit() {
+		
 		unitDAO.insertUnit(CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle());
 	}
 }
