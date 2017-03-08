@@ -3,7 +3,6 @@ package testbench;
 import java.util.ResourceBundle;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.testbench.elements.ButtonElement;
 import com.vaadin.testbench.elements.FormLayoutElement;
-import com.vaadin.testbench.elements.LabelElement;
 import com.vaadin.testbench.elements.TextFieldElement;
 import com.vaadin.testbench.parallel.ParallelTest;
 

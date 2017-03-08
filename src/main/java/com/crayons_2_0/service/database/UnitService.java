@@ -19,7 +19,6 @@ import com.crayons_2_0.component.ImageUploadEditor;
 import com.crayons_2_0.component.MultipleChoiceEditor;
 import com.crayons_2_0.component.TextEditor;
 import com.crayons_2_0.component.Unit;
-import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.component.UnitPageLayout.WrappedPageItem;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.UnitData;

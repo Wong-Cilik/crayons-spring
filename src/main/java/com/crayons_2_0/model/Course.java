@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
-import com.crayons_2_0.service.database.CourseService;
 
 @SuppressWarnings("serial")
 @Component

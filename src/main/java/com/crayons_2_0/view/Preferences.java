@@ -10,17 +10,15 @@ import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.UserService;
-import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-//import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -37,18 +35,12 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
-//import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-//import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
-//import org.apache.catalina.JNDIUser;
-//import com.vaadin.data.fieldgroup.BeanFieldGroup;
-//import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
-import com.vaadin.data.fieldgroup.PropertyId;
 
 // @PreserveOnRefresh
 @SuppressWarnings("serial")
