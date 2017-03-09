@@ -103,7 +103,6 @@ public class UnitService {
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.TextEditor")) {
 				TextEditor x = (TextEditor) c.getContent();
-				System.out.println(x.getContent());
 				dataList.add(new UnitData(x.getContent()));
 			}
 
@@ -139,7 +138,6 @@ public class UnitService {
 		try {
 			unitDAO.getData(unitTitle, courseTitle);
 			in = new ObjectInputStream(new FileInputStream(file));
-			System.out.println("desrth");
 			layout = (List<UnitData>) in.readObject();
 			in.close();
 			Files.delete(file.toPath());

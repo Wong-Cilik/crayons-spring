@@ -63,7 +63,6 @@ public class UnitDAO {
 	public void saveData(File file, String titleUnit, String titleCourse)
 			throws IOException {
 		FileInputStream fis = new FileInputStream(file);
-		System.out.println(titleUnit + "   " + titleCourse);
 		jdbcTemplate.update("UPDATE units SET data=? WHERE unitTitle=?",
 				new PreparedStatementSetter() {
 					public void setValues(PreparedStatement ps)

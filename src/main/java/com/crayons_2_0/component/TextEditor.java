@@ -128,7 +128,6 @@ public class TextEditor extends CustomComponent {
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				System.out.println(ckEditorTextField.getValue());
 				property.setValue(ckEditorTextField.getValue());
 				setCompositionRoot(readOnly);
 			}

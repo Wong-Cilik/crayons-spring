@@ -1,7 +1,9 @@
 package com.crayons_2_0.component;
 
 import java.util.Iterator;
+import java.util.List;
 
+import com.crayons_2_0.model.UnitData;
 import com.crayons_2_0.view.Uniteditor.PageItemType;
 import com.vaadin.event.Transferable;
 import com.vaadin.event.dd.DragAndDropEvent;
@@ -288,4 +290,13 @@ public final class UnitPageLayout extends CustomComponent {
 		}
 	}
 
+	public void addMultiComponent(List<UnitData> unitData) {
+		for(UnitData tmpUnit : unitData) {
+			addComponent(PageItemType.TEXT, tmpUnit.getText());
+		}
+	}
+
+	public void removeAllComponent() {
+		layout.removeAllComponents();
+	}
 }
