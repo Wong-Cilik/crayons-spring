@@ -62,6 +62,7 @@ public class RegisterView extends VerticalLayout implements View {
 		}
 
 		selectLanguage.setNullSelectionAllowed(false);
+		selectLanguage.setValue(languages.iterator().next());
 		selectLanguage.setImmediate(true);
 
 		getEmail().setRequired(true);
