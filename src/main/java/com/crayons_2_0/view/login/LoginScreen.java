@@ -71,7 +71,7 @@ public class LoginScreen extends CssLayout implements View {
 				"<h1>"
 						+ lang.getString("LoginInformation")
 						+ "</h1>"
-						+ "Log in as &quot;admin&quot; to have full access. Log in with any other username to have read-only access. For all users, any password is fine",
+						+ "Welcome to crayons! Crayons 2.0 is a new platform, where lecturers are able to create teaching courses very fast and easily and share them with their students. It is possible to create alternate learningpaths in order to achieve the best learning experience for each individual student.",
 				ContentMode.HTML);
 		loginInformation.addComponent(loginInfoText);
 		return loginInformation;
