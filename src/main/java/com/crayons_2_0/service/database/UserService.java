@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Notification;
 //import org.springframework.security.core.authority.GrantedAuthorityImpl;
 //import org.springframework.security.core.authority.GrantedAuthorityImpl;
 
@@ -67,17 +68,25 @@ public class UserService implements UserDetailsService {
 	 * @return true if successfull, false otherwise
 	 */
 	public boolean insertUser(CrayonsUser user) {
-		// Check if Exists, return false if exists
+		boolean userExists = false;
+	    // Check if Exists, return false if exists
 		List<CrayonsUser> users = findAll();
 		for (CrayonsUser tmpUser : users) {
 			if (tmpUser.getEmail().equals(user.getEmail())) {
-				// TODO Error user exists
+			    Notification.show("Error username already exists",
+			            "please choose another username",
+		                  Notification.Type.WARNING_MESSAGE);
+			    return userExists = true;
 			}
+			
 		}
 
+		if (userExists == false){
+		    userDAO.insertUser(user);
+		}
 		// User doesn't exist -> insert
-		userDAO.insertUser(user);
-		return true;
+		
+		return userExists;
 	}
 
 	/**

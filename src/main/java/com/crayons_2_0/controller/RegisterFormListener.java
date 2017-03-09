@@ -1,6 +1,6 @@
 package com.crayons_2_0.controller;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -9,15 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.crayons_2_0.authentication.UserManager;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.UserService;
 import com.crayons_2_0.view.login.LoginScreen;
 import com.crayons_2_0.view.login.RegisterView;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.Notification.Type;
 
 @SuppressWarnings("serial")
 @SpringComponent
@@ -27,7 +28,7 @@ public class RegisterFormListener implements Button.ClickListener {
 	 * 
 	 */
 	@Autowired
-	private UserManager userManager;
+	private UserService userService;
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	
@@ -79,11 +80,22 @@ public class RegisterFormListener implements Button.ClickListener {
 			CrayonsUser user = new CrayonsUser(firstname, lastname, mail,
 					password, language, permission, true, true, false, false,
 					authorities);
-			userManager.foo(user);
+			boolean userExists = userService.insertUser(user);
+			
+			
+			if (userExists == false){
+			Notification.show("Username created",
+                    mail,
+                    Type.TRAY_NOTIFICATION);
+			
 			UI.getCurrent().getNavigator().navigateTo(LoginScreen.VIEW_NAME);
+			}
+			
 		} catch (IllegalArgumentException iae) {
 			Notification.show(iae.getMessage());
 		}
+		
+		
 	}
 
 }
