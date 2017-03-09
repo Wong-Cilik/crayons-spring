@@ -97,13 +97,13 @@ public class UnitService {
 		WrappedPageItem c = null;
 		ArrayList<UnitData> dataList = new ArrayList<UnitData>();
 
-		for (int i = 1; i < layout.getComponentCount(); i++) {
+		for (int i = 0; i < layout.getComponentCount(); i++) {
 			c = (WrappedPageItem) layout.getComponent(i);
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.TextEditor")) {
 				TextEditor x = (TextEditor) c.getContent();
-				dataList.add(new UnitData(x.getContent()));
+				dataList.add(dataList.size(), new UnitData(x.getContent()));
 			}
 
 			if (c.getContent().getClass().getName()
@@ -150,7 +150,6 @@ public class UnitService {
 	}
 
 	public void newUnit() {
-
 		unitDAO.insertUnit(CurrentCourses.getInstance().getUnitTitle(),
 				CurrentCourses.getInstance().getTitle());
 	}

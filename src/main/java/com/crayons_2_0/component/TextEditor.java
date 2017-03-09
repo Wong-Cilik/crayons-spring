@@ -40,14 +40,14 @@ public class TextEditor extends CustomComponent {
 		setWidth(100.0f, Unit.PERCENTAGE);
 		addStyleName("inline-text-editor");
 
+		if (prefillData != null) {
+			property.setValue(prefillData);
+		}
+		
 		textEditor = buildTextEditor();
 		readOnly = buildReadOnly();
 
-		if (prefillData != null) {
-			property.setValue("srghmspähjdtpiä" + prefillData);
-		}
-
-		setCompositionRoot(textEditor);
+		setCompositionRoot(readOnly);
 	}
 
 	private Component buildReadOnly() {

@@ -44,10 +44,6 @@ public final class UnitPageLayout extends CustomComponent {
 		setCompositionRoot(layout);
 		layout.addStyleName("canvas-layout");
 
-		Component unitTitle = new UnitTitle(null);
-		layout.addComponent(unitTitle);
-		layout.setComponentAlignment(unitTitle, Alignment.TOP_CENTER);
-
 		dropHandler = new ReorderLayoutDropHandler();
 
 		addDropArea();
@@ -141,7 +137,7 @@ public final class UnitPageLayout extends CustomComponent {
 		}
 		layout.addComponent(
 				new WrappedPageItem(createComponentFromPageItem(pageItemType,
-						prefillData)), 1);
+						prefillData)));
 	}
 
 	/**
@@ -290,7 +286,8 @@ public final class UnitPageLayout extends CustomComponent {
 		}
 	}
 
-	public void addMultiComponent(List<UnitData> unitData) {
+	public void replaceAllComponent(List<UnitData> unitData) {
+		removeAllComponent();
 		for(UnitData tmpUnit : unitData) {
 			addComponent(PageItemType.TEXT, tmpUnit.getText());
 		}

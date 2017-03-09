@@ -218,7 +218,10 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				
+				VerticalLayout layout = page.getLayout();
+				unitService.saveUnitData(layout, CurrentCourses.getInstance()
+						.getUnitTitle(), CurrentCourses.getInstance()
+						.getTitle());
 			}
 		});
 
@@ -248,13 +251,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				List<UnitData> x = unitService.getUnitData(CurrentCourses
-						.getInstance().getUnitTitle(), CurrentCourses
-						.getInstance().getTitle());
-				Iterator<UnitData> it = x.iterator();
-				while (it.hasNext()) {
-					System.out.println(it.next().getText());
-				}
+				refresh();
 			}
 
 		});
@@ -269,7 +266,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				VerticalLayout layout = page.getLayout();
-				System.out.println(CurrentCourses.getInstance().getUnitTitle());
 				unitService.saveUnitData(layout, CurrentCourses.getInstance()
 						.getUnitTitle(), CurrentCourses.getInstance()
 						.getTitle());
@@ -461,10 +457,13 @@ public class Uniteditor extends VerticalLayout implements View {
 		}
 	}
 
+	public void refresh(){
+		page.replaceAllComponent(unitService.getUnitData(CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle()));
+	}
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		//page.removeAllComponent();
-		page.addMultiComponent(unitService.getUnitData(CurrentCourses.getInstance().getTitle(), CurrentCourses.getInstance().getUnitTitle()));
+		refresh();
 	}
 
 	public static UnitPageLayout getPageLayout() {
