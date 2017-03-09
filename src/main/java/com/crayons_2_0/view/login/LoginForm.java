@@ -29,7 +29,6 @@ public class LoginForm extends VerticalLayout {
 	private Button btnRegistrate = new Button(lang.getString("Register"));
 
 	private TextField textFieldPassoword = new TextField();
-
 	public LoginForm() {
 		addComponent(txtLogin);
 		addComponent(txtPassword);
