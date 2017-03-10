@@ -9,13 +9,22 @@ import com.crayons_2_0.controller.LoginFormListener;
 import com.crayons_2_0.controller.RegisterFormListener2;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 public class LoginForm extends VerticalLayout {
@@ -25,37 +34,41 @@ public class LoginForm extends VerticalLayout {
 	private PasswordField txtPassword = new PasswordField(
 			lang.getString("Password") + ": ");
 	private Button btnLogin = new Button(lang.getString("Login"));
-	// Registrate
 	private Button btnRegistrate = new Button(lang.getString("Register"));
-
 	private TextField textFieldPassoword = new TextField();
+	
+	
+	
 	public LoginForm() {
-		addComponent(txtLogin);
-		addComponent(txtPassword);
-		addComponent(btnLogin);
-		addComponent(btnRegistrate);
+	    addStyleName("login-panel");
+	    setSpacing(true);
+	    addComponent(buildLabels());
+	    txtLogin.setIcon(FontAwesome.USER);
+        txtLogin.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-		LoginFormListener loginFormListener = getLoginFormListener();
-		btnLogin.addClickListener(loginFormListener);
-		btnLogin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-		createRegisterButton();
+        txtPassword.setIcon(FontAwesome.LOCK);
+        txtPassword.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+
+        btnLogin.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        btnLogin.setClickShortcut(KeyCode.ENTER);
+        btnLogin.focus();
+        btnLogin.addClickListener(getLoginFormListener());
+        
+        btnRegistrate.addStyleName(ValoTheme.BUTTON_FRIENDLY);
+        btnRegistrate.addClickListener(new ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                UI.getCurrent().getNavigator().navigateTo("registerView");
+            }
+        });
+		addComponents(txtLogin,txtPassword,btnLogin,btnRegistrate);
+		//LoginFormListener loginFormListener = getLoginFormListener();
+		
 
 		getRegisterFormListener2();
 	}
 
-	/**
-	 * Create Button for registrate new User
-	 */
-	private void createRegisterButton() {
-		btnRegistrate.addClickListener(new ClickListener() {
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				UI.getCurrent().getNavigator().navigateTo("registerView");
-			}
-		});
-
-	}
 
 	public LoginFormListener getLoginFormListener() {
 		MyUI ui = (MyUI) UI.getCurrent();
@@ -68,6 +81,26 @@ public class LoginForm extends VerticalLayout {
 		ApplicationContext context = ui.getApplicationContext();
 		return context.getBean(RegisterFormListener2.class);
 	}
+	private Component buildLabels() {
+        HorizontalLayout labels = new HorizontalLayout();
+        labels.addStyleName("labels");
+        labels.setSpacing(true);
+
+        Label welcome = new Label("Welcome");
+        welcome.setSizeUndefined();
+        welcome.addStyleName(ValoTheme.LABEL_H4);
+        welcome.addStyleName(ValoTheme.LABEL_COLORED);
+        labels.addComponent(welcome);
+
+        Label title = new Label("Crayons 2.0");
+        title.setSizeUndefined();
+        title.addStyleName(ValoTheme.LABEL_H3);
+        title.addStyleName(ValoTheme.LABEL_LIGHT);
+        labels.addComponent(title);
+        return labels;
+    }
+	
+	
 
 	public TextField getTxtLogin() {
 		return txtLogin;

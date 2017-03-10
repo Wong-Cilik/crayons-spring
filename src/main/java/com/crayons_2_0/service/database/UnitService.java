@@ -30,7 +30,8 @@ public class UnitService {
 
 	@Autowired
 	private UnitDAO unitDAO;
-	@Autowired
+	@SuppressWarnings("unused")
+    @Autowired
 	private CourseService courseService;
 
 	public List<Unit> findAll() {
@@ -109,12 +110,14 @@ public class UnitService {
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
-				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
+				@SuppressWarnings("unused")
+                MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
 			}
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.ImageUploadEditor")) {
-				ImageUploadEditor x = (ImageUploadEditor) c.getContent();
+				@SuppressWarnings("unused")
+                ImageUploadEditor x = (ImageUploadEditor) c.getContent();
 			}
 		}
 

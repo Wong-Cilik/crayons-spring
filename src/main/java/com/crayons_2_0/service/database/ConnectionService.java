@@ -11,7 +11,8 @@ import com.crayons_2_0.model.graph.UnitNode;
 @Component
 public class ConnectionService {
 
-	@Autowired
+	@SuppressWarnings("unused")
+    @Autowired
 	private ConnectionDAO connectionDAO;
 
 	public MultiValueMap<UnitNode, UnitNode> findAll() {

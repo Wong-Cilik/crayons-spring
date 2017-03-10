@@ -69,6 +69,63 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 @mixin mytheme {
   @include valo; 
   @include uniteditor-view;
+  .login-panel {
+    span.v-captiontext {
+    color:white;
+    }
+
+    @include valo-panel-style;
+    padding: round($v-unit-size / 1.5) round($v-unit-size / 1.5);
+    min-width: $v-font-size * 13;
+    max-width: 50%;
+    background: rgba(49, 49, 49, 0.5);
+    @include animation(valo-animate-in-slide-up 800ms 10ms backwards, valo-animate-in-fade 600ms 100ms backwards);
+
+    > .v-spacing {
+      height: round($v-unit-size / 2);
+    }
+
+    .labels {
+      display: block;
+
+      .h4 {
+        margin: 0;
+        vertical-align: baseline;
+      }
+
+      .h3 {
+        margin: 0;
+        float: right;
+        color:white;
+      }
+    }
+
+    .fields .v-icon {
+      opacity: 0.3;
+    }
+
+    @include width-range($min: 0, $max: $v-unit-size * 14) {
+      .labels .h3 {
+        float: none;
+        display: block;
+        margin-top: .2em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .fields {
+        display: block;
+
+        .v-slot {
+          display: block;
+
+          .v-widget {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 
   .courseeditor-footer {
     bottom: 40px;

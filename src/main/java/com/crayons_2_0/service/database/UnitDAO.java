@@ -52,7 +52,8 @@ public class UnitDAO {
 
 	}
 
-	private UnitType createUnitType(String string) {
+	@SuppressWarnings("unused")
+    private UnitType createUnitType(String string) {
 		return UnitType.LEARNING;
 	}
 

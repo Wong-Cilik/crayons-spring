@@ -13241,6 +13241,69 @@ div.v-layout.v-horizontal.v-widget {
 	left: 60%;
 }
 
+.mytheme .login-panel {
+	background: white;
+	color: #474747;
+	border-radius: 4px;
+	border: 1px solid #d5d5d5;
+	-webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+	padding: 21px 21px;
+	min-width: 195px;
+	max-width: 50%;
+	background: rgba(49, 49, 49, 0.5);
+	-webkit-animation: valo-animate-in-slide-up 800ms 10ms backwards, valo-animate-in-fade 600ms 100ms backwards;
+	-moz-animation: valo-animate-in-slide-up 800ms 10ms backwards, valo-animate-in-fade 600ms 100ms backwards;
+	animation: valo-animate-in-slide-up 800ms 10ms backwards, valo-animate-in-fade 600ms 100ms backwards;
+}
+
+.mytheme .login-panel span.v-captiontext {
+	color: white;
+}
+
+.mytheme .login-panel  > .v-spacing {
+	height: 16px;
+}
+
+.mytheme .login-panel .labels {
+	display: block;
+}
+
+.mytheme .login-panel .labels .h4 {
+	margin: 0;
+	vertical-align: baseline;
+}
+
+.mytheme .login-panel .labels .h3 {
+	margin: 0;
+	float: right;
+	color: white;
+}
+
+.mytheme .login-panel .fields .v-icon {
+	opacity: 0.3;
+}
+
+.mytheme .login-panel[width-range~="0-448px"] .labels .h3 {
+	float: none;
+	display: block;
+	margin-top: 0.2em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.mytheme .login-panel[width-range~="0-448px"] .fields {
+	display: block;
+}
+
+.mytheme .login-panel[width-range~="0-448px"] .fields .v-slot {
+	display: block;
+}
+
+.mytheme .login-panel[width-range~="0-448px"] .fields .v-slot .v-widget {
+	width: 100%;
+}
+
 .mytheme .courseeditor-footer {
 	bottom: 40px;
 	position: fixed;

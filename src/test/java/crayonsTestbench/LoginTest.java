@@ -50,6 +50,7 @@ public class LoginTest extends TestBenchTestCase {
 
         // 3. Click the "Login" button
         $(ButtonElement.class).caption(lang.getString("Login")).first().click();
+        
 
     }
 

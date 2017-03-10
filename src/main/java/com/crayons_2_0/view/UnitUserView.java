@@ -89,7 +89,8 @@ public class UnitUserView extends VerticalLayout implements View {
 
 		responces = new HashMap<String, Boolean>();
 
-		Component pageTitle = buildTitle(currentCourse.getInstance()
+		@SuppressWarnings("static-access")
+        Component pageTitle = buildTitle(currentCourse.getInstance()
 				.getUnitTitle());
 		addComponent(pageTitle);
 		setComponentAlignment(pageTitle, Alignment.TOP_CENTER);
