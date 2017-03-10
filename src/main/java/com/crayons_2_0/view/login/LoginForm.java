@@ -1,12 +1,12 @@
 package com.crayons_2_0.view.login;
 
-import java.util.ResourceBundle;
+import java.util.ResourceBundle; 
 
 import org.springframework.context.ApplicationContext;
 
 import com.crayons_2_0.MyUI;
 import com.crayons_2_0.controller.LoginFormListener;
-import com.crayons_2_0.controller.RegisterFormListener2;
+import com.crayons_2_0.controller.RegisterFormListener;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -66,7 +66,7 @@ public class LoginForm extends VerticalLayout {
 		//LoginFormListener loginFormListener = getLoginFormListener();
 		
 
-		getRegisterFormListener2();
+		getRegisterFormListener();
 	}
 
 
@@ -76,10 +76,10 @@ public class LoginForm extends VerticalLayout {
 		return context.getBean(LoginFormListener.class);
 	}
 
-	private RegisterFormListener2 getRegisterFormListener2() {
+	private RegisterFormListener getRegisterFormListener() {
 		MyUI ui = (MyUI) UI.getCurrent();
 		ApplicationContext context = ui.getApplicationContext();
-		return context.getBean(RegisterFormListener2.class);
+		return context.getBean(RegisterFormListener.class);
 	}
 	private Component buildLabels() {
         HorizontalLayout labels = new HorizontalLayout();

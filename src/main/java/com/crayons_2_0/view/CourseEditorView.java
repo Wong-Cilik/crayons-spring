@@ -86,7 +86,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 	public static void refreshGraph(Graph graphTmp) {
 		selectUnit.removeAllItems();
 		for (String tmp : graphTmp.getNodeNameList()) {
-			System.out.println(tmp);
 			if (!tmp.equals("Start") && !tmp.equals("End")) {
 				selectUnit.addItem(tmp);
 			}
@@ -161,7 +160,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 		selectUnit = new ComboBox();
 		for (UnitNode tmp : graphData.getUnitCollection()) {
-			System.out.println(tmp.getUnitNodeTitle());
 			if (!tmp.getUnitNodeTitle().equals("Start")
 					&& !tmp.getUnitNodeTitle().equals("End")) {
 				selectUnit.addItem(tmp.getUnitNodeTitle());
@@ -302,8 +300,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 				@Override
 				public void buttonClick(ClickEvent event) {
 					close();
-					courseService.saveCourseData(graphData, CurrentCourses
-							.getInstance().getTitle());
+
 					UI.getCurrent().getNavigator()
 							.navigateTo(Authorlibrary.VIEW_NAME);
 				}

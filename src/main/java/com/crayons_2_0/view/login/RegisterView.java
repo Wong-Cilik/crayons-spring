@@ -18,8 +18,10 @@ import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
@@ -62,6 +64,7 @@ public class RegisterView extends VerticalLayout implements View {
 		}
 
 		selectLanguage.setNullSelectionAllowed(false);
+		selectLanguage.setValue(languages.iterator().next());
 		selectLanguage.setImmediate(true);
 
 		getEmail().setRequired(true);

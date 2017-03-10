@@ -218,7 +218,10 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				
+				VerticalLayout layout = page.getLayout();
+				unitService.saveUnitData(layout, CurrentCourses.getInstance()
+						.getUnitTitle(), CurrentCourses.getInstance()
+						.getTitle());
 			}
 		});
 
@@ -248,13 +251,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				List<UnitData> x = unitService.getUnitData(CurrentCourses
-						.getInstance().getUnitTitle(), CurrentCourses
-						.getInstance().getTitle());
-				Iterator<UnitData> it = x.iterator();
-				while (it.hasNext()) {
-					System.out.println(it.next().getText());
-				}
+				refresh();
 			}
 
 		});
@@ -269,7 +266,6 @@ public class Uniteditor extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				VerticalLayout layout = page.getLayout();
-				System.out.println(CurrentCourses.getInstance().getUnitTitle());
 				unitService.saveUnitData(layout, CurrentCourses.getInstance()
 						.getUnitTitle(), CurrentCourses.getInstance()
 						.getTitle());
@@ -359,10 +355,7 @@ public class Uniteditor extends VerticalLayout implements View {
 	 * 
 	 */
 	private class UnsavedChangesWindow extends Window {
-		/**
-		 * 
-		 */
-
+		
 		/**
 		 * Builds together several components of the window.
 		 */
@@ -402,10 +395,10 @@ public class Uniteditor extends VerticalLayout implements View {
 			yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 			yesButton.focus();
 			yesButton.addClickListener(new ClickListener() {
+				
 				/**
 				 * 
 				 */
-
 				@Override
 				public void buttonClick(ClickEvent event) {
 					close();
@@ -417,10 +410,10 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			Button noButton = new Button(lang.getString("No"));
 			noButton.addClickListener(new ClickListener() {
+				
 				/**
 				 * 
 				 */
-
 				@Override
 				public void buttonClick(ClickEvent event) {
 					close();
@@ -464,9 +457,13 @@ public class Uniteditor extends VerticalLayout implements View {
 		}
 	}
 
+	public void refresh(){
+		page.replaceAllComponent(unitService.getUnitData(CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle()));
+	}
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		//page.addComponent(PageItemType.TEXT, null);
+		refresh();
 	}
 
 	public static UnitPageLayout getPageLayout() {

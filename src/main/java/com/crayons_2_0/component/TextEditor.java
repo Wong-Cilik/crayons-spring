@@ -40,14 +40,14 @@ public class TextEditor extends CustomComponent {
 		setWidth(100.0f, Unit.PERCENTAGE);
 		addStyleName("inline-text-editor");
 
+		if (prefillData != null) {
+			property.setValue(prefillData);
+		}
+		
 		textEditor = buildTextEditor();
 		readOnly = buildReadOnly();
 
-		if (prefillData != null) {
-			property.setValue("srghmspähjdtpiä" + prefillData);
-		}
-
-		setCompositionRoot(textEditor);
+		setCompositionRoot(readOnly);
 	}
 
 	private Component buildReadOnly() {
@@ -128,7 +128,6 @@ public class TextEditor extends CustomComponent {
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				System.out.println(ckEditorTextField.getValue());
 				property.setValue(ckEditorTextField.getValue());
 				setCompositionRoot(readOnly);
 			}

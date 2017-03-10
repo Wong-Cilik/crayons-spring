@@ -1,17 +1,21 @@
 package com.crayons_2_0.model;
 
 import java.util.Collection;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import com.crayons_2_0.service.Language;
+import com.crayons_2_0.service.LanguageService;
 
 @SuppressWarnings("serial")
 public class CrayonsUser extends User {
 
 	private static final int MAX_PERMISSION = 2; // ToDo: Is 2 right?
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	private String firstName;
 	private String lastName;
@@ -55,11 +59,12 @@ public class CrayonsUser extends User {
 		String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
 		Pattern pattern = Pattern.compile(regex);
 		if (!(pattern.matcher(email).matches())) {
-			throw new IllegalArgumentException("Email is not valid");
+			throw new IllegalArgumentException(lang.getString("EmailIsNotValid"));
 		}
 		if (email.length() > 30) {
 			throw new IllegalArgumentException(
-					"Email cannot be longer than 30 characters.");
+			        String.format(lang.getString("ShouldBeAtMostNCharactersLong"), 
+                    lang.getString("Email"), 30));
 		}
 
 		this.email = email;
@@ -83,7 +88,7 @@ public class CrayonsUser extends User {
 	public void setFirstName(String firstName) {
 		if (firstName.isEmpty()) {
 			throw new IllegalArgumentException(
-					"Requireder field First Name cannot be empty or space filled.");
+			        String.format(lang.getString("RequiredField"), lang.getString("FirstName")));
 		}
 		this.firstName = firstName;
 	}
@@ -106,7 +111,7 @@ public class CrayonsUser extends User {
 	public void setLastName(String lastName) {
 		if (lastName.isEmpty()) {
 			throw new IllegalArgumentException(
-					"Requireder field Last Name cannot be empty or space filled.");
+			        String.format(lang.getString("RequiredField"), lang.getString("LastName")));
 		}
 		this.lastName = lastName;
 	}
@@ -129,10 +134,12 @@ public class CrayonsUser extends User {
 	public void setPassword(String password) {
 		if (password.length() < 6) {
 			throw new IllegalArgumentException(
-					"Password should be at least 6 characters long.");
+			        String.format(lang.getString("ShouldBeAtLeastNCharactersLong"), 
+                            lang.getString("Password"), 6));
 		} else if (password.length() > 15) {
 			throw new IllegalArgumentException(
-					"Password should be at most 15 characters long.");
+			        String.format(lang.getString("ShouldBeAtMostNCharactersLong"), 
+                            lang.getString("Password"), 15));
 		}
 
 		this.password = password;
@@ -155,7 +162,7 @@ public class CrayonsUser extends User {
 	 */
 	public void setLanguage(Language language) {
 		if (language == null) {
-			throw new IllegalArgumentException("language can't be null");
+			throw new IllegalArgumentException("Language can't be null");
 		}
 		this.language = language;
 	}

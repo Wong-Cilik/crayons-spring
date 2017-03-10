@@ -1,7 +1,9 @@
 package com.crayons_2_0.component;
 
 import java.util.Iterator;
+import java.util.List;
 
+import com.crayons_2_0.model.UnitData;
 import com.crayons_2_0.view.Uniteditor.PageItemType;
 import com.vaadin.event.Transferable;
 import com.vaadin.event.dd.DragAndDropEvent;
@@ -41,10 +43,6 @@ public final class UnitPageLayout extends CustomComponent {
 		layout = new VerticalLayout();
 		setCompositionRoot(layout);
 		layout.addStyleName("canvas-layout");
-
-		Component unitTitle = new UnitTitle(null);
-		layout.addComponent(unitTitle);
-		layout.setComponentAlignment(unitTitle, Alignment.TOP_CENTER);
 
 		dropHandler = new ReorderLayoutDropHandler();
 
@@ -139,7 +137,7 @@ public final class UnitPageLayout extends CustomComponent {
 		}
 		layout.addComponent(
 				new WrappedPageItem(createComponentFromPageItem(pageItemType,
-						prefillData)), 1);
+						prefillData)));
 	}
 
 	/**
@@ -288,4 +286,14 @@ public final class UnitPageLayout extends CustomComponent {
 		}
 	}
 
+	public void replaceAllComponent(List<UnitData> unitData) {
+		removeAllComponent();
+		for(UnitData tmpUnit : unitData) {
+			addComponent(PageItemType.TEXT, tmpUnit.getText());
+		}
+	}
+
+	public void removeAllComponent() {
+		layout.removeAllComponents();
+	}
 }
