@@ -30,8 +30,7 @@ public class UnitService {
 
 	@Autowired
 	private UnitDAO unitDAO;
-	@SuppressWarnings("unused")
-    @Autowired
+	@Autowired
 	private CourseService courseService;
 
 	public List<Unit> findAll() {

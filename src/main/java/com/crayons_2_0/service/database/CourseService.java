@@ -38,8 +38,7 @@ public class CourseService {
 	@Autowired
 	private UnitService unitService;
 
-	@SuppressWarnings("unused")
-    @Autowired
+	@Autowired
 	private CurrentUser currentUser;
 
 	/**
