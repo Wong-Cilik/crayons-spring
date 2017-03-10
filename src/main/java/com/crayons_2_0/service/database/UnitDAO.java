@@ -98,5 +98,14 @@ public class UnitDAO {
 		fos.flush();
 		fos.close();
 	}
-
+	
+	public boolean hasData(String unitTitle, String courseTitle) {
+		byte[] data = jdbcTemplate.queryForObject(
+				"SELECT data FROM units WHERE unittitle = ?", byte[].class,
+				unitTitle);
+		if (data == null) {
+			return false;
+		}
+		return true;
+	}
 }

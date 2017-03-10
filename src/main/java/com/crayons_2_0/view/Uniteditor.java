@@ -460,7 +460,11 @@ public class Uniteditor extends VerticalLayout implements View {
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		refresh();
+		if (unitService.hasData()){
+			refresh();
+		} else {
+			page.removeAllComponent();
+		}
 	}
 
 	public static UnitPageLayout getPageLayout() {

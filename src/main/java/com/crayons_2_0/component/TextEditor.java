@@ -43,7 +43,7 @@ public class TextEditor extends CustomComponent {
 		if (prefillData != null) {
 			property.setValue(prefillData);
 		}
-		
+
 		textEditor = buildTextEditor();
 		readOnly = buildReadOnly();
 
@@ -101,11 +101,7 @@ public class TextEditor extends CustomComponent {
 			}
 		});
 		ckEditorTextField.setValue(property.getValue());
-		ckEditorTextField
-				.addValueChangeListener(new Property.ValueChangeListener() {
-					/**
-			 * 
-			 */
+		ckEditorTextField.addValueChangeListener(new Property.ValueChangeListener() {
 
 					public void valueChange(ValueChangeEvent event) {
 						Notification.show("CKEditor v"

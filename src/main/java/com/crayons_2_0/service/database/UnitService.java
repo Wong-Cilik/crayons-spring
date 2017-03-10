@@ -1,5 +1,6 @@
 package com.crayons_2_0.service.database;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -153,6 +154,11 @@ public class UnitService {
 
 	public void newUnit() {
 		unitDAO.insertUnit(CurrentCourses.getInstance().getUnitTitle(),
+				CurrentCourses.getInstance().getTitle());
+	}
+	
+	public boolean hasData() {
+		return unitDAO.hasData(CurrentCourses.getInstance().getUnitTitle(),
 				CurrentCourses.getInstance().getTitle());
 	}
 }
