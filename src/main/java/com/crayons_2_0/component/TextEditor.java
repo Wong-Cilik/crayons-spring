@@ -88,6 +88,10 @@ public class TextEditor extends CustomComponent {
 		config.setResizeDir(CKEditorConfig.RESIZE_DIR.HORIZONTAL);
 		config.disableSpellChecker();
 		config.setWidth("100%");
+		config.addCustomToolbarLine("{ items : ['Preview', 'Print','-',	'Cut', 'Copy', 'Paste','-',	'Undo',	'Redo','-',	'Find',	'Replace','-', 'Bold', 'Italic',	'Underline',	'Strike',	'Subscript',		'Superscript',	'RemoveFormat','-',	'NumberedList',	'BulletedList',	'Outdent',	'Indent',	'Blockquote'] }");
+		config.addCustomToolbarLine("{ items : ['JustifyLeft',	'JustifyCenter',	'JustifyRight',	'JustifyBlock','-',	'Link',	'Unlink',	'Image',	'Flash',	'Table',	'HorizontalRule',	'Smiley',	'SpecialChar']}");
+		config.addCustomToolbarLine("{ items : ['Styles',	'Format',	'Font',	'FontSize', 	'TextColor',	'BGColor',	'UIColor',	'Maximize']}");
+
 		ckEditorTextField = new CKEditorTextField(config);
 		ckEditorTextField.setWidth(100.0f, Unit.PERCENTAGE);
 		ckEditorTextField.addAttachListener(new AttachListener() {
@@ -101,7 +105,8 @@ public class TextEditor extends CustomComponent {
 			}
 		});
 		ckEditorTextField.setValue(property.getValue());
-		ckEditorTextField.addValueChangeListener(new Property.ValueChangeListener() {
+		ckEditorTextField
+				.addValueChangeListener(new Property.ValueChangeListener() {
 
 					public void valueChange(ValueChangeEvent event) {
 						Notification.show("CKEditor v"
