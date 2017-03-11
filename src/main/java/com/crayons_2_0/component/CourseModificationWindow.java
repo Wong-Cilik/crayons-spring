@@ -19,11 +19,13 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("serial")
 @SpringUI
@@ -49,64 +51,75 @@ public class CourseModificationWindow extends Window {
 		setModal(true);
 		setResizable(false);
 		setClosable(true);
-		setHeight(40.0f, Unit.PERCENTAGE);
-		setWidth(40.0f, Unit.PERCENTAGE);
+		setHeight(50.0f, Unit.PERCENTAGE);
+		setWidth(30.0f, Unit.PERCENTAGE);
 
-		VerticalLayout content = new VerticalLayout();
-		content.setSizeFull();
-		content.setSpacing(true);
-		setContent(content);
-
-		Component courseDescription = buildCourseDescription();
-		content.addComponent(courseDescription);
+		VerticalLayout windowContent = new VerticalLayout();
+		windowContent.setSizeFull();
+		windowContent.setSpacing(true);
+		this.setContent(buildContent());
 	}
 
-	private Component buildCourseDescription() {
-		VerticalLayout courseDescription = new VerticalLayout();
-		courseDescription.setSpacing(true);
-		courseDescription.setMargin(true);
+	private Component buildContent() {
+		VerticalLayout content = new VerticalLayout();
+		content.setWidth("100%");
+		content.setSpacing(true);
+		content.setMargin(true);
 
-		HorizontalLayout course = new HorizontalLayout();
-		course.setSpacing(true);
+        Label windowTitle = new Label();
+        windowTitle.setSizeUndefined();
+        windowTitle.addStyleName(ValoTheme.LABEL_H3);
+        windowTitle.setValue(lang.getString("ModifyCourse"));
+        content.addComponent(windowTitle);
+        content.setComponentAlignment(windowTitle, Alignment.TOP_CENTER);
+        
+		HorizontalLayout courseTitle = new HorizontalLayout();
+		courseTitle.setSizeUndefined();
+		courseTitle.setSpacing(true);
 		Label courseTitleLabel = new Label(lang.getString("CourseTitle"));
 		TextField courseTitleField = new TextField(null, this.course.getTitle());
-		course.addComponents(courseTitleLabel, courseTitleField);
-		// courseTitleField.addValueChangeListener();
-		courseDescription.addComponent(course);
+		courseTitle.addComponents(courseTitleLabel, courseTitleField);
+		content.addComponent(courseTitle);
+		content.setComponentAlignment(courseTitle, Alignment.TOP_LEFT);
 		courseTitleField.setImmediate(true);
 
 		VerticalLayout couseDescription = new VerticalLayout();
+		couseDescription.setMargin(false);
 		couseDescription.setSizeFull();
 		Label couseDescriptionLabel = new Label(
 				lang.getString("CourseDescription"));
-		TextField couseDescriptionField = new TextField();
-		couseDescriptionField.setSizeFull();
+		TextArea couseDescriptionField = new TextArea();
+		couseDescriptionField.setWordwrap(true);
+		couseDescriptionField.setRows(3);
+		couseDescriptionField.setWidth("100%");
 
 		couseDescriptionField.setValue(this.course.getDescription());
 		couseDescription.addComponents(couseDescriptionLabel,
 				couseDescriptionField);
-		couseDescription.setSizeFull();
-		courseDescription.addComponent(couseDescription);
+		content.addComponent(couseDescription);
+		content.setComponentAlignment(couseDescription, Alignment.MIDDLE_LEFT);
 
 		Component controlButtons = buildControlButtons(courseTitleField,
 				couseDescriptionField);
 		controlButtons.setSizeFull();
-		courseDescription.addComponent(controlButtons);
-		courseDescription.setComponentAlignment(controlButtons,
+		content.addComponent(controlButtons);
+		content.setComponentAlignment(controlButtons,
 				Alignment.BOTTOM_CENTER);
 
-		return courseDescription;
+		return content;
 	}
 
 	private Component buildControlButtons(TextField courseTitleField,
-			TextField couseDescriptionField) {
+			TextArea couseDescriptionField) {
 		HorizontalLayout controlButtons = new HorizontalLayout();
+		controlButtons.setSizeUndefined();
 		controlButtons.setMargin(true);
 		controlButtons.setSpacing(true);
 
 		Button saveCourse = new Button(lang.getString("Save"));
+		saveCourse.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		controlButtons.addComponent(saveCourse);
-		controlButtons.setComponentAlignment(saveCourse, Alignment.BOTTOM_LEFT);
+		controlButtons.setComponentAlignment(saveCourse, Alignment.BOTTOM_CENTER);
 		saveCourse.addClickListener(new ClickListener() {
 
 			/**
