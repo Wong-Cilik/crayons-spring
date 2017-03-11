@@ -134,9 +134,11 @@ public final class UnitPageLayout extends CustomComponent {
 		if (dropArea.getParent() != null) {
 			layout.removeComponent(dropArea);
 		}
-		layout.addComponent(
-				new WrappedPageItem(createComponentFromPageItem(pageItemType,
-						prefillData)));
+		Component x = new WrappedPageItem(createComponentFromPageItem(pageItemType, prefillData));
+		System.out.println("<sprgjps");
+		x.setReadOnly(true);
+		x.setEnabled(false);
+		layout.addComponent(x);
 	}
 
 	/**

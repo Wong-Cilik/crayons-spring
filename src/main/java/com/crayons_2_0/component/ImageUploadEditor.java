@@ -223,4 +223,8 @@ public class ImageUploadEditor extends CustomComponent {
 	public Image getImage() {
 		return image;
 	}
+	
+	public String getImageTitle() {
+		return imageTitle.getValue();
+	}
 }

@@ -108,14 +108,13 @@ public class UnitService {
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
-				@SuppressWarnings("unused")
                 MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
 			}
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.ImageUploadEditor")) {
-				@SuppressWarnings("unused")
                 ImageUploadEditor x = (ImageUploadEditor) c.getContent();
+                dataList.add(dataList.size(), new UnitData(x.getImage(), x.getImageTitle()));
 			}
 		}
 
