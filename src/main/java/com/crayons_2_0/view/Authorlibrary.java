@@ -35,7 +35,9 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
 import com.vaadin.ui.UI;
@@ -58,22 +60,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 	public static final String VIEW_NAME = "Authorlibrary";
 	ResourceBundle lang = LanguageService.getInstance().getRes();
-	/*
-	 * public Authorlibrary() { VerticalLayout aboutContent = new
-	 * VerticalLayout(); //aboutContent.setStyleName("about-content");
-	 * 
-	 * // you can add Vaadin components in predefined slots in the custom //
-	 * layout
-	 * 
-	 * setSizeFull(); setStyleName("about-view"); setSpacing(true);
-	 * setMargin(true);
-	 * 
-	 * // addComponent(aboutContent); //setComponentAlignment(aboutContent,
-	 * Alignment.MIDDLE_CENTER); autorenbereich a = new autorenbereich();
-	 * addComponent(a);
-	 * 
-	 * setExpandRatio(a, 1f); //addComponent(buildFooter()); }
-	 */
 	private TabSheet tabSheet;
 	private Component filter;
 	private List<Course> authorCoursesList;
@@ -109,15 +95,6 @@ public class Authorlibrary extends VerticalLayout implements View,
 	public Authorlibrary() {
 
 	}
-
-	// NEU NEU NEU NEU
-	/*
-	 * AuthorlibraryForm content = new AuthorlibraryForm();
-	 * addComponent(content);
-	 * 
-	 * setSizeFull(); setStyleName("about-view"); setSpacing(true);
-	 * setMargin(true);
-	 */
 
 	/**
 	 * Tab sheet getter.
@@ -182,24 +159,24 @@ public class Authorlibrary extends VerticalLayout implements View,
 				Alignment.MIDDLE_LEFT);
 		courseTitle.setComponentAlignment(courseTitleField,
 				Alignment.MIDDLE_LEFT);
-		// courseTitleField.addValueChangeListener();
 		tabContent.addComponent(courseTitle);
-		// courseTitleField.setImmediate(true);
 
 		VerticalLayout couseDescription = new VerticalLayout();
 		couseDescription.setSizeFull();
 		Label couseDescriptionLabel = new Label();
 		couseDescriptionLabel.addStyleName(ValoTheme.LABEL_H3);
 		couseDescriptionLabel.setValue(lang.getString("CourseDescription"));
-		TextField couseDescriptionField = new TextField();
+		TextArea couseDescriptionField = new TextArea();
+		couseDescriptionField.setWordwrap(true);
+		couseDescriptionField.setRows(5);
 		couseDescriptionField.setSizeFull();
 		couseDescription.addComponents(couseDescriptionLabel,
 				couseDescriptionField);
 		couseDescription.setSizeFull();
-		// couseDescriptionField.addValueChangeListener();
 		tabContent.addComponent(couseDescription);
 
 		Button createCourse = new Button(lang.getString("CreateCourse"));
+		createCourse.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		tabContent.addComponent(createCourse);
 		tabContent.setComponentAlignment(createCourse, Alignment.MIDDLE_CENTER);
 
@@ -207,17 +184,21 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				courseService.insertCourse(new Course(courseTitleField
-						.getValue(), couseDescriptionField.getValue(),
-						userService.findByEMail(CurrentUser.getInstance()
-								.geteMail()), ""));
-				courseService.saveDummyGraph(courseTitleField.getValue());
-				String title = (String) courseTitleField.getValue();
-				Component newTab = buildCourseTab(title);
-				getTabSheet().addComponent(newTab);
-				getTabSheet().setSelectedTab(newTab);
-				courseTitleField.clear();
-				couseDescriptionField.clear();
+			    try {
+			        courseService.insertCourse(new Course(courseTitleField
+	                        .getValue(), couseDescriptionField.getValue(),
+	                        userService.findByEMail(CurrentUser.getInstance()
+	                                .geteMail()), ""));
+	                courseService.saveDummyGraph(courseTitleField.getValue());
+	                String title = (String) courseTitleField.getValue();
+	                Component newTab = buildCourseTab(title);
+	                getTabSheet().addComponent(newTab);
+	                getTabSheet().setSelectedTab(newTab);
+	                courseTitleField.clear();
+	                couseDescriptionField.clear();
+			    } catch (IllegalArgumentException iae) {
+			        Notification.show(iae.getMessage());
+			    }
 			}
 		});
 
