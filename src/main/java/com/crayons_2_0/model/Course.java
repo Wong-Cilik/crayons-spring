@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.springframework.stereotype.Component;
 
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
+import com.crayons_2_0.service.LanguageService;
 
 @SuppressWarnings("serial")
 @Component
@@ -26,6 +28,8 @@ public class Course implements Serializable {
 	private List<Unit> units = new ArrayList<Unit>();
 	private Date creationTime;
 	private Graph graph;
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	private final int MAX_LENGTH_OF_TITLE = 30; // ?????????????????????
 
@@ -46,7 +50,7 @@ public class Course implements Serializable {
 	}
 
 	public Course() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public Course(String title, CrayonsUser author) {
@@ -94,12 +98,14 @@ public class Course implements Serializable {
 	 */
 	public void setTitle(String title) {
 		if (title.isEmpty()) {
-			throw new IllegalArgumentException("Title of Course can't be empty");
+			throw new IllegalArgumentException(
+			        String.format(lang.getString("RequiredField"), lang.getString("CourseTitle")));
 		}
 
 		if (title.length() > MAX_LENGTH_OF_TITLE) {
 			throw new IllegalArgumentException(
-					"Title of Course is longer than allowed");
+			        String.format(lang.getString("ShouldBeAtMostNCharactersLong"), lang.getString("CourseTitle"), 
+			                MAX_LENGTH_OF_TITLE));
 		}
 
 		this.title = title;
@@ -121,6 +127,11 @@ public class Course implements Serializable {
 	 *            to set
 	 */
 	public void setDescription(String description) {
+	    if (description.isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format(lang.getString("RequiredField"), lang.getString("CourseDescription")));
+        }
+	    
 		this.description = description;
 	}
 
@@ -141,7 +152,7 @@ public class Course implements Serializable {
 	 */
 	public void setAuthor(CrayonsUser author) {
 		if (author == null) {
-			throw new IllegalArgumentException("Author of Course can't be Null");
+			throw new IllegalArgumentException("Course author can't be Null");
 		}
 
 		this.author = author;
