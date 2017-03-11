@@ -66,13 +66,13 @@ public class CourseModificationWindow extends Window {
 		content.setSpacing(true);
 		content.setMargin(true);
 
-        Label windowTitle = new Label();
-        windowTitle.setSizeUndefined();
-        windowTitle.addStyleName(ValoTheme.LABEL_H3);
-        windowTitle.setValue(lang.getString("ModifyCourse"));
-        content.addComponent(windowTitle);
-        content.setComponentAlignment(windowTitle, Alignment.TOP_CENTER);
-        
+		Label windowTitle = new Label();
+		windowTitle.setSizeUndefined();
+		windowTitle.addStyleName(ValoTheme.LABEL_H3);
+		windowTitle.setValue(lang.getString("ModifyCourse"));
+		content.addComponent(windowTitle);
+		content.setComponentAlignment(windowTitle, Alignment.TOP_CENTER);
+
 		HorizontalLayout courseTitle = new HorizontalLayout();
 		courseTitle.setSizeUndefined();
 		courseTitle.setSpacing(true);
@@ -103,8 +103,7 @@ public class CourseModificationWindow extends Window {
 				couseDescriptionField);
 		controlButtons.setSizeFull();
 		content.addComponent(controlButtons);
-		content.setComponentAlignment(controlButtons,
-				Alignment.BOTTOM_CENTER);
+		content.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
 
 		return content;
 	}
@@ -119,7 +118,8 @@ public class CourseModificationWindow extends Window {
 		Button saveCourse = new Button(lang.getString("Save"));
 		saveCourse.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		controlButtons.addComponent(saveCourse);
-		controlButtons.setComponentAlignment(saveCourse, Alignment.BOTTOM_CENTER);
+		controlButtons.setComponentAlignment(saveCourse,
+				Alignment.BOTTOM_CENTER);
 		saveCourse.addClickListener(new ClickListener() {
 
 			/**

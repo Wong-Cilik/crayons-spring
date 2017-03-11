@@ -352,7 +352,7 @@ public class Uniteditor extends VerticalLayout implements View {
 	 * 
 	 */
 	private class UnsavedChangesWindow extends Window {
-		
+
 		/**
 		 * Builds together several components of the window.
 		 */
@@ -392,7 +392,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			yesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 			yesButton.focus();
 			yesButton.addClickListener(new ClickListener() {
-				
+
 				/**
 				 * 
 				 */
@@ -407,7 +407,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 			Button noButton = new Button(lang.getString("No"));
 			noButton.addClickListener(new ClickListener() {
-				
+
 				/**
 				 * 
 				 */
@@ -423,7 +423,7 @@ public class Uniteditor extends VerticalLayout implements View {
 			Button cancelButton = new Button(lang.getString("Cancel"));
 
 			cancelButton.addClickListener(new ClickListener() {
-				
+
 				/**
 				 * 
 				 */
@@ -454,13 +454,15 @@ public class Uniteditor extends VerticalLayout implements View {
 		}
 	}
 
-	public void refresh(){
-		page.replaceAllComponent(unitService.getUnitData(CurrentCourses.getInstance().getUnitTitle(), CurrentCourses.getInstance().getTitle()));
+	public void refresh() {
+		page.replaceAllComponent(unitService.getUnitData(CurrentCourses
+				.getInstance().getUnitTitle(), CurrentCourses.getInstance()
+				.getTitle()));
 	}
-	
+
 	@Override
 	public void enter(ViewChangeEvent event) {
-		if (unitService.hasData()){
+		if (unitService.hasData()) {
 			refresh();
 		} else {
 			page.removeAllComponent();

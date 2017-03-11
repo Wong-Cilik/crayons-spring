@@ -58,9 +58,8 @@ public class CrayonsUser extends User {
 			throw new IllegalArgumentException("EmailIsNotValid");
 		}
 		if (email.length() > 30) {
-			throw new IllegalArgumentException(
-			        String.format("ShouldBeAtMostNCharactersLong", 
-                    "Email", 30));
+			throw new IllegalArgumentException(String.format(
+					"ShouldBeAtMostNCharactersLong", "Email", 30));
 		}
 
 		this.email = email;
@@ -83,8 +82,8 @@ public class CrayonsUser extends User {
 	 */
 	public void setFirstName(String firstName) {
 		if (firstName.isEmpty()) {
-			throw new IllegalArgumentException(
-			        String.format("RequiredField", "FirstName"));
+			throw new IllegalArgumentException(String.format("RequiredField",
+					"FirstName"));
 		}
 		this.firstName = firstName;
 	}
@@ -106,8 +105,8 @@ public class CrayonsUser extends User {
 	 */
 	public void setLastName(String lastName) {
 		if (lastName.isEmpty()) {
-			throw new IllegalArgumentException(
-			        String.format("RequiredField", "LastName"));
+			throw new IllegalArgumentException(String.format("RequiredField",
+					"LastName"));
 		}
 		this.lastName = lastName;
 	}
@@ -129,13 +128,11 @@ public class CrayonsUser extends User {
 	 */
 	public void setPassword(String password) {
 		if (password.length() < 6) {
-			throw new IllegalArgumentException(
-			        String.format("ShouldBeAtLeastNCharactersLong", 
-                            "Password", 6));
+			throw new IllegalArgumentException(String.format(
+					"ShouldBeAtLeastNCharactersLong", "Password", 6));
 		} else if (password.length() > 15) {
-			throw new IllegalArgumentException(
-			        String.format("ShouldBeAtMostNCharactersLong", 
-                            "Password", 15));
+			throw new IllegalArgumentException(String.format(
+					"ShouldBeAtMostNCharactersLong", "Password", 15));
 		}
 
 		this.password = password;

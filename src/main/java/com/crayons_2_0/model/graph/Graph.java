@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.crayons_2_0.model.Course;
+import com.crayons_2_0.model.DbCourse;
 
 @SuppressWarnings("serial")
 public class Graph implements Serializable {
@@ -13,7 +14,7 @@ public class Graph implements Serializable {
 	 * 
 	 */
 
-	private final Course course;
+	private final DbCourse course;
 	private final UnitNode startNode;
 	private final UnitNode endNode;
 	// this holds not just the start and end node!
@@ -23,7 +24,7 @@ public class Graph implements Serializable {
 
 	// create a new graph when a new course is created
 	public Graph(Course course) {
-		this.course = course;
+		this.course = course.createDbObject();
 		// this.unitsAvailable = false;
 		this.startNode = new UnitNode("Start", this);
 		this.endNode = new UnitNode("End", this);
@@ -171,7 +172,8 @@ public class Graph implements Serializable {
 	}
 
 	public Course getCourse() {
-		return course;
+		Course c = new Course();
+		return c.loadDbObject(course);
 	}
 
 	/**

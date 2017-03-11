@@ -1,6 +1,5 @@
 package com.crayons_2_0.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,14 +11,9 @@ import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.service.LanguageService;
 
-@SuppressWarnings("serial")
 @Component
-public class Course implements Serializable {
-	/**
-	 * 
-	 */
+public class Course {
 
-	// checked
 	private String title;
 	private String description;
 	private String students;
@@ -28,10 +22,14 @@ public class Course implements Serializable {
 	private List<Unit> units = new ArrayList<Unit>();
 	private Date creationTime;
 	private Graph graph;
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	private final int MAX_LENGTH_OF_TITLE = 30; // ?????????????????????
+
+	public Course() {
+
+	}
 
 	public Course(String title, String description, CrayonsUser author) {
 		this.setTitle(title);
@@ -46,10 +44,6 @@ public class Course implements Serializable {
 		this.setDescription(description);
 		this.setAuthor(author);
 		this.setStudents(students);
-
-	}
-
-	public Course() {
 
 	}
 
@@ -98,14 +92,15 @@ public class Course implements Serializable {
 	 */
 	public void setTitle(String title) {
 		if (title.isEmpty()) {
-			throw new IllegalArgumentException(
-			        String.format(lang.getString("RequiredField"), lang.getString("CourseTitle")));
+			throw new IllegalArgumentException(String.format(
+					lang.getString("RequiredField"),
+					lang.getString("CourseTitle")));
 		}
 
 		if (title.length() > MAX_LENGTH_OF_TITLE) {
-			throw new IllegalArgumentException(
-			        String.format(lang.getString("ShouldBeAtMostNCharactersLong"), lang.getString("CourseTitle"), 
-			                MAX_LENGTH_OF_TITLE));
+			throw new IllegalArgumentException(String.format(
+					lang.getString("ShouldBeAtMostNCharactersLong"),
+					lang.getString("CourseTitle"), MAX_LENGTH_OF_TITLE));
 		}
 
 		this.title = title;
@@ -127,11 +122,12 @@ public class Course implements Serializable {
 	 *            to set
 	 */
 	public void setDescription(String description) {
-	    if (description.isEmpty()) {
-            throw new IllegalArgumentException(
-                    String.format(lang.getString("RequiredField"), lang.getString("CourseDescription")));
-        }
-	    
+		if (description.isEmpty()) {
+			throw new IllegalArgumentException(String.format(
+					lang.getString("RequiredField"),
+					lang.getString("CourseDescription")));
+		}
+
 		this.description = description;
 	}
 
@@ -232,4 +228,20 @@ public class Course implements Serializable {
 		return MAX_LENGTH_OF_TITLE;
 	}
 
+	public DbCourse createDbObject() {
+		return new DbCourse(title, description, students, author, users, units,
+				creationTime, graph);
+	}
+
+	public Course loadDbObject(DbCourse dbCourse) {
+		this.title = dbCourse.getTitle();
+		this.description = dbCourse.getDescription();
+		this.students = dbCourse.getStudents();
+		this.author = dbCourse.getAuthor();
+		this.users = dbCourse.getUsers();
+		this.units = dbCourse.getUnits();
+		this.creationTime = dbCourse.getCreationTime();
+		this.graph = dbCourse.getGraph();
+		return this;
+	}
 }

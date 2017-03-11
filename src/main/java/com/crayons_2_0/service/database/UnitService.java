@@ -108,13 +108,14 @@ public class UnitService {
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
-                MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
+				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
 			}
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.ImageUploadEditor")) {
-                ImageUploadEditor x = (ImageUploadEditor) c.getContent();
-                dataList.add(dataList.size(), new UnitData(x.getImage(), x.getImageTitle()));
+				ImageUploadEditor x = (ImageUploadEditor) c.getContent();
+				dataList.add(dataList.size(),
+						new UnitData(x.getImage(), x.getImageTitle()));
 			}
 		}
 
@@ -154,7 +155,7 @@ public class UnitService {
 		unitDAO.insertUnit(CurrentCourses.getInstance().getUnitTitle(),
 				CurrentCourses.getInstance().getTitle());
 	}
-	
+
 	public boolean hasData() {
 		return unitDAO.hasData(CurrentCourses.getInstance().getUnitTitle(),
 				CurrentCourses.getInstance().getTitle());

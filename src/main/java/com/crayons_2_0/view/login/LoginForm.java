@@ -1,6 +1,6 @@
 package com.crayons_2_0.view.login;
 
-import java.util.ResourceBundle; 
+import java.util.ResourceBundle;
 
 import org.springframework.context.ApplicationContext;
 
@@ -32,39 +32,35 @@ public class LoginForm extends VerticalLayout {
 	private Button btnLogin = new Button(lang.getString("Login"));
 	private Button btnRegistrate = new Button(lang.getString("Register"));
 	private TextField textFieldPassoword = new TextField();
-	
-	
-	
+
 	public LoginForm() {
-	    addStyleName("login-panel");
-	    setSpacing(true);
-	    addComponent(buildLabels());
-	    txtLogin.setIcon(FontAwesome.USER);
-        txtLogin.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+		addStyleName("login-panel");
+		setSpacing(true);
+		addComponent(buildLabels());
+		txtLogin.setIcon(FontAwesome.USER);
+		txtLogin.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        txtPassword.setIcon(FontAwesome.LOCK);
-        txtPassword.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
+		txtPassword.setIcon(FontAwesome.LOCK);
+		txtPassword.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        btnLogin.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        btnLogin.setClickShortcut(KeyCode.ENTER);
-        btnLogin.focus();
-        btnLogin.addClickListener(getLoginFormListener());
-        
-        btnRegistrate.addStyleName(ValoTheme.BUTTON_FRIENDLY);
-        btnRegistrate.addClickListener(new ClickListener() {
+		btnLogin.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		btnLogin.setClickShortcut(KeyCode.ENTER);
+		btnLogin.focus();
+		btnLogin.addClickListener(getLoginFormListener());
 
-            @Override
-            public void buttonClick(ClickEvent event) {
-                UI.getCurrent().getNavigator().navigateTo("registerView");
-            }
-        });
-		addComponents(txtLogin,txtPassword,btnLogin,btnRegistrate);
-		//LoginFormListener loginFormListener = getLoginFormListener();
-		
+		btnRegistrate.addStyleName(ValoTheme.BUTTON_FRIENDLY);
+		btnRegistrate.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UI.getCurrent().getNavigator().navigateTo("registerView");
+			}
+		});
+		addComponents(txtLogin, txtPassword, btnLogin, btnRegistrate);
+		// LoginFormListener loginFormListener = getLoginFormListener();
 
 		getRegisterFormListener();
 	}
-
 
 	public LoginFormListener getLoginFormListener() {
 		MyUI ui = (MyUI) UI.getCurrent();
@@ -77,26 +73,25 @@ public class LoginForm extends VerticalLayout {
 		ApplicationContext context = ui.getApplicationContext();
 		return context.getBean(RegisterFormListener.class);
 	}
+
 	private Component buildLabels() {
-        HorizontalLayout labels = new HorizontalLayout();
-        labels.addStyleName("labels");
-        labels.setSpacing(true);
+		HorizontalLayout labels = new HorizontalLayout();
+		labels.addStyleName("labels");
+		labels.setSpacing(true);
 
-        Label welcome = new Label("Welcome");
-        welcome.setSizeUndefined();
-        welcome.addStyleName(ValoTheme.LABEL_H4);
-        welcome.addStyleName(ValoTheme.LABEL_COLORED);
-        labels.addComponent(welcome);
+		Label welcome = new Label("Welcome");
+		welcome.setSizeUndefined();
+		welcome.addStyleName(ValoTheme.LABEL_H4);
+		welcome.addStyleName(ValoTheme.LABEL_COLORED);
+		labels.addComponent(welcome);
 
-        Label title = new Label("Crayons 2.0");
-        title.setSizeUndefined();
-        title.addStyleName(ValoTheme.LABEL_H3);
-        title.addStyleName(ValoTheme.LABEL_LIGHT);
-        labels.addComponent(title);
-        return labels;
-    }
-	
-	
+		Label title = new Label("Crayons 2.0");
+		title.setSizeUndefined();
+		title.addStyleName(ValoTheme.LABEL_H3);
+		title.addStyleName(ValoTheme.LABEL_LIGHT);
+		labels.addComponent(title);
+		return labels;
+	}
 
 	public TextField getTxtLogin() {
 		return txtLogin;

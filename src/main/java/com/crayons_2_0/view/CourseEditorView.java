@@ -188,13 +188,14 @@ public class CourseEditorView extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (selectUnit.getValue() == null) {
-					
+
 				} else {
 					CurrentCourses.getInstance().setUnitTitle(
 							CurrentCourses.getInstance().getTitle() + "#"
 									+ (String) selectUnit.getValue());
 					unitService.newUnit();
-					UI.getCurrent().getNavigator().navigateTo(Uniteditor.VIEW_NAME);
+					UI.getCurrent().getNavigator()
+							.navigateTo(Uniteditor.VIEW_NAME);
 				}
 			}
 		});

@@ -134,8 +134,8 @@ public final class UnitPageLayout extends CustomComponent {
 		if (dropArea.getParent() != null) {
 			layout.removeComponent(dropArea);
 		}
-		Component x = new WrappedPageItem(createComponentFromPageItem(pageItemType, prefillData));
-		System.out.println("<sprgjps");
+		Component x = new WrappedPageItem(createComponentFromPageItem(
+				pageItemType, prefillData));
 		x.setReadOnly(true);
 		x.setEnabled(false);
 		layout.addComponent(x);
@@ -289,7 +289,7 @@ public final class UnitPageLayout extends CustomComponent {
 
 	public void replaceAllComponent(List<UnitData> unitData) {
 		removeAllComponent();
-		for(UnitData tmpUnit : unitData) {
+		for (UnitData tmpUnit : unitData) {
 			addComponent(PageItemType.TEXT, tmpUnit.getText());
 		}
 	}

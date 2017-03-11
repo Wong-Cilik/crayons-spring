@@ -53,7 +53,7 @@ public class UnitDAO {
 	}
 
 	@SuppressWarnings("unused")
-    private UnitType createUnitType(String string) {
+	private UnitType createUnitType(String string) {
 		return UnitType.LEARNING;
 	}
 
@@ -98,7 +98,7 @@ public class UnitDAO {
 		fos.flush();
 		fos.close();
 	}
-	
+
 	public boolean hasData(String unitTitle, String courseTitle) {
 		byte[] data = jdbcTemplate.queryForObject(
 				"SELECT data FROM units WHERE unittitle = ?", byte[].class,

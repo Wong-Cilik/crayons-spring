@@ -69,23 +69,23 @@ public class UserService implements UserDetailsService {
 	 */
 	public boolean insertUser(CrayonsUser user) {
 		boolean userExists = false;
-	    // Check if Exists, return false if exists
+		// Check if Exists, return false if exists
 		List<CrayonsUser> users = findAll();
 		for (CrayonsUser tmpUser : users) {
 			if (tmpUser.getEmail().equals(user.getEmail())) {
-			    Notification.show("Error username already exists",
-			            "please choose another username",
-		                  Notification.Type.WARNING_MESSAGE);
-			    return userExists = true;
+				Notification.show("Error username already exists",
+						"please choose another username",
+						Notification.Type.WARNING_MESSAGE);
+				return userExists = true;
 			}
-			
+
 		}
 
-		if (userExists == false){
-		    userDAO.insertUser(user);
+		if (userExists == false) {
+			userDAO.insertUser(user);
 		}
 		// User doesn't exist -> insert
-		
+
 		return userExists;
 	}
 

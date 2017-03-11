@@ -184,21 +184,21 @@ public class Authorlibrary extends VerticalLayout implements View,
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-			    try {
-			        courseService.insertCourse(new Course(courseTitleField
-	                        .getValue(), couseDescriptionField.getValue(),
-	                        userService.findByEMail(CurrentUser.getInstance()
-	                                .geteMail()), ""));
-	                courseService.saveDummyGraph(courseTitleField.getValue());
-	                String title = (String) courseTitleField.getValue();
-	                Component newTab = buildCourseTab(title);
-	                getTabSheet().addComponent(newTab);
-	                getTabSheet().setSelectedTab(newTab);
-	                courseTitleField.clear();
-	                couseDescriptionField.clear();
-			    } catch (IllegalArgumentException iae) {
-			        Notification.show(iae.getMessage());
-			    }
+				try {
+					courseService.insertCourse(new Course(courseTitleField
+							.getValue(), couseDescriptionField.getValue(),
+							userService.findByEMail(CurrentUser.getInstance()
+									.geteMail()), ""));
+					courseService.saveDummyGraph(courseTitleField.getValue());
+					String title = (String) courseTitleField.getValue();
+					Component newTab = buildCourseTab(title);
+					getTabSheet().addComponent(newTab);
+					getTabSheet().setSelectedTab(newTab);
+					courseTitleField.clear();
+					couseDescriptionField.clear();
+				} catch (IllegalArgumentException iae) {
+					Notification.show(iae.getMessage());
+				}
 			}
 		});
 
