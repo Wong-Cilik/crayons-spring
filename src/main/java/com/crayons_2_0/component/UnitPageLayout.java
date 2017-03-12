@@ -32,20 +32,21 @@ public final class UnitPageLayout extends CustomComponent {
 	 * 
 	 */
 	private VerticalLayout layout;
-	private final DropHandler dropHandler;
+	private DropHandler dropHandler;
 	private DragAndDropWrapper dropArea;
 
 	/**
 	 * Builds together several components of the page layout.
 	 */
-	public UnitPageLayout() {
+	public UnitPageLayout(Boolean editable) {
 		layout = new VerticalLayout();
 		setCompositionRoot(layout);
 		layout.addStyleName("canvas-layout");
+		if (editable) {
+			dropHandler = new ReorderLayoutDropHandler();
+			addDropArea();
+		}
 
-		dropHandler = new ReorderLayoutDropHandler();
-
-		addDropArea();
 	}
 
 	/**
@@ -71,6 +72,7 @@ public final class UnitPageLayout extends CustomComponent {
 	 * 
 	 * @return drop area as a DragAndDropWrapper
 	 */
+	@SuppressWarnings("unused")
 	private Component buildDropArea() {
 		Label dropAreaLabel = new Label("Drag items here");
 		dropAreaLabel.setSizeUndefined();
@@ -95,7 +97,7 @@ public final class UnitPageLayout extends CustomComponent {
 				if (sourceComponent != layout.getParent()) {
 					Object type = ((AbstractComponent) sourceComponent)
 							.getData();
-					addComponent((PageItemType) type, null);
+					addComponent((PageItemType) type, null, true);
 				}
 			}
 		});
@@ -130,12 +132,12 @@ public final class UnitPageLayout extends CustomComponent {
 	 *            content of the component (null if the component is new)
 	 */
 	public void addComponent(final PageItemType pageItemType,
-			final Object prefillData) {
+			final Object prefillData, Boolean editable) {
 		//if (dropArea.getParent() != null) {
 		//	layout.removeComponent(dropArea);
 		//}
 		Component x = new WrappedPageItem(createComponentFromPageItem(
-				pageItemType, prefillData));
+				pageItemType, prefillData, editable));
 		layout.addComponent(x);
 	}
 
@@ -149,22 +151,11 @@ public final class UnitPageLayout extends CustomComponent {
 	 * @return component of the defined type with the corresponding content
 	 */
 	private Component createComponentFromPageItem(final PageItemType type,
-			final Object prefillData) {
+			final Object prefillData, Boolean editable) {
 		Component result = null;
 		if (type == PageItemType.TEXT) {
 			result = new TextEditor(
-					prefillData != null ? String.valueOf(prefillData) : null);
-			
-			/*
-			TextEditor x = new TextEditor(
-					prefillData != null ? String.valueOf(prefillData) : null);
-			final Label text = new Label(x.getContent());
-			text.setContentMode(ContentMode.HTML);
-			CssLayout r = new CssLayout(text);
-			r.setSizeFull();
-			result = r;
-			*/
-			
+					prefillData != null ? String.valueOf(prefillData) : null, editable);
 		} else if (type == PageItemType.IMAGE) {
 			result = new ImageUploadEditor();
 		} else if (type == PageItemType.MULTIPLE_CHOICE) {
@@ -230,7 +221,7 @@ public final class UnitPageLayout extends CustomComponent {
 
 				AbstractComponent c = new WrappedPageItem(
 						createComponentFromPageItem(
-								(PageItemType) pageItemType, null));
+								(PageItemType) pageItemType, null, true));
 
 				int index = 0;
 				Iterator<Component> componentIterator = layout.iterator();
@@ -296,15 +287,13 @@ public final class UnitPageLayout extends CustomComponent {
 		}
 	}
 
-	public void replaceAllComponent(List<UnitData> unitData) {
+	public void replaceAllComponent(List<UnitData> unitData, Boolean editable) {
 		removeAllComponent();
 		for (UnitData tmpUnit : unitData) {
-			System.out.println(tmpUnit.getText());
 			if (tmpUnit.getText() != null) {
-				System.out.println("dfdf");
-				addComponent(PageItemType.TEXT, tmpUnit.getText());
+				addComponent(PageItemType.TEXT, tmpUnit.getText(), editable);
 			} else if (tmpUnit.getImage() != null) {
-				System.out.println("srpoghj");
+
 			} else if (tmpUnit.getQuestion() != null) {
 				
 			}

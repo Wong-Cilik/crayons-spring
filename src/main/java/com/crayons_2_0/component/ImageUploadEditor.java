@@ -110,7 +110,6 @@ public class ImageUploadEditor extends CustomComponent {
 				image.setVisible(true);
 				image.setSource(new FileResource(file));
 				setCompositionRoot(showImage);
-				System.out.println("ImageUploadImage: " + (image == null) + "  " + image.getHeight());
 			}
 
 			@Override

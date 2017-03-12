@@ -30,26 +30,52 @@ public class TextEditor extends CustomComponent {
 
 	private final Property<String> property = new ObjectProperty<String>(
 			"Enter text here...");
-	private final Component textEditor;
-	private final Component readOnly;
+	private Component textEditor;
+	private Component readOnly;
 	private CKEditorTextField ckEditorTextField;
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	public TextEditor(String prefillData) {
-		setWidth(100.0f, Unit.PERCENTAGE);
-		addStyleName("inline-text-editor");
+	public TextEditor(String prefillData, Boolean editable) {
+		
+		if (editable) {
+			setWidth(100.0f, Unit.PERCENTAGE);
+			addStyleName("inline-text-editor");
 
-		if (prefillData != null) {
-			property.setValue(prefillData);
+			if (prefillData != null) {
+				property.setValue(prefillData);
+			}
+
+			textEditor = buildTextEditor();
+			readOnly = buildReadOnly();
+
+			setCompositionRoot(readOnly);
+		} else {
+			
+			setWidth(100.0f, Unit.PERCENTAGE);
+			addStyleName("inline-text-editor");
+
+			if (prefillData != null) {
+				property.setValue(prefillData);
+			}
+
+			textEditor = buildTextEditor();
+			readOnly = buildUserOnly();
+			setCompositionRoot(readOnly);
 		}
-
-		textEditor = buildTextEditor();
-		readOnly = buildReadOnly();
-
-		setCompositionRoot(readOnly);
 	}
 
+
+	private Component buildUserOnly() {
+		final Label text = new Label(property);
+		text.setContentMode(ContentMode.HTML);
+
+		CssLayout result = new CssLayout(text);
+		result.addStyleName("text-editor");
+		result.setSizeFull();
+		return result;
+	}
+	
 	private Component buildReadOnly() {
 		final Label text = new Label(property);
 		text.setContentMode(ContentMode.HTML);
