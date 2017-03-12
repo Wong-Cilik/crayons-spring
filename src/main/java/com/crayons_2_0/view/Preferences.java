@@ -136,10 +136,11 @@ public class Preferences extends VerticalLayout implements View {
 
 		ComboBox selectLanguage = new ComboBox(
 				lang.getString("SelectYourLanguage"));
-		selectLanguage.setInputPrompt(LanguageService.getInstance()
-				.getLanguage().toString());
-		selectLanguage.addItem(Language.German.toString());
-		selectLanguage.addItem(Language.English.toString());
+		selectLanguage.setNullSelectionAllowed(false);
+		selectLanguage.addItem(lang.getString("German"));
+		selectLanguage.addItem(lang.getString("English"));
+		selectLanguage.setValue(lang.getString(LanguageService.getInstance()
+                .getLanguage().toString()));
 		selectLanguage.addValueChangeListener(new ValueChangeListener() {
 
 			// ToDO Makeup Hardcoded.
@@ -153,9 +154,9 @@ public class Preferences extends VerticalLayout implements View {
 				Language newLanguage;
 				String value = selectLanguage.getValue().toString();
 
-				if (value.equals(Language.German.toString())) {
+				if (value.equals(lang.getString("German"))) {
 					newLanguage = Language.German;
-				} else if (value.equals(Language.English.toString())) {
+				} else if (value.equals(lang.getString("English"))) {
 					newLanguage = Language.English;
 				} else {
 					// newLanguage = null;

@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.crayons_2_0.MyUI;
+import com.crayons_2_0.service.Language;
+import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.UserService;
 import com.vaadin.spring.annotation.SpringComponent;
 
@@ -34,6 +36,11 @@ public class AuthManager implements AuthenticationManager {
 			Collection<? extends GrantedAuthority> authorities = user
 					.getAuthorities();
 			hasAuthority = true;
+			if (userService.findByEMail(username).getLanguage() == Language.English) {
+	            LanguageService.getInstance().setCurrentLocale(Language.English);
+	        } else if (userService.findByEMail(username).getLanguage() == Language.German) {
+	            LanguageService.getInstance().setCurrentLocale(Language.German);
+	        }
 			MyUI.get().showMainView();
 			return new UsernamePasswordAuthenticationToken(username, password,
 					authorities);
