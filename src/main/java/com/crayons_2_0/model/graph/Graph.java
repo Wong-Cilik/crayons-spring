@@ -109,17 +109,7 @@ public class Graph implements Serializable {
 	 * this.unitsAvailable = unitsAvailable; }
 	 */
 
-	public boolean addUnit(UnitNode currentNode, Set<UnitNode> setParent,
-			Set<UnitNode> setChildren) {
-		for (UnitNode tmpNode : setParent) {
-			tmpNode.addChildNode(currentNode);
-		}
-		for (UnitNode tmpNode : setChildren) {
-			tmpNode.addParentNode(currentNode);
-		}
-		this.unitCollection.add(currentNode);
-		return true;
-	}
+	
 
 	public boolean addUnit(UnitNode currentNode, UnitNode parent, UnitNode child) {
 		parent.addChildNode(currentNode);

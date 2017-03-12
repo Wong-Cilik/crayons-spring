@@ -25,10 +25,9 @@ import org.springframework.stereotype.Component;
  *
  */
 
-@Component
-public class UnitDAO {
+@Component class UnitDAO {
 
-	@Autowired
+	private @Autowired
 	JdbcTemplate jdbcTemplate;
 
 	/**
@@ -36,8 +35,7 @@ public class UnitDAO {
 	 * 
 	 * @return all units of DB
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<Unit> findAll() {
+	@SuppressWarnings({ "unchecked", "rawtypes" }) List<Unit> findAll() {
 		String query = "select * from units";
 		RowMapper mapper = new RowMapper<Object>() {
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -57,11 +55,9 @@ public class UnitDAO {
 		return UnitType.LEARNING;
 	}
 
-	public boolean save(Unit unit) {
-		return true;
-	}
+	
 
-	public void saveData(File file, String titleUnit, String titleCourse)
+	void saveData(File file, String titleUnit, String titleCourse)
 			throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		jdbcTemplate.update("UPDATE units SET data=? WHERE unitTitle=?",
@@ -75,7 +71,7 @@ public class UnitDAO {
 		fis.close();
 	}
 
-	public void insertUnit(String unitTitle, String courseTitle) {
+	void insertUnit(String unitTitle, String courseTitle) {
 		List<Unit> unitList = findAll();
 		for (Unit tmpUnit : unitList) {
 			if (tmpUnit.getTitle().equals(unitTitle)) {
@@ -87,7 +83,7 @@ public class UnitDAO {
 				courseTitle, unitTitle);
 	}
 
-	public void getData(String unitTitle, String courseTitle)
+	void getData(String unitTitle, String courseTitle)
 			throws IOException {
 		File file = new File(unitTitle + ".bin");
 		FileOutputStream fos = new FileOutputStream(file);
@@ -99,7 +95,7 @@ public class UnitDAO {
 		fos.close();
 	}
 
-	public boolean hasData(String unitTitle, String courseTitle) {
+	boolean hasData(String unitTitle, String courseTitle) {
 		byte[] data = jdbcTemplate.queryForObject(
 				"SELECT data FROM units WHERE unittitle = ?", byte[].class,
 				unitTitle);

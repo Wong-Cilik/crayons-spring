@@ -36,7 +36,7 @@ public class TextEditor extends CustomComponent {
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	public TextEditor(String prefillData, Boolean editable) {
+	TextEditor(String prefillData, Boolean editable) {
 		
 		if (editable) {
 			setWidth(100.0f, Unit.PERCENTAGE);
@@ -61,6 +61,7 @@ public class TextEditor extends CustomComponent {
 
 			textEditor = buildTextEditor();
 			readOnly = buildUserOnly();
+			readOnly.setReadOnly(true);
 			setCompositionRoot(readOnly);
 		}
 	}

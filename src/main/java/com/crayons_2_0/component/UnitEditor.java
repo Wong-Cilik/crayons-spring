@@ -52,7 +52,7 @@ public final class UnitEditor extends Window {
 
 	// private final CourseEditorListener listener;
 	private final SortableLayout canvas;
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	@SuppressWarnings("deprecation")
 	// public CourseEditor(final CoursetEditorListener listener)
@@ -149,12 +149,12 @@ public final class UnitEditor extends Window {
 		return ddWrap;
 	}
 
-	public void addWidget(final PaletteItemType paletteItemType,
+	private void addWidget(final PaletteItemType paletteItemType,
 			final Object prefillData) {
 		canvas.addComponent(paletteItemType, prefillData);
 	}
 
-	public final class SortableLayout extends CustomComponent {
+	private final class SortableLayout extends CustomComponent {
 
 		private VerticalLayout layout;
 		private final DropHandler dropHandler;
@@ -218,7 +218,7 @@ public final class UnitEditor extends Window {
 			titleLabel.setValue(title);
 		}
 
-		public void addComponent(final PaletteItemType paletteItemType,
+		private void addComponent(final PaletteItemType paletteItemType,
 				final Object prefillData) {
 			if (placeholder.getParent() != null) {
 				layout.removeComponent(placeholder);
@@ -355,12 +355,12 @@ public final class UnitEditor extends Window {
 	}
 
 	public interface CourseEditorListener {
-		void titleChanged(String newTitle, UnitEditor editor);
+		
 	}
 
 	// TODO Change Language!
 
-	public enum PaletteItemType {
+	private enum PaletteItemType {
 		TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",
 				FontAwesome.CHECK_SQUARE_O), IMAGE("Image", FontAwesome.IMAGE), TRANSACTIONS(
 				"Latest transactions", null);

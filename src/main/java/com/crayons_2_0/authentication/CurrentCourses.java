@@ -9,7 +9,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class CurrentCourses {
 
-	@Autowired
+	private @Autowired
 	CourseService courseService;
 	private Course course;
 	private String title;
@@ -27,14 +27,7 @@ public class CurrentCourses {
 		return instance;
 	}
 
-	public Course get() {
-
-		if (getInstance().getCourse() == null) {
-			getInstance().setCourse(
-					courseService.findCourseByTitle(getInstance().getTitle()));
-		}
-		return getInstance().getCourse();
-	}
+	
 
 	public Course getCourse() {
 

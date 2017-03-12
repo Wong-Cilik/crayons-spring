@@ -33,7 +33,7 @@ public class MultipleChoiceEditor extends CustomComponent {
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	public MultipleChoiceEditor(String questionText, ArrayList<String> answers,
+	MultipleChoiceEditor(String questionText, ArrayList<String> answers,
 			String rightAnswer) {
 		setWidth(100.0f, Unit.PERCENTAGE);
 		addStyleName("inline-text-editor");

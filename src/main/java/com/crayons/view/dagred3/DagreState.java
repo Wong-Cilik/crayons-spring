@@ -3,8 +3,7 @@ package com.crayons.view.dagred3;
 import java.util.ArrayList;
 import com.vaadin.shared.ui.JavaScriptComponentState;
 
-@SuppressWarnings("serial")
-public class DagreState extends JavaScriptComponentState {
+@SuppressWarnings("serial") class DagreState extends JavaScriptComponentState {
 	private ArrayList<String> unitNodes;
 	private ArrayList<String> edges;
 
@@ -24,7 +23,7 @@ public class DagreState extends JavaScriptComponentState {
 		this.edges = edges;
 	}
 
-	public void setGraph(final ArrayList<String> nodes,
+	void setGraph(final ArrayList<String> nodes,
 			final ArrayList<String> edges) {
 		this.unitNodes = nodes;
 		this.edges = edges;

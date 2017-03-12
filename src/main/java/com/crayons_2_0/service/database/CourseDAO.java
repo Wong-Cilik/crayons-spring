@@ -25,13 +25,12 @@ import com.vaadin.spring.annotation.SpringComponent;
  * Class for Course Data Access Object
  *
  */
-@SpringComponent
-public class CourseDAO implements CommandLineRunner {
+@SpringComponent class CourseDAO implements CommandLineRunner {
 
-	@Autowired
+	private @Autowired
 	JdbcTemplate jdbcTemplate;
 
-	@Autowired
+	private @Autowired
 	UserService userService;
 
 	// public void createDbTable() {
@@ -45,8 +44,7 @@ public class CourseDAO implements CommandLineRunner {
 	 * 
 	 * @return all courses of DB
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<Course> findAll() {
+	@SuppressWarnings({ "unchecked", "rawtypes" }) List<Course> findAll() {
 		String query = "select * from courses";
 		RowMapper mapper = new RowMapper<Object>() {
 
@@ -72,8 +70,7 @@ public class CourseDAO implements CommandLineRunner {
 
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Course> searchAll(String input, String coll) {
+	@SuppressWarnings("unchecked") List<Course> searchAll(String input, String coll) {
 		String query = "SELECT * FROM courses WHERE " + coll + " LIKE '%"
 				+ input + "%'";
 		@SuppressWarnings("rawtypes")
@@ -160,12 +157,12 @@ public class CourseDAO implements CommandLineRunner {
 	 * @param course
 	 *            to Update
 	 */
-	public void updateStudents(String tmp, String course) {
+	void updateStudents(String tmp, String course) {
 		jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
 				tmp, course);
 	}
 
-	public void saveData(File file, String title) throws IOException {
+	void saveData(File file, String title) throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		jdbcTemplate.update("UPDATE courses SET data=? WHERE title=?",
 				new PreparedStatementSetter() {
@@ -178,7 +175,7 @@ public class CourseDAO implements CommandLineRunner {
 		fis.close();
 	}
 
-	public void getData(String title) throws IOException {
+	void getData(String title) throws IOException {
 		File file = new File(title + ".bin");
 		FileOutputStream fos = new FileOutputStream(file);
 		byte[] data = jdbcTemplate
