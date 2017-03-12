@@ -46,7 +46,7 @@ public class UnitUserView extends VerticalLayout implements View {
 	@PostConstruct
 	void init() {
 		setSizeFull();
-
+		setSpacing(true);
 		page = new UnitPageLayout(false);
 		page.setWidth(100.0f, Unit.PERCENTAGE);
 		page.setStyleName("canvas");
@@ -57,7 +57,7 @@ public class UnitUserView extends VerticalLayout implements View {
 		Component footer = buildFooter();
 		addComponent(footer);
 		footer.setSizeUndefined();
-		setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+		setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
 		setReadOnly(true);
 	}
 
@@ -124,6 +124,7 @@ public class UnitUserView extends VerticalLayout implements View {
 
 	private Component buildFooter() {
 		HorizontalLayout footer = new HorizontalLayout();
+		footer.setSpacing(true);
 		footer.addStyleName("userview-footer");
 		footer.setSizeFull();
 		Component left = buildLeft();
