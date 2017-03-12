@@ -17,7 +17,7 @@ import com.vaadin.ui.themes.Reindeer;
  * 
  */
 @SuppressWarnings("serial")
-@SpringView(name = ErrorView.VIEW_NAME)
+@SpringView(name = ErrorView.VIEW_NAME) 
 public class ErrorView extends VerticalLayout implements View {
 
 	/**
@@ -25,7 +25,7 @@ public class ErrorView extends VerticalLayout implements View {
      */
 	public static final String VIEW_NAME = "Error view";
 
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	private Label explanation;
 
 	public ErrorView() {

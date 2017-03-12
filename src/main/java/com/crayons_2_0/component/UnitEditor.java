@@ -52,7 +52,7 @@ public final class UnitEditor extends Window {
 
 	// private final CourseEditorListener listener;
 	private final SortableLayout canvas;
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	@SuppressWarnings("deprecation")
 	// public CourseEditor(final CoursetEditorListener listener)
@@ -353,12 +353,6 @@ public final class UnitEditor extends Window {
 		}
 
 	}
-
-	public interface CourseEditorListener {
-		void titleChanged(String newTitle, UnitEditor editor);
-	}
-
-	// TODO Change Language!
 
 	public enum PaletteItemType {
 		TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",

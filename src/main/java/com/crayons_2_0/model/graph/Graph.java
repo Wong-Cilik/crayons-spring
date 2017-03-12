@@ -81,10 +81,9 @@ public class Graph implements Serializable {
 
 	}
 
-	// TODO Exception fangen
 	public UnitNode getNodeByName(String NodeName) {
 		for (UnitNode tmp : this.unitCollection) {
-			if (NodeName == tmp.getUnitNodeTitle())
+			if (NodeName.equals(tmp.getUnitNodeTitle()))
 				return tmp;
 		}
 		return null;
@@ -109,26 +108,7 @@ public class Graph implements Serializable {
 	 * this.unitsAvailable = unitsAvailable; }
 	 */
 
-	public boolean addUnit(UnitNode currentNode, Set<UnitNode> setParent,
-			Set<UnitNode> setChildren) {
-		for (UnitNode tmpNode : setParent) {
-			tmpNode.addChildNode(currentNode);
-		}
-		for (UnitNode tmpNode : setChildren) {
-			tmpNode.addParentNode(currentNode);
-		}
-		this.unitCollection.add(currentNode);
-		return true;
-	}
 
-	public boolean addUnit(UnitNode currentNode, UnitNode parent, UnitNode child) {
-		parent.addChildNode(currentNode);
-		child.addParentNode(currentNode);
-		this.unitCollection.add(currentNode);
-		return true;
-	}
-
-	// used for dummygraph
 	public boolean addUnit(UnitNode currentNode, UnitNode parent) {
 		parent.addChildNode(currentNode);
 		this.unitCollection.add(currentNode);

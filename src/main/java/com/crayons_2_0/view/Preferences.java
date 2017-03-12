@@ -37,7 +37,6 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -55,8 +54,8 @@ public class Preferences extends VerticalLayout implements View {
 
 	// public static final String ID = "profilepreferenceswindow";
 	public static final String VIEW_NAME = "Preferences";
-	ResourceBundle lang = LanguageService.getInstance().getRes();
-	@Autowired
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	private @Autowired
 	UserService userService;
 
 	// private final BeanFieldGroup<User> fieldGroup;

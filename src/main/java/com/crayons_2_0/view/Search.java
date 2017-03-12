@@ -43,13 +43,13 @@ public final class Search extends VerticalLayout implements View {
 	 * 
 	 */
 
-	List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
+	private List<CourseDisplay> collection = new ArrayList<CourseDisplay>();
 	public static final String VIEW_NAME = "Search";
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	private Table table;
 
-	@Autowired
+	private @Autowired
 	CourseService courseService;
 
 	@PostConstruct

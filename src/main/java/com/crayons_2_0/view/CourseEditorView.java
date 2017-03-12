@@ -49,16 +49,16 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringComponent
 public class CourseEditorView extends VerticalLayout implements View {
 
-	@Autowired
+	private @Autowired
 	CourseService courseService;
 
-	@Autowired
+	private @Autowired
 	UnitService unitService;
 
-	static Graph graphData;
+	private static Graph graphData;
 
 	public static final String VIEW_NAME = "Learning Graph";
-	final static Dagre graph = new Dagre();
+	private final static Dagre graph = new Dagre();
 
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
 	private static ComboBox selectUnit;
@@ -258,7 +258,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 	 * Dialog window which checks if the changes in the learning unit should be
 	 * saved or not. Is called by a click on the back button.
 	 */
-	private class UnsavedChangesWindow extends Window {
+	public class UnsavedChangesWindow extends Window {
 		/**
 		 * Builds together several components of the window.
 		 */

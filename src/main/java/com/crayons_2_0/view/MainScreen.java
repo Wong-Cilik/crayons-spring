@@ -24,10 +24,8 @@ import com.vaadin.ui.HorizontalLayout;
 /**
  * Content of the UI when the user is logged in.
  * 
- * 
  */
 @SuppressWarnings("serial")
-// @SpringUI
 @ViewScope
 @SpringView(name = MainScreen.VIEW_NAME)
 public class MainScreen extends HorizontalLayout implements View {
