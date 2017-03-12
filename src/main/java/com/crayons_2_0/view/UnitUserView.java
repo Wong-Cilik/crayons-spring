@@ -1,14 +1,11 @@
 package com.crayons_2_0.view;
 
-import java.util.Set;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.UnitPageLayout;
-import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UnitService;
@@ -23,7 +20,6 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
@@ -37,10 +33,10 @@ public class UnitUserView extends VerticalLayout implements View {
 	private ComboBox selectPreviousUnit;
 	private Button next;
 	private Button previous;
-	
+
 	@Autowired
 	CurrentCourses currentCourse;
-	
+
 	@Autowired
 	UnitService unitService;
 
@@ -55,17 +51,17 @@ public class UnitUserView extends VerticalLayout implements View {
 		page.setWidth(100.0f, Unit.PERCENTAGE);
 		page.setStyleName("canvas");
 		addComponent(page);
+		setComponentAlignment(page, Alignment.TOP_CENTER);
 		setExpandRatio(page, 8);
-
+	
 		Component footer = buildFooter();
-		footer.setSizeFull();
 		addComponent(footer);
-		setComponentAlignment(footer, Alignment.MIDDLE_CENTER);
-		setExpandRatio(footer, 1);
+		footer.setSizeUndefined();
+		setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
 		setReadOnly(true);
 	}
 
-	public void refresh (UnitPageLayout upl) {
+	public void refresh(UnitPageLayout upl) {
 		removeAllComponents();
 
 		page = upl;
@@ -78,68 +74,123 @@ public class UnitUserView extends VerticalLayout implements View {
 		footer.setSizeFull();
 		addComponent(footer);
 	}
-	
+
 	public void refresh() {
 		page.replaceAllComponent(unitService.getUnitData(CurrentCourses
 				.getInstance().getUnitTitle(), CurrentCourses.getInstance()
 				.getTitle()), false);
-		
+
 		String title = CurrentCourses.getInstance().getTitle();
-		Graph g = courseService.getCourseData(title);
-		
-		System.out.println(CurrentCourses.getInstance().getUnitTitle().split("#")[1]);
-		UnitNode unit = g.getNodeByName(CurrentCourses.getInstance().getUnitTitle().split("#")[1]);
-		
-		Set <UnitNode> unitSet = unit.getParentNodes();
-		
+		UnitNode unit = courseService.getCourseData(title).getNodeByName(
+				CurrentCourses.getInstance().getUnitTitle().split("#")[1]);
+
+		selectPreviousUnit.removeAllItems();
+		for (UnitNode tmpUnit : unit.getParentNodes()) {
+			if (!tmpUnit.getUnitNodeTitle().equals("End")
+					&& !tmpUnit.getUnitNodeTitle().equals("Start")) {
+				selectPreviousUnit.addItem(tmpUnit.getUnitNodeTitle());
+			}
+		}
+
 		selectNextUnit.removeAllItems();
-		for (UnitNode tmpUnit : unitSet) {
-			selectNextUnit.addItem(tmpUnit.getUnitNodeTitle());
+		for (UnitNode tmpUnit : unit.getChildNodes()) {
+			if (!tmpUnit.getUnitNodeTitle().equals("End")
+					&& !tmpUnit.getUnitNodeTitle().equals("Start")) {
+				selectNextUnit.addItem(tmpUnit.getUnitNodeTitle());
+			}
+		}
+
+		if (selectNextUnit.size() == 0) {
+			selectNextUnit.setEnabled(false);
+			next.setEnabled(false);
+		} else {
+			selectNextUnit.setEnabled(true);
+			next.setEnabled(true);
+		}
+
+		if (selectPreviousUnit.size() == 0) {
+			selectPreviousUnit.setEnabled(false);
+			previous.setEnabled(false);
+		} else {
+			selectPreviousUnit.setEnabled(true);
+			previous.setEnabled(true);
 		}
 	}
-	
+
 	public UnitUserView() {
-		
+
 	}
 
+
 	private Component buildFooter() {
-		
-		next = new Button("next", FontAwesome.ARROW_RIGHT);
-		next.addClickListener(new ClickListener() {
-			
-			@Override
-			public void buttonClick(ClickEvent event) {
-				CurrentCourses.getInstance().setUnitTitle(selectNextUnit.getValue().toString());
-				refresh();
-			}
-
-		});
-		
-		previous = new Button("previous", FontAwesome.ARROW_LEFT);
-		previous.addClickListener(new ClickListener() {
-			
-			@Override
-			public void buttonClick(ClickEvent event) {
-				
-			}
-
-		});
-		
-		selectNextUnit = new ComboBox();
-		selectPreviousUnit  = new ComboBox();
-		
 		HorizontalLayout footer = new HorizontalLayout();
-		footer.addComponent(previous);
-		footer.addComponent(selectPreviousUnit);
-		footer.addComponent(selectNextUnit);
-		footer.addComponent(next);
-		footer.setSpacing(true);
-		footer.setMargin(true);
+		footer.addStyleName("userview-footer");
 		footer.setSizeFull();
-		
+		Component left = buildLeft();
+		footer.addComponent(left);
+		footer.setComponentAlignment(left, Alignment.MIDDLE_LEFT);
+		left.addStyleName("userview-footer-left");
+		Component right = buildRight();
+		right.addStyleName("userview-footer-right");
+		footer.addComponent(right);
+		footer.setComponentAlignment(right, Alignment.MIDDLE_RIGHT);
 		return footer;
 	}
 
+	private Component buildLeft() {
+		HorizontalLayout left = new HorizontalLayout();
+		left.setSpacing(true);
+		previous = new Button("previous", FontAwesome.ARROW_LEFT);
+		left.addComponent(previous);
+		previous.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if (selectPreviousUnit.getValue() != null) {
+					CurrentCourses.getInstance().setUnitTitle(
+							CurrentCourses.getInstance().getTitle() + "#"
+									+ selectPreviousUnit.getValue().toString());
+					refresh();
+				}
+			}
+		});
+
+		selectPreviousUnit = new ComboBox();
+		selectPreviousUnit.setNullSelectionAllowed(false);
+		left.addComponent(selectPreviousUnit);
+		
+		return left;
+	}
+
+	private Component buildRight() {
+		HorizontalLayout right = new HorizontalLayout();
+		right.setSpacing(true);
+		right.setWidthUndefined();
+
+		selectNextUnit = new ComboBox();
+		selectNextUnit.setNullSelectionAllowed(false);
+		right.addComponent(selectNextUnit);
+
+		
+		next = new Button("next", FontAwesome.ARROW_RIGHT);
+		right.addComponent(next);
+		next.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if (selectNextUnit.getValue() != null) {
+					CurrentCourses.getInstance().setUnitTitle(
+							CurrentCourses.getInstance().getTitle() + "#"
+									+ selectNextUnit.getValue().toString());
+					refresh();
+				}
+			}
+
+		});
+
+		return right;
+	}
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
 		refresh();
