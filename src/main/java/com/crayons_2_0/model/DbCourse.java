@@ -20,7 +20,7 @@ public class DbCourse implements Serializable {
 	private Date creationTime;
 	private Graph graph;
 
-	DbCourse(String title, String description, String students,
+	public DbCourse(String title, String description, String students,
 			CrayonsUser author, List<CrayonsUser> users, List<Unit> units,
 			Date creationTime, Graph graph) {
 		this.title = title;

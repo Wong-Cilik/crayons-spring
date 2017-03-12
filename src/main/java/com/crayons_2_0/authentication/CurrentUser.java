@@ -8,7 +8,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class CurrentUser {
 
-	private @Autowired
+	@Autowired
 	UserService userService;
 
 	private static CurrentUser instance = null;

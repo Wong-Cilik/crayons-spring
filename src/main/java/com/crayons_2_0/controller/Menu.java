@@ -156,7 +156,26 @@ public class Menu extends CssLayout {
 		createViewButton(name, caption, icon);
 	}
 
-	
+	/**
+	 * Register a view in the navigation menu and in the {@link Navigator} based
+	 * on a view class.
+	 *
+	 * @see Navigator#addView(String, Class)
+	 *
+	 * @param viewClass
+	 *            class of the views to create
+	 * @param name
+	 *            view name
+	 * @param caption
+	 *            view caption in the menu
+	 * @param icon
+	 *            view icon in the menu
+	 */
+	public void addView(Class<? extends View> viewClass, final String name,
+			String caption, Resource icon) {
+		navigator.addView(name, viewClass);
+		createViewButton(name, caption, icon);
+	}
 
 	private void createViewButton(final String name, String caption,
 			Resource icon) {

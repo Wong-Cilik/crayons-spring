@@ -175,7 +175,7 @@ public final class UnitPageLayout extends CustomComponent {
 		/**
 		 * 
 		 */
-		private WrappedPageItem(final Component content) {
+		public WrappedPageItem(final Component content) {
 			super(content);
 			this.content = content;
 			setDragStartMode(DragStartMode.WRAPPER);

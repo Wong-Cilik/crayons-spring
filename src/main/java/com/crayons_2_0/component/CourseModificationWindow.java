@@ -36,11 +36,11 @@ public class CourseModificationWindow extends Window {
 	/**
 	 * 
 	 */
-	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	ResourceBundle lang = LanguageService.getInstance().getRes();
 	private TabSheet tabSheet;
 	private Component tab;
 	private Course course;
-	private @Autowired
+	@Autowired
 	CourseService courseService;
 
 	public CourseModificationWindow(Course course, Component tab,

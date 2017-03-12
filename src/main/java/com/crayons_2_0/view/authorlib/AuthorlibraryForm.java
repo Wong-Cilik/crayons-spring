@@ -29,14 +29,14 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public class AuthorlibraryForm extends VerticalLayout {
 
-	private @Autowired
+	@Autowired
 	CurrentUser user;
 
 	@Resource
 	private CourseService courseService;
 
 	private TabSheet coursesTabSheet = new TabSheet();
-	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public AuthorlibraryForm() {
 

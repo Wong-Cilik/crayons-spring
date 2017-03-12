@@ -25,9 +25,10 @@ import org.springframework.stereotype.Component;
  *
  */
 
-@Component class UnitDAO {
+@Component
+public class UnitDAO {
 
-	private @Autowired
+	@Autowired
 	JdbcTemplate jdbcTemplate;
 
 	/**
@@ -35,7 +36,8 @@ import org.springframework.stereotype.Component;
 	 * 
 	 * @return all units of DB
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" }) List<Unit> findAll() {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Unit> findAll() {
 		String query = "select * from units";
 		RowMapper mapper = new RowMapper<Object>() {
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -55,9 +57,11 @@ import org.springframework.stereotype.Component;
 		return UnitType.LEARNING;
 	}
 
-	
+	public boolean save(Unit unit) {
+		return true;
+	}
 
-	void saveData(File file, String titleUnit, String titleCourse)
+	public void saveData(File file, String titleUnit, String titleCourse)
 			throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		jdbcTemplate.update("UPDATE units SET data=? WHERE unitTitle=?",
@@ -71,7 +75,7 @@ import org.springframework.stereotype.Component;
 		fis.close();
 	}
 
-	void insertUnit(String unitTitle, String courseTitle) {
+	public void insertUnit(String unitTitle, String courseTitle) {
 		List<Unit> unitList = findAll();
 		for (Unit tmpUnit : unitList) {
 			if (tmpUnit.getTitle().equals(unitTitle)) {
@@ -83,7 +87,7 @@ import org.springframework.stereotype.Component;
 				courseTitle, unitTitle);
 	}
 
-	void getData(String unitTitle, String courseTitle)
+	public void getData(String unitTitle, String courseTitle)
 			throws IOException {
 		File file = new File(unitTitle + ".bin");
 		FileOutputStream fos = new FileOutputStream(file);
@@ -95,7 +99,7 @@ import org.springframework.stereotype.Component;
 		fos.close();
 	}
 
-	boolean hasData(String unitTitle, String courseTitle) {
+	public boolean hasData(String unitTitle, String courseTitle) {
 		byte[] data = jdbcTemplate.queryForObject(
 				"SELECT data FROM units WHERE unittitle = ?", byte[].class,
 				unitTitle);

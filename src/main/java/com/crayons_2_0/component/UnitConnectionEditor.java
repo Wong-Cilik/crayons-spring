@@ -28,11 +28,12 @@ public class UnitConnectionEditor extends Window {
 	// @DB
 
 	// sollte noch ein set werden
-	private UnitNode parent;
-	
+	UnitNode parent;
+	// wird noch ausgebessert
+	String unitTitle;
 	// sollte noch ein set werden
-	private UnitNode child;
-	private static Graph graph;
+	UnitNode child;
+	static Graph graph;
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 

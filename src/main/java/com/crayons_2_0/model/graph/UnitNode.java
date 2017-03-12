@@ -20,7 +20,7 @@ public class UnitNode implements Serializable {
 	private Set<UnitNode> childNodes = new HashSet<UnitNode>();
 
 	// Constructor for Start and EndNodes
-	UnitNode(String unitTitle, Graph graph) {
+	public UnitNode(String unitTitle, Graph graph) {
 		this.unitNodeTitle = unitTitle;
 		this.graph = graph;
 	}
@@ -57,11 +57,11 @@ public class UnitNode implements Serializable {
 		return childNodes;
 	}
 
-	void addParentNode(UnitNode parentNode) {
+	public void addParentNode(UnitNode parentNode) {
 		this.parentNodes.add(parentNode);
 	}
 
-	void addChildNode(UnitNode childNode) {
+	public void addChildNode(UnitNode childNode) {
 		this.childNodes.add(childNode);
 	}
 
@@ -72,15 +72,15 @@ public class UnitNode implements Serializable {
 	public enum UnitType {
 		// START,
 		// END,
-		LEARNING, 
+		LEARNING, TEST
 	}
 
-	void removeChildNode(UnitNode child) {
+	public void removeChildNode(UnitNode child) {
 		this.childNodes.remove(child);
 
 	}
 
-	void removeParentNode(UnitNode parent) {
+	public void removeParentNode(UnitNode parent) {
 		this.parentNodes.remove(parent);
 
 	}

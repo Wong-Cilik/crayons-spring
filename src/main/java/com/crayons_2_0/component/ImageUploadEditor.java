@@ -103,7 +103,7 @@ public class ImageUploadEditor extends CustomComponent {
 
 		class ImageReceiver implements Receiver, SucceededListener {
 
-			private File file;
+			public File file;
 
 			@Override
 			public void uploadSucceeded(SucceededEvent event) {

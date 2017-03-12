@@ -25,12 +25,13 @@ import com.vaadin.spring.annotation.SpringComponent;
  * Class for Course Data Access Object
  *
  */
-@SpringComponent class CourseDAO implements CommandLineRunner {
+@SpringComponent
+public class CourseDAO implements CommandLineRunner {
 
-	private @Autowired
+	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	private @Autowired
+	@Autowired
 	UserService userService;
 
 	// public void createDbTable() {
@@ -44,7 +45,8 @@ import com.vaadin.spring.annotation.SpringComponent;
 	 * 
 	 * @return all courses of DB
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" }) List<Course> findAll() {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Course> findAll() {
 		String query = "select * from courses";
 		RowMapper mapper = new RowMapper<Object>() {
 
@@ -70,7 +72,8 @@ import com.vaadin.spring.annotation.SpringComponent;
 
 	}
 
-	@SuppressWarnings("unchecked") List<Course> searchAll(String input, String coll) {
+	@SuppressWarnings("unchecked")
+	public List<Course> searchAll(String input, String coll) {
 		String query = "SELECT * FROM courses WHERE " + coll + " LIKE '%"
 				+ input + "%'";
 		@SuppressWarnings("rawtypes")
@@ -157,12 +160,12 @@ import com.vaadin.spring.annotation.SpringComponent;
 	 * @param course
 	 *            to Update
 	 */
-	void updateStudents(String tmp, String course) {
+	public void updateStudents(String tmp, String course) {
 		jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
 				tmp, course);
 	}
 
-	void saveData(File file, String title) throws IOException {
+	public void saveData(File file, String title) throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		jdbcTemplate.update("UPDATE courses SET data=? WHERE title=?",
 				new PreparedStatementSetter() {
@@ -175,7 +178,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 		fis.close();
 	}
 
-	void getData(String title) throws IOException {
+	public void getData(String title) throws IOException {
 		File file = new File(title + ".bin");
 		FileOutputStream fos = new FileOutputStream(file);
 		byte[] data = jdbcTemplate

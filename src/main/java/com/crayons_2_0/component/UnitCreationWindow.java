@@ -2,9 +2,12 @@ package com.crayons_2_0.component;
 
 import java.util.ResourceBundle;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.LanguageService;
+import com.crayons_2_0.service.database.UnitService;
 import com.crayons_2_0.view.CourseEditorView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -29,11 +32,12 @@ public final class UnitCreationWindow extends Window {
 
 	// @DB
 
-	private UnitNode parent;
-	private String unitTitle;
-	private UnitNode child;
-	private static Graph graph;
-	
+	UnitNode parent;
+	String unitTitle;
+	UnitNode child;
+	static Graph graph;
+	@Autowired
+	UnitService unitService;
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
@@ -209,5 +213,17 @@ public final class UnitCreationWindow extends Window {
 	 * private Component buildDescription() { return null; }
 	 */
 
-	
+	public enum UnitType {
+		LEARNING_UNIT("Learning unit"), TEST_UNIT("Test unit");
+
+		private final String title;
+
+		UnitType(final String title) {
+			this.title = title;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+	}
 }

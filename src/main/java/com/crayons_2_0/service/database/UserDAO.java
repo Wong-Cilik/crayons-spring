@@ -22,18 +22,21 @@ import com.vaadin.spring.annotation.SpringComponent;
 // LINKS:
 // http://docs.spring.io/spring/docs/2.0.x/reference/jdbc.html
 
-@SpringComponent class UserDAO implements CommandLineRunner {
+@SpringComponent
+public class UserDAO implements CommandLineRunner {
 
 	/**
 	 * for Console logging
 	 */
 	private static final Logger log = LoggerFactory.getLogger(UserDAO.class);
-	private @Autowired
+	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	
+	@Autowired
+	UserService userService;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" }) List<CrayonsUser> findAll() {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<CrayonsUser> findAll() {
 		String query = "select * from users";
 		RowMapper mapper = new RowMapper<Object>() {
 
@@ -66,7 +69,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 	// WICHTIG: realm nicht vergessen, attribute in der sql werden
 	// kleingemacht!!
 
-	void insertUser(CrayonsUser user) {
+	public void insertUser(CrayonsUser user) {
 
 		String mail = user.getEmail();
 		String password = user.getPassword();
@@ -81,7 +84,23 @@ import com.vaadin.spring.annotation.SpringComponent;
 						permission);
 	}
 
-	
+	public void updateUser(CrayonsUser user) {
+
+		String mail = user.getEmail();
+		String password = user.getPassword();
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String language = user.getLanguage().toString();
+		int permission = user.getPermission();
+		// jdbcTemplate.update("update users set password = " + password + "
+		// where email = " + mail);
+		// Returns numer of changed rows
+		jdbcTemplate
+				.update("UPDATE users SET password=?, firstname=?, lastname=?, language=?, permission=? WHERE email=? ",
+						password, firstName, lastName, mail, language,
+						permission);
+
+	}
 
 	/**
 	 * 
@@ -95,7 +114,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 	 *            New last name o be saved
 	 * @return true if successfully inserted, false if not
 	 */
-	boolean updateUser(CrayonsUser user, String eMail, String firstName,
+	public boolean updateUser(CrayonsUser user, String eMail, String firstName,
 			String lastName) {
 		// TODO bad SQL grammar [UPDATE users SET firstname=?, lastname=? WHERE
 		// email=? ]; nested exception is org.postgresql.util.PSQLException:
@@ -109,7 +128,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 	// Example:
 	// http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
 
-	void deleteUser(String user) {
+	public void deleteUser(String user) {
 		String deleteStatement = "DELETE FROM users WHERE email=?";
 		try {
 			jdbcTemplate.update(deleteStatement, user);
@@ -134,13 +153,13 @@ import com.vaadin.spring.annotation.SpringComponent;
 
 	}
 
-	boolean updateRights(String eMail, int r) {
+	public boolean updateRights(String eMail, int r) {
 		jdbcTemplate.update("UPDATE users SET permission=? WHERE email=?", r,
 				eMail);
 		return true;
 	}
 
-	boolean updateLanguage(CrayonsUser user, Language newLanguage) {
+	public boolean updateLanguage(CrayonsUser user, Language newLanguage) {
 		jdbcTemplate.update("UPDATE users SET language=? WHERE email=?",
 				newLanguage.toString(), user.getEmail());
 		return true;

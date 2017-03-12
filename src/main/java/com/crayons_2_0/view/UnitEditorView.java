@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.controller.UnitEditor2;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -49,7 +50,7 @@ public class UnitEditorView extends VerticalLayout implements View {
 																	// Name!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	private final SortableLayout canvas;
-	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	private UnitEditor2 unitEditor;
 
@@ -177,12 +178,12 @@ public class UnitEditorView extends VerticalLayout implements View {
 		return ddWrap;
 	}
 
-	private void addWidget(final PaletteItemType paletteItemType,
+	public void addWidget(final PaletteItemType paletteItemType,
 			final Object prefillData) {
 		canvas.addComponent(paletteItemType, prefillData);
 	}
 
-	private final class SortableLayout extends CustomComponent {
+	public final class SortableLayout extends CustomComponent {
 
 		/**
 		 * 
@@ -258,7 +259,7 @@ public class UnitEditorView extends VerticalLayout implements View {
 			titleLabel.setValue(title);
 		}
 
-		private void addComponent(final PaletteItemType paletteItemType,
+		public void addComponent(final PaletteItemType paletteItemType,
 				final Object prefillData) {
 			if (placeholder.getParent() != null) {
 				layout.removeComponent(placeholder);
@@ -402,11 +403,13 @@ public class UnitEditorView extends VerticalLayout implements View {
 
 	}
 
-	
+	public interface CourseEditorListener {
+		void titleChanged(String newTitle, UnitEditor editor);
+	}
 
 	// TODO Change Language!
 
-	private enum PaletteItemType {
+	public enum PaletteItemType {
 		TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",
 				FontAwesome.CHECK_SQUARE_O), IMAGE("Image", FontAwesome.IMAGE), TRANSACTIONS(
 				"Latest transactions", null);

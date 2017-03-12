@@ -28,10 +28,10 @@ public final class DeleteVerification extends Window {
 	// @DB
 
 	// sollte noch ein set werden
-	private UnitNode deleteUnit;
+	UnitNode deleteUnit;
 
 	// TODO von DB holen
-	private static Graph graph;
+	static Graph graph;
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 

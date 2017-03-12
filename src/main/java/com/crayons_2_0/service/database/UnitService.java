@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.ImageUploadEditor;
+import com.crayons_2_0.component.MultipleChoiceEditor;
 import com.crayons_2_0.component.TextEditor;
 import com.crayons_2_0.component.Unit;
 import com.crayons_2_0.component.UnitPageLayout.WrappedPageItem;
@@ -32,7 +33,7 @@ public class UnitService {
 	@Autowired
 	private CourseService courseService;
 
-	private List<Unit> findAll() {
+	public List<Unit> findAll() {
 		List<Unit> res = unitDAO.findAll();
 		return res;
 	}
@@ -44,7 +45,7 @@ public class UnitService {
 	 *            to find the Units of
 	 * @return the Units of the course
 	 */
-	List<Unit> findUnitsOfCourse(Course course) {
+	public List<Unit> findUnitsOfCourse(Course course) {
 		List<Unit> allUnits = findAll();
 		List<Unit> unitsOfCourse = new LinkedList<Unit>();
 
@@ -60,17 +61,31 @@ public class UnitService {
 
 	// ----------------------------------------------------------------------
 
-	
+	public List<Unit> findUnitByTitle(String unitTitle) {
+		// Todo
+		return null;
+	}
 
-	
+	public Unit findUnitById(long unitId) {
+		return null;
+	}
 
-	
+	public List<Unit> findUnitsByGraphId(long graphId) {
+		return null;
+	}
 
-	
+	public boolean insertUnit(Unit unit) {
+		return true;
+	}
 
-	
+	public boolean removeUnit(Unit unit) {
+		return true;
+	}
 
-	
+	public List<Unit> getUnitsOfCourse(Course course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	// -----------------------------------------------------------------------------
 
@@ -93,7 +108,7 @@ public class UnitService {
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
-				c.getContent();
+				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
 			}
 
 			if (c.getContent().getClass().getName()
