@@ -159,10 +159,15 @@ public class CourseDAO implements CommandLineRunner {
 	 *            String of Students of Course
 	 * @param course
 	 *            to Update
+	 * @return 
 	 */
-	public void updateStudents(String tmp, String course) {
-		jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
-				tmp, course);
+	public boolean updateStudents(String tmp, String course) {
+		if(jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
+				tmp, course) == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void saveData(File file, String title) throws IOException {

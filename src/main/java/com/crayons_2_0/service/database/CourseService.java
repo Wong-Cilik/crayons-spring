@@ -154,12 +154,12 @@ public class CourseService {
 	 * @param title
 	 *            of Course
 	 */
-	public void insertStudent(String[] students, String title) {
+	public boolean insertStudent(String[] students, String title) {
 		String tmp2 = "";
 		for (String tmp : students) {
 			tmp2 = tmp2 + "/" + tmp;
 		}
-		courseDAO.updateStudents(tmp2, title);
+		return courseDAO.updateStudents(tmp2, title);
 	}
 
 	/**
