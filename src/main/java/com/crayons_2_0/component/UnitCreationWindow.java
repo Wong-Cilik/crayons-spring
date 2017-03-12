@@ -204,22 +204,4 @@ public final class UnitCreationWindow extends Window {
 		footer.setComponentAlignment(ok, Alignment.TOP_CENTER);
 		return footer;
 	}
-
-	/*
-	 * private Component buildDescription() { return null; }
-	 */
-
-	public enum UnitType {
-		LEARNING_UNIT("Learning unit"), TEST_UNIT("Test unit");
-
-		private final String title;
-
-		UnitType(final String title) {
-			this.title = title;
-		}
-
-		public String getTitle() {
-			return title;
-		}
-	}
 }

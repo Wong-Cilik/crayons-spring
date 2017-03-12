@@ -57,10 +57,6 @@ public class UnitDAO {
 		return UnitType.LEARNING;
 	}
 
-	public boolean save(Unit unit) {
-		return true;
-	}
-
 	public void saveData(File file, String titleUnit, String titleCourse)
 			throws IOException {
 		FileInputStream fis = new FileInputStream(file);

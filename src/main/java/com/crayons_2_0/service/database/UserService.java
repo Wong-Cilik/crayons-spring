@@ -1,7 +1,6 @@
 package com.crayons_2_0.service.database;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
