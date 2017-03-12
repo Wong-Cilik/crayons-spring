@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +112,7 @@ public class CourseDAO implements CommandLineRunner {
 		String author = course.getAuthor().getEmail();
 		String students = "";
 		jdbcTemplate
-				.update("insert into courses (title, description, author, students) VALUES (?, ?, ?, ?)",
+				.update("insert into courses (title, description, author, students, datetime) VALUES (?, ?, ?, ?,CURRENT_TIMESTAMP)",
 						title, description, author, students);
 	}
 
@@ -139,11 +140,11 @@ public class CourseDAO implements CommandLineRunner {
 	 *            to remove from DB
 	 */
 	public void remove(Course course) {
-		String deleteStatementCourse = "DELETE FROM courses WHERE title=?";
-		String deleteStatementUnits = "DELETE FROM units WHERE coursetitle=?";
+		String deleteStatementCourse = "DELETE FROM courses WHERE title=? AND author=?";
+		//String deleteStatementUnits = "DELETE FROM units WHERE coursetitle=?";
 		try {
-			jdbcTemplate.update(deleteStatementCourse, course.getTitle());
-			jdbcTemplate.update(deleteStatementUnits, course.getTitle());
+			jdbcTemplate.update(deleteStatementCourse, course.getTitle(), course.getAuthor().getEmail());
+			//jdbcTemplate.update(deleteStatementUnits, course.getTitle());
 		} catch (RuntimeException e) {
 			// throw new CourseTitleNotFoundException("Course with Title:" +
 			// course.getTitle() + "doesnt exists!");
