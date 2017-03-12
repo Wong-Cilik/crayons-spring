@@ -314,11 +314,11 @@ public class Preferences extends VerticalLayout implements View {
 								.getValue()
 						|| CurrentUser.getInstance().getUser().getLastName() != lastNameField
 								.getValue()
-						|| newPassword.getValue().length() != 0) {
+						|| newPassword.getValue().length() == 0) {
 					System.out.println("im richtigem ändern");
 					if (userService.updateUser(CurrentUser.getInstance()
 							.getUser(), emailField.getValue(), firstNameField
-							.getValue(), lastNameField.getValue(), newPassword.getValue()
+							.getValue(), lastNameField.getValue(), CurrentUser.getInstance().getUser().getPassword()
 							)) {
 						notifSuccesProfileChange();
 				} else if ((CurrentUser.getInstance().getUser().getUsername() != emailField
@@ -330,7 +330,7 @@ public class Preferences extends VerticalLayout implements View {
 					System.out.println("im 3");
 					if (userService.updateUser(CurrentUser.getInstance()
 							.getUser(), emailField.getValue(), firstNameField
-							.getValue(), lastNameField.getValue(), CurrentUser.getInstance().getUser().getPassword()
+							.getValue(), lastNameField.getValue(), newPassword.getValue()
 							)) {
 						notifSuccesProfileChange();
 					}
