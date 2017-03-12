@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.crayons_2_0.MyUI;
-import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;

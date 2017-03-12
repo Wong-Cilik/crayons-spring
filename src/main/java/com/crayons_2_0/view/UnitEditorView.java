@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.controller.UnitEditor2;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;

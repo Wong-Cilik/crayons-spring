@@ -169,29 +169,6 @@ public class UserService implements UserDetailsService {
 	}
 
 	/**
-	 * Returns an List of User of DB finding by Name (FirstName & LastName)
-	 * 
-	 * @param firstName
-	 *            of User
-	 * @param lastName
-	 *            of User
-	 * @return List of User of DB by FirstName & LastName
-	 */
-	public List<CrayonsUser> findByName(String firstName, String lastName) {
-		List<CrayonsUser> users = findAll();
-		List<CrayonsUser> userWithName = new LinkedList<CrayonsUser>();
-
-		for (CrayonsUser tmpUser : users) {
-			if (tmpUser.getFirstName().equals(firstName)
-					&& tmpUser.getLastName().equals(lastName)) {
-				userWithName.add(tmpUser);
-			}
-		}
-
-		return userWithName;
-	}
-
-	/**
 	 * Returns an User by his email
 	 * 
 	 * @param eMail

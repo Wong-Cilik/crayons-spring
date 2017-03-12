@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,14 +23,8 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class UserDAO implements CommandLineRunner {
 
-	/**
-	 * for Console logging
-	 */
-	private static final Logger log = LoggerFactory.getLogger(UserDAO.class);
 	private @Autowired
 	JdbcTemplate jdbcTemplate;
-
-	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<CrayonsUser> findAll() {
@@ -81,24 +73,6 @@ public class UserDAO implements CommandLineRunner {
 				.update("insert into users (email, password, firstname, lastname, language, permission) VALUES (?, ?, ?, ?, ?, ?)",
 						mail, password, firstName, lastName, language,
 						permission);
-	}
-
-	public void updateUser(CrayonsUser user) {
-
-		String mail = user.getEmail();
-		String password = user.getPassword();
-		String firstName = user.getFirstName();
-		String lastName = user.getLastName();
-		String language = user.getLanguage().toString();
-		int permission = user.getPermission();
-		// jdbcTemplate.update("update users set password = " + password + "
-		// where email = " + mail);
-		// Returns numer of changed rows
-		jdbcTemplate
-				.update("UPDATE users SET password=?, firstname=?, lastname=?, language=?, permission=? WHERE email=? ",
-						password, firstName, lastName, mail, language,
-						permission);
-
 	}
 
 	/**

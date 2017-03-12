@@ -2,12 +2,9 @@ package com.crayons_2_0.component;
 
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.LanguageService;
-import com.crayons_2_0.service.database.UnitService;
 import com.crayons_2_0.view.CourseEditorView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;

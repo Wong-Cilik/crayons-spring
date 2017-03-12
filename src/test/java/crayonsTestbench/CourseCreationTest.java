@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.testbench.TestBench;
 import com.vaadin.testbench.TestBenchTestCase;

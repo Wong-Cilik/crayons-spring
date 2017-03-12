@@ -354,12 +354,6 @@ public final class UnitEditor extends Window {
 
 	}
 
-	public interface CourseEditorListener {
-		void titleChanged(String newTitle, UnitEditor editor);
-	}
-
-	// TODO Change Language!
-
 	public enum PaletteItemType {
 		TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",
 				FontAwesome.CHECK_SQUARE_O), IMAGE("Image", FontAwesome.IMAGE), TRANSACTIONS(

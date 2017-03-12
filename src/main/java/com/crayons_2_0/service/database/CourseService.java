@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -23,9 +21,7 @@ import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 import com.crayons_2_0.service.CourseDisplay;
-import com.crayons_2_0.service.LanguageService;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Notification;
 
 /**
  * Services for Access of Courses of DB (via CourseDAO)

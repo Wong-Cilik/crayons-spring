@@ -59,36 +59,6 @@ public class UnitService {
 		return unitsOfCourse;
 	}
 
-	// ----------------------------------------------------------------------
-
-	public List<Unit> findUnitByTitle(String unitTitle) {
-		// Todo
-		return null;
-	}
-
-	public Unit findUnitById(long unitId) {
-		return null;
-	}
-
-	public List<Unit> findUnitsByGraphId(long graphId) {
-		return null;
-	}
-
-	public boolean insertUnit(Unit unit) {
-		return true;
-	}
-
-	public boolean removeUnit(Unit unit) {
-		return true;
-	}
-
-	public List<Unit> getUnitsOfCourse(Course course) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	// -----------------------------------------------------------------------------
-
 	public void saveUnitData(VerticalLayout layout, String titleUnit,
 			String titleCourse) {
 
@@ -108,6 +78,7 @@ public class UnitService {
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
+				@SuppressWarnings("unused")
 				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
 			}
 

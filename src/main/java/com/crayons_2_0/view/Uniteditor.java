@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.service.LanguageService;
-import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
@@ -89,23 +88,6 @@ public class Uniteditor extends VerticalLayout implements View {
 	 */
 	public Uniteditor() {
 
-	}
-
-	public void refresh(UnitPageLayout upl) {
-		removeAllComponents();
-		Component pageItemsPalette = buildPageItemsPalette();
-		addComponent(pageItemsPalette);
-		setComponentAlignment(pageItemsPalette, Alignment.TOP_CENTER);
-
-		page = upl;
-		page.setWidth(100.0f, Unit.PERCENTAGE);
-		page.setStyleName("canvas");
-		addComponent(page);
-		setExpandRatio(page, 8);
-
-		Component footer = buildFooter();
-		footer.setSizeFull();
-		addComponent(footer);
 	}
 
 	/**
