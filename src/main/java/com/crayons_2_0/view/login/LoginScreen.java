@@ -2,6 +2,7 @@ package com.crayons_2_0.view.login;
 
 import java.util.ResourceBundle;
 
+import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
@@ -35,6 +36,8 @@ public class LoginScreen extends CssLayout implements View {
      */
 	// AccessControl accessControl, LoginListener loginListener
 	public LoginScreen() {
+	    LanguageService.getInstance().setCurrentLocale(Language.German);
+	    lang = LanguageService.getInstance().getRes();
 		// this.loginListener = loginListener;
 		// this.accessControl = accessControl;
 		buildUI();

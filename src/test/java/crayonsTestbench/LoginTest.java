@@ -20,8 +20,16 @@ public class LoginTest extends TestBenchTestCase {
 
 	@Before
 	public void setup() throws Exception {
-		System.setProperty("webdriver.chrome.driver",
-				"src/main/resources/chromedriver");
+	    String osName = System.getProperty("os.name");
+        osName = osName.substring(0, osName.indexOf(' '));
+        System.out.println(osName);
+        if (osName.equals("Windows")) {
+            System.setProperty("webdriver.chrome.driver",
+                    "src/main/resources/chromedriver.exe");
+        } else if (osName.equals("Mac")) {
+            System.setProperty("webdriver.chrome.driver",
+                    "src/main/resources/chromedriver");
+        }
 		setDriver(TestBench.createDriver(new ChromeDriver()));
 		// Open the WebPage
 		getDriver().get("http://localhost:8080");
@@ -38,12 +46,12 @@ public class LoginTest extends TestBenchTestCase {
 	public void test() {
 
 		// 1. Enter eMail < > into the eMail-Login field
-		$(TextFieldElement.class).caption("Anmelden: ").first()
+		$(TextFieldElement.class).caption(lang.getString("Login") + ": ").first()
 				.setValue("client@web.de");
 
 		// 2. Enter password "123456" into the password-Login field
-		$(PasswordFieldElement.class).caption("Passwort: ").first()
-				.setValue("123455");
+		$(PasswordFieldElement.class).caption(lang.getString("Password") + ": ").first()
+				.setValue("123456");
 
 		// 3. Click the "Login" button
 		$(ButtonElement.class).caption(lang.getString("Login")).first().click();

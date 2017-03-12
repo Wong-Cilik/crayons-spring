@@ -43,4 +43,9 @@ public class UnitData implements Serializable {
 	public void setImageTitle(String imageTitle) {
 		this.imageTitle = imageTitle;
 	}
+
+	public Object getQuestion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

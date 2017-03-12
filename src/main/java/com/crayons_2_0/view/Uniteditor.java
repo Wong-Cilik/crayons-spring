@@ -75,7 +75,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		addComponent(pageItemsPalette);
 		setComponentAlignment(pageItemsPalette, Alignment.TOP_CENTER);
 
-		page = new UnitPageLayout();
+		page = new UnitPageLayout(true);
 		page.setWidth(100.0f, Unit.PERCENTAGE);
 		page.setStyleName("canvas");
 		addComponent(page);
@@ -126,7 +126,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		paletteLayout.addStyleName("palette");
 
 		paletteLayout.addComponent(buildPaletteItem(PageItemType.TEXT));
-		paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
+		//paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
 		paletteLayout
 				.addComponent(buildPaletteItem(PageItemType.MULTIPLE_CHOICE));
 
@@ -315,7 +315,7 @@ public class Uniteditor extends VerticalLayout implements View {
 	 */
 	public void addPageComponent(final PageItemType pageItemType,
 			final Object prefillData) {
-		page.addComponent(pageItemType, prefillData);
+		page.addComponent(pageItemType, prefillData, true);
 	}
 
 	/**
@@ -457,7 +457,7 @@ public class Uniteditor extends VerticalLayout implements View {
 	public void refresh() {
 		page.replaceAllComponent(unitService.getUnitData(CurrentCourses
 				.getInstance().getUnitTitle(), CurrentCourses.getInstance()
-				.getTitle()));
+				.getTitle()), true);
 	}
 
 	@Override
