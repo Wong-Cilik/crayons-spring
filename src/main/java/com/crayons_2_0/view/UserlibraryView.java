@@ -88,7 +88,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 	 * @return title of the author library
 	 */
 	private Component buildTitle() {
-		Label title = new Label("Kursübersicht");
+		Label title = new Label(lang.getString("Overview"));
 		title.addStyleName(ValoTheme.LABEL_H2);
 		return title;
 	}
@@ -134,14 +134,14 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 		Label courseDescription = new Label();
 		courseDescription.setContentMode(ContentMode.HTML);
-		courseDescription.setValue("<h3>Description</h3>\n"
+		courseDescription.setValue("<h3>" + lang.getString("CourseDescription") + "</h3>\n"
 				+ course.getDescription());
 		courseDescription.setSizeFull();
 		tabContent.addComponent(courseDescription);
 
 		Label courseAuthor = new Label();
 		courseAuthor.setContentMode(ContentMode.HTML);
-		courseAuthor.setValue("<h3>Author</h3>\n"
+		courseAuthor.setValue("<h3>" + lang.getString("Author") + "</h3>\n"
 				+ course.getAuthor().getFirstName() + " "
 				+ course.getAuthor().getLastName());
 		courseAuthor.setSizeFull();
@@ -171,7 +171,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 		controlButtons.setMargin(true);
 		controlButtons.setSpacing(true);
 
-		Button leaveCourse = new Button("Verlassen");
+		Button leaveCourse = new Button(lang.getString("LeaveTheCourse"));
 		controlButtons.addComponent(leaveCourse);
 		controlButtons
 				.setComponentAlignment(leaveCourse, Alignment.MIDDLE_LEFT);
@@ -190,7 +190,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 		});
 
-		Button study = new Button("Lernen");
+		Button study = new Button(lang.getString("Learn"));
 		controlButtons.addComponent(study);
 		controlButtons.setComponentAlignment(study, Alignment.MIDDLE_RIGHT);
 
@@ -255,7 +255,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 				}
 			}
 		});
-		filter.setInputPrompt("Suche");
+		filter.setInputPrompt(lang.getString("Search"));
 		filter.setIcon(FontAwesome.SEARCH);
 		filter.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 		filter.setSizeUndefined();
