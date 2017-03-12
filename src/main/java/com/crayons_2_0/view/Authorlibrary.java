@@ -26,6 +26,8 @@ import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Alignment;
@@ -265,7 +267,20 @@ public class Authorlibrary extends VerticalLayout implements View,
 				@SuppressWarnings("unchecked")
 				Collection<String> tmp = (Collection<String>) selectStudents
 						.getValue();
-				courseService.insertStudent(tmp.toArray(new String[0]), title);
+				if(courseService.insertStudent(tmp.toArray(new String[0]), title)){
+					Notification success = new Notification(lang
+							.getString("StudentListUpdatedSuccessfully"));
+					success.setDelayMsec(4000);
+					success.setStyleName("barSuccessSmall");
+					success.setPosition(Position.BOTTOM_CENTER);
+					success.show(Page.getCurrent());
+				} else {
+					Notification failure = new Notification(lang
+							.getString("StudentListUpdatedSuccessfully"));
+					failure.setDelayMsec(4000);
+					failure.setPosition(Position.BOTTOM_CENTER);
+					failure.show(Page.getCurrent());
+				}
 			}
 		});
 
