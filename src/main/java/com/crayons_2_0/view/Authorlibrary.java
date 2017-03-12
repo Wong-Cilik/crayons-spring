@@ -175,10 +175,14 @@ public class Authorlibrary extends VerticalLayout implements View,
 		couseDescription.setSizeFull();
 		tabContent.addComponent(couseDescription);
 
+		HorizontalLayout footer = new HorizontalLayout();
+        footer.setWidth("100%");
+        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
 		Button createCourse = new Button(lang.getString("CreateCourse"));
 		createCourse.setStyleName(ValoTheme.BUTTON_PRIMARY);
-		tabContent.addComponent(createCourse);
-		tabContent.setComponentAlignment(createCourse, Alignment.MIDDLE_CENTER);
+        footer.addComponent(createCourse);
+        footer.setComponentAlignment(createCourse, Alignment.BOTTOM_CENTER);
+        tabContent.addComponent(footer);
 
 		createCourse.addClickListener(new ClickListener() {
 
@@ -268,10 +272,13 @@ public class Authorlibrary extends VerticalLayout implements View,
 		selectStudents.setImmediate(true);
 		tabContent.addComponent(selectStudents);
 		tabContent.addComponent(saveStudents);
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.setWidth("100%");
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
 		Component controlButtons = buildControlButtons(tabContent, title);
-		tabContent.addComponent(controlButtons);
-		tabContent.setComponentAlignment(controlButtons,
-				Alignment.BOTTOM_CENTER);
+		footer.addComponent(controlButtons);
+		footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
+		tabContent.addComponent(footer);
 
 		return tabContent;
 	}
@@ -287,13 +294,11 @@ public class Authorlibrary extends VerticalLayout implements View,
 	 */
 	private Component buildControlButtons(Component tab, String title) {
 		HorizontalLayout controlButtons = new HorizontalLayout();
-		controlButtons.setMargin(true);
+		controlButtons.setMargin(false);
 		controlButtons.setSpacing(true);
 
 		Button deleteCourse = new Button(lang.getString("DeleteCourse"));
 		controlButtons.addComponent(deleteCourse);
-		controlButtons.setComponentAlignment(deleteCourse,
-				Alignment.BOTTOM_RIGHT);
 		deleteCourse.addClickListener(new ClickListener() {
 
 			/**

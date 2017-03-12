@@ -132,13 +132,6 @@ public class UserlibraryView extends VerticalLayout implements View {
 		tabContent.setSpacing(true);
 		tabContent.setMargin(true);
 
-		Label courseDescription = new Label();
-		courseDescription.setContentMode(ContentMode.HTML);
-		courseDescription.setValue("<h3>" + lang.getString("CourseDescription") + "</h3>\n"
-				+ course.getDescription());
-		courseDescription.setSizeFull();
-		tabContent.addComponent(courseDescription);
-
 		Label courseAuthor = new Label();
 		courseAuthor.setContentMode(ContentMode.HTML);
 		courseAuthor.setValue("<h3>" + lang.getString("Author") + "</h3>\n"
@@ -146,12 +139,21 @@ public class UserlibraryView extends VerticalLayout implements View {
 				+ course.getAuthor().getLastName());
 		courseAuthor.setSizeFull();
 		tabContent.addComponent(courseAuthor);
+		
+		Label courseDescription = new Label();
+        courseDescription.setContentMode(ContentMode.HTML);
+        courseDescription.setValue("<h3>" + lang.getString("CourseDescription") + "</h3>\n"
+                + course.getDescription());
+        courseDescription.setSizeFull();
+        tabContent.addComponent(courseDescription);
 
-		Component controlButtons = buildControlButtons(tabContent,
-				course.getTitle());
-		tabContent.addComponent(controlButtons);
-		tabContent.setComponentAlignment(controlButtons,
-				Alignment.BOTTOM_CENTER);
+        HorizontalLayout footer = new HorizontalLayout();
+        footer.setWidth("100%");
+        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+        Component controlButtons = buildControlButtons(tabContent, course.getTitle());
+        footer.addComponent(controlButtons);
+        footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
+        tabContent.addComponent(footer);
 
 		return tabContent;
 	}
@@ -168,7 +170,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 	 */
 	private Component buildControlButtons(Component tab, String title) {
 		HorizontalLayout controlButtons = new HorizontalLayout();
-		controlButtons.setMargin(true);
+		controlButtons.setMargin(false);
 		controlButtons.setSpacing(true);
 
 		Button leaveCourse = new Button(lang.getString("LeaveTheCourse"));
@@ -191,6 +193,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 		});
 
 		Button study = new Button(lang.getString("Learn"));
+		study.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		controlButtons.addComponent(study);
 		controlButtons.setComponentAlignment(study, Alignment.MIDDLE_RIGHT);
 

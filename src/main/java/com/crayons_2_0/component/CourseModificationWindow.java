@@ -53,10 +53,7 @@ public class CourseModificationWindow extends Window {
 		setClosable(true);
 		setHeight(50.0f, Unit.PERCENTAGE);
 		setWidth(30.0f, Unit.PERCENTAGE);
-
-		VerticalLayout windowContent = new VerticalLayout();
-		windowContent.setSizeFull();
-		windowContent.setSpacing(true);
+		
 		this.setContent(buildContent());
 	}
 
@@ -69,6 +66,7 @@ public class CourseModificationWindow extends Window {
 		Label windowTitle = new Label();
 		windowTitle.setSizeUndefined();
 		windowTitle.addStyleName(ValoTheme.LABEL_H3);
+		windowTitle.addStyleName(ValoTheme.LABEL_BOLD);
 		windowTitle.setValue(lang.getString("ModifyCourse"));
 		content.addComponent(windowTitle);
 		content.setComponentAlignment(windowTitle, Alignment.TOP_CENTER);
@@ -99,11 +97,14 @@ public class CourseModificationWindow extends Window {
 		content.addComponent(couseDescription);
 		content.setComponentAlignment(couseDescription, Alignment.MIDDLE_LEFT);
 
-		Component controlButtons = buildControlButtons(courseTitleField,
-				couseDescriptionField);
-		controlButtons.setSizeFull();
-		content.addComponent(controlButtons);
-		content.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
+		HorizontalLayout footer = new HorizontalLayout();
+        footer.setWidth("100%");
+        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+        Component controlButtons = buildControlButtons(courseTitleField,
+                couseDescriptionField);
+        footer.addComponent(controlButtons);
+        footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
+        content.addComponent(footer);
 
 		return content;
 	}
