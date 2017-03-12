@@ -18,6 +18,9 @@ public class UnitData implements Serializable {
 	public UnitData(Image image, String imageTitle) {
 		this.setImage(image);
 		this.setImageTitle(imageTitle);
+		System.out.println("sodfngo" + this.image);
+		System.out.println("frth" + this.image.getSource());
+		System.out.println("sodfngo" + this.image.getAlternateText());
 	}
 
 	public String getText() {
@@ -42,5 +45,10 @@ public class UnitData implements Serializable {
 
 	public void setImageTitle(String imageTitle) {
 		this.imageTitle = imageTitle;
+	}
+
+	public Object getQuestion() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

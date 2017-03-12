@@ -126,7 +126,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		paletteLayout.addStyleName("palette");
 
 		paletteLayout.addComponent(buildPaletteItem(PageItemType.TEXT));
-		paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
+		//paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
 		paletteLayout
 				.addComponent(buildPaletteItem(PageItemType.MULTIPLE_CHOICE));
 

@@ -53,7 +53,7 @@ public final class UnitPageLayout extends CustomComponent {
 	 * the user where the components can be dropped.
 	 */
 	public void addDropArea() {
-		layout.addComponent(buildDropArea());
+		//layout.addComponent(buildDropArea());
 	}
 
 	public VerticalLayout getLayout() {
@@ -131,13 +131,11 @@ public final class UnitPageLayout extends CustomComponent {
 	 */
 	public void addComponent(final PageItemType pageItemType,
 			final Object prefillData) {
-		if (dropArea.getParent() != null) {
-			layout.removeComponent(dropArea);
-		}
+		//if (dropArea.getParent() != null) {
+		//	layout.removeComponent(dropArea);
+		//}
 		Component x = new WrappedPageItem(createComponentFromPageItem(
 				pageItemType, prefillData));
-		x.setReadOnly(true);
-		x.setEnabled(false);
 		layout.addComponent(x);
 	}
 
@@ -156,6 +154,17 @@ public final class UnitPageLayout extends CustomComponent {
 		if (type == PageItemType.TEXT) {
 			result = new TextEditor(
 					prefillData != null ? String.valueOf(prefillData) : null);
+			
+			/*
+			TextEditor x = new TextEditor(
+					prefillData != null ? String.valueOf(prefillData) : null);
+			final Label text = new Label(x.getContent());
+			text.setContentMode(ContentMode.HTML);
+			CssLayout r = new CssLayout(text);
+			r.setSizeFull();
+			result = r;
+			*/
+			
 		} else if (type == PageItemType.IMAGE) {
 			result = new ImageUploadEditor();
 		} else if (type == PageItemType.MULTIPLE_CHOICE) {
@@ -290,7 +299,15 @@ public final class UnitPageLayout extends CustomComponent {
 	public void replaceAllComponent(List<UnitData> unitData) {
 		removeAllComponent();
 		for (UnitData tmpUnit : unitData) {
-			addComponent(PageItemType.TEXT, tmpUnit.getText());
+			System.out.println(tmpUnit.getText());
+			if (tmpUnit.getText() != null) {
+				System.out.println("dfdf");
+				addComponent(PageItemType.TEXT, tmpUnit.getText());
+			} else if (tmpUnit.getImage() != null) {
+				System.out.println("srpoghj");
+			} else if (tmpUnit.getQuestion() != null) {
+				
+			}
 		}
 	}
 

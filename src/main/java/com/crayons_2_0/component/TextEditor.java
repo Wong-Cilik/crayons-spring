@@ -64,7 +64,6 @@ public class TextEditor extends CustomComponent {
 				setCompositionRoot(textEditor);
 			}
 		});
-
 		CssLayout result = new CssLayout(text, editButton);
 		result.addStyleName("text-editor");
 		result.setSizeFull();
