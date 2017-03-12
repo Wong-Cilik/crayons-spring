@@ -40,11 +40,13 @@ public class CourseModificationWindow extends Window {
 	private TabSheet tabSheet;
 	private Component tab;
 	private Course course;
-	private @Autowired
-	CourseService courseService;
 
-	public CourseModificationWindow(Course course, Component tab,
-			TabSheet tabSheet) {
+	@Autowired
+	private CourseService courseService;
+
+	public CourseModificationWindow(CourseService courseService, Course course, 
+	        Component tab, TabSheet tabSheet) {
+	    this.courseService = courseService;
 		this.course = course;
 		this.tab = tab;
 		this.tabSheet = tabSheet;
@@ -129,19 +131,25 @@ public class CourseModificationWindow extends Window {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Course tmp = courseService.findCourseByTitle(course.getTitle());
-				tmp.setTitle(courseTitleField.getValue());
-				tmp.setDescription(couseDescriptionField.getValue());
-				courseService.update(tmp, course.getTitle());
-				tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
-				tabSheet.getTab(tab).setDescription(
-						couseDescriptionField.getValue());
-				close();
-				Notification success = new Notification(lang
-						.getString("CourseIsModifiedSuccessfully"));
-				success.setDelayMsec(2000);
-				success.setStyleName("bar success small");
-				success.setPosition(Position.BOTTOM_CENTER);
-				success.show(Page.getCurrent());
+				String newCourseTitle = courseTitleField.getValue();
+				if (courseService.findCourseByTitle(newCourseTitle) == null) {
+				    tmp.setTitle(courseTitleField.getValue());
+	                tmp.setDescription(couseDescriptionField.getValue());
+	                courseService.update(tmp, course.getTitle());
+	                tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
+	                tabSheet.getTab(tab).setDescription(
+	                        couseDescriptionField.getValue());
+	                close();
+	                Notification success = new Notification(lang
+	                        .getString("CourseIsModifiedSuccessfully"));
+	                success.setDelayMsec(2000);
+	                success.setStyleName("bar success small");
+	                success.setPosition(Position.BOTTOM_CENTER);
+	                success.show(Page.getCurrent());
+				} else {
+				    Notification.show(lang.getString("CourseAlreadyExists"),
+                            Notification.Type.WARNING_MESSAGE);
+				}
 			}
 
 		});

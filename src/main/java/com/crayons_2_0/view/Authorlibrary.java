@@ -343,7 +343,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				UI.getCurrent().addWindow(
-						new CourseModificationWindow(courseService
+						new CourseModificationWindow(courseService, courseService
 								.findCourseByTitle(title), tab, tabSheet));
 			}
 		});
