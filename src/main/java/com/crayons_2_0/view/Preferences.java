@@ -84,12 +84,11 @@ public class Preferences extends VerticalLayout implements View {
 	/*
 	 * @PropertyId("newsletterSubscription") private OptionalSelect<Integer>
 	 * newsletterField;
-	 * 
-	 * @PropertyId("website")
 	 */
-	private TextField websiteField;
-	@PropertyId("bio")
-	private TextArea bioField;
+	@PropertyId("newpassword")
+	private TextField newPassword;
+	@PropertyId("newpasswordconfirmation")
+	private TextField newPasswordConfirmation;
 
 	public Preferences() {
 
@@ -125,7 +124,7 @@ public class Preferences extends VerticalLayout implements View {
 		 * fieldGroup.setItemDataSource(user);
 		 */
 	}
-
+	
 	private Component buildPreferencesTab() {
 		VerticalLayout root = new VerticalLayout();
 		root.setCaption(lang.getString("Preferences"));
@@ -272,22 +271,20 @@ public class Preferences extends VerticalLayout implements View {
 		 * details.addComponent(newsletterField);
 		 */
 
-		section = new Label(lang.getString("AdditionalInfo"));
+		section = new Label(lang.getString("PWChange"));
 		section.addStyleName(ValoTheme.LABEL_H4);
 		section.addStyleName(ValoTheme.LABEL_COLORED);
 		details.addComponent(section);
 
-		websiteField = new TextField(lang.getString("Website"));
-		websiteField.setInputPrompt("http://");
-		websiteField.setWidth("100%");
-		websiteField.setNullRepresentation("");
-		details.addComponent(websiteField);
-
-		bioField = new TextArea(lang.getString("Bio"));
-		bioField.setWidth("100%");
-		bioField.setRows(4);
-		bioField.setNullRepresentation("");
-		details.addComponent(bioField);
+		newPassword = new TextField(lang.getString("NewPassword"));
+		newPassword.setWidth("100%");
+		newPassword.setNullRepresentation("");
+		details.addComponent(newPassword);
+		
+		newPasswordConfirmation = new TextField(lang.getString("NewPasswordConfirmation"));
+		newPasswordConfirmation.setWidth("100%");
+		newPasswordConfirmation.setNullRepresentation("");
+		details.addComponent(newPasswordConfirmation);
 
 		return root;
 	}
@@ -297,7 +294,7 @@ public class Preferences extends VerticalLayout implements View {
 		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
 		footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-		Button ok = new Button(lang.getString("OK"));
+		Button ok = new Button(lang.getString("Save"));
 		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		ok.addClickListener(new ClickListener() {
 			/**
@@ -306,45 +303,39 @@ public class Preferences extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-
-				// fieldGroup.commit();
-				// Updated user should also be persisted to database. But
-				// not in this demo.
-				if (CurrentUser.getInstance().getUser().getUsername() != emailField
+				if(newPassword.getValue().length() != 0 && (!newPassword.getValue().equals(newPasswordConfirmation.getValue()) 
+						|| newPassword.getValue().length() < 8)) {
+					notifPWMatchesNot();
+					System.out.println("im 1");
+						
+				} else if (CurrentUser.getInstance().getUser().getUsername() != emailField
 						.getValue()
 						|| CurrentUser.getInstance().getUser().getFirstName() != firstNameField
 								.getValue()
 						|| CurrentUser.getInstance().getUser().getLastName() != lastNameField
-								.getValue()) {
+								.getValue()
+						|| newPassword.getValue().length() != 0) {
+					System.out.println("im richtigem ändern");
 					if (userService.updateUser(CurrentUser.getInstance()
 							.getUser(), emailField.getValue(), firstNameField
-							.getValue(), lastNameField.getValue())) {
-						Notification success = new Notification(lang
-								.getString("ProfileUpdatedSuccessfully"));
-						success.setDelayMsec(2000);
-						success.setStyleName("barSuccessSmall");
-						success.setPosition(Position.BOTTOM_CENTER);
-						success.show(Page.getCurrent());
+							.getValue(), lastNameField.getValue(), newPassword.getValue()
+							)) {
+						notifSuccesProfileChange();
+				} else if ((CurrentUser.getInstance().getUser().getUsername() != emailField
+						.getValue()
+						|| CurrentUser.getInstance().getUser().getFirstName() != firstNameField
+								.getValue()
+						|| CurrentUser.getInstance().getUser().getLastName() != lastNameField
+								.getValue())) {
+					System.out.println("im 3");
+					if (userService.updateUser(CurrentUser.getInstance()
+							.getUser(), emailField.getValue(), firstNameField
+							.getValue(), lastNameField.getValue(), CurrentUser.getInstance().getUser().getPassword()
+							)) {
+						notifSuccesProfileChange();
 					}
 				}
-
-				// DashboardEventBus.post(new ProfileUpdatedEvent());
-
-				/*
-				 * try { //fieldGroup.commit(); // Updated user should also be
-				 * persisted to database. But // not in this demo.
-				 * 
-				 * Notification success = new Notification(
-				 * "Profile updated successfully"); success.setDelayMsec(2000);
-				 * success.setStyleName("bar success small");
-				 * success.setPosition(Position.BOTTOM_CENTER);
-				 * success.show(Page.getCurrent());
-				 * 
-				 * //DashboardEventBus.post(new ProfileUpdatedEvent()); close();
-				 * } catch (CommitException e) {
-				 * Notification.show("Error while updating profile",
-				 * Type.ERROR_MESSAGE); }
-				 */
+				}
 
 			}
 		});
@@ -353,10 +344,28 @@ public class Preferences extends VerticalLayout implements View {
 		footer.setComponentAlignment(ok, Alignment.TOP_RIGHT);
 		return footer;
 	}
-
+	
+	public void notifSuccesProfileChange() {
+		Notification success = new Notification(lang
+				.getString("ProfileUpdatedSuccessfully"));
+		success.setDelayMsec(2000);
+		success.setStyleName("barSuccessSmall");
+		success.setPosition(Position.BOTTOM_CENTER);
+		success.show(Page.getCurrent());
+	}
+	
+	public void notifPWMatchesNot() {
+		Notification failure = new Notification(lang
+				.getString("PWsNeedsToBeSameOrGreater8"));
+		failure.setDelayMsec(5000);
+		failure.setPosition(Position.BOTTOM_CENTER);
+		failure.show(Page.getCurrent());
+	}
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
-
+		newPassword.setValue("");
+		newPasswordConfirmation.setValue("");
 	}
 
 }

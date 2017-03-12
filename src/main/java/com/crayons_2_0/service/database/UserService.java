@@ -100,10 +100,12 @@ public class UserService implements UserDetailsService {
 	 *            newFirst Name
 	 * @param lastName
 	 *            new LastName
+	 * @param password
+	 * 				new password
 	 * @return true if successfull
 	 */
 	public boolean updateUser(CrayonsUser user, String eMail, String firstName,
-			String lastName) {
+			String lastName, String password) {
 		// Check if eMail is valid
 		String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
 		Pattern pattern = Pattern.compile(regex);
@@ -128,7 +130,7 @@ public class UserService implements UserDetailsService {
 		}
 
 		// Go on
-		return userDAO.updateUser(user, eMail, firstName, lastName);
+		return userDAO.updateUser(user, eMail, firstName, lastName, password);
 	}
 
 	public boolean updateUserLanguage(CrayonsUser user, Language newLanguage) {
@@ -139,6 +141,7 @@ public class UserService implements UserDetailsService {
 		return userDAO.updateLanguage(user, newLanguage);
 	}
 
+	
 	public boolean updateRights(String eMail, String role) {
 		int r = 2;
 		if (role.equals("Autor")) {

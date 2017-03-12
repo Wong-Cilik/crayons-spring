@@ -112,16 +112,17 @@ public class UserDAO implements CommandLineRunner {
 	 *            New first name to be saved
 	 * @param lastName
 	 *            New last name o be saved
+	 * @param password 
 	 * @return true if successfully inserted, false if not
 	 */
 	public boolean updateUser(CrayonsUser user, String eMail, String firstName,
-			String lastName) {
+			String lastName, String password) {
 		// TODO bad SQL grammar [UPDATE users SET firstname=?, lastname=? WHERE
 		// email=? ]; nested exception is org.postgresql.util.PSQLException:
 		// FEHLER: Spalte »firstname« von Relation »users« existiert nicht
 		jdbcTemplate
-				.update("UPDATE users SET email=?, firstname=?, lastname=? WHERE email=? ",
-						eMail, firstName, lastName, user.getEmail());
+				.update("UPDATE users SET email=?, password=?, firstname=?, lastname=? WHERE email=? ",
+						eMail, password, firstName, lastName, user.getEmail());
 		return true;
 	}
 
@@ -149,7 +150,7 @@ public class UserDAO implements CommandLineRunner {
 	@Override
 	public void run(String... arg0) throws Exception {
 		new ArrayList<GrantedAuthority>();
-		findAll().forEach(entry -> log.info(entry.toString()));
+		//findAll().forEach(entry -> log.info(entry.toString()));
 
 	}
 
