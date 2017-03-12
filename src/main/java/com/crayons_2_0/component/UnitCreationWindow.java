@@ -32,12 +32,11 @@ public final class UnitCreationWindow extends Window {
 
 	// @DB
 
-	UnitNode parent;
-	String unitTitle;
-	UnitNode child;
-	static Graph graph;
-	@Autowired
-	UnitService unitService;
+	private UnitNode parent;
+	private String unitTitle;
+	private UnitNode child;
+	private static Graph graph;
+	
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 

@@ -55,13 +55,13 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringComponent
 public class Authorlibrary extends VerticalLayout implements View,
 		CourseEditorListener {
-	@Autowired
+	private @Autowired
 	CourseService courseService;
-	@Autowired
+	private @Autowired
 	UserService userService;
 
 	public static final String VIEW_NAME = "Authorlibrary";
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	private TabSheet tabSheet;
 	private Component filter;
 	private List<Course> authorCoursesList;

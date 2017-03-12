@@ -53,19 +53,19 @@ public final class AdminView extends VerticalLayout implements View {
 	 * 
 	 */
 
-	@Autowired
+	private @Autowired
 	UserService userService;
 
-	@Autowired
+	private @Autowired
 	CourseService courseService;
 
-	ResourceBundle lang = LanguageService.getInstance().getRes();
-	List<UserDisplay> collection;
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	private List<UserDisplay> collection;
 	public static final String VIEW_NAME = "AdminView";
-	HorizontalLayout root;
+	private HorizontalLayout root;
 	private Table table = new Table();;
 	private TempContainer container;
-	VerticalLayout content = new VerticalLayout();
+	private VerticalLayout content = new VerticalLayout();
 	@PropertyId("name")
 	private TextField nameField = new TextField(lang.getString("Name"));
 	@PropertyId("title")

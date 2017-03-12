@@ -50,7 +50,7 @@ public class UnitEditorView extends VerticalLayout implements View {
 																	// Name!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	private final SortableLayout canvas;
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	private UnitEditor2 unitEditor;
 
@@ -402,12 +402,6 @@ public class UnitEditorView extends VerticalLayout implements View {
 		}
 
 	}
-
-	public interface CourseEditorListener {
-		void titleChanged(String newTitle, UnitEditor editor);
-	}
-
-	// TODO Change Language!
 
 	public enum PaletteItemType {
 		TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",

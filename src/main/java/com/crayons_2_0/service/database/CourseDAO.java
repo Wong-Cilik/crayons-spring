@@ -29,10 +29,10 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class CourseDAO implements CommandLineRunner {
 
-	@Autowired
+	private @Autowired
 	JdbcTemplate jdbcTemplate;
 
-	@Autowired
+	private @Autowired
 	UserService userService;
 
 	// public void createDbTable() {

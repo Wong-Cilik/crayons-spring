@@ -44,7 +44,7 @@ public class CourseService {
 	@Autowired
 	private CurrentUser currentUser;
 
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	
 	
 	/**
 	 * Returns all Courses of DB

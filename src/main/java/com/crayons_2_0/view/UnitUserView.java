@@ -28,19 +28,17 @@ public class UnitUserView extends VerticalLayout implements View {
 
 	public static final String VIEW_NAME = "Unit User View";
 
-	UnitPageLayout page;
+	private UnitPageLayout page;
 	private ComboBox selectNextUnit;
 	private ComboBox selectPreviousUnit;
 	private Button next;
 	private Button previous;
 
-	@Autowired
-	CurrentCourses currentCourse;
 
-	@Autowired
+	private @Autowired
 	UnitService unitService;
 
-	@Autowired
+	private @Autowired
 	CourseService courseService;
 
 	@PostConstruct
@@ -61,21 +59,7 @@ public class UnitUserView extends VerticalLayout implements View {
 		setReadOnly(true);
 	}
 
-	public void refresh(UnitPageLayout upl) {
-		removeAllComponents();
-
-		page = upl;
-		page.setWidth(100.0f, Unit.PERCENTAGE);
-		page.setStyleName("canvas");
-		addComponent(page);
-		setExpandRatio(page, 8);
-
-		Component footer = buildFooter();
-		footer.setSizeFull();
-		addComponent(footer);
-	}
-
-	public void refresh() {
+	private void refresh() {
 		page.replaceAllComponent(unitService.getUnitData(CurrentCourses
 				.getInstance().getUnitTitle(), CurrentCourses.getInstance()
 				.getTitle()), false);

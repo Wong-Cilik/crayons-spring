@@ -29,11 +29,10 @@ public class UserDAO implements CommandLineRunner {
 	 * for Console logging
 	 */
 	private static final Logger log = LoggerFactory.getLogger(UserDAO.class);
-	@Autowired
+	private @Autowired
 	JdbcTemplate jdbcTemplate;
 
-	@Autowired
-	UserService userService;
+	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<CrayonsUser> findAll() {

@@ -23,7 +23,6 @@ public class AuthManager implements AuthenticationManager {
 
 	@Autowired
 	private UserService userService;
-	private static boolean hasAuthority = false;
 
 	public Authentication authenticate(Authentication auth)
 			throws AuthenticationException, UsernameNotFoundException {
@@ -35,7 +34,6 @@ public class AuthManager implements AuthenticationManager {
 		if (user != null && user.getPassword().equals(password)) {
 			Collection<? extends GrantedAuthority> authorities = user
 					.getAuthorities();
-			hasAuthority = true;
 			if (userService.findByEMail(username).getLanguage() == Language.English) {
 	            LanguageService.getInstance().setCurrentLocale(Language.English);
 	        } else if (userService.findByEMail(username).getLanguage() == Language.German) {
@@ -46,13 +44,5 @@ public class AuthManager implements AuthenticationManager {
 					authorities);
 		}
 		throw new BadCredentialsException("Bad Credentials");
-	}
-
-	public static void setHasAuthority(boolean hasAuthority) {
-		AuthManager.hasAuthority = hasAuthority;
-	}
-
-	public static boolean isHasAuthority() {
-		return hasAuthority;
 	}
 }

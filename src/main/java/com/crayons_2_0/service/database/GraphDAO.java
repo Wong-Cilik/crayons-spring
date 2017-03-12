@@ -11,8 +11,7 @@ import com.crayons_2_0.model.graph.Graph;
 @Component
 public class GraphDAO {
 
-	@Autowired
-	JdbcTemplate jdbcTemplate;
+	
 
 	public void createDbTable() {
 

@@ -55,8 +55,8 @@ public class Preferences extends VerticalLayout implements View {
 
 	// public static final String ID = "profilepreferenceswindow";
 	public static final String VIEW_NAME = "Preferences";
-	ResourceBundle lang = LanguageService.getInstance().getRes();
-	@Autowired
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	private @Autowired
 	UserService userService;
 
 	// private final BeanFieldGroup<User> fieldGroup;

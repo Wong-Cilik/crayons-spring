@@ -85,7 +85,6 @@ public class Menu extends CssLayout {
 					@Override
 					public void menuSelected(MenuItem selectedItem) {
 						SecurityContextHolder.clearContext();
-						AuthManager.setHasAuthority(false);
 						MyUI.get().getPage().reload();
 						MyUI.get().getSession().close();
 

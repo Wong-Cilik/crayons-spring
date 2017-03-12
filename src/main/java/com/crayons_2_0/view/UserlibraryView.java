@@ -48,12 +48,12 @@ public class UserlibraryView extends VerticalLayout implements View {
      */
 
 	public static final String VIEW_NAME = "Userlibrary";
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	@Autowired
+	private @Autowired
 	CourseService courseService;
 
-	@Autowired
+	private @Autowired
 	UserService userService;
 
 	private TabSheet coursesTabSheet;

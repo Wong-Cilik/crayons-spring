@@ -52,7 +52,7 @@ public final class UnitEditor extends Window {
 
 	// private final CourseEditorListener listener;
 	private final SortableLayout canvas;
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	@SuppressWarnings("deprecation")
 	// public CourseEditor(final CoursetEditorListener listener)

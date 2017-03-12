@@ -49,16 +49,16 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringComponent
 public class CourseEditorView extends VerticalLayout implements View {
 
-	@Autowired
+	private @Autowired
 	CourseService courseService;
 
-	@Autowired
+	private @Autowired
 	UnitService unitService;
 
-	static Graph graphData;
+	private static Graph graphData;
 
 	public static final String VIEW_NAME = "Learning Graph";
-	final static Dagre graph = new Dagre();
+	private final static Dagre graph = new Dagre();
 
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
 	private static ComboBox selectUnit;

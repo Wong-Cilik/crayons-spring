@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UnitDAO {
 
-	@Autowired
+	private @Autowired
 	JdbcTemplate jdbcTemplate;
 
 	/**

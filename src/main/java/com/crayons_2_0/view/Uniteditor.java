@@ -52,18 +52,14 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringComponent
 public class Uniteditor extends VerticalLayout implements View {
 
-	/**
-	 * 
-	 */
-	@Autowired
-	CourseService courseService;
+	
 
 	public static final String VIEW_NAME = "Unit Editor";
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	private static UnitPageLayout page;
 
-	@Autowired
+	private @Autowired
 	UnitService unitService;
 
 	@PostConstruct
