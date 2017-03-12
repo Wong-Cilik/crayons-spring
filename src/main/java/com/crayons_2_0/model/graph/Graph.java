@@ -81,10 +81,9 @@ public class Graph implements Serializable {
 
 	}
 
-	// TODO Exception fangen
 	public UnitNode getNodeByName(String NodeName) {
 		for (UnitNode tmp : this.unitCollection) {
-			if (NodeName == tmp.getUnitNodeTitle())
+			if (NodeName.equals(tmp.getUnitNodeTitle()))
 				return tmp;
 		}
 		return null;
