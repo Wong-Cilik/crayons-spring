@@ -14,13 +14,6 @@ public class Unit {
 
 	private String content;
 
-	public Unit(String title, UnitType type, String courseTitel, String content) {
-		this.setTitle(title);
-		this.setType(type);
-		this.setCourseTitle(courseTitel);
-		this.setContent(content);
-	}
-
 	public Unit(String title, String courseTitel) {
 		this.setTitle(title);
 		this.setCourseTitle(courseTitel);
