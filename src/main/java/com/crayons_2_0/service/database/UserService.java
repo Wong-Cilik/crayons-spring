@@ -3,6 +3,7 @@ package com.crayons_2_0.service.database;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
+import com.crayons_2_0.service.LanguageService;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Notification;
 //import org.springframework.security.core.authority.GrantedAuthorityImpl;
@@ -27,6 +29,8 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserDAO userDAO;
 
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	
 	/**
 	 * Returns an User by his Username (=eMail)
 	 */
@@ -73,8 +77,7 @@ public class UserService implements UserDetailsService {
 		List<CrayonsUser> users = findAll();
 		for (CrayonsUser tmpUser : users) {
 			if (tmpUser.getEmail().equals(user.getEmail())) {
-				Notification.show("Error username already exists",
-						"please choose another username",
+				Notification.show(lang.getString("EmailAlreadyExists"),
 						Notification.Type.WARNING_MESSAGE);
 				return userExists = true;
 			}
