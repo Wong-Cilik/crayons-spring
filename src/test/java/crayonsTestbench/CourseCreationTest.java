@@ -48,7 +48,7 @@ public class CourseCreationTest extends TestBenchTestCase {
         getDriver().quit();
     }
 
-    @Test
+/*    @Test
     public void testCreateAndDeleteCourse() {
 
         // 1. Enter "client@web.de" into the Email field
@@ -149,9 +149,51 @@ public class CourseCreationTest extends TestBenchTestCase {
         assertEquals(lang.getString("CourseAlreadyExists"), notification.getCaption());
         
         // 13. Open the last tab - the tab with "Physics" course
-        $(TabSheetElement.class).first().openTab($(TabSheetElement.class).first().getTabCount() - 1);
+        $(TabSheetElement.class).first().openTab("Physics");
         
         // 14. Click "Delete Course" to delete the course
         $(ButtonElement.class).caption(lang.getString("DeleteCourse")).first().click();
+    }*/
+    
+    @Test
+    public void testCreateCourseWithEmptyFields() {
+     // 1. Enter "client@web.de" into the Email field
+        $(TextFieldElement.class).caption(lang.getString("Login") + ": ").first()
+                .setValue("client@web.de");
+
+        // 2. Enter "123456" into the password field
+        $(PasswordFieldElement.class).caption(lang.getString("Password") + ": ").first()
+                .setValue("123456");
+
+        // 3. Click "Login"
+        $(ButtonElement.class).caption(lang.getString("Login")).first().click();
+            
+        // 4. Click "Authorlibrary" to navigate to the author library
+        $(ButtonElement.class).caption(lang.getString("Authorlibrary")).first().click();
+        
+        // 5. Enter "Physics" into the Course Title field 
+        $(TabSheetElement.class).$(TextFieldElement.class).first().setValue("Physics");
+        
+        // 6. Click "CreateCourse"
+        $(ButtonElement.class).caption(lang.getString("CreateCourse")).first().click();
+        
+        // 7. Assert that the user gets a notification that the course description cannot be empty
+        assertEquals(String.format(lang.getString("RequiredField"),
+                lang.getString("CourseDescription")), 
+                $(NotificationElement.class).first().getCaption());
+        
+        // 8. Enter "Physics is the natural science." into the Course Description field 
+        $(TextAreaElement.class).first().setValue("Physics is the natural science.");
+        
+        // 9. Clear the Course Title field 
+        $(TabSheetElement.class).$(TextFieldElement.class).first().clear();
+        
+        // 10. Click "CreateCourse"
+        $(ButtonElement.class).caption(lang.getString("CreateCourse")).first().click();
+        
+        // 11. Assert that the user gets a notification that the course title cannot be empty
+        assertEquals(String.format(lang.getString("RequiredField"),
+                lang.getString("CourseTitle")), 
+                $(NotificationElement.class).first().getCaption());
     }
 }
