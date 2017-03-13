@@ -10,12 +10,15 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 public class CrayonsUserTest {
 	
 	private CrayonsUser user;
@@ -23,7 +26,7 @@ public class CrayonsUserTest {
 	private final String firstName = "Max";
 	private final String lastName = "Mustermann";
 	private final String email = "max@web.de";
-	private final String password = "pass";
+	private final String password = "123456";
 	private final String language = Language.German.toString();
 	private final int permission = 2;
 	List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
