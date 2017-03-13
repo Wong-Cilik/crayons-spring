@@ -153,7 +153,7 @@ public class UserlibraryView extends VerticalLayout implements View {
         HorizontalLayout footer = new HorizontalLayout();
         footer.setWidth("100%");
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        Component controlButtons = buildControlButtons(tabContent, course.getTitle());
+        Component controlButtons = buildControlButtons(tabContent, course);
         footer.addComponent(controlButtons);
         footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
         tabContent.addComponent(footer);
@@ -171,7 +171,8 @@ public class UserlibraryView extends VerticalLayout implements View {
 	 *            course title
 	 * @return layout with the control buttons
 	 */
-	private Component buildControlButtons(Component tab, String title) {
+	private Component buildControlButtons(Component tab, Course course) {
+	    String title = course.getTitle();
 		HorizontalLayout controlButtons = new HorizontalLayout();
 		controlButtons.setMargin(false);
 		controlButtons.setSpacing(true);
@@ -188,8 +189,8 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				courseService.removeStudent(title, CurrentUser.getInstance()
-						.geteMail());
+				courseService.removeStudentFromCourse(CurrentUser.getInstance()
+						.geteMail(), course);
 				coursesTabSheet.removeComponent(tab);
 			}
 

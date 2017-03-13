@@ -205,6 +205,16 @@ public class CourseService {
 		}
 	}
 	
+	public String[] getCourseParticipants(Course course) {
+        String students = course.getStudents();
+        String[] studentsArray = students.split("/");
+        if (!students.equals("")) {
+            return studentsArray;
+        } else {
+            return null;
+        }
+    }
+	
 	public String[] getStudentsWithAuthor(String title) {
         String students = findCourseByTitleAndAuthor(title).getStudents();
         String[] studentsArray = students.split("/");
@@ -292,6 +302,18 @@ public class CourseService {
 		courseDAO.updateStudents(updatedStudents, title);
 
 	}
+	
+	public void removeStudentFromCourse(String user, Course course) {
+        String updatedStudents = "";
+        String[] tmp = getCourseParticipants(course);
+        for (int i = 1; i < tmp.length; i++) {
+            if (!tmp[i].equals(user)) {
+                updatedStudents = updatedStudents + "/" + tmp[i];
+            }
+        }
+        courseDAO.updateStudentsWithAuthor(updatedStudents, course.getTitle(), course.getAuthor().getEmail());
+
+    }
 
 	public Graph getDummyGraph() {
 		String dummy = "dummy@web.de";
