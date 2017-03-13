@@ -86,26 +86,9 @@ public final class AdminView extends VerticalLayout implements View {
 	@PostConstruct
 	void init() {
 		addStyleName("courseDisplay");
-		addComponent(buildToolbar());
-
-		table = buildTable();
-		addComponent(table);
 		Responsive.makeResponsive(this);
-		content.setSizeFull();
-		content.setMargin(new MarginInfo(true, false, false, false));
-		content.setEnabled(false);
-		addComponent(content);
-		content.addComponent(buildProfileTab(null));
-		setComponentAlignment(content, Alignment.BOTTOM_LEFT);
 
-	}
-
-	private Component buildToolbar() {
-		HorizontalLayout header = new HorizontalLayout();
-		header.addStyleName("viewheader");
-		header.setSpacing(true);
-		Responsive.makeResponsive(header);
-		return header;
+		this.addComponents(buildTable(), buildProfileTab(null));
 	}
 
 	private List<UserDisplay> getTableContents() {
@@ -132,8 +115,9 @@ public final class AdminView extends VerticalLayout implements View {
 	private Table buildTable() {
 		container = new TempContainer(getTableContents());
 
-		table.setSizeFull();
 		table.setColumnReorderingAllowed(false);
+		table.setWidth("100%");
+		table.setPageLength(6);
 		table.addStyleName(ValoTheme.TABLE_BORDERLESS);
 		table.addStyleName(ValoTheme.TABLE_NO_HORIZONTAL_LINES);
 		table.addStyleName(ValoTheme.TABLE_COMPACT);
