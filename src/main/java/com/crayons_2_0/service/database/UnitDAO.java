@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UnitDAO {
 
-	@Autowired
+	private @Autowired
 	JdbcTemplate jdbcTemplate;
 
 	/**
@@ -55,10 +55,6 @@ public class UnitDAO {
 	@SuppressWarnings("unused")
 	private UnitType createUnitType(String string) {
 		return UnitType.LEARNING;
-	}
-
-	public boolean save(Unit unit) {
-		return true;
 	}
 
 	public void saveData(File file, String titleUnit, String titleCourse)

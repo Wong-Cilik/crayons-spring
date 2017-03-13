@@ -15,12 +15,12 @@ import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.component.CourseModificationWindow;
 import com.crayons_2_0.component.UnitEditor;
-import com.crayons_2_0.component.UnitEditor.CourseEditorListener;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UserService;
+import com.crayons_2_0.view.Uniteditor.CourseEditorListener;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
@@ -55,13 +55,13 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringComponent
 public class Authorlibrary extends VerticalLayout implements View,
 		CourseEditorListener {
-	@Autowired
+	private @Autowired
 	CourseService courseService;
-	@Autowired
+	private @Autowired
 	UserService userService;
 
 	public static final String VIEW_NAME = "Authorlibrary";
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	private TabSheet tabSheet;
 	private Component filter;
 	private List<Course> authorCoursesList;
@@ -191,17 +191,22 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				try {
-					courseService.insertCourse(new Course(courseTitleField
+					boolean courseInserted = courseService.insertCourse(new Course(courseTitleField
 							.getValue(), couseDescriptionField.getValue(),
 							userService.findByEMail(CurrentUser.getInstance()
 									.geteMail()), ""));
-					courseService.saveDummyGraph(courseTitleField.getValue());
-					String title = (String) courseTitleField.getValue();
-					Component newTab = buildCourseTab(title);
-					getTabSheet().addComponent(newTab);
-					getTabSheet().setSelectedTab(newTab);
-					courseTitleField.clear();
-					couseDescriptionField.clear();
+					if (courseInserted) {
+					    courseService.saveDummyGraph(courseTitleField.getValue());
+                        String title = (String) courseTitleField.getValue();
+                        Component newTab = buildCourseTab(title);
+                        getTabSheet().addComponent(newTab);
+                        getTabSheet().setSelectedTab(newTab);
+                        courseTitleField.clear();
+                        couseDescriptionField.clear();
+					} else {
+					    Notification.show(lang.getString("CourseAlreadyExists"),
+                                Notification.Type.WARNING_MESSAGE);
+					}
 				} catch (IllegalArgumentException iae) {
 					Notification.show(iae.getMessage());
 				}
@@ -227,35 +232,25 @@ public class Authorlibrary extends VerticalLayout implements View,
 		TwinColSelect selectStudents = new TwinColSelect();
 		selectStudents.setMultiSelect(true);
 		selectStudents.setCaptionAsHtml(true);
-		selectStudents.setCaption("<h3>" + lang.getString("SelectParticipants")
-				+ "</h3>");
+		selectStudents.setCaption(lang.getString("SelectParticipants"));
 
 		selectStudents.setRows(10);
 		selectStudents.setSizeFull();
 		selectStudents
 				.setLeftColumnCaption(lang.getString("ListOfAllStudents"));
 		selectStudents.setRightColumnCaption(lang.getString("Participants"));
-		// adding all users to the select Student Table
+
 		List<CrayonsUser> allUsers = userService.findAll();
-		String[] emailOfStudentsInCourse = courseService.getStudents(title);
-		List<String> rightColumn = new ArrayList<String>();
+		for (int i = 0; i < allUsers.size(); i++) {
+            selectStudents.addItem(allUsers.get(i).getEmail());
+        }
+		
+		String[] emailOfStudentsInCourse = courseService.getStudentsWithAuthor(title);
 		if (emailOfStudentsInCourse != null) {
-			for (int i = 0; i < allUsers.size(); i++) {
-				for (int j = 1; j < emailOfStudentsInCourse.length; j++) {
-					if (!emailOfStudentsInCourse[j].equals(allUsers.get(i)
-							.getEmail())) {
-						selectStudents.addItems(allUsers.get(i).getEmail());
-					} else {
-						rightColumn.add(allUsers.get(i).getEmail());
-					}
-				}
-			}
-		} else {
-			for (int i = 0; i < allUsers.size(); i++) {
-				selectStudents.addItems(allUsers.get(i).getEmail());
-			}
+		    for (int i = 1; i < emailOfStudentsInCourse.length; i++) {
+		        selectStudents.select(emailOfStudentsInCourse[i]);
+		    }
 		}
-		selectStudents.setValue(rightColumn);
 
 		Button saveStudents = new Button(lang.getString("SaveStudents"));
 		saveStudents.addClickListener(new ClickListener() {
@@ -323,7 +318,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				courseService.removeCourse(courseService
-						.findCourseByTitle(title));
+						.findCourseByTitleAndAuthor(title));
 				getTabSheet().removeTab(
 						getTabSheet().getTab(getTabSheet().getSelectedTab()));
 				// TODO notification
@@ -338,8 +333,8 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				UI.getCurrent().addWindow(
-						new CourseModificationWindow(courseService
-								.findCourseByTitle(title), tab, tabSheet));
+						new CourseModificationWindow(courseService, courseService
+								.findCourseByTitleAndAuthor(title), tab, tabSheet));
 			}
 		});
 

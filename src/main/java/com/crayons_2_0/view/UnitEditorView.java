@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.controller.UnitEditor2;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -50,7 +49,7 @@ public class UnitEditorView extends VerticalLayout implements View {
 																	// Name!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	private final SortableLayout canvas;
-	ResourceBundle lang = LanguageService.getInstance().getRes();
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	private UnitEditor2 unitEditor;
 
@@ -402,12 +401,6 @@ public class UnitEditorView extends VerticalLayout implements View {
 		}
 
 	}
-
-	public interface CourseEditorListener {
-		void titleChanged(String newTitle, UnitEditor editor);
-	}
-
-	// TODO Change Language!
 
 	public enum PaletteItemType {
 		TEXT("Text Block", FontAwesome.FONT), MULTIPLECHOICE("MultipleChoice",

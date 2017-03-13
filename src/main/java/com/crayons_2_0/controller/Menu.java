@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.crayons_2_0.MyUI;
-import com.crayons_2_0.authentication.AuthManager;
 import com.crayons_2_0.service.LanguageService;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
@@ -85,7 +84,6 @@ public class Menu extends CssLayout {
 					@Override
 					public void menuSelected(MenuItem selectedItem) {
 						SecurityContextHolder.clearContext();
-						AuthManager.setHasAuthority(false);
 						MyUI.get().getPage().reload();
 						MyUI.get().getSession().close();
 
@@ -153,27 +151,6 @@ public class Menu extends CssLayout {
 	public void addView(View view, final String name, String caption,
 			Resource icon) {
 		navigator.addView(name, view);
-		createViewButton(name, caption, icon);
-	}
-
-	/**
-	 * Register a view in the navigation menu and in the {@link Navigator} based
-	 * on a view class.
-	 *
-	 * @see Navigator#addView(String, Class)
-	 *
-	 * @param viewClass
-	 *            class of the views to create
-	 * @param name
-	 *            view name
-	 * @param caption
-	 *            view caption in the menu
-	 * @param icon
-	 *            view icon in the menu
-	 */
-	public void addView(Class<? extends View> viewClass, final String name,
-			String caption, Resource icon) {
-		navigator.addView(name, viewClass);
 		createViewButton(name, caption, icon);
 	}
 

@@ -33,7 +33,7 @@ public class RegisterView extends VerticalLayout implements View {
 	/**
      * 
      */
-	@Autowired
+	private @Autowired
 	RegisterFormListener registerFormListener;
 
 	public static final String VIEW_NAME = "registerView";

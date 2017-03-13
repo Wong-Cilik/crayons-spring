@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -41,6 +40,8 @@ public class CourseService {
 	@Autowired
 	private CurrentUser currentUser;
 
+	
+	
 	/**
 	 * Returns all Courses of DB
 	 * 
@@ -62,13 +63,24 @@ public class CourseService {
 	 * @return course with the title searched for
 	 */
 	public Course findCourseByTitle(String courseTitle) {
-		for (Course tmpCourse : findAll()) {
-			if (tmpCourse.getTitle().equals(courseTitle)) {
-				return tmpCourse;
-			}
-		}
-		return null;
+	    for (Course tmpCourse : findAll()) {
+            if (tmpCourse.getTitle().equals(courseTitle)) {
+                return tmpCourse;
+            }
+        }
+        return null;
 	}
+	
+	public Course findCourseByTitleAndAuthor(String courseTitle) {
+	    String userEmail = CurrentUser.getInstance().geteMail();
+        for (Course tmpCourse : findAll()) {
+            if (tmpCourse.getAuthor().getEmail().equals(userEmail) && 
+                    tmpCourse.getTitle().equals(courseTitle)) {
+                return tmpCourse;
+            }
+        }
+        return null;
+    }
 
 	/**
 	 * Returns all Courses of the User
@@ -119,8 +131,23 @@ public class CourseService {
 	 * @return true if successfull
 	 */
 	public boolean insertCourse(Course course) {
-		courseDAO.insert(course);
-		saveCourseData(course.getGraph(), course.getTitle());
+	    boolean courseExists = false;
+        // Check if Exists, return false if exists
+        List<Course> courses = findAll();
+        for (Course tmpCourse : courses) {
+            if (tmpCourse.getAuthor().getEmail().equals(course.getAuthor().getEmail()) &&
+                    tmpCourse.getTitle().equals(course.getTitle())) {
+                courseExists = true;
+                return false;
+            }
+
+        }
+        
+        if (courseExists == false) {
+            courseDAO.insert(course);
+            saveCourseData(course.getGraph(), course.getTitle());
+        }
+
 		return true;
 	}
 
@@ -159,7 +186,7 @@ public class CourseService {
 		for (String tmp : students) {
 			tmp2 = tmp2 + "/" + tmp;
 		}
-		return courseDAO.updateStudents(tmp2, title);
+		return courseDAO.updateStudentsWithAuthor(tmp2, title, CurrentUser.getInstance().geteMail());
 	}
 
 	/**
@@ -177,6 +204,16 @@ public class CourseService {
 			return null;
 		}
 	}
+	
+	public String[] getStudentsWithAuthor(String title) {
+        String students = findCourseByTitleAndAuthor(title).getStudents();
+        String[] studentsArray = students.split("/");
+        if (!students.equals("")) {
+            return studentsArray;
+        } else {
+            return null;
+        }
+    }
 
 	public void saveCourseData(Graph data, String title) {
 		File file = new File(title + ".bin");

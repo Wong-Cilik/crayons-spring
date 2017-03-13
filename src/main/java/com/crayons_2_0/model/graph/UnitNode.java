@@ -70,8 +70,6 @@ public class UnitNode implements Serializable {
 	}
 
 	public enum UnitType {
-		// START,
-		// END,
 		LEARNING, TEST
 	}
 

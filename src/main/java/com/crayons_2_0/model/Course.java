@@ -31,13 +31,6 @@ public class Course {
 
 	}
 
-	public Course(String title, String description, CrayonsUser author) {
-		this.setTitle(title);
-		this.setDescription(description);
-		this.setAuthor(author);
-
-	}
-
 	public Course(String title, String description, CrayonsUser author,
 			String students) {
 		this.setTitle(title);

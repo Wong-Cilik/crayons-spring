@@ -1,7 +1,6 @@
 package com.crayons_2_0.service.database;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -166,29 +165,6 @@ public class UserService implements UserDetailsService {
 	public boolean removeUser(String user) {
 		userDAO.deleteUser(user);
 		return true;
-	}
-
-	/**
-	 * Returns an List of User of DB finding by Name (FirstName & LastName)
-	 * 
-	 * @param firstName
-	 *            of User
-	 * @param lastName
-	 *            of User
-	 * @return List of User of DB by FirstName & LastName
-	 */
-	public List<CrayonsUser> findByName(String firstName, String lastName) {
-		List<CrayonsUser> users = findAll();
-		List<CrayonsUser> userWithName = new LinkedList<CrayonsUser>();
-
-		for (CrayonsUser tmpUser : users) {
-			if (tmpUser.getFirstName().equals(firstName)
-					&& tmpUser.getLastName().equals(lastName)) {
-				userWithName.add(tmpUser);
-			}
-		}
-
-		return userWithName;
 	}
 
 	/**
