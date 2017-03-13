@@ -63,19 +63,19 @@ public class CourseService {
 	 * @return course with the title searched for
 	 */
 	public Course findCourseByTitle(String courseTitle) {
-	    String userEmail = CurrentUser.getInstance().geteMail();
-		for (Course tmpCourse : findAll()) {
-			if (tmpCourse.getAuthor().getEmail().equals(userEmail) && 
-			        tmpCourse.getTitle().equals(courseTitle)) {
-				return tmpCourse;
-			}
-		}
-		return null;
+	    for (Course tmpCourse : findAll()) {
+            if (tmpCourse.getTitle().equals(courseTitle)) {
+                return tmpCourse;
+            }
+        }
+        return null;
 	}
 	
-	public Course findCourseByTitleWithoutAuthor(String courseTitle) {
+	public Course findCourseByTitleAndAuthor(String courseTitle) {
+	    String userEmail = CurrentUser.getInstance().geteMail();
         for (Course tmpCourse : findAll()) {
-            if (tmpCourse.getTitle().equals(courseTitle)) {
+            if (tmpCourse.getAuthor().getEmail().equals(userEmail) && 
+                    tmpCourse.getTitle().equals(courseTitle)) {
                 return tmpCourse;
             }
         }
@@ -186,7 +186,7 @@ public class CourseService {
 		for (String tmp : students) {
 			tmp2 = tmp2 + "/" + tmp;
 		}
-		return courseDAO.updateStudents(tmp2, title);
+		return courseDAO.updateStudentsWithAuthor(tmp2, title, CurrentUser.getInstance().geteMail());
 	}
 
 	/**
@@ -205,8 +205,8 @@ public class CourseService {
 		}
 	}
 	
-	public String[] getStudentsWithoutAuthor(String title) {
-        String students = findCourseByTitleWithoutAuthor(title).getStudents();
+	public String[] getStudentsWithAuthor(String title) {
+        String students = findCourseByTitleAndAuthor(title).getStudents();
         String[] studentsArray = students.split("/");
         if (!students.equals("")) {
             return studentsArray;
@@ -283,7 +283,7 @@ public class CourseService {
 	 */
 	public void removeStudent(String title, String user) {
 		String updatedStudents = "";
-		String[] tmp = getStudentsWithoutAuthor(title);
+		String[] tmp = getStudents(title);
 		for (int i = 1; i < tmp.length; i++) {
 			if (!tmp[i].equals(user)) {
 				updatedStudents = updatedStudents + "/" + tmp[i];

@@ -245,7 +245,7 @@ public class Authorlibrary extends VerticalLayout implements View,
             selectStudents.addItem(allUsers.get(i).getEmail());
         }
 		
-		String[] emailOfStudentsInCourse = courseService.getStudents(title);
+		String[] emailOfStudentsInCourse = courseService.getStudentsWithAuthor(title);
 		if (emailOfStudentsInCourse != null) {
 		    for (int i = 1; i < emailOfStudentsInCourse.length; i++) {
 		        selectStudents.select(emailOfStudentsInCourse[i]);
@@ -318,7 +318,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				courseService.removeCourse(courseService
-						.findCourseByTitle(title));
+						.findCourseByTitleAndAuthor(title));
 				getTabSheet().removeTab(
 						getTabSheet().getTab(getTabSheet().getSelectedTab()));
 				// TODO notification
@@ -334,7 +334,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 			public void buttonClick(ClickEvent event) {
 				UI.getCurrent().addWindow(
 						new CourseModificationWindow(courseService, courseService
-								.findCourseByTitle(title), tab, tabSheet));
+								.findCourseByTitleAndAuthor(title), tab, tabSheet));
 			}
 		});
 

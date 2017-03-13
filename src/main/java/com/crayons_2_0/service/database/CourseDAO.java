@@ -169,6 +169,15 @@ public class CourseDAO implements CommandLineRunner {
 			return false;
 		}
 	}
+	
+	public boolean updateStudentsWithAuthor(String tmp, String course, String authorEmail) {
+        if(jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? AND author=?",
+                tmp, course, authorEmail) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 	public void saveData(File file, String title) throws IOException {
 		FileInputStream fis = new FileInputStream(file);
