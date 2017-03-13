@@ -133,7 +133,11 @@ public class CrayonsUser extends User {
 		} else if (password.length() > 15) {
 			throw new IllegalArgumentException(String.format(
 					"ShouldBeAtMostNCharactersLong", "Password", 15));
+		} else if (password.contains(" ")) {
+			throw new IllegalArgumentException("Password can't have spaces");
 		}
+		
+		
 
 		this.password = password;
 	}

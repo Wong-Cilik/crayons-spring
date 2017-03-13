@@ -66,11 +66,135 @@ public class CrayonsUserTest {
 		user.setFirstName("");
 	}
 	
+	/*
 	@Test(expected=IllegalArgumentException.class)
 	public void setNullFirstName() {
 		user.setFirstName(null);
 	}
+	*/
+	
+	@Test
+	public void setValidLastName() {
+		String newLastName = "Kaufgern";
+		user.setLastName(newLastName);
+		assertEquals(user.getLastName(), newLastName);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidLastName() {
+		user.setFirstName("");
+	}
+	
+	
+	
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidMail1() {
+		//without @
+		user.setEmail("withoutAT");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidMail2() {
+		// Without point
+		user.setEmail("without@point");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidMail3() {
+		// longer than 30
+		user.setEmail("tooLooooooooooooooooooooooooooong@web.de");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidMail4() {
+		// missing front
+		user.setEmail("@web.de");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidMail5() {
+		// missing between @ and point
+		user.setEmail("max@.de");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidMail6() {
+		// mission after point
+		user.setEmail("max@web.");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidMail7() {
+		//without @
+		user.setEmail("withoutAT.de");
+	}
+	
 
+	@Test
+	public void setValidPassword() {
+		String newPassword = "654321";
+		user.setPassword(newPassword);
+		assertEquals(user.getPassword(), newPassword);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidPassword1() {
+		// Empty
+		user.setPassword("");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidPassword2() {
+		// to short ( <6 )
+		user.setPassword("12345");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidPassword3() {
+		// to long ( >15 )
+		user.setPassword("1111111111111116");
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidPassword4() {
+		// with spaces
+		user.setPassword("123 456");
+	}
+	
+	@Test
+	public void setValidLanguage() {
+		String newLanguage = Language.English.toString();
+		user.setLanguage(newLanguage);
+		assertEquals(user.getLanguage(), newLanguage);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidLanguage() {
+		// NotImplementedLanguage
+		user.setLanguage("Schwäbisch");
+	}
+	
+	@Test
+	public void setValidPermission() {
+		int newPermission = 1;
+		user.setPermission(newPermission);
+		assertEquals(user.getPermission(), newPermission);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidPermission1() {
+		// < 0
+		user.setPermission(-1);;
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void setInvalidPermission2() {
+		// > 2
+		user.setPermission(3);;
+	}
+	
+	
 	
 	
 	
