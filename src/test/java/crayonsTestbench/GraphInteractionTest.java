@@ -106,7 +106,7 @@ public class GraphInteractionTest extends TestBenchTestCase {
         // 16. Select End Unit
         $(ComboBoxElement.class).caption("Select the next unit").first().selectByText("End");
         
-     // 17. Click "Modify Connections"
+     // 17. Click ""
         $(ButtonElement.class).caption("Modify connections").first().click();
         
      // 18. Click "Modify Connections"

@@ -23,7 +23,7 @@ public class CrayonsUserTest {
 	private final String firstName = "Max";
 	private final String lastName = "Mustermann";
 	private final String email = "max@web.de";
-	private final String password = "pass";
+	private final String password = "passss";
 	private final String language = Language.German.toString();
 	private final int permission = 2;
 	List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -63,10 +63,7 @@ public class CrayonsUserTest {
 		user.setFirstName("");
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
-	public void setNullFirstName() {
-		user.setFirstName(null);
-	}
+	
 
 	
 	
