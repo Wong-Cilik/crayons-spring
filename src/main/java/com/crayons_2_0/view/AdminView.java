@@ -189,11 +189,17 @@ public final class AdminView extends VerticalLayout implements View {
 		profilePic.setWidth(100.0f, Unit.PIXELS);
 		pic.addComponent(profilePic);
 		root.addComponent(pic);
+		root.setExpandRatio(pic, 1);
 
+		VerticalLayout detailsWithDeleteButton = new VerticalLayout();
+		root.addComponent(detailsWithDeleteButton);
+		root.setExpandRatio(detailsWithDeleteButton, 7);
+		//root.setComponentAlignment(detailsWithDeleteButton, Alignment.TOP_LEFT);
+		
 		FormLayout details = new FormLayout();
 		details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-		root.addComponent(details);
-		root.setExpandRatio(details, 1);
+		detailsWithDeleteButton.addComponent(details);
+		//root.setExpandRatio(details, 1);
 
 		nameField.setValue("");
 		nameField.setWidth("100%");
@@ -240,8 +246,9 @@ public final class AdminView extends VerticalLayout implements View {
 		details.addComponent(phoneField);
 
 		Button deleteUser = new Button(lang.getString("DeleteUser"));
-		details.addComponent(deleteUser);
-		details.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
+		deleteUser.setStyleName(ValoTheme.BUTTON_DANGER);
+		detailsWithDeleteButton.addComponent(deleteUser);
+		detailsWithDeleteButton.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
 
 		deleteUser.addClickListener(new ClickListener() {
 			@Override
