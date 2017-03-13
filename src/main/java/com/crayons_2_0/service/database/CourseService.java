@@ -72,6 +72,15 @@ public class CourseService {
 		}
 		return null;
 	}
+	
+	public Course findCourseByTitleWithoutAuthor(String courseTitle) {
+        for (Course tmpCourse : findAll()) {
+            if (tmpCourse.getTitle().equals(courseTitle)) {
+                return tmpCourse;
+            }
+        }
+        return null;
+    }
 
 	/**
 	 * Returns all Courses of the User
@@ -195,6 +204,16 @@ public class CourseService {
 			return null;
 		}
 	}
+	
+	public String[] getStudentsWithoutAuthor(String title) {
+        String students = findCourseByTitleWithoutAuthor(title).getStudents();
+        String[] studentsArray = students.split("/");
+        if (!students.equals("")) {
+            return studentsArray;
+        } else {
+            return null;
+        }
+    }
 
 	public void saveCourseData(Graph data, String title) {
 		File file = new File(title + ".bin");
@@ -264,7 +283,7 @@ public class CourseService {
 	 */
 	public void removeStudent(String title, String user) {
 		String updatedStudents = "";
-		String[] tmp = getStudents(title);
+		String[] tmp = getStudentsWithoutAuthor(title);
 		for (int i = 1; i < tmp.length; i++) {
 			if (!tmp[i].equals(user)) {
 				updatedStudents = updatedStudents + "/" + tmp[i];
