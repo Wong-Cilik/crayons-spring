@@ -48,324 +48,310 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringComponent
 public class Preferences extends VerticalLayout implements View {
 
-	/**
-	 * 
-	 */
+    /**
+     * 
+     */
 
-	// public static final String ID = "profilepreferenceswindow";
-	public static final String VIEW_NAME = "Preferences";
-	private ResourceBundle lang = LanguageService.getInstance().getRes();
-	private @Autowired
-	UserService userService;
+    // public static final String ID = "profilepreferenceswindow";
+    public static final String VIEW_NAME = "Preferences";
+    private ResourceBundle lang = LanguageService.getInstance().getRes();
+    private @Autowired UserService userService;
 
-	// private final BeanFieldGroup<User> fieldGroup;
-	/*
-	 * Fields for editing the User object are defined here as class members.
-	 * They are later bound to a FieldGroup by calling
-	 * fieldGroup.bindMemberFields(this). The Fields' values don't need to be
-	 * explicitly set, calling fieldGroup.setItemDataSource(user) synchronizes
-	 * the fields with the user object.
-	 */
-	@PropertyId("firstName")
-	private TextField firstNameField;
-	@PropertyId("lastName")
-	private TextField lastNameField;
-	@PropertyId("title")
-	private ComboBox titleField;
-	@PropertyId("male")
-	private OptionGroup sexField;
-	@PropertyId("email")
-	private TextField emailField;
-	@PropertyId("location")
-	private TextField locationField;
-	@PropertyId("phone")
-	private TextField phoneField;
-	/*
-	 * @PropertyId("newsletterSubscription") private OptionalSelect<Integer>
-	 * newsletterField;
-	 */
-	@PropertyId("newpassword")
-	private TextField newPassword;
-	@PropertyId("newpasswordconfirmation")
-	private TextField newPasswordConfirmation;
+    // private final BeanFieldGroup<User> fieldGroup;
+    /*
+     * Fields for editing the User object are defined here as class members.
+     * They are later bound to a FieldGroup by calling
+     * fieldGroup.bindMemberFields(this). The Fields' values don't need to be
+     * explicitly set, calling fieldGroup.setItemDataSource(user) synchronizes
+     * the fields with the user object.
+     */
+    @PropertyId("firstName")
+    private TextField firstNameField;
+    @PropertyId("lastName")
+    private TextField lastNameField;
+    @PropertyId("title")
+    private ComboBox titleField;
+    @PropertyId("male")
+    private OptionGroup sexField;
+    @PropertyId("email")
+    private TextField emailField;
+    @PropertyId("location")
+    private TextField locationField;
+    @PropertyId("phone")
+    private TextField phoneField;
+    /*
+     * @PropertyId("newsletterSubscription") private OptionalSelect<Integer>
+     * newsletterField;
+     */
+    @PropertyId("newpassword")
+    private TextField newPassword;
+    @PropertyId("newpasswordconfirmation")
+    private TextField newPasswordConfirmation;
 
-	public Preferences() {
+    public Preferences() {
 
-	}
+    }
 
-	@PostConstruct
-	void init() {
+    @PostConstruct
+    void init() {
 
-		// addStyleName("profile-window");
-		// setId(ID);
-		Responsive.makeResponsive(this);
+        // addStyleName("profile-window");
+        // setId(ID);
+        Responsive.makeResponsive(this);
 
-		VerticalLayout content = new VerticalLayout();
-		content.setSizeFull();
-		content.setMargin(new MarginInfo(true, false, false, false));
-		addComponent(content);
+        VerticalLayout content = new VerticalLayout();
+        content.setSizeFull();
+        content.setMargin(new MarginInfo(true, false, false, false));
+        addComponent(content);
 
-		TabSheet detailsWrapper = new TabSheet();
-		detailsWrapper.setSizeFull();
-		detailsWrapper.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
-		detailsWrapper.addStyleName(ValoTheme.TABSHEET_ICONS_ON_TOP);
-		detailsWrapper.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-		content.addComponent(detailsWrapper);
-		content.setExpandRatio(detailsWrapper, 1f);
+        TabSheet detailsWrapper = new TabSheet();
+        detailsWrapper.setSizeFull();
+        detailsWrapper.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
+        detailsWrapper.addStyleName(ValoTheme.TABSHEET_ICONS_ON_TOP);
+        detailsWrapper.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
+        content.addComponent(detailsWrapper);
+        content.setExpandRatio(detailsWrapper, 1f);
 
-		detailsWrapper.addComponent(buildProfileTab());
-		detailsWrapper.addComponent(buildPreferencesTab());
+        detailsWrapper.addComponent(buildProfileTab());
+        detailsWrapper.addComponent(buildPreferencesTab());
 
-		content.addComponent(buildFooter());
-		/*
-		 * fieldGroup = new BeanFieldGroup<User>(User.class);
-		 * fieldGroup.bindMemberFields(this);
-		 * fieldGroup.setItemDataSource(user);
-		 */
-	}
-	
-	private Component buildPreferencesTab() {
-		VerticalLayout root = new VerticalLayout();
-		root.setCaption(lang.getString("Preferences"));
-		root.setIcon(FontAwesome.COGS);
-		root.setSpacing(true);
-		root.setMargin(true);
-		root.setSizeFull();
+        content.addComponent(buildFooter());
+        /*
+         * fieldGroup = new BeanFieldGroup<User>(User.class);
+         * fieldGroup.bindMemberFields(this);
+         * fieldGroup.setItemDataSource(user);
+         */
+    }
 
-		ComboBox selectLanguage = new ComboBox(
-				lang.getString("SelectYourLanguage"));
-		selectLanguage.setNullSelectionAllowed(false);
-		selectLanguage.addItem(lang.getString("German"));
-		selectLanguage.addItem(lang.getString("English"));
-		selectLanguage.setValue(lang.getString(LanguageService.getInstance()
-                .getLanguage().toString()));
-		selectLanguage.addValueChangeListener(new ValueChangeListener() {
+    private Component buildPreferencesTab() {
+        VerticalLayout root = new VerticalLayout();
+        root.setCaption(lang.getString("Preferences"));
+        root.setIcon(FontAwesome.COGS);
+        root.setSpacing(true);
+        root.setMargin(true);
+        root.setSizeFull();
 
-			// ToDO Makeup Hardcoded.
+        ComboBox selectLanguage = new ComboBox(lang.getString("SelectYourLanguage"));
+        selectLanguage.setNullSelectionAllowed(false);
+        selectLanguage.addItem(lang.getString("German"));
+        selectLanguage.addItem(lang.getString("English"));
+        selectLanguage.setValue(lang.getString(LanguageService.getInstance().getLanguage().toString()));
+        selectLanguage.addValueChangeListener(new ValueChangeListener() {
 
-			/**
-			 * 
-			 */
+            // ToDO Makeup Hardcoded.
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				Language newLanguage;
-				String value = selectLanguage.getValue().toString();
+            /**
+             * 
+             */
 
-				if (value.equals(lang.getString("German"))) {
-					newLanguage = Language.German;
-				} else if (value.equals(lang.getString("English"))) {
-					newLanguage = Language.English;
-				} else {
-					// newLanguage = null;
-					throw new IllegalArgumentException(
-							"Language not Implemented");
-				}
+            @Override
+            public void valueChange(ValueChangeEvent event) {
+                Language newLanguage;
+                String value = selectLanguage.getValue().toString();
 
-				CurrentUser.getInstance().getUser().setLanguage(newLanguage); // ??
+                if (value.equals(lang.getString("German"))) {
+                    newLanguage = Language.German;
+                } else if (value.equals(lang.getString("English"))) {
+                    newLanguage = Language.English;
+                } else {
+                    // newLanguage = null;
+                    throw new IllegalArgumentException("Language not Implemented");
+                }
 
-				if (userService.updateUserLanguage(CurrentUser.getInstance()
-						.getUser(), newLanguage)) {
-					Notification success = new Notification(lang
-							.getString("ProfileUpdatedSuccessfully"));
-					success.setDelayMsec(2000);
-					success.setStyleName("barSuccessSmall");
-					success.setPosition(Position.BOTTOM_CENTER);
-					success.show(Page.getCurrent());
+                CurrentUser.getInstance().getUser().setLanguage(newLanguage); // ??
 
-					LanguageService.getInstance().setCurrentLocale(newLanguage);
+                if (userService.updateUserLanguage(CurrentUser.getInstance().getUser(), newLanguage)) {
+                    Notification success = new Notification(lang.getString("ProfileUpdatedSuccessfully"));
+                    success.setDelayMsec(2000);
+                    success.setStyleName("barSuccessSmall");
+                    success.setPosition(Position.BOTTOM_CENTER);
+                    success.show(Page.getCurrent());
 
-					Page.getCurrent().reload();
+                    LanguageService.getInstance().setCurrentLocale(newLanguage);
 
-					// Problem: Logout - Soloution maybe:
-					// https://vaadin.com/forum#!/thread/11317960
-					// http://stackoverflow.com/questions/23612615/preserveonrefresh-purpose-and-need
-					// https://vaadin.com/tutorial/declarative
+                    Page.getCurrent().reload();
 
-					Notification.show(lang.getString("LanguageChangedTo")
-							+ ": " + value);
+                    // Problem: Logout - Soloution maybe:
+                    // https://vaadin.com/forum#!/thread/11317960
+                    // http://stackoverflow.com/questions/23612615/preserveonrefresh-purpose-and-need
+                    // https://vaadin.com/tutorial/declarative
 
-				}
+                    Notification.show(lang.getString("LanguageChangedTo") + ": " + value);
 
-			}
-		});
-		root.addComponent(selectLanguage);
-		return root;
-	}
+                }
 
-	private Component buildProfileTab() {
-		CurrentUser.getInstance().setUser(
-				userService.findByEMail(CurrentUser.getInstance().geteMail()));
-		HorizontalLayout root = new HorizontalLayout();
-		root.setCaption(lang.getString("Profile"));
-		root.setIcon(FontAwesome.USER);
-		root.setWidth(100.0f, Unit.PERCENTAGE);
-		root.setSpacing(true);
-		root.setMargin(true);
-		root.addStyleName("profile-form");
+            }
+        });
+        root.addComponent(selectLanguage);
+        return root;
+    }
 
-		VerticalLayout pic = new VerticalLayout();
-		pic.setSizeUndefined();
-		pic.setSpacing(true);
-		Image profilePic = new Image(null, new ThemeResource(
-				"img/profile-pic-300px.jpg"));
-		profilePic.setWidth(100.0f, Unit.PIXELS);
-		pic.addComponent(profilePic);
-		root.addComponent(pic);
+    private Component buildProfileTab() {
+        CurrentUser.getInstance().setUser(userService.findByEMail(CurrentUser.getInstance().geteMail()));
+        HorizontalLayout root = new HorizontalLayout();
+        root.setCaption(lang.getString("Profile"));
+        root.setIcon(FontAwesome.USER);
+        root.setWidth(100.0f, Unit.PERCENTAGE);
+        root.setSpacing(true);
+        root.setMargin(true);
+        root.addStyleName("profile-form");
 
-		FormLayout details = new FormLayout();
-		details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-		root.addComponent(details);
-		root.setExpandRatio(details, 1);
+        VerticalLayout pic = new VerticalLayout();
+        pic.setSizeUndefined();
+        pic.setSpacing(true);
+        Image profilePic = new Image(null, new ThemeResource("img/profile-pic-300px.jpg"));
+        profilePic.setWidth(100.0f, Unit.PIXELS);
+        pic.addComponent(profilePic);
+        root.addComponent(pic);
 
-		firstNameField = new TextField(lang.getString("FirstName"));
-		firstNameField.setValue(CurrentUser.getInstance().getUser()
-				.getFirstName());
-		details.addComponent(firstNameField);
-		lastNameField = new TextField(lang.getString("LastName"));
-		lastNameField.setValue(CurrentUser.getInstance().getUser()
-				.getLastName());
-		details.addComponent(lastNameField);
-		titleField = new ComboBox(lang.getString("Title"));
-		titleField.setInputPrompt(lang.getString("PleaseSpecify"));
-		titleField.addItem(lang.getString("Mr."));
-		titleField.addItem(lang.getString("Mrs."));
-		titleField.addItem(lang.getString("Ms."));
-		titleField.setNewItemsAllowed(true);
-		details.addComponent(titleField);
+        FormLayout details = new FormLayout();
+        details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+        root.addComponent(details);
+        root.setExpandRatio(details, 1);
 
-		sexField = new OptionGroup(lang.getString("Sex"));
-		sexField.addItem(Boolean.FALSE);
-		sexField.setItemCaption(Boolean.FALSE, lang.getString("Female"));
-		sexField.addItem(Boolean.TRUE);
-		sexField.setItemCaption(Boolean.TRUE, lang.getString("Male"));
-		sexField.addStyleName("horizontal");
-		details.addComponent(sexField);
+        firstNameField = new TextField(lang.getString("FirstName"));
+        firstNameField.setValue(CurrentUser.getInstance().getUser().getFirstName());
+        details.addComponent(firstNameField);
+        lastNameField = new TextField(lang.getString("LastName"));
+        lastNameField.setValue(CurrentUser.getInstance().getUser().getLastName());
+        details.addComponent(lastNameField);
+        titleField = new ComboBox(lang.getString("Title"));
+        titleField.setInputPrompt(lang.getString("PleaseSpecify"));
+        titleField.addItem(lang.getString("Mr."));
+        titleField.addItem(lang.getString("Mrs."));
+        titleField.addItem(lang.getString("Ms."));
+        titleField.setNewItemsAllowed(true);
+        details.addComponent(titleField);
 
-		Label section = new Label(lang.getString("ContactInfo"));
-		section.addStyleName(ValoTheme.LABEL_H4);
-		section.addStyleName(ValoTheme.LABEL_COLORED);
-		details.addComponent(section);
+        sexField = new OptionGroup(lang.getString("Sex"));
+        sexField.addItem(Boolean.FALSE);
+        sexField.setItemCaption(Boolean.FALSE, lang.getString("Female"));
+        sexField.addItem(Boolean.TRUE);
+        sexField.setItemCaption(Boolean.TRUE, lang.getString("Male"));
+        sexField.addStyleName("horizontal");
+        details.addComponent(sexField);
+
+
+        Label section = new Label(lang.getString("ContactInfo"));
+        section.addStyleName(ValoTheme.LABEL_H4);
+        section.addStyleName(ValoTheme.LABEL_COLORED);
+        details.addComponent(section);
 
 		emailField = new TextField(lang.getString("Email"));
 		emailField.setValue(CurrentUser.getInstance().getUser().getEmail());
 		emailField.setReadOnly(true);
 
-		emailField.setWidth("100%");
-		emailField.setNullRepresentation("");
-		details.addComponent(emailField);
+        emailField = new TextField(lang.getString("Email"));
+        emailField.setValue(CurrentUser.getInstance().getUser().getEmail());
 
-		locationField = new TextField(lang.getString("Location"));
-		locationField.setWidth("100%");
-		locationField.setNullRepresentation("");
-		details.addComponent(locationField);
+        emailField.setWidth("100%");
+        emailField.setNullRepresentation("");
+        details.addComponent(emailField);
 
-		phoneField = new TextField(lang.getString("Phone"));
-		phoneField.setWidth("100%");
-		phoneField.setNullRepresentation("");
-		details.addComponent(phoneField);
-		/*
-		 * newsletterField = new OptionalSelect<Integer>();
-		 * newsletterField.addOption(0, "Daily"); newsletterField.addOption(1,
-		 * "Weekly"); newsletterField.addOption(2, "Monthly");
-		 * details.addComponent(newsletterField);
-		 */
+        locationField = new TextField(lang.getString("Location"));
+        locationField.setWidth("100%");
+        locationField.setNullRepresentation("");
+        details.addComponent(locationField);
 
-		section = new Label(lang.getString("PWChange"));
-		section.addStyleName(ValoTheme.LABEL_H4);
-		section.addStyleName(ValoTheme.LABEL_COLORED);
-		details.addComponent(section);
+        phoneField = new TextField(lang.getString("Phone"));
+        phoneField.setWidth("100%");
+        phoneField.setNullRepresentation("");
+        details.addComponent(phoneField);
+        /*
+         * newsletterField = new OptionalSelect<Integer>();
+         * newsletterField.addOption(0, "Daily"); newsletterField.addOption(1,
+         * "Weekly"); newsletterField.addOption(2, "Monthly");
+         * details.addComponent(newsletterField);
+         */
 
-		newPassword = new TextField(lang.getString("NewPassword"));
-		newPassword.setWidth("100%");
-		newPassword.setNullRepresentation("");
-		details.addComponent(newPassword);
-		
-		newPasswordConfirmation = new TextField(lang.getString("NewPasswordConfirmation"));
-		newPasswordConfirmation.setWidth("100%");
-		newPasswordConfirmation.setNullRepresentation("");
-		details.addComponent(newPasswordConfirmation);
+        section = new Label(lang.getString("PWChange"));
+        section.addStyleName(ValoTheme.LABEL_H4);
+        section.addStyleName(ValoTheme.LABEL_COLORED);
+        details.addComponent(section);
 
-		return root;
-	}
+        newPassword = new TextField(lang.getString("NewPassword"));
+        newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
+        newPassword.setWidth("100%");
+        newPassword.setNullRepresentation("");
+        details.addComponent(newPassword);
 
-	private Component buildFooter() {
-		HorizontalLayout footer = new HorizontalLayout();
-		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-		footer.setWidth(100.0f, Unit.PERCENTAGE);
+        newPasswordConfirmation = new TextField(lang.getString("NewPasswordConfirmation"));
+        newPasswordConfirmation.setWidth("100%");
+        newPasswordConfirmation.setNullRepresentation("");
+        details.addComponent(newPasswordConfirmation);
 
-		Button ok = new Button(lang.getString("Save"));
-		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		ok.addClickListener(new ClickListener() {
-			/**
-			 * 
-			 */
+        return root;
+    }
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				if(newPassword.getValue().length() != 0 && (!newPassword.getValue().equals(newPasswordConfirmation.getValue()) 
-						|| newPassword.getValue().length() < 8)) {
-					notifPWMatchesNot();
-					System.out.println("im 1");
-						
-				} else if (CurrentUser.getInstance().getUser().getUsername() != emailField
-						.getValue()
-						|| CurrentUser.getInstance().getUser().getFirstName() != firstNameField
-								.getValue()
-						|| CurrentUser.getInstance().getUser().getLastName() != lastNameField
-								.getValue()
-						|| newPassword.getValue().length() == 0) {
-					System.out.println("im richtigem ändern");
-					if (userService.updateUser(CurrentUser.getInstance()
-							.getUser(), emailField.getValue(), firstNameField
-							.getValue(), lastNameField.getValue(), CurrentUser.getInstance().getUser().getPassword()
-							)) {
-						notifSuccesProfileChange();
-				} else if ((CurrentUser.getInstance().getUser().getUsername() != emailField
-						.getValue()
-						|| CurrentUser.getInstance().getUser().getFirstName() != firstNameField
-								.getValue()
-						|| CurrentUser.getInstance().getUser().getLastName() != lastNameField
-								.getValue())) {
-					System.out.println("im 3");
-					if (userService.updateUser(CurrentUser.getInstance()
-							.getUser(), emailField.getValue(), firstNameField
-							.getValue(), lastNameField.getValue(), newPassword.getValue()
-							)) {
-						notifSuccesProfileChange();
-					}
-				}
-				}
+    private Component buildFooter() {
+        HorizontalLayout footer = new HorizontalLayout();
+        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+        footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-			}
-		});
-		ok.focus();
-		footer.addComponent(ok);
-		footer.setComponentAlignment(ok, Alignment.TOP_RIGHT);
-		return footer;
-	}
-	
-	public void notifSuccesProfileChange() {
-		Notification success = new Notification(lang
-				.getString("ProfileUpdatedSuccessfully"));
-		success.setDelayMsec(2000);
-		success.setStyleName("barSuccessSmall");
-		success.setPosition(Position.BOTTOM_CENTER);
-		success.show(Page.getCurrent());
-	}
-	
-	public void notifPWMatchesNot() {
-		Notification failure = new Notification(lang
-				.getString("PWsNeedsToBeSameOrGreater8"));
-		failure.setDelayMsec(5000);
-		failure.setPosition(Position.BOTTOM_CENTER);
-		failure.show(Page.getCurrent());
-	}
-	
-	@Override
-	public void enter(ViewChangeEvent event) {
-		newPassword.setValue("");
-		newPasswordConfirmation.setValue("");
-	}
+        Button ok = new Button(lang.getString("Save"));
+        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+        ok.addClickListener(new ClickListener() {
+            /**
+             * 
+             */
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                
+                boolean fieldsChanged = CurrentUser.getInstance().getUser().getUsername() != emailField.getValue()
+                        || CurrentUser.getInstance().getUser().getFirstName() != firstNameField.getValue()
+                        || CurrentUser.getInstance().getUser().getLastName() != lastNameField.getValue()
+                        || CurrentUser.getInstance().getUser().getPassword() != newPassword.getValue();
+
+                boolean newPasswordEqualConfirmPassword = newPassword.getValue()
+                        .equals(newPasswordConfirmation.getValue());
+                // if password changed && ( passwords are not equal or password < 8)
+                if (newPassword.getValue().length() != 0
+                        && (!newPasswordEqualConfirmPassword || newPassword.getValue().length() < 8)) {
+                    notifPWMatchesNot();
+                    System.out.println("im 1");
+
+                } else {
+
+                    if (fieldsChanged) {
+                        System.out.println("fields and not password");
+                        // update Email, FirstName, and LastName but not the Password
+                        boolean updateUser = userService.updateUser(CurrentUser.getInstance().getUser(), emailField.getValue(),
+                                firstNameField.getValue(), lastNameField.getValue(),
+                                newPassword.getValue());
+                        if (updateUser) {
+                            notifSuccesProfileChange();
+                        } 
+                    }
+                }
+
+            }
+        });
+        ok.focus();
+        footer.addComponent(ok);
+        footer.setComponentAlignment(ok, Alignment.TOP_RIGHT);
+        return footer;
+    }
+
+    public void notifSuccesProfileChange() {
+        Notification success = new Notification(lang.getString("ProfileUpdatedSuccessfully"));
+        success.setDelayMsec(2000);
+        success.setStyleName("barSuccessSmall");
+        success.setPosition(Position.BOTTOM_CENTER);
+        success.show(Page.getCurrent());
+    }
+
+    public void notifPWMatchesNot() {
+        Notification failure = new Notification(lang.getString("PWsNeedsToBeSameOrGreater8"));
+        failure.setDelayMsec(5000);
+        failure.setPosition(Position.BOTTOM_CENTER);
+        failure.show(Page.getCurrent());
+    }
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        newPassword.setValue("");
+        newPasswordConfirmation.setValue("");
+    }
 
 }
