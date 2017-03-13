@@ -232,35 +232,25 @@ public class Authorlibrary extends VerticalLayout implements View,
 		TwinColSelect selectStudents = new TwinColSelect();
 		selectStudents.setMultiSelect(true);
 		selectStudents.setCaptionAsHtml(true);
-		selectStudents.setCaption("<h3>" + lang.getString("SelectParticipants")
-				+ "</h3>");
+		selectStudents.setCaption(lang.getString("SelectParticipants"));
 
 		selectStudents.setRows(10);
 		selectStudents.setSizeFull();
 		selectStudents
 				.setLeftColumnCaption(lang.getString("ListOfAllStudents"));
 		selectStudents.setRightColumnCaption(lang.getString("Participants"));
-		// adding all users to the select Student Table
+
 		List<CrayonsUser> allUsers = userService.findAll();
-		String[] emailOfStudentsInCourse = courseService.getStudents(title);
-		List<String> rightColumn = new ArrayList<String>();
+		for (int i = 0; i < allUsers.size(); i++) {
+            selectStudents.addItem(allUsers.get(i).getEmail());
+        }
+		
+		String[] emailOfStudentsInCourse = courseService.getStudentsWithAuthor(title);
 		if (emailOfStudentsInCourse != null) {
-			for (int i = 0; i < allUsers.size(); i++) {
-				for (int j = 1; j < emailOfStudentsInCourse.length; j++) {
-					if (!emailOfStudentsInCourse[j].equals(allUsers.get(i)
-							.getEmail())) {
-						selectStudents.addItems(allUsers.get(i).getEmail());
-					} else {
-						rightColumn.add(allUsers.get(i).getEmail());
-					}
-				}
-			}
-		} else {
-			for (int i = 0; i < allUsers.size(); i++) {
-				selectStudents.addItems(allUsers.get(i).getEmail());
-			}
+		    for (int i = 1; i < emailOfStudentsInCourse.length; i++) {
+		        selectStudents.select(emailOfStudentsInCourse[i]);
+		    }
 		}
-		selectStudents.setValue(rightColumn);
 
 		Button saveStudents = new Button(lang.getString("SaveStudents"));
 		saveStudents.addClickListener(new ClickListener() {
@@ -328,7 +318,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 			@Override
 			public void buttonClick(ClickEvent event) {
 				courseService.removeCourse(courseService
-						.findCourseByTitle(title));
+						.findCourseByTitleAndAuthor(title));
 				getTabSheet().removeTab(
 						getTabSheet().getTab(getTabSheet().getSelectedTab()));
 				// TODO notification
@@ -344,7 +334,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 			public void buttonClick(ClickEvent event) {
 				UI.getCurrent().addWindow(
 						new CourseModificationWindow(courseService, courseService
-								.findCourseByTitle(title), tab, tabSheet));
+								.findCourseByTitleAndAuthor(title), tab, tabSheet));
 			}
 		});
 
