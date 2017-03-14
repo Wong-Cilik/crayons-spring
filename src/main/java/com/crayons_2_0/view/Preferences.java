@@ -314,18 +314,15 @@ public class Preferences extends VerticalLayout implements View {
                 if (newPassword.getValue().length() != 0
                         && (!newPasswordEqualConfirmPassword || newPassword.getValue().length() < 8)) {
                     notifPWMatchesNot();
-                    System.out.println("im 1");
-
                 } else {
-
                     if (fieldsChanged) {
-                        System.out.println("fields and not password");
-                        // update Email, FirstName, and LastName but not the Password
                         boolean updateUser = userService.updateUser(CurrentUser.getInstance().getUser(), emailField.getValue(),
                                 firstNameField.getValue(), lastNameField.getValue(),
                                 newPassword.getValue());
                         if (updateUser) {
                             notifSuccesProfileChange();
+                            newPassword.clear();
+                            newPasswordConfirmation.clear();
                         } 
                     }
                 }
