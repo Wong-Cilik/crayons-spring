@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.maddon.ListContainer;
 
+import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
@@ -21,8 +22,10 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Page;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
@@ -35,6 +38,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -254,16 +258,32 @@ public final class AdminView extends VerticalLayout implements View {
 		deleteUser.addClickListener(new ClickListener() {
 			@Override
 			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-				for (Course tmp : courseService
-						.findAllAuthorCoursesOfUser(emailField.getValue())) {
-					courseService.removeCourse(tmp);
-				}
-				for (Course tmp : courseService.findAll()) {
-					courseService.removeStudentFromCourse(emailField.getValue(),
-					        tmp);
-				}
-				userService.removeUser(emailField.getValue());
-				updateTable();
+			    if (emailField.getValue().equals(CurrentUser.getInstance()
+                        .geteMail())) {
+			        Notification deletionFailed = new Notification(
+			                lang.getString("YouCannotDeleteYourOwnAccount"));
+			        deletionFailed.setPosition(Position.BOTTOM_CENTER);
+			        deletionFailed.setDelayMsec(2000);
+			        deletionFailed.show(Page.getCurrent());
+			    } else {
+			        for (Course tmp : courseService
+	                        .findAllAuthorCoursesOfUser(emailField.getValue())) {
+	                    courseService.removeCourse(tmp);
+	                }
+	                for (Course tmp : courseService.findAll()) {
+	                    courseService.removeStudentFromCourse(emailField.getValue(),
+	                            tmp);
+	                }
+	                boolean removeSuccess = userService.removeUser(emailField.getValue());
+	                if (removeSuccess) {
+	                    updateTable();
+	                    Notification success = new Notification(lang.getString("UserDeletedSuccessfully"));
+	                    success.setDelayMsec(2000);
+	                    success.setStyleName("barSuccessSmall");
+	                    success.setPosition(Position.BOTTOM_CENTER);
+	                    success.show(Page.getCurrent());
+	                }
+			    }
 			}
 		});
 		
@@ -284,8 +304,15 @@ public final class AdminView extends VerticalLayout implements View {
                     case "Autor": newRights = "Author";
                                   break;
                 }
-                userService.updateRights(emailField.getValue(), newRights);
-                updateTable();
+                boolean updateSuccess = userService.updateRights(emailField.getValue(), newRights);
+                if (updateSuccess) {
+                    updateTable();
+                    Notification success = new Notification(lang.getString("RightsUpdatedSuccessfully"));
+                    success.setDelayMsec(2000);
+                    success.setStyleName("barSuccessSmall");
+                    success.setPosition(Position.BOTTOM_CENTER);
+                    success.show(Page.getCurrent());
+                }
             }
         });
 
