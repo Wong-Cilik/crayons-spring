@@ -16,8 +16,6 @@ import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.UserDisplay;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UserService;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
@@ -25,7 +23,6 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.ViewScope;
@@ -87,8 +84,15 @@ public final class AdminView extends VerticalLayout implements View {
 	void init() {
 		addStyleName("courseDisplay");
 		Responsive.makeResponsive(this);
-
-		this.addComponents(buildTable(), buildProfileTab(null));
+		
+		Component table = buildTable();
+		Component profileTab = buildProfileTab(null);
+		this.setSizeFull();
+		this.addComponents(table, profileTab);
+		this.setComponentAlignment(table, Alignment.TOP_CENTER);
+		this.setComponentAlignment(profileTab, Alignment.BOTTOM_CENTER);
+		this.setExpandRatio(table, 1);
+		this.setExpandRatio(profileTab, 1);
 	}
 
 	private List<UserDisplay> getTableContents() {
@@ -117,7 +121,7 @@ public final class AdminView extends VerticalLayout implements View {
 
 		table.setColumnReorderingAllowed(false);
 		table.setWidth("100%");
-		table.setPageLength(6);
+		table.setPageLength(8);
 		table.addStyleName(ValoTheme.TABLE_BORDERLESS);
 		table.addStyleName(ValoTheme.TABLE_NO_HORIZONTAL_LINES);
 		table.addStyleName(ValoTheme.TABLE_COMPACT);
@@ -128,6 +132,8 @@ public final class AdminView extends VerticalLayout implements View {
 		table.setColumnHeaders(lang.getString("Email"), lang.getString("Name"), 
 		        lang.getString("Rights"), lang.getString("CreatedCourses"),
 		        lang.getString("AttendedCourses"));
+		table.setSortContainerPropertyId("email");
+        table.sort();
 		table.addItemClickListener(new ItemClickListener() {
 
 			/**
@@ -191,15 +197,13 @@ public final class AdminView extends VerticalLayout implements View {
 		root.addComponent(pic);
 		root.setExpandRatio(pic, 1);
 
-		VerticalLayout detailsWithDeleteButton = new VerticalLayout();
-		root.addComponent(detailsWithDeleteButton);
-		root.setExpandRatio(detailsWithDeleteButton, 7);
-		//root.setComponentAlignment(detailsWithDeleteButton, Alignment.TOP_LEFT);
+		VerticalLayout detailsWithButtons = new VerticalLayout();
+		root.addComponent(detailsWithButtons);
+		root.setExpandRatio(detailsWithButtons, 7);
 		
 		FormLayout details = new FormLayout();
 		details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-		detailsWithDeleteButton.addComponent(details);
-		//root.setExpandRatio(details, 1);
+		detailsWithButtons.addComponent(details);
 
 		nameField.setValue("");
 		nameField.setWidth("100%");
@@ -213,23 +217,6 @@ public final class AdminView extends VerticalLayout implements View {
 
 		rights.addItems(lang.getString("admin"), lang.getString("Author"),
 		        lang.getString("Student"));
-		rights.addValueChangeListener(new ValueChangeListener() {
-
-			public void valueChange(ValueChangeEvent event) {
-			    String newRights = rights.getValue().toString();
-			    switch (newRights) {
-			        case "Administrator": newRights = "Admin";
-			                              break;
-			        case "Schüler": newRights = "Student";
-                                    break;
-			        case "Autor": newRights = "Author";
-                                  break;
-			    }
-				userService.updateRights(emailField.getValue(), newRights);
-				container = new TempContainer(getTableContents());
-				table.setContainerDataSource(container);
-			}
-		});
 		rights.setNullSelectionAllowed(false);
 		details.addComponent(rights);
 
@@ -252,11 +239,17 @@ public final class AdminView extends VerticalLayout implements View {
 		phoneField.setWidth("100%");
 		phoneField.setReadOnly(true);
 		details.addComponent(phoneField);
+		
+		HorizontalLayout controlButtons = new HorizontalLayout();
+		controlButtons.setSizeUndefined();
+		controlButtons.setSpacing(true);
+		detailsWithButtons.addComponent(controlButtons);
+		detailsWithButtons.setComponentAlignment(controlButtons, Alignment.MIDDLE_RIGHT);
 
 		Button deleteUser = new Button(lang.getString("DeleteUser"));
 		deleteUser.setStyleName(ValoTheme.BUTTON_DANGER);
-		detailsWithDeleteButton.addComponent(deleteUser);
-		detailsWithDeleteButton.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
+		controlButtons.addComponent(deleteUser);
+		controlButtons.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
 
 		deleteUser.addClickListener(new ClickListener() {
 			@Override
@@ -270,9 +263,40 @@ public final class AdminView extends VerticalLayout implements View {
 					        tmp);
 				}
 				userService.removeUser(emailField.getValue());
+				updateTable();
 			}
 		});
+		
+		Button save = new Button(lang.getString("Save"));
+        save.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        controlButtons.addComponent(save);
+        controlButtons.setComponentAlignment(save, Alignment.MIDDLE_RIGHT);
+        
+        save.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
+                String newRights = rights.getValue().toString();
+                switch (newRights) {
+                    case "Administrator": newRights = "Admin";
+                                          break;
+                    case "Schüler": newRights = "Student";
+                                    break;
+                    case "Autor": newRights = "Author";
+                                  break;
+                }
+                userService.updateRights(emailField.getValue(), newRights);
+                updateTable();
+            }
+        });
 
 		return root;
+	}
+	
+	private void updateTable() {
+	    java.lang.Object[] visibleColumns = table.getVisibleColumns();
+        container = new TempContainer(getTableContents());
+        table.setContainerDataSource(container);
+        table.setVisibleColumns(visibleColumns);
+        table.sort();
 	}
 }
