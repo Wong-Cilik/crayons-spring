@@ -19,6 +19,7 @@ import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.ViewScope;
@@ -66,12 +67,15 @@ public class CourseEditorView extends VerticalLayout implements View {
 	@PostConstruct
 	void init() {
 		setSizeFull();
+		VerticalLayout graphLayout = new VerticalLayout();
+		graphLayout.setSizeFull();
+		graphLayout.setHeight("1000");
 		graphData = courseService.getDummyGraph();
 		graph.setGraph(graphData.getNodeNameList(), graphData.getEdgeSequence());
 		graph.setSizeFull();
-		addComponent(graph);
-		setComponentAlignment(graph, Alignment.TOP_CENTER);
-
+		graphLayout.addComponent(graph);
+		//setComponentAlignment(graph, Alignment.TOP_CENTER);
+		addComponent(graphLayout);
 		Component footer = buildFooter();
 		addComponent(footer);
 		footer.setSizeUndefined();
@@ -83,7 +87,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 	 * 
 	 * @param graphTmp
 	 */
-	public static void refreshGraph(Graph graphTmp) {
+    public static void refreshGraph(Graph graphTmp) {
 		selectUnit.removeAllItems();
 		for (String tmp : graphTmp.getNodeNameList()) {
 			if (!tmp.equals("Start") && !tmp.equals("End")) {
@@ -92,7 +96,6 @@ public class CourseEditorView extends VerticalLayout implements View {
 		}
 		graph.setGraph(graphTmp.getNodeNameList(), graphTmp.getEdgeSequence());
 		graphData = graphTmp;
-		graph.setSizeFull();
 	}
 
 	/**

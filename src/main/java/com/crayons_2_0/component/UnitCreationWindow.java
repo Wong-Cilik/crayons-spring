@@ -191,10 +191,11 @@ public final class UnitCreationWindow extends Window {
 					close();
 					Notification success = new Notification(lang
 							.getString("UnitCreatedSuccessfully"));
-					success.setDelayMsec(1000);
+					success.setDelayMsec(500);
 					success.setStyleName("bar success small");
 					success.setPosition(Position.BOTTOM_CENTER);
-					success.show(Page.getCurrent());
+					Page.getCurrent().reload();
+					
 				}
 
 			}

@@ -37,7 +37,8 @@ public class CourseService {
 	@Autowired
 	private UnitService unitService;
 
-	@Autowired
+	@SuppressWarnings("unused")
+    @Autowired
 	private CurrentUser currentUser;
 
 	
@@ -274,7 +275,7 @@ public class CourseService {
 	}
 
 	/**
-	 * Removes an Student of Course
+	 * Removes a student of Course
 	 * 
 	 * @param title
 	 *            of Course

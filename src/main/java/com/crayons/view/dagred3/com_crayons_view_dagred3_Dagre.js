@@ -51,11 +51,11 @@ window.com_crayons_view_dagred3_Dagre = function() {
 	
 	 this.onStateChange = function() {
 		 var g = new dagreD3.graphlib.Graph({}).setGraph({});
-			
+			/*
 			g.graph().transition = function transition(selection) { // transition with
 				// duration 1000ms
 				return selection.transition().duration(1000);
-			};
+			};*/
 			
 			var Nodes = this.getState().unitNodes;
 			
@@ -91,10 +91,11 @@ window.com_crayons_view_dagred3_Dagre = function() {
 
 			// Run the renderer. This is what draws the final graph.
 			render(d3.select("svg g"), g);
-
+			/*
 			// Center the graph
 			var xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
 			svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
-			svg.attr("height", g.graph().height + 40);
+			svg.attr("height", g.graph().height + 200);*/
+			
 	 }
 }
