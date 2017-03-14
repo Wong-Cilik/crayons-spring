@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons_2_0.authentication.CurrentCourses;
-import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.component.UnitPageLayout;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
@@ -306,10 +305,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		return wrapper;
 	}
 	
-	public interface CourseEditorListener {
-		void titleChanged(String newTitle, UnitEditor editor);
-	}
-
+	
 	/**
 	 * Adds a component of the defined type to the page.
 	 * 

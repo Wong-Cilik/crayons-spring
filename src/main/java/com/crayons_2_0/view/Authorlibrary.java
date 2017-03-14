@@ -14,13 +14,11 @@ import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.authentication.CurrentGraph;
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.component.CourseModificationWindow;
-import com.crayons_2_0.component.UnitEditor;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UserService;
-import com.crayons_2_0.view.Uniteditor.CourseEditorListener;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.navigator.View;
@@ -53,8 +51,7 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 @SpringView(name = Authorlibrary.VIEW_NAME)
 @SpringComponent
-public class Authorlibrary extends VerticalLayout implements View,
-		CourseEditorListener {
+public class Authorlibrary extends VerticalLayout implements View {
 	private @Autowired
 	CourseService courseService;
 	private @Autowired
@@ -363,11 +360,7 @@ public class Authorlibrary extends VerticalLayout implements View,
 	public void enter(ViewChangeEvent event) {
 	}
 
-	@Override
-	public void titleChanged(String newTitle, UnitEditor editor) {
-		// TODO auto generated
-	}
-
+	
 	/**
 	 * Builds a filter to search for a course by name.
 	 * 
