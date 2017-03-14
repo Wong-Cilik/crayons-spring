@@ -48,7 +48,7 @@ public class CourseCreationTest extends TestBenchTestCase {
         getDriver().quit();
     }
 
-/*    @Test
+    @Test
     public void testCreateAndDeleteCourse() {
 
         // 1. Enter "client@web.de" into the Email field
@@ -153,7 +153,7 @@ public class CourseCreationTest extends TestBenchTestCase {
         
         // 14. Click "Delete Course" to delete the course
         $(ButtonElement.class).caption(lang.getString("DeleteCourse")).first().click();
-    }*/
+    }
     
     @Test
     public void testCreateCourseWithEmptyFields() {

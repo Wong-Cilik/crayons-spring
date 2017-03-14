@@ -189,22 +189,16 @@ public class CourseService {
 		}
 		return courseDAO.updateStudentsWithAuthor(tmp2, title, CurrentUser.getInstance().geteMail());
 	}
-
-	/**
-	 * 
-	 * @param title
-	 *            of course
-	 * @return String[] with students in course
-	 */
-	public String[] getStudents(String title) {
-		String students = findCourseByTitle(title).getStudents();
-		String[] studentsArray = students.split("/");
-		if (!students.equals("")) {
-			return studentsArray;
-		} else {
-			return null;
-		}
-	}
+	
+	public String[] getCourseParticipants(Course course) {
+        String students = course.getStudents();
+        String[] studentsArray = students.split("/");
+        if (!students.equals("")) {
+            return studentsArray;
+        } else {
+            return null;
+        }
+    }
 	
 	public String[] getStudentsWithAuthor(String title) {
         String students = findCourseByTitleAndAuthor(title).getStudents();
@@ -274,25 +268,19 @@ public class CourseService {
 		saveCourseData(dummyGraph, title);
 	}
 
-	/**
-	 * Removes a student of Course
-	 * 
-	 * @param title
-	 *            of Course
-	 * @param user
-	 *            id (email) of user to delete
-	 */
-	public void removeStudent(String title, String user) {
-		String updatedStudents = "";
-		String[] tmp = getStudents(title);
-		for (int i = 1; i < tmp.length; i++) {
-			if (!tmp[i].equals(user)) {
-				updatedStudents = updatedStudents + "/" + tmp[i];
-			}
-		}
-		courseDAO.updateStudents(updatedStudents, title);
-
-	}
+	
+	public void removeStudentFromCourse(String user, Course course) {
+        String updatedStudents = "";
+        String[] tmp = getCourseParticipants(course);
+        if (tmp != null) {
+            for (int i = 1; i < tmp.length; i++) {
+                if (!tmp[i].equals(user)) {
+                    updatedStudents = updatedStudents + "/" + tmp[i];
+                }
+            }
+            courseDAO.updateStudentsWithAuthor(updatedStudents, course.getTitle(), course.getAuthor().getEmail());
+        }
+    }
 
 	public Graph getDummyGraph() {
 		String dummy = "dummy@web.de";

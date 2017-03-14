@@ -58,14 +58,14 @@ public final class AdminView extends VerticalLayout implements View {
 
 	private @Autowired
 	CourseService courseService;
-
+	
+	public static final String VIEW_NAME = "AdminView";
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	private List<UserDisplay> collection;
-	public static final String VIEW_NAME = "AdminView";
 	private HorizontalLayout root;
 	private Table table = new Table();;
 	private TempContainer container;
-	private VerticalLayout content = new VerticalLayout();
+
 	@PropertyId("name")
 	private TextField nameField = new TextField(lang.getString("Name"));
 	@PropertyId("title")
@@ -86,26 +86,9 @@ public final class AdminView extends VerticalLayout implements View {
 	@PostConstruct
 	void init() {
 		addStyleName("courseDisplay");
-		addComponent(buildToolbar());
-
-		table = buildTable();
-		addComponent(table);
 		Responsive.makeResponsive(this);
-		content.setSizeFull();
-		content.setMargin(new MarginInfo(true, false, false, false));
-		content.setEnabled(false);
-		addComponent(content);
-		content.addComponent(buildProfileTab(null));
-		setComponentAlignment(content, Alignment.BOTTOM_LEFT);
 
-	}
-
-	private Component buildToolbar() {
-		HorizontalLayout header = new HorizontalLayout();
-		header.addStyleName("viewheader");
-		header.setSpacing(true);
-		Responsive.makeResponsive(header);
-		return header;
+		this.addComponents(buildTable(), buildProfileTab(null));
 	}
 
 	private List<UserDisplay> getTableContents() {
@@ -113,11 +96,11 @@ public final class AdminView extends VerticalLayout implements View {
 		for (CrayonsUser tmpUser : userService.findAll()) {
 			String permission = "";
 			if (tmpUser.getPermission() == 0) {
-				permission = "Admin";
+				permission = lang.getString("admin");
 			} else if (tmpUser.getPermission() == 1) {
-				permission = "Autor";
+				permission = lang.getString("Author");
 			} else if (tmpUser.getPermission() == 2) {
-				permission = "Schüler";
+				permission = lang.getString("Student");
 			}
 			collection.add(new UserDisplay(tmpUser.getEmail(), tmpUser
 					.getFirstName() + " " + tmpUser.getLastName(), permission,
@@ -132,8 +115,9 @@ public final class AdminView extends VerticalLayout implements View {
 	private Table buildTable() {
 		container = new TempContainer(getTableContents());
 
-		table.setSizeFull();
 		table.setColumnReorderingAllowed(false);
+		table.setWidth("100%");
+		table.setPageLength(6);
 		table.addStyleName(ValoTheme.TABLE_BORDERLESS);
 		table.addStyleName(ValoTheme.TABLE_NO_HORIZONTAL_LINES);
 		table.addStyleName(ValoTheme.TABLE_COMPACT);
@@ -141,8 +125,9 @@ public final class AdminView extends VerticalLayout implements View {
 		table.setContainerDataSource(container);
 		table.setVisibleColumns("email", "name", "role", "createdCourses",
 				"visitedCourses");
-		table.setColumnHeaders("eMail", "Name", "Rechte", "Erstellte Kurse",
-				"Besuchte Kurse");
+		table.setColumnHeaders(lang.getString("Email"), lang.getString("Name"), 
+		        lang.getString("Rights"), lang.getString("CreatedCourses"),
+		        lang.getString("AttendedCourses"));
 		table.addItemClickListener(new ItemClickListener() {
 
 			/**
@@ -171,7 +156,6 @@ public final class AdminView extends VerticalLayout implements View {
 				ad.phoneField.setReadOnly(true);
 
 				ad.rights.setValue(userDisplay.getRole());
-				ad.content.setEnabled(true);
 			}
 
 		});
@@ -205,11 +189,17 @@ public final class AdminView extends VerticalLayout implements View {
 		profilePic.setWidth(100.0f, Unit.PIXELS);
 		pic.addComponent(profilePic);
 		root.addComponent(pic);
+		root.setExpandRatio(pic, 1);
 
+		VerticalLayout detailsWithDeleteButton = new VerticalLayout();
+		root.addComponent(detailsWithDeleteButton);
+		root.setExpandRatio(detailsWithDeleteButton, 7);
+		//root.setComponentAlignment(detailsWithDeleteButton, Alignment.TOP_LEFT);
+		
 		FormLayout details = new FormLayout();
 		details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-		root.addComponent(details);
-		root.setExpandRatio(details, 1);
+		detailsWithDeleteButton.addComponent(details);
+		//root.setExpandRatio(details, 1);
 
 		nameField.setValue("");
 		nameField.setWidth("100%");
@@ -221,7 +211,8 @@ public final class AdminView extends VerticalLayout implements View {
 		title.setReadOnly(true);
 		details.addComponent(title);
 
-		rights.addItems("Schüler", "Autor", "Admin");
+		rights.addItems(lang.getString("admin"), lang.getString("Author"),
+		        lang.getString("Student"));
 		rights.addValueChangeListener(new ValueChangeListener() {
 
 			public void valueChange(ValueChangeEvent event) {
@@ -254,9 +245,10 @@ public final class AdminView extends VerticalLayout implements View {
 		phoneField.setReadOnly(true);
 		details.addComponent(phoneField);
 
-		Button deleteUser = new Button("Delete User");
-		details.addComponent(deleteUser);
-		details.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
+		Button deleteUser = new Button(lang.getString("DeleteUser"));
+		deleteUser.setStyleName(ValoTheme.BUTTON_DANGER);
+		detailsWithDeleteButton.addComponent(deleteUser);
+		detailsWithDeleteButton.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
 
 		deleteUser.addClickListener(new ClickListener() {
 			@Override
@@ -266,8 +258,8 @@ public final class AdminView extends VerticalLayout implements View {
 					courseService.removeCourse(tmp);
 				}
 				for (Course tmp : courseService.findAll()) {
-					courseService.removeStudent(tmp.getTitle(),
-							emailField.getValue());
+					courseService.removeStudentFromCourse(emailField.getValue(),
+					        tmp);
 				}
 				userService.removeUser(emailField.getValue());
 			}
