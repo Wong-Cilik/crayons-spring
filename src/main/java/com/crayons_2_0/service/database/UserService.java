@@ -146,7 +146,7 @@ public class UserService implements UserDetailsService {
 	
 	public boolean updateRights(String eMail, String role) {
 		int r = 2;
-		if (role.equals("Autor")) {
+		if (role.equals("Author")) {
 			r = 1;
 		}
 		if (role.equals("Admin")) {

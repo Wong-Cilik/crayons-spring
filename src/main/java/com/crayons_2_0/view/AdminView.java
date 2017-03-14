@@ -216,8 +216,16 @@ public final class AdminView extends VerticalLayout implements View {
 		rights.addValueChangeListener(new ValueChangeListener() {
 
 			public void valueChange(ValueChangeEvent event) {
-				userService.updateRights(emailField.getValue(), rights
-						.getValue().toString());
+			    String newRights = rights.getValue().toString();
+			    switch (newRights) {
+			        case "Administrator": newRights = "Admin";
+			                              break;
+			        case "Schüler": newRights = "Student";
+                                    break;
+			        case "Autor": newRights = "Author";
+                                  break;
+			    }
+				userService.updateRights(emailField.getValue(), newRights);
 				container = new TempContainer(getTableContents());
 				table.setContainerDataSource(container);
 			}
