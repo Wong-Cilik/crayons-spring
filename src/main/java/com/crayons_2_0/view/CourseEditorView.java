@@ -19,7 +19,7 @@ import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Page;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.ViewScope;
@@ -62,7 +62,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 	private final static Dagre graph = new Dagre();
 
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
-	private static ComboBox selectUnit;
+	private static  ComboBox selectUnit = new ComboBox();
 
 	@PostConstruct
 	void init() {
@@ -74,21 +74,26 @@ public class CourseEditorView extends VerticalLayout implements View {
 		graph.setGraph(graphData.getNodeNameList(), graphData.getEdgeSequence());
 		graph.setSizeFull();
 		graphLayout.addComponent(graph);
-		//setComponentAlignment(graph, Alignment.TOP_CENTER);
+		
+		//addComponent( );
 		addComponent(graphLayout);
+		
 		Component footer = buildFooter();
 		addComponent(footer);
 		footer.setSizeUndefined();
 		setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+		setSpacing(false);
+		
+		
 	}
-
+	
 	/**
 	 * general refresher
 	 * 
 	 * @param graphTmp
 	 */
     public static void refreshGraph(Graph graphTmp) {
-		selectUnit.removeAllItems();
+		
 		for (String tmp : graphTmp.getNodeNameList()) {
 			if (!tmp.equals("Start") && !tmp.equals("End")) {
 				selectUnit.addItem(tmp);
@@ -155,12 +160,101 @@ public class CourseEditorView extends VerticalLayout implements View {
 	 * Builds a layout with control buttons for the graph
 	 * 
 	 * @return layout with control buttons
+	 * 
 	 */
+	private class EditUnitWindow extends Window{
+	    /**
+         * Builds together several components of the window.
+         */
+        public EditUnitWindow() {
+            setSizeFull();
+            setModal(true);
+            setResizable(false);
+            setClosable(true);
+            setHeight(50.0f, Unit.PERCENTAGE);
+            setWidth(40.0f, Unit.PERCENTAGE);
+
+
+            VerticalLayout content = new VerticalLayout();
+            content.setSizeFull();
+            content.setMargin(true);
+            setContent(content);
+            selectUnit = new ComboBox();
+            selectUnit.setCaption(lang.getString("PleaseSelectAUnit"));
+            for (UnitNode tmp : graphData.getUnitCollection()) {
+                if (!tmp.getUnitNodeTitle().equals("Start")
+                        && !tmp.getUnitNodeTitle().equals("End")) {
+                    selectUnit.addItem(tmp.getUnitNodeTitle());
+                }
+            }
+            selectUnit.setNullSelectionAllowed(false);
+            Component title = buildTitle();
+            content.addComponent(title);
+            content.addComponent(selectUnit);
+            content.setComponentAlignment(title, Alignment.TOP_CENTER);
+
+            Component footer = buildFooter();
+            content.addComponent(footer);
+            content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
+            content.setExpandRatio(footer, 1);
+        }
+
+        /**
+         * Builds a footer which includes a modify button.
+         * 
+         * @return the footer component which will be placed on the bottom of
+         *         the window
+         */
+        private Component buildFooter() {
+            HorizontalLayout layout = new HorizontalLayout();
+            layout.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+            layout.setWidth(100.0f, Unit.PERCENTAGE);
+            layout.setSpacing(true);
+            Button modify = new Button(lang.getString("OpenUnitEditor"));
+            modify.addStyleName(ValoTheme.BUTTON_PRIMARY);
+            modify.addClickListener(new ClickListener() {
+                @Override
+                public void buttonClick(ClickEvent event) {
+                    if (selectUnit.getValue() == null) {
+
+                    } else {
+                        CurrentCourses.getInstance().setUnitTitle(
+                                CurrentCourses.getInstance().getTitle() + "#"
+                                        + (String) selectUnit.getValue());
+                        unitService.newUnit();
+                        UI.getCurrent().getNavigator()
+                                .navigateTo(Uniteditor.VIEW_NAME);
+                    }
+                    close();
+                    selectUnit.removeAllItems();
+                   
+                }
+            });
+            layout.addComponent(modify);
+            modify.focus();
+            layout.setSpacing(true);
+            layout.setComponentAlignment(modify, Alignment.BOTTOM_CENTER);
+            return layout;
+        }
+
+        /**
+         * Builds a title.
+         * 
+         * @return title of the window
+         */
+        private Component buildTitle() {
+            Label title = new Label(lang.getString("ModifyUnit"));
+            title.addStyleName(ValoTheme.LABEL_H2);
+            return title;
+        }
+    }
+	    
+	    
 	private Component buildEditMenu() {
 		HorizontalLayout editMenuLayout = new HorizontalLayout();
 		editMenuLayout.setSpacing(true);
 		editMenuLayout.setWidthUndefined();
-
+		/*
 		selectUnit = new ComboBox();
 		for (UnitNode tmp : graphData.getUnitCollection()) {
 			if (!tmp.getUnitNodeTitle().equals("Start")
@@ -169,7 +263,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 			}
 		}
 		selectUnit.setNullSelectionAllowed(false);
-		editMenuLayout.addComponent(selectUnit);
+		*/
+		//editMenuLayout.addComponent(selectUnit);
 		// create buttons with refresh data
 		Button unitCreationButton = new Button(
 				EditMenuButtonType.ADD_UNIT.getTitle(),
@@ -190,17 +285,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				if (selectUnit.getValue() == null) {
-
-				} else {
-					CurrentCourses.getInstance().setUnitTitle(
-							CurrentCourses.getInstance().getTitle() + "#"
-									+ (String) selectUnit.getValue());
-					unitService.newUnit();
-					UI.getCurrent().getNavigator()
-							.navigateTo(Uniteditor.VIEW_NAME);
+			    UI.getCurrent().addWindow(new EditUnitWindow());
 				}
-			}
 		});
 
 		Button unitConnection = new Button(
