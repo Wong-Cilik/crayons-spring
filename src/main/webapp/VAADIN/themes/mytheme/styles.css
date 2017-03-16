@@ -13372,7 +13372,7 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .palette .v-label {
 	font-size: 0.9em;
 	margin: 0 0.4em;
-	cursor: move;
+	cursor: pointer;
 }
 
 .mytheme .v-caption-palette {
@@ -13431,6 +13431,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .canvas .title:hover {
 	background: #fff9e6;
+	cursor: move;
 }
 
 .mytheme .canvas .title:focus {

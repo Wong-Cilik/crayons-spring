@@ -193,7 +193,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
       .v-label {
         font-size: 0.9em;
         margin: 0 .4em;
-        cursor: move;
+        cursor: pointer;
       }
     }
 
@@ -252,6 +252,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 
   .canvas .title:hover {
     background: #fff9e6;
+    cursor: move;
   }
 
   .canvas .title:focus {

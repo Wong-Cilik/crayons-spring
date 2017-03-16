@@ -1,5 +1,6 @@
 package com.crayons_2_0;
 
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
+
 
 // @PreserveOnRefresh
 @SuppressWarnings("serial")
@@ -51,6 +53,7 @@ public class MyUI extends UI {
 	public ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
+	 
 
 	private void httpSession(VaadinRequest request) {
 		WrappedSession session = request.getWrappedSession();

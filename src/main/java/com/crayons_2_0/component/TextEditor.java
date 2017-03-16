@@ -39,7 +39,7 @@ public class TextEditor extends CustomComponent {
 	public TextEditor(String prefillData, Boolean editable) {
 		
 		if (editable) {
-			setWidth(100.0f, Unit.PERCENTAGE);
+			setWidth(95.0f, Unit.PERCENTAGE);
 			addStyleName("inline-text-editor");
 
 			if (prefillData != null) {
@@ -140,15 +140,7 @@ public class TextEditor extends CustomComponent {
 								+ event.getProperty().getValue().toString());
 					}
 				});
-		/*
-		 * final RichTextArea textArea = new RichTextArea(property);
-		 * textArea.setWidth(100.0f, Unit.PERCENTAGE);
-		 * textArea.addAttachListener(new AttachListener() { private static
-		 * final long serialVersionUID = 8413778836678316866L;
-		 * 
-		 * @Override public void attach(final AttachEvent event) {
-		 * textArea.focus(); textArea.selectAll(); } });
-		 */
+		
 		Button save = new Button(lang.getString("Save"));
 		save.addClickListener(new ClickListener() {
 
