@@ -48,6 +48,7 @@ public class MyUI extends UI {
 	public void showMainView() {
 
 		getUI().getNavigator().navigateTo("mainScreen");
+		
 	}
 
 	public ApplicationContext getApplicationContext() {

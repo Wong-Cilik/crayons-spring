@@ -22,10 +22,10 @@ public class LoginFormListener implements Button.ClickListener {
 	/**
 	 * 
 	 */
-
+    
 	@Autowired
 	private AuthManager authManager;
-
+    
 	@Override
 	public void buttonClick(Button.ClickEvent event) {
 		try {
