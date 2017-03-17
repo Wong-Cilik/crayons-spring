@@ -55,12 +55,32 @@ public class RegisterFormListener implements Button.ClickListener {
                         lang.getString("RequiredField"),
                         lang.getString("Email")));
             }
+			if (mail.length() > 30) {
+	            throw new IllegalArgumentException(String.format(
+	                    lang.getString("ShouldBeAtMostNCharactersLong"),
+	                    lang.getString("Email"), 30));
+	        }
+			String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
+	        Pattern pattern = Pattern.compile(regex);
+	        if (!(pattern.matcher(mail).matches())) {
+	            throw new IllegalArgumentException(
+	                    lang.getString("EmailIsNotValid"));
+	        }
 			String password = parent.getPassword().getValue();
 			if (password.isEmpty()) {
                 throw new IllegalArgumentException(String.format(
                         lang.getString("RequiredField"),
                         lang.getString("Password")));
             }
+			if (password.length() < 6) {
+	            throw new IllegalArgumentException(String.format(
+	                    lang.getString("ShouldBeAtLeastNCharactersLong"),
+	                    lang.getString("Password"), 6));
+	        } else if (password.length() > 15) {
+	            throw new IllegalArgumentException(String.format(
+	                    lang.getString("ShouldBeAtMostNCharactersLong"),
+	                    lang.getString("Password"), 15));
+	        }
 			String language = (String) parent.getSelectLanguage().getValue();
 			if (language.equals("Deutsch"))
 				language = "German";
@@ -76,11 +96,13 @@ public class RegisterFormListener implements Button.ClickListener {
 			boolean userExists = userService.insertUser(user);
 
 			if (userExists == false) {
-				Notification.show("Username created", mail,
+				Notification.show(lang.getString("UserCreated"), mail,
 						Type.TRAY_NOTIFICATION);
 
 				UI.getCurrent().getNavigator()
 						.navigateTo(LoginScreen.VIEW_NAME);
+			} else {
+			    Notification.show(lang.getString("EmailAlreadyExists"));
 			}
 
 		} catch (IllegalArgumentException iae) {
