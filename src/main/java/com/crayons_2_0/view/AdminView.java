@@ -106,7 +106,7 @@ public final class AdminView extends VerticalLayout implements View {
 		for (CrayonsUser tmpUser : userService.findAll()) {
 			String permission = "";
 			if (tmpUser.getPermission() == 0) {
-				permission = lang.getString("admin");
+				permission = lang.getString("Admin");
 			} else if (tmpUser.getPermission() == 1) {
 				permission = lang.getString("Author");
 			} else if (tmpUser.getPermission() == 2) {
@@ -235,7 +235,7 @@ public final class AdminView extends VerticalLayout implements View {
 		title.setReadOnly(true);
 		details.addComponent(title);
 
-		rights.addItems(lang.getString("admin"), lang.getString("Author"),
+		rights.addItems(lang.getString("Admin"), lang.getString("Author"),
 		        lang.getString("Student"));
 		rights.setNullSelectionAllowed(false);
 		details.addComponent(rights);
