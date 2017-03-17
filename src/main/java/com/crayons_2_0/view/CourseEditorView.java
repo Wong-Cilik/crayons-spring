@@ -19,7 +19,6 @@ import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.ViewScope;
@@ -305,6 +304,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 				EditMenuButtonType.DELETE_UNIT.getTitle(),
 				EditMenuButtonType.DELETE_UNIT.getIcon());
 		editMenuLayout.addComponent(deleteUnit);
+		deleteUnit.addStyleName(ValoTheme.BUTTON_DANGER);
 		deleteUnit.addClickListener(new ClickListener() {
 
 			@Override

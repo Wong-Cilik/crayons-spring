@@ -262,7 +262,7 @@ public class CourseService {
 		UnitNode one = new UnitNode("Content", dummyGraph.getStartUnit(),
 				dummyGraph.getEndUnit(), dummyGraph);
 
-		dummyGraph.addUnit(one, one.getParentNodes());
+		dummyGraph.addUnit(one, dummyGraph.getStartUnit(),dummyGraph.getEndUnit());
 
 		saveCourseData(dummyGraph, title);
 	}
@@ -292,14 +292,11 @@ public class CourseService {
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 
-		// @DB UnitNodes will be created and added to their courses in the
-		// UnitCreationWindow
-		UnitNode one = new UnitNode("1.1", dummyGraph.getStartUnit(),
+		
+		UnitNode one = new UnitNode("eins", dummyGraph.getStartUnit(),
 				dummyGraph);
-		UnitNode three = new UnitNode("2.1", one, dummyGraph);
 
-		dummyGraph.addUnit(one, one.getParentNodes());
-		dummyGraph.addUnit(three, three.getParentNodes());
+		dummyGraph.addUnit(one, dummyGraph.getStartUnit(),dummyGraph.getEndUnit());
 		return dummyGraph;
 	}
 

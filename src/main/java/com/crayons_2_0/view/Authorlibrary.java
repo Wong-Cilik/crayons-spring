@@ -1,6 +1,5 @@
 package com.crayons_2_0.view;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -306,6 +305,7 @@ public class Authorlibrary extends VerticalLayout implements View {
 
 		Button deleteCourse = new Button(lang.getString("DeleteCourse"));
 		controlButtons.addComponent(deleteCourse);
+		deleteCourse.addStyleName(ValoTheme.BUTTON_DANGER);
 		deleteCourse.addClickListener(new ClickListener() {
 
 			/**

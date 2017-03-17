@@ -186,7 +186,7 @@ public final class UnitCreationWindow extends Window {
 				} else {
 					UnitNode newUnit = new UnitNode(unitTitle, parent, child,
 							graph);
-					graph.addUnit(newUnit, parent);
+					graph.addUnit(newUnit, parent,child);
 					CourseEditorView.refreshGraph(graph);
 					close();
 					Notification success = new Notification(lang

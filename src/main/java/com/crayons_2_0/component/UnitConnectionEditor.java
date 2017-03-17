@@ -80,6 +80,13 @@ public class UnitConnectionEditor extends Window {
         selectPredecessor.addValueChangeListener(new ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
                 parent = graph.getNodeByName(selectPredecessor.getValue().toString());
+                if (parent.getUnitNodeTitle().equals("End")) {
+                    Notification failure = new Notification(lang.getString("TheEndNodeCantBeAParentNode"));
+                    failure.setDelayMsec(-1);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                }
             }
         });
 
@@ -92,6 +99,59 @@ public class UnitConnectionEditor extends Window {
         selectSuccessor.addValueChangeListener(new ValueChangeListener() {
             public void valueChange(ValueChangeEvent event) {
                 child = graph.getNodeByName(selectSuccessor.getValue().toString());
+                boolean helper = true;
+                if (child.getUnitNodeTitle().equals("Start")) {
+                    Notification failure = new Notification(lang.getString("TheStartNodeCantBeAChildNode"));
+                    failure.setDelayMsec(-1);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
+                }
+                if (helper && !child.getParentNodes().contains(parent)) {
+                    Notification failure = new Notification(
+                            lang.getString("TheSelectedUnitsAreNotConnected.OnlyExistingConnectionCanBeDeleted"));
+                    failure.setDelayMsec(-1);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
+                }
+                if (helper &&!(parent.getUnitNodeTitle().equals("End") && child.getUnitNodeTitle().equals("End"))
+                        && !(parent.getUnitNodeTitle().equals("Start") && child.getUnitNodeTitle().equals("Start"))
+                        && (parent.getUnitNodeTitle().equals("Start") || child.getUnitNodeTitle().equals("End"))
+                        && (graph.getStartUnit().getChildNodes().size() < 2
+                                || graph.getEndUnit().getParentNodes().size() < 2)) {
+                    Notification failure = new Notification(lang.getString("ThisConnectionCantBeDeleted"));
+                    failure.setDelayMsec(-1);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
+                }
+                if (helper && child.getParentNodes().contains(parent)) {
+                    graph.deleteConnection(parent, child);
+                    CourseEditorView.refreshGraph(graph);
+                    close();
+                    Notification success = new Notification(lang.getString("UnitsAreDisconnectedSuccessfully"));
+                    success.setDelayMsec(1000);
+                    success.setStyleName("bar success small");
+                    success.setPosition(Position.BOTTOM_CENTER);
+                    success.show(Page.getCurrent());
+                }
+               
+                for (UnitNode currentNode : graph.getStartUnit().getChildNodes())
+                // boolean test =
+                // child.getParentNodes().contains(graph.getStartUnit());
+                {
+                    System.out.println(currentNode.getUnitNodeTitle());
+                }
+                for (UnitNode currentNode : graph.getEndUnit().getParentNodes())
+                // boolean test =
+                // child.getParentNodes().contains(graph.getStartUnit());
+                {
+                    System.out.println(currentNode.getUnitNodeTitle());
+                }
             }
         });
         Button disconnect = new Button(lang.getString("Disconnect"));
@@ -99,15 +159,44 @@ public class UnitConnectionEditor extends Window {
         disconnect.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                graph.deleteConnection(parent, child);
-                CourseEditorView.refreshGraph(graph);
-                close();
-                Notification success = new Notification(lang.getString("UnitsAreDisconnectedSuccessfully"));
-                success.setDelayMsec(1000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-
+                boolean helper = true;
+                if (child.getUnitNodeTitle().equals("Start")) {
+                    Notification failure = new Notification(lang.getString("TheStartNodeCantBeAChildNode"));
+                    failure.setDelayMsec(1500);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
+                }
+                if (parent.getUnitNodeTitle().equals("End")) {
+                    Notification failure = new Notification(lang.getString("TheEndNodeCantBeAParentNode"));
+                    failure.setDelayMsec(1500);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
+                }
+                if (helper && !child.getParentNodes().contains(parent)) {
+                    Notification failure = new Notification(
+                            lang.getString("TheSelectedUnitsAreNotConnected.OnlyExistingConnectionCanBeDeleted"));
+                    failure.setDelayMsec(-1);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
+                }
+                if (helper &&!(parent.getUnitNodeTitle().equals("End") && child.getUnitNodeTitle().equals("End"))
+                        && !(parent.getUnitNodeTitle().equals("Start") && child.getUnitNodeTitle().equals("Start"))
+                        && (parent.getUnitNodeTitle().equals("Start") || child.getUnitNodeTitle().equals("End"))
+                        && (graph.getStartUnit().getChildNodes().size() < 2
+                                || graph.getEndUnit().getParentNodes().size() < 2)) {
+                    Notification failure = new Notification(lang.getString("ThisConnectionCantBeDeleted"));
+                    failure.setDelayMsec(1000);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
+                }
             }
         });
 
@@ -128,7 +217,7 @@ public class UnitConnectionEditor extends Window {
         ComboBox selectPredecessor = new ComboBox(lang.getString("From"));
         comboBoxes.addComponent(selectPredecessor);
         for (UnitNode currentNode : graph.getUnitCollection()) {
-            if (currentNode.getUnitNodeTitle() != "Start" && currentNode.getUnitNodeTitle() != "End"){
+            if (currentNode.getUnitNodeTitle() != "Start" && currentNode.getUnitNodeTitle() != "End") {
                 selectPredecessor.addItem(currentNode.getUnitNodeTitle());
             }
         }
@@ -174,49 +263,6 @@ public class UnitConnectionEditor extends Window {
         return layout;
     }
 
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
-        footer.setSpacing(true);
-
-        Button disconnect = new Button(lang.getString("Disconnect"));
-        disconnect.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                graph.deleteConnection(parent, child);
-                CourseEditorView.refreshGraph(graph);
-                close();
-                Notification success = new Notification(lang.getString("UnitsAreDisconnectedSuccessfully"));
-                success.setDelayMsec(1000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-
-            }
-        });
-        footer.addComponent(disconnect);
-        footer.setComponentAlignment(disconnect, Alignment.BOTTOM_LEFT);
-
-        Button connect = new Button(lang.getString("Connect"));
-        connect.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                graph.addConnection(parent, child);
-                CourseEditorView.refreshGraph(graph);
-                close();
-                Notification success = new Notification(lang.getString("UitsAreConnectedSuccessfully"));
-                success.setDelayMsec(500);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
-                success.show(Page.getCurrent());
-
-            }
-        });
-        footer.addComponent(connect);
-        footer.setComponentAlignment(connect, Alignment.BOTTOM_RIGHT);
-        return footer;
-    }
 
     private Component buildTitle() {
         Label title = new Label(lang.getString("ConnectUnits"));
