@@ -13241,6 +13241,14 @@ div.v-layout.v-horizontal.v-widget {
 	left: 60%;
 }
 
+.mytheme .v-table-row.v-table-row-highlight-blue, .mytheme .v-table-row-odd.v-table-row-highlight-blue {
+	background-color: #7DABFF;
+}
+
+.mytheme .v-table-row.v-table-row-highlight-white, .mytheme .v-table-row-odd.v-table-row-highlight-white {
+	background-color: #FFFFFF;
+}
+
 .mytheme .login-panel {
 	background: white;
 	color: #474747;

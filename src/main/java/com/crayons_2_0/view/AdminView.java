@@ -17,6 +17,7 @@ import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.UserDisplay;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UserService;
+import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
@@ -66,6 +67,7 @@ public final class AdminView extends VerticalLayout implements View {
 	private HorizontalLayout root;
 	private Table table = new Table();;
 	private TempContainer container;
+	private String selectedRowEmail = new String();
 
 	@PropertyId("name")
 	private TextField nameField = new TextField(lang.getString("Name"));
@@ -138,38 +140,52 @@ public final class AdminView extends VerticalLayout implements View {
 		        lang.getString("AttendedCourses"));
 		table.setSortContainerPropertyId("email");
         table.sort();
-		table.addItemClickListener(new ItemClickListener() {
-
-			/**
-			 * 
-			 */
-
-			@Override
-			public void itemClick(ItemClickEvent event) {
-				UserDisplay userDisplay = (UserDisplay) event.getItemId();
-				AdminView ad = (AdminView) event.getComponent().getParent();
-
-				ad.nameField.setReadOnly(false);
-				ad.nameField.setValue(userDisplay.getName());
-				ad.nameField.setReadOnly(true);
-
-				ad.emailField.setReadOnly(false);
-				ad.emailField.setValue(userDisplay.getEmail());
-				ad.emailField.setReadOnly(true);
-
-				ad.locationField.setReadOnly(false);
-				ad.locationField.setValue("");
-				ad.locationField.setReadOnly(true);
-
-				ad.phoneField.setReadOnly(false);
-				ad.phoneField.setValue("");
-				ad.phoneField.setReadOnly(true);
-
-				ad.rights.setValue(userDisplay.getRole());
-			}
-
-		});
+		table.addItemClickListener(new TableClickListener());
+		table.setCellStyleGenerator(new TableRowHighlighter());
 		return table;
+	}
+	
+	private class TableClickListener implements ItemClickListener {
+
+        @Override
+        public void itemClick(ItemClickEvent event) {
+            UserDisplay userDisplay = (UserDisplay) event.getItemId();
+            selectedRowEmail = userDisplay.getEmail();
+            table.setCellStyleGenerator(new TableRowHighlighter());
+            AdminView ad = (AdminView) event.getComponent().getParent();
+
+            ad.nameField.setReadOnly(false);
+            ad.nameField.setValue(userDisplay.getName());
+            ad.nameField.setReadOnly(true);
+
+            ad.emailField.setReadOnly(false);
+            ad.emailField.setValue(userDisplay.getEmail());
+            ad.emailField.setReadOnly(true);
+
+            ad.locationField.setReadOnly(false);
+            ad.locationField.setValue("");
+            ad.locationField.setReadOnly(true);
+
+            ad.phoneField.setReadOnly(false);
+            ad.phoneField.setValue("");
+            ad.phoneField.setReadOnly(true);
+
+            ad.rights.setValue(userDisplay.getRole());
+        }
+	    
+	}
+	
+	private class TableRowHighlighter implements Table.CellStyleGenerator {
+
+        @Override
+        public String getStyle(Table source, Object itemId, Object propertyId) {
+            if (table.getItem(itemId).getItemProperty("email").getValue().toString().equals(selectedRowEmail)) {
+                return "highlight-blue";
+            } else {
+                return "highlight-white";
+            } 
+        }
+	    
 	}
 
 	@Override

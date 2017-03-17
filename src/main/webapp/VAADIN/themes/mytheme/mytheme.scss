@@ -69,6 +69,17 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 @mixin mytheme {
   @include valo; 
   @include uniteditor-view;
+  
+  .v-table-row.v-table-row-highlight-blue,
+    .v-table-row-odd.v-table-row-highlight-blue {
+        background-color: #7DABFF;
+    }   
+    
+  .v-table-row.v-table-row-highlight-white,
+    .v-table-row-odd.v-table-row-highlight-white {
+        background-color: #FFFFFF;
+    }   
+    
   .login-panel {
     span.v-captiontext {
     color:white;
@@ -100,6 +111,8 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
         color:white;
       }
     }
+    
+    
 
     .fields .v-icon {
       opacity: 0.3;
