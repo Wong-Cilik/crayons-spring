@@ -5,9 +5,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.crayons_2_0.MyUI;
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
@@ -38,6 +36,7 @@ import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -86,9 +85,9 @@ public class Preferences extends VerticalLayout implements View {
      * newsletterField;
      */
     @PropertyId("newpassword")
-    private TextField newPassword;
+    private PasswordField newPassword;
     @PropertyId("newpasswordconfirmation")
-    private TextField newPasswordConfirmation;
+    private PasswordField newPasswordConfirmation;
 
     public Preferences() {
 
@@ -116,6 +115,7 @@ public class Preferences extends VerticalLayout implements View {
 
         detailsWrapper.addComponent(buildProfileTab());
         detailsWrapper.addComponent(buildPreferencesTab());
+        detailsWrapper.addComponent(changePasswordTab());
 
         content.addComponent(buildFooter());
         /*
@@ -171,10 +171,7 @@ public class Preferences extends VerticalLayout implements View {
 
                     LanguageService.getInstance().setCurrentLocale(newLanguage);
 
-                    //Page.getCurrent().reload();
-                    SecurityContextHolder.clearContext();
-                    MyUI.get().getPage().reload();
-                    MyUI.get().getSession().close();
+                    Page.getCurrent().reload();
 
                     // Problem: Logout - Soloution maybe:
                     // https://vaadin.com/forum#!/thread/11317960
@@ -191,6 +188,34 @@ public class Preferences extends VerticalLayout implements View {
         return root;
     }
 
+    private Component changePasswordTab() {
+        VerticalLayout root = new VerticalLayout();
+        root.setCaption(lang.getString("Password"));
+        root.setIcon(FontAwesome.LOCK);
+        root.setSpacing(true);
+        root.setMargin(true);
+        root.setSizeFull();
+
+        FormLayout details = new FormLayout();
+        Label section = new Label(lang.getString("PWChange"));
+        section.addStyleName(ValoTheme.LABEL_H4);
+        section.addStyleName(ValoTheme.LABEL_COLORED);
+        details.addComponent(section);
+
+        newPassword = new PasswordField(lang.getString("NewPassword"));
+        // newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
+        newPassword.setWidth("20%");;
+        newPassword.setNullRepresentation("");
+        details.addComponent(newPassword);
+
+        newPasswordConfirmation = new PasswordField(lang.getString("NewPasswordConfirmation"));
+        newPasswordConfirmation.setWidth("20%");
+        newPasswordConfirmation.setNullRepresentation("");
+        details.addComponent(newPasswordConfirmation);
+        
+        root.addComponent(details);
+        return root;
+    }
     private Component buildProfileTab() {
         CurrentUser.getInstance().setUser(userService.findByEMail(CurrentUser.getInstance().geteMail()));
         HorizontalLayout root = new HorizontalLayout();
@@ -236,19 +261,14 @@ public class Preferences extends VerticalLayout implements View {
         sexField.addStyleName("horizontal");
         details.addComponent(sexField);
 
-
         Label section = new Label(lang.getString("ContactInfo"));
         section.addStyleName(ValoTheme.LABEL_H4);
         section.addStyleName(ValoTheme.LABEL_COLORED);
         details.addComponent(section);
 
-		emailField = new TextField(lang.getString("Email"));
-		emailField.setValue(CurrentUser.getInstance().getUser().getEmail());
-		emailField.setReadOnly(true);
-
         emailField = new TextField(lang.getString("Email"));
         emailField.setValue(CurrentUser.getInstance().getUser().getEmail());
-
+        emailField.setReadOnly(true);
         emailField.setWidth("100%");
         emailField.setNullRepresentation("");
         details.addComponent(emailField);
@@ -269,21 +289,9 @@ public class Preferences extends VerticalLayout implements View {
          * details.addComponent(newsletterField);
          */
 
-        section = new Label(lang.getString("PWChange"));
-        section.addStyleName(ValoTheme.LABEL_H4);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        details.addComponent(section);
+        
 
-        newPassword = new TextField(lang.getString("NewPassword"));
-        newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
-        newPassword.setWidth("100%");
-        newPassword.setNullRepresentation("");
-        details.addComponent(newPassword);
-
-        newPasswordConfirmation = new TextField(lang.getString("NewPasswordConfirmation"));
-        newPasswordConfirmation.setWidth("100%");
-        newPasswordConfirmation.setNullRepresentation("");
-        details.addComponent(newPasswordConfirmation);
+  
 
         return root;
     }
@@ -302,32 +310,50 @@ public class Preferences extends VerticalLayout implements View {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                
-                boolean fieldsChanged = CurrentUser.getInstance().getUser().getUsername() != emailField.getValue()
-                        || CurrentUser.getInstance().getUser().getFirstName() != firstNameField.getValue()
-                        || CurrentUser.getInstance().getUser().getLastName() != lastNameField.getValue()
-                        || CurrentUser.getInstance().getUser().getPassword() != newPassword.getValue();
+                boolean notAllowedFields = firstNameField.getValue().isEmpty() || lastNameField.getValue().isEmpty()
+                        || emailField.getValue().isEmpty() || newPassword.getValue().length() < 6
+                        || newPassword.getValue().length() > 15;
+                boolean fieldsChanged = !(CurrentUser.getInstance().getUser().getUsername()
+                        .equals(emailField.getValue()))
+                        || !(CurrentUser.getInstance().getUser().getFirstName().equals(firstNameField.getValue()))
+                        || !(CurrentUser.getInstance().getUser().getLastName().equals(lastNameField.getValue()))
+                        || !(CurrentUser.getInstance().getUser().getPassword().equals(newPassword.getValue()));
 
                 boolean newPasswordEqualConfirmPassword = newPassword.getValue()
                         .equals(newPasswordConfirmation.getValue());
-                // if password changed && ( passwords are not equal or password < 8)
-                if (newPassword.getValue().length() != 0
-                        && (!newPasswordEqualConfirmPassword || newPassword.getValue().length() < 8)) {
-                    notifPWMatchesNot();
-                } else {
-                    if (fieldsChanged) {
-                        boolean updateUser = userService.updateUser(CurrentUser.getInstance().getUser(), emailField.getValue(),
-                                firstNameField.getValue(), lastNameField.getValue(),
+
+                if (notAllowedFields) {
+                    if (firstNameField.getValue().isEmpty())
+                        fieldIsEmpty("FirstName");
+                    if (lastNameField.getValue().isEmpty())
+                        fieldIsEmpty("LastName");
+                    if (emailField.getValue().isEmpty())
+                        fieldIsEmpty("Email");
+                    if (newPassword.getValue().length() < 6)
+                        passwordMin("Password", 6);
+                    if (newPassword.getValue().length() > 15)
+                        passwordMax("Password", 15);
+                } else if (fieldsChanged) {
+                    if (newPassword.getValue().length() != 0
+                            && (!newPasswordEqualConfirmPassword || newPassword.getValue().length() < 6)) {
+                        notifPWMatchesNot();
+
+                    }
+
+                    else {
+                        // update Email, FirstName, and LastName but not the
+                        // Password
+                        boolean updateUser = userService.updateUser(CurrentUser.getInstance().getUser(),
+                                emailField.getValue(), firstNameField.getValue(), lastNameField.getValue(),
                                 newPassword.getValue());
                         if (updateUser) {
+                            System.out.println(fieldsChanged);
                             notifSuccesProfileChange();
-                            newPassword.clear();
-                            newPasswordConfirmation.clear();
-                        } 
+                        }
                     }
                 }
-
             }
+
         });
         ok.focus();
         footer.addComponent(ok);
@@ -344,7 +370,30 @@ public class Preferences extends VerticalLayout implements View {
     }
 
     public void notifPWMatchesNot() {
-        Notification failure = new Notification(lang.getString("PWsNeedsToBeSameOrGreater8"));
+        Notification failure = new Notification(lang.getString("PWsNeedsToBeSameOrGreater6"));
+        failure.setDelayMsec(5000);
+        failure.setPosition(Position.BOTTOM_CENTER);
+        failure.show(Page.getCurrent());
+    }
+
+    public void fieldIsEmpty(String args) {
+        Notification failure = new Notification(String.format(lang.getString("ValueCannotBeEmpty"), args));
+        failure.setDelayMsec(5000);
+        failure.setPosition(Position.BOTTOM_CENTER);
+        failure.show(Page.getCurrent());
+    }
+
+    public void passwordMin(String args, int n) {
+        Notification failure = new Notification(
+                String.format(lang.getString("ShouldBeAtLeastNCharactersLong"), args, n));
+        failure.setDelayMsec(5000);
+        failure.setPosition(Position.BOTTOM_CENTER);
+        failure.show(Page.getCurrent());
+    }
+
+    public void passwordMax(String args, int n) {
+        Notification failure = new Notification(
+                String.format(lang.getString("ShouldBeAtMostNCharactersLong"), args, n));
         failure.setDelayMsec(5000);
         failure.setPosition(Position.BOTTOM_CENTER);
         failure.show(Page.getCurrent());
@@ -352,8 +401,8 @@ public class Preferences extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
-        newPassword.setValue("");
-        newPasswordConfirmation.setValue("");
+        newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
+        newPasswordConfirmation.setValue(CurrentUser.getInstance().getUser().getPassword());
     }
 
 }

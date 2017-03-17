@@ -27,8 +27,6 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserDAO userDAO;
-
-	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	
 	/**
 	 * Returns an User by his Username (=eMail)
@@ -76,8 +74,6 @@ public class UserService implements UserDetailsService {
 		List<CrayonsUser> users = findAll();
 		for (CrayonsUser tmpUser : users) {
 			if (tmpUser.getEmail().equals(user.getEmail())) {
-				Notification.show(lang.getString("EmailAlreadyExists"),
-						Notification.Type.WARNING_MESSAGE);
 				return userExists = true;
 			}
 
@@ -112,37 +108,29 @@ public class UserService implements UserDetailsService {
 		String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
 		Pattern pattern = Pattern.compile(regex);
 		if (!(pattern.matcher(eMail).matches())) {
-			throw new IllegalArgumentException(
-			        lang.getString("EmailIsNotValid"));
+			throw new IllegalArgumentException("Email is not Valid");
 		}
 		if (eMail.length() > 30) {
-			throw new IllegalArgumentException(String.format(
-                    lang.getString("ShouldBeAtMostNCharactersLong"),
-                    lang.getString("Email"), 30));
+			throw new IllegalArgumentException(
+			        "Email should be at most 30 characters long");
 		}
 		
 		if (password.length() < 6) {
-            throw new IllegalArgumentException(String.format(
-                    lang.getString("ShouldBeAtLeastNCharactersLong"),
-                    lang.getString("Password"), 6));
+            throw new IllegalArgumentException(
+                    "Password should be at least 6 characters long");
         } else if (password.length() > 15) {
-            throw new IllegalArgumentException(String.format(
-                    lang.getString("ShouldBeAtMostNCharactersLong"),
-                    lang.getString("Password"), 15));
+            throw new IllegalArgumentException(
+                    "Password should be at most 15 characters long");
         }
 
 		// Check if firstName is valid
 		if (firstName.isEmpty()) {
-			throw new IllegalArgumentException(String.format(
-                    lang.getString("ValueCannotBeEmpty"),
-                    lang.getString("FirstName")));
+			throw new IllegalArgumentException("First name cannot be empty");
 		}
 
 		// Check if lastName is valid
 		if (lastName.isEmpty()) {
-			throw new IllegalArgumentException(String.format(
-                    lang.getString("ValueCannotBeEmpty"),
-                    lang.getString("LastName")));
+			throw new IllegalArgumentException("Last name cannot be empty");
 		}
 
 		// Go on
@@ -196,7 +184,8 @@ public class UserService implements UserDetailsService {
 				return tmpUser;
 			}
 		}
-		throw new UsernameNotFoundException(String.format(lang.getString("UserWithMailDoesntExists"), eMail));
+		throw new UsernameNotFoundException(
+		        "User with mail " + eMail + "does not exists");
 	}
 
 }
