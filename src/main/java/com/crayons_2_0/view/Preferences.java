@@ -115,6 +115,7 @@ public class Preferences extends VerticalLayout implements View {
 
         detailsWrapper.addComponent(buildProfileTab());
         detailsWrapper.addComponent(buildPreferencesTab());
+        detailsWrapper.addComponent(changePasswordTab());
 
         content.addComponent(buildFooter());
         /*
@@ -187,6 +188,34 @@ public class Preferences extends VerticalLayout implements View {
         return root;
     }
 
+    private Component changePasswordTab() {
+        VerticalLayout root = new VerticalLayout();
+        root.setCaption(lang.getString("Password"));
+        root.setIcon(FontAwesome.LOCK);
+        root.setSpacing(true);
+        root.setMargin(true);
+        root.setSizeFull();
+
+        FormLayout details = new FormLayout();
+        Label section = new Label(lang.getString("PWChange"));
+        section.addStyleName(ValoTheme.LABEL_H4);
+        section.addStyleName(ValoTheme.LABEL_COLORED);
+        details.addComponent(section);
+
+        newPassword = new PasswordField(lang.getString("NewPassword"));
+        // newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
+        newPassword.setWidth("20%");;
+        newPassword.setNullRepresentation("");
+        details.addComponent(newPassword);
+
+        newPasswordConfirmation = new PasswordField(lang.getString("NewPasswordConfirmation"));
+        newPasswordConfirmation.setWidth("20%");
+        newPasswordConfirmation.setNullRepresentation("");
+        details.addComponent(newPasswordConfirmation);
+        
+        root.addComponent(details);
+        return root;
+    }
     private Component buildProfileTab() {
         CurrentUser.getInstance().setUser(userService.findByEMail(CurrentUser.getInstance().geteMail()));
         HorizontalLayout root = new HorizontalLayout();
@@ -260,21 +289,9 @@ public class Preferences extends VerticalLayout implements View {
          * details.addComponent(newsletterField);
          */
 
-        section = new Label(lang.getString("PWChange"));
-        section.addStyleName(ValoTheme.LABEL_H4);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        details.addComponent(section);
+        
 
-        newPassword = new PasswordField(lang.getString("NewPassword"));
-        // newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
-        newPassword.setWidth("100%");
-        newPassword.setNullRepresentation("");
-        details.addComponent(newPassword);
-
-        newPasswordConfirmation = new PasswordField(lang.getString("NewPasswordConfirmation"));
-        newPasswordConfirmation.setWidth("100%");
-        newPasswordConfirmation.setNullRepresentation("");
-        details.addComponent(newPasswordConfirmation);
+  
 
         return root;
     }
