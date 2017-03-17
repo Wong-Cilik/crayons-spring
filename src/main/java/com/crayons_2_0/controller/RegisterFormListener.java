@@ -50,27 +50,17 @@ public class RegisterFormListener implements Button.ClickListener {
 						lang.getString("LastName")));
 			}
 			String mail = parent.getEmail().getValue();
-			String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
-			Pattern pattern = Pattern.compile(regex);
-			if (!(pattern.matcher(mail).matches())) {
-				throw new IllegalArgumentException(
-						lang.getString("EmailIsNotValid"));
-			}
-			if (mail.length() > 30) {
-				throw new IllegalArgumentException(String.format(
-						lang.getString("ShouldBeAtMostNCharactersLong"),
-						lang.getString("Email"), 30));
-			}
+			if (mail.isEmpty()) {
+                throw new IllegalArgumentException(String.format(
+                        lang.getString("RequiredField"),
+                        lang.getString("Email")));
+            }
 			String password = parent.getPassword().getValue();
-			if (password.length() < 6) {
-				throw new IllegalArgumentException(String.format(
-						lang.getString("ShouldBeAtLeastNCharactersLong"),
-						lang.getString("Password"), 6));
-			} else if (password.length() > 15) {
-				throw new IllegalArgumentException(String.format(
-						lang.getString("ShouldBeAtMostNCharactersLong"),
-						lang.getString("Password"), 15));
-			}
+			if (password.isEmpty()) {
+                throw new IllegalArgumentException(String.format(
+                        lang.getString("RequiredField"),
+                        lang.getString("Password")));
+            }
 			String language = (String) parent.getSelectLanguage().getValue();
 			if (language.equals("Deutsch"))
 				language = "German";

@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
 		 * if ("client".equals(username)) { authorities.add(new
 		 * SimpleGrantedAuthority("CLIENT")); User user = new User(username,
 		 * "pass", true, true, false, false, authorities); return user; } if
-		 * ("admin".equals(username)) { authorities.add(new
+		 * ("Admin".equals(username)) { authorities.add(new
 		 * SimpleGrantedAuthority("ADMIN")); User user = new User(username,
 		 * "pass", true, true, false, false, authorities); return user; } else {
 		 * return null; }
@@ -112,23 +112,37 @@ public class UserService implements UserDetailsService {
 		String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
 		Pattern pattern = Pattern.compile(regex);
 		if (!(pattern.matcher(eMail).matches())) {
-			throw new IllegalArgumentException("Email is not valid");
+			throw new IllegalArgumentException(
+			        lang.getString("EmailIsNotValid"));
 		}
 		if (eMail.length() > 30) {
-			throw new IllegalArgumentException(
-					"Email cannot be longer than 30 characters.");
+			throw new IllegalArgumentException(String.format(
+                    lang.getString("ShouldBeAtMostNCharactersLong"),
+                    lang.getString("Email"), 30));
 		}
+		
+		if (password.length() < 6) {
+            throw new IllegalArgumentException(String.format(
+                    lang.getString("ShouldBeAtLeastNCharactersLong"),
+                    lang.getString("Password"), 6));
+        } else if (password.length() > 15) {
+            throw new IllegalArgumentException(String.format(
+                    lang.getString("ShouldBeAtMostNCharactersLong"),
+                    lang.getString("Password"), 15));
+        }
 
 		// Check if firstName is valid
 		if (firstName.isEmpty()) {
-			throw new IllegalArgumentException(
-					"Requireder field First Name cannot be empty or space filled.");
+			throw new IllegalArgumentException(String.format(
+                    lang.getString("ValueCannotBeEmpty"),
+                    lang.getString("FirstName")));
 		}
 
 		// Check if lastName is valid
 		if (lastName.isEmpty()) {
-			throw new IllegalArgumentException(
-					"Requireder field Last Name cannot be empty or space filled.");
+			throw new IllegalArgumentException(String.format(
+                    lang.getString("ValueCannotBeEmpty"),
+                    lang.getString("LastName")));
 		}
 
 		// Go on
@@ -182,8 +196,7 @@ public class UserService implements UserDetailsService {
 				return tmpUser;
 			}
 		}
-		throw new UsernameNotFoundException("User with mail: " + eMail
-				+ " doesnt exists!");
+		throw new UsernameNotFoundException(String.format(lang.getString("UserWithMailDoesntExists"), eMail));
 	}
 
 }

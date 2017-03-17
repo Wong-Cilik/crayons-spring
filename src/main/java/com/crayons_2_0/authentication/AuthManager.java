@@ -1,6 +1,7 @@
 package com.crayons_2_0.authentication;
 
 import java.util.Collection;
+import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,8 @@ public class AuthManager implements AuthenticationManager {
 
 	@Autowired
 	private UserService userService;
+	
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public Authentication authenticate(Authentication auth)
 			throws AuthenticationException, UsernameNotFoundException {
@@ -43,6 +46,6 @@ public class AuthManager implements AuthenticationManager {
 			return new UsernamePasswordAuthenticationToken(username, password,
 					authorities);
 		}
-		throw new BadCredentialsException("Bad Credentials");
+		throw new BadCredentialsException(lang.getString("PleaseCheckYourUsernameAndPasswordAndTryAgain"));
 	}
 }
