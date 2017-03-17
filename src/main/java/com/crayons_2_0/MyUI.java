@@ -1,6 +1,8 @@
 package com.crayons_2_0;
 
 
+
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,7 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
+
 
 
 // @PreserveOnRefresh
@@ -40,6 +43,7 @@ public class MyUI extends UI {
 		getUI().getNavigator().navigateTo("");
 
 	}
+	
 
 	public static MyUI get() {
 		return (MyUI) UI.getCurrent();

@@ -150,6 +150,15 @@ public class Graph implements Serializable {
 		}
 		return this.unitCollection.remove(unit);
 	}
+	  public boolean isConnected(UnitNode parent, UnitNode child) {
+	      boolean connected;
+	        if (child.getParentNodes().contains(parent)){
+	            connected = true;
+	        }else{
+	            connected = false;
+	        }
+	        return connected;
+	    }
 
 	public Course getCourse() {
 		Course c = new Course();
