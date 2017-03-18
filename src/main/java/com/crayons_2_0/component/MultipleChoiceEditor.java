@@ -51,6 +51,18 @@ public class MultipleChoiceEditor extends CustomComponent {
 		setCompositionRoot(buildMultipleChoiceEditor());
 	}
 
+	public OptionGroup getAnswers () {
+		return answers;
+	}
+	
+	public Property<String> getQuestionText () {
+		return questionText;
+	}
+	
+	public String getRightAnswer () {
+		return rightAnswer;
+	}
+	
 	private Component buildReadOnly() {
 		final Label questionText = new Label(this.questionText);
 

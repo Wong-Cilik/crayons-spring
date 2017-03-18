@@ -2,7 +2,9 @@ package com.crayons_2_0.model;
 
 import java.io.Serializable;
 
+import com.vaadin.data.Property;
 import com.vaadin.ui.Image;
+import com.vaadin.ui.OptionGroup;
 
 @SuppressWarnings("serial")
 public class UnitData implements Serializable {
@@ -10,14 +12,23 @@ public class UnitData implements Serializable {
 	private String text;
 	private Image image;
 	private String imageTitle;
+	private Property<String> property;
+	private OptionGroup optionGroup;
+	private String question;
 
-	public UnitData(String text) {
-		this.text = text;
+	public UnitData(String question, Property<String> property, OptionGroup optionGroup) {
+		this.question = question;
+		this.property = property;
+		this.optionGroup = optionGroup;
 	}
 
 	public UnitData(Image image, String imageTitle) {
 		this.setImage(image);
 		this.setImageTitle(imageTitle);
+	}
+
+	public UnitData(String text) {
+		this.text = text;
 	}
 
 	public String getText() {
@@ -44,8 +55,27 @@ public class UnitData implements Serializable {
 		this.imageTitle = imageTitle;
 	}
 
-	public Object getQuestion() {
-		// TODO Auto-generated method stub
-		return null;
+	public Property<String> getProperty() {
+		return property;
+	}
+
+	public void setProperty(Property<String> property) {
+		this.property = property;
+	}
+
+	public OptionGroup getOptionGroup() {
+		return optionGroup;
+	}
+
+	public void setOptionGroup(OptionGroup optionGroup) {
+		this.optionGroup = optionGroup;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+	
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 }
