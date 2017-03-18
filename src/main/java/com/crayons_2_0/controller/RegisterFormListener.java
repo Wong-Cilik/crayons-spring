@@ -49,6 +49,13 @@ public class RegisterFormListener implements Button.ClickListener {
 						lang.getString("RequiredField"),
 						lang.getString("LastName")));
 			}
+			String Nameregex = "[a-zA-Z]+";
+            Pattern Namepattern = Pattern.compile(Nameregex);
+            if (!(Namepattern.matcher(firstname).matches()) || !(Namepattern.matcher(firstname).matches())) {
+                throw new IllegalArgumentException(
+                        lang.getString("FirstnameOrLastnameAreNotValid"));
+            }
+            
 			String mail = parent.getEmail().getValue();
 			if (mail.isEmpty()) {
                 throw new IllegalArgumentException(String.format(
@@ -60,9 +67,9 @@ public class RegisterFormListener implements Button.ClickListener {
 	                    lang.getString("ShouldBeAtMostNCharactersLong"),
 	                    lang.getString("Email"), 30));
 	        }
-			String regex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
-	        Pattern pattern = Pattern.compile(regex);
-	        if (!(pattern.matcher(mail).matches())) {
+			String emailRegex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
+	        Pattern emailPattern = Pattern.compile(emailRegex);
+	        if (!(emailPattern.matcher(mail).matches())) {
 	            throw new IllegalArgumentException(
 	                    lang.getString("EmailIsNotValid"));
 	        }
