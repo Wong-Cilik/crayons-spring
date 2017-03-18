@@ -9,7 +9,6 @@ import com.crayons_2_0.view.CourseEditorView;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.Page;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -42,6 +41,7 @@ public class UnitConnectionEditor extends Window {
         graph = graphData;
         setSizeFull();
         setModal(true);
+        setDraggable(true);
         setResizable(false);
         setClosable(true);
         setHeight(70.0f, Unit.PERCENTAGE);
@@ -117,29 +117,27 @@ public class UnitConnectionEditor extends Window {
                     failure.show(Page.getCurrent());
                     helper = false;
                 }
-                if (helper &&!(parent.getUnitNodeTitle().equals("End") && child.getUnitNodeTitle().equals("End"))
+                if (helper && parent.getUnitNodeTitle().equals("Start")
                         && !(parent.getUnitNodeTitle().equals("Start") && child.getUnitNodeTitle().equals("Start"))
-                        && (parent.getUnitNodeTitle().equals("Start") || child.getUnitNodeTitle().equals("End"))
-                        && (graph.getStartUnit().getChildNodes().size() < 2
-                                || graph.getEndUnit().getParentNodes().size() < 2)) {
+                        && graph.getStartUnit().getChildNodes().size() < 2) {
                     Notification failure = new Notification(lang.getString("ThisConnectionCantBeDeleted"));
-                    failure.setDelayMsec(-1);
+                    failure.setDelayMsec(1000);
                     failure.setStyleName("bar failure");
                     failure.setPosition(Position.MIDDLE_CENTER);
                     failure.show(Page.getCurrent());
                     helper = false;
                 }
-                if (helper && child.getParentNodes().contains(parent)) {
-                    graph.deleteConnection(parent, child);
-                    CourseEditorView.refreshGraph(graph);
-                    close();
-                    Notification success = new Notification(lang.getString("UnitsAreDisconnectedSuccessfully"));
-                    success.setDelayMsec(1000);
-                    success.setStyleName("bar success small");
-                    success.setPosition(Position.BOTTOM_CENTER);
-                    success.show(Page.getCurrent());
+                if (helper && child.getUnitNodeTitle().equals("End")
+                        && !(parent.getUnitNodeTitle().equals("End") && child.getUnitNodeTitle().equals("End"))
+                        && graph.getEndUnit().getParentNodes().size() < 2) {
+                    Notification failure = new Notification(lang.getString("ThisConnectionCantBeDeleted"));
+                    failure.setDelayMsec(1000);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
                 }
-               
+
                 for (UnitNode currentNode : graph.getStartUnit().getChildNodes())
                 // boolean test =
                 // child.getParentNodes().contains(graph.getStartUnit());
@@ -185,11 +183,9 @@ public class UnitConnectionEditor extends Window {
                     failure.show(Page.getCurrent());
                     helper = false;
                 }
-                if (helper &&!(parent.getUnitNodeTitle().equals("End") && child.getUnitNodeTitle().equals("End"))
+                if (helper && parent.getUnitNodeTitle().equals("Start")
                         && !(parent.getUnitNodeTitle().equals("Start") && child.getUnitNodeTitle().equals("Start"))
-                        && (parent.getUnitNodeTitle().equals("Start") || child.getUnitNodeTitle().equals("End"))
-                        && (graph.getStartUnit().getChildNodes().size() < 2
-                                || graph.getEndUnit().getParentNodes().size() < 2)) {
+                        && graph.getStartUnit().getChildNodes().size() < 2) {
                     Notification failure = new Notification(lang.getString("ThisConnectionCantBeDeleted"));
                     failure.setDelayMsec(1000);
                     failure.setStyleName("bar failure");
@@ -197,6 +193,27 @@ public class UnitConnectionEditor extends Window {
                     failure.show(Page.getCurrent());
                     helper = false;
                 }
+                if (helper && child.getUnitNodeTitle().equals("End")
+                        && !(parent.getUnitNodeTitle().equals("End") && child.getUnitNodeTitle().equals("End"))
+                        && graph.getEndUnit().getParentNodes().size() < 2) {
+                    Notification failure = new Notification(lang.getString("ThisConnectionCantBeDeleted"));
+                    failure.setDelayMsec(1000);
+                    failure.setStyleName("bar failure");
+                    failure.setPosition(Position.MIDDLE_CENTER);
+                    failure.show(Page.getCurrent());
+                    helper = false;
+                }
+                if (helper && child.getParentNodes().contains(parent)) {
+                    graph.deleteConnection(parent, child);
+                    CourseEditorView.refreshGraph(graph);
+                    close();
+                    Notification success = new Notification(lang.getString("UnitsAreDisconnectedSuccessfully"));
+                    success.setDelayMsec(1000);
+                    success.setStyleName("bar success small");
+                    success.setPosition(Position.BOTTOM_CENTER);
+                    success.show(Page.getCurrent());
+                }
+
             }
         });
 
@@ -262,7 +279,6 @@ public class UnitConnectionEditor extends Window {
         layout.setSpacing(true);
         return layout;
     }
-
 
     private Component buildTitle() {
         Label title = new Label(lang.getString("ConnectUnits"));
