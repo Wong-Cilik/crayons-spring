@@ -1,10 +1,9 @@
 package com.crayons_2_0.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-import com.vaadin.data.Property;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.OptionGroup;
 
 @SuppressWarnings("serial")
 public class UnitData implements Serializable {
@@ -12,14 +11,14 @@ public class UnitData implements Serializable {
 	private String text;
 	private Image image;
 	private String imageTitle;
-	private Property<String> property;
-	private OptionGroup optionGroup;
 	private String question;
-
-	public UnitData(String question, Property<String> property, OptionGroup optionGroup) {
+	private List<String> answerList;
+	private String answer;
+	
+	public UnitData(String question, List<String> answerList, String answer) {
 		this.question = question;
-		this.property = property;
-		this.optionGroup = optionGroup;
+		this.answer = answer;
+		this.answerList = answerList;
 	}
 
 	public UnitData(Image image, String imageTitle) {
@@ -55,27 +54,27 @@ public class UnitData implements Serializable {
 		this.imageTitle = imageTitle;
 	}
 
-	public Property<String> getProperty() {
-		return property;
-	}
-
-	public void setProperty(Property<String> property) {
-		this.property = property;
-	}
-
-	public OptionGroup getOptionGroup() {
-		return optionGroup;
-	}
-
-	public void setOptionGroup(OptionGroup optionGroup) {
-		this.optionGroup = optionGroup;
-	}
-
 	public String getQuestion() {
 		return question;
 	}
 	
 	public void setQuestion(String question) {
 		this.question = question;
+	}
+
+	public List<String> getAnswerList() {
+		return answerList;
+	}
+
+	public void setAnswerList(List<String> answerList) {
+		this.answerList = answerList;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 }

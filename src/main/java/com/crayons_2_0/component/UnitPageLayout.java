@@ -295,7 +295,7 @@ public final class UnitPageLayout extends CustomComponent {
 			} else if (tmpUnit.getImage() != null) {
 
 			} else if (tmpUnit.getQuestion() != null) {
-				
+				System.out.println("Question");
 			}
 		}
 	}
