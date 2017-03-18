@@ -31,27 +31,28 @@ public class MultipleChoiceEditor extends CustomComponent {
 	private final Property<String> questionText = new ObjectProperty<String>(
 			"Enter the question here...");
 	private String rightAnswer = "";
-	private List<String> answerList;
+	private List<String> answerList = new ArrayList<String>();
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	public MultipleChoiceEditor(String questionText, ArrayList<String> answers,
-			String rightAnswer) {
+	public MultipleChoiceEditor(String questionText, List<String> list,
+			String rightAnswer, Boolean editable) {
 		setWidth(100.0f, Unit.PERCENTAGE);
 		addStyleName("inline-text-editor");
 
 		if (questionText != null)
 			this.questionText.setValue(questionText);
 
-		if (answers != null)
-			for (String question : answers) {
+		if (list != null)
+			for (String question : list) {
 				this.answers.addItem(question);
 				this.answerList.add(question);
 			}
+		
 		if (rightAnswer != null)
 			this.rightAnswer = rightAnswer;
-
-		setCompositionRoot(buildMultipleChoiceEditor());
+		
+		setCompositionRoot(buildReadOnly());
 	}
 	
 	public List<String> getAnswerList() {
@@ -135,7 +136,6 @@ public class MultipleChoiceEditor extends CustomComponent {
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				System.out.println(rightAnswer);
 				setCompositionRoot(buildReadOnly());
 			}
 		});

@@ -133,9 +133,7 @@ public final class UnitPageLayout extends CustomComponent {
 	 */
 	public void addComponent(final PageItemType pageItemType,
 			final Object prefillData, Boolean editable) {
-		//if (dropArea.getParent() != null) {
-		//	layout.removeComponent(dropArea);
-		//}
+
 		Component x = new WrappedPageItem(createComponentFromPageItem(
 				pageItemType, prefillData, editable));
 		layout.addComponent(x);
@@ -159,7 +157,9 @@ public final class UnitPageLayout extends CustomComponent {
 		} else if (type == PageItemType.IMAGE) {
 			result = new ImageUploadEditor();
 		} else if (type == PageItemType.MULTIPLE_CHOICE) {
-			result = new MultipleChoiceEditor(null, null, null);
+			
+			UnitData unit = (UnitData) prefillData;
+			result = new MultipleChoiceEditor(unit.getQuestion(), unit.getAnswerList(), unit.getAnswer(), editable);
 		}
 
 		return result;
@@ -295,7 +295,7 @@ public final class UnitPageLayout extends CustomComponent {
 			} else if (tmpUnit.getImage() != null) {
 
 			} else if (tmpUnit.getQuestion() != null) {
-				System.out.println("Question");
+				addComponent(PageItemType.MULTIPLE_CHOICE, tmpUnit, editable);
 			}
 		}
 	}
