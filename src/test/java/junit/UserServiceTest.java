@@ -37,7 +37,8 @@ public class UserServiceTest {
     @Autowired
     UserDAO userDAO;
 
-    List <CrayonsUser> usersList;
+    List<CrayonsUser> usersList;
+
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
     }
@@ -48,10 +49,9 @@ public class UserServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        
+
         authorities = new ArrayList<GrantedAuthority>();
-        
-        
+
         dummyUser1 = new CrayonsUser("user1", "foo", "user1@web.de", "123456", "German", 2, true, true, false, false,
                 authorities);
         dummyUser2 = new CrayonsUser("user2", "boo", "user2@web.de", "123456", "German", 2, true, true, false, false,
@@ -60,14 +60,14 @@ public class UserServiceTest {
                 authorities);
         dummyUser4 = new CrayonsUser("user4", "doo", "user4@web.de", "123456", "German", 2, true, true, false, false,
                 authorities);
-        
-          usersList = new ArrayList<>();
+
+        usersList = new ArrayList<>();
         for (CrayonsUser user : userService.findAll()) {
             usersList.add(user);
-            }
-            usersList.add(dummyUser1);
-            usersList.add(dummyUser3);
-            usersList.add(dummyUser4);
+        }
+        usersList.add(dummyUser1);
+        usersList.add(dummyUser3);
+        usersList.add(dummyUser4);
         userService.insertUser(dummyUser1);
         userService.insertUser(dummyUser3);
         userService.insertUser(dummyUser4);
@@ -80,30 +80,28 @@ public class UserServiceTest {
         userService.updateUser(dummyUser4, "user4@web.de", "user4", "doo", "123456");
     }
 
+    /**
+     * if username exsits, expect true
+     */
     @Test
     public void testLoadUserByUsername() {
         CrayonsUser result = (CrayonsUser) userService.loadUserByUsername("user1@web.de");
         assertEquals(dummyUser1, result);
     }
 
-    
+    /**
+     * if users added to DB, expect true
+     */
     @Test
     public void testFindAll() {
-        List <CrayonsUser>  users = userService.findAll();
-      
-       
+        List<CrayonsUser> users = userService.findAll();
+
         assertTrue(usersList.containsAll(users));
     }
 
-    // if user already exists expect true
-    @Test
-    public void testUserExists() {
-        boolean result = userService.insertUser(dummyUser1);
-
-        assertEquals(true, result);
-    }
-
-    // if new user expect false (user doesn't exists)
+    /**
+     * if it's new user, expect false (user doesn't exists)
+     */
     @Test
     public void testinsertUser() {
 
@@ -121,21 +119,32 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * if language for a specific user been updated, expect true
+     */
     @Test
     public void testUpdateUserLanguage() {
         boolean result = userService.updateUserLanguage(dummyUser4, Language.German);
-        if (dummyUser4.getLanguage().equals(Language.German)) result = true;
+        if (dummyUser4.getLanguage().equals(Language.German))
+            result = true;
         assertEquals(true, result);
     }
 
+    /**
+     * if rights for a specific user been updated, expect true
+     */
     @Test
     public void testUpdateRights() {
         boolean result = userService.updateRights("user4@web.de", "Author");
-        if (dummyUser4.getPermission() == 1) result = true;
+        if (dummyUser4.getPermission() == 1)
+            result = true;
         assertEquals(true, result);
     }
 
-    // if user removed expect true
+    
+    /**
+     * if user removed expect true
+     */
     @Test
     public void testRemoveUser() {
         boolean result = userService.removeUser("user3@web.de");
