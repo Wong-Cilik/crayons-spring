@@ -62,30 +62,29 @@ public class Graph implements Serializable {
 		return null;
 	}
 
-    /**
-     * 
-     * This goes through all the nodes and stores the names of outgoing edges
-     * for each node in an array after every incrementation the size of
-     * tmpEdgeSequence increases by two: the names of the startnode and end node
-     * of an edge later on the edges are added to the javascript render, simply
-     * by incrementing through the array by 2 and connecting the names at even
-     * indices as outgoing with the odd ones as incoming.
-     *
-     * @return ArrayList<String> tmpEdgeSequence
-     */
-    public ArrayList<String> getEdgeSequence() {
-        ArrayList<String> tmpEdgeSequence = new ArrayList<String>();
-        for (UnitNode currentNode : this.unitCollection) {
-            if (!(currentNode.getChildNodes().isEmpty()))
-                for (UnitNode currentChildNode : currentNode.getChildNodes()) {
-                    tmpEdgeSequence.add(currentNode.getUnitNodeTitle());
-                    tmpEdgeSequence.add(currentChildNode.getUnitNodeTitle());
-                }
-        }
-        
-        return tmpEdgeSequence;
-    }
+	/**
+	 * 
+	 * This goes through all the nodes and stores the names of outgoing edges
+	 * for each node in an array after every incrementation the size of
+	 * tmpEdgeSequence increases by two: the names of the startnode and end node
+	 * of an edge later on the edges are added to the javascript render, simply
+	 * by incrementing through the array by 2 and connecting the names at even
+	 * indices as outgoing with the odd ones as incoming.
+	 *
+	 * @return ArrayList<String> tmpEdgeSequence
+	 */
+	public ArrayList<String> getEdgeSequence() {
+		ArrayList<String> tmpEdgeSequence = new ArrayList<String>();
+		for (UnitNode currentNode : this.unitCollection) {
+			if (!(currentNode.getChildNodes().isEmpty()))
+				for (UnitNode currentChildNode : currentNode.getChildNodes()) {
+					tmpEdgeSequence.add(currentNode.getUnitNodeTitle());
+					tmpEdgeSequence.add(currentChildNode.getUnitNodeTitle());
+				}
+		}
 
+		return tmpEdgeSequence;
+	}
 
 	/**
 	 * 
