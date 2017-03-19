@@ -34,12 +34,9 @@ public class UnitUserView extends VerticalLayout implements View {
 	private Button next;
 	private Button previous;
 
+	private @Autowired UnitService unitService;
 
-	private @Autowired
-	UnitService unitService;
-
-	private @Autowired
-	CourseService courseService;
+	private @Autowired CourseService courseService;
 
 	@PostConstruct
 	void init() {
@@ -51,7 +48,7 @@ public class UnitUserView extends VerticalLayout implements View {
 		addComponent(page);
 		setComponentAlignment(page, Alignment.TOP_CENTER);
 		setExpandRatio(page, 8);
-	
+
 		Component footer = buildFooter();
 		addComponent(footer);
 		footer.setSizeUndefined();
@@ -142,7 +139,7 @@ public class UnitUserView extends VerticalLayout implements View {
 		selectPreviousUnit = new ComboBox();
 		selectPreviousUnit.setNullSelectionAllowed(false);
 		left.addComponent(selectPreviousUnit);
-		
+
 		return left;
 	}
 
@@ -155,7 +152,6 @@ public class UnitUserView extends VerticalLayout implements View {
 		selectNextUnit.setNullSelectionAllowed(false);
 		right.addComponent(selectNextUnit);
 
-		
 		next = new Button("next", FontAwesome.ARROW_RIGHT);
 		right.addComponent(next);
 		next.addClickListener(new ClickListener() {
@@ -174,7 +170,7 @@ public class UnitUserView extends VerticalLayout implements View {
 
 		return right;
 	}
-	
+
 	@Override
 	public void enter(ViewChangeEvent event) {
 		refresh();

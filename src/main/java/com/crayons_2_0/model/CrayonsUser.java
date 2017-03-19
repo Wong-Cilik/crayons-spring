@@ -136,8 +136,6 @@ public class CrayonsUser extends User {
 		} else if (password.contains(" ")) {
 			throw new IllegalArgumentException("Password can't have spaces");
 		}
-		
-		
 
 		this.password = password;
 	}

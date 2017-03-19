@@ -44,9 +44,9 @@ public class CourseModificationWindow extends Window {
 	@Autowired
 	private CourseService courseService;
 
-	public CourseModificationWindow(CourseService courseService, Course course, 
-	        Component tab, TabSheet tabSheet) {
-	    this.courseService = courseService;
+	public CourseModificationWindow(CourseService courseService, Course course,
+			Component tab, TabSheet tabSheet) {
+		this.courseService = courseService;
 		this.course = course;
 		this.tab = tab;
 		this.tabSheet = tabSheet;
@@ -55,7 +55,7 @@ public class CourseModificationWindow extends Window {
 		setClosable(true);
 		setHeight(50.0f, Unit.PERCENTAGE);
 		setWidth(30.0f, Unit.PERCENTAGE);
-		
+
 		this.setContent(buildContent());
 	}
 
@@ -100,13 +100,13 @@ public class CourseModificationWindow extends Window {
 		content.setComponentAlignment(couseDescription, Alignment.MIDDLE_LEFT);
 
 		HorizontalLayout footer = new HorizontalLayout();
-        footer.setWidth("100%");
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        Component controlButtons = buildControlButtons(courseTitleField,
-                couseDescriptionField);
-        footer.addComponent(controlButtons);
-        footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
-        content.addComponent(footer);
+		footer.setWidth("100%");
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		Component controlButtons = buildControlButtons(courseTitleField,
+				couseDescriptionField);
+		footer.addComponent(controlButtons);
+		footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
+		content.addComponent(footer);
 
 		return content;
 	}
@@ -132,25 +132,26 @@ public class CourseModificationWindow extends Window {
 			public void buttonClick(ClickEvent event) {
 				Course tmp = courseService.findCourseByTitle(course.getTitle());
 				String newCourseTitle = courseTitleField.getValue();
-				if (newCourseTitle.equals(course.getTitle()) ||
-				        courseService.findCourseByTitle(newCourseTitle) == null) {
-				    tmp.setTitle(courseTitleField.getValue());
-	                tmp.setDescription(couseDescriptionField.getValue());
-	                courseService.update(tmp, course.getTitle());
-	                tab.setCaption(courseTitleField.getValue());
-	                tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
-	                tabSheet.getTab(tab).setDescription(
-	                        couseDescriptionField.getValue());
-	                close();
-	                Notification success = new Notification(lang
-	                        .getString("CourseIsModifiedSuccessfully"));
-	                success.setDelayMsec(2000);
-	                success.setStyleName("bar success small");
-	                success.setPosition(Position.BOTTOM_CENTER);
-	                success.show(Page.getCurrent());
+				if (newCourseTitle.equals(course.getTitle())
+						|| courseService.findCourseByTitle(newCourseTitle) == null) {
+					tmp.setTitle(courseTitleField.getValue());
+					tmp.setDescription(couseDescriptionField.getValue());
+					courseService.update(tmp, course.getTitle());
+					tab.setCaption(courseTitleField.getValue());
+					tabSheet.getTab(tab)
+							.setCaption(courseTitleField.getValue());
+					tabSheet.getTab(tab).setDescription(
+							couseDescriptionField.getValue());
+					close();
+					Notification success = new Notification(lang
+							.getString("CourseIsModifiedSuccessfully"));
+					success.setDelayMsec(2000);
+					success.setStyleName("bar success small");
+					success.setPosition(Position.BOTTOM_CENTER);
+					success.show(Page.getCurrent());
 				} else {
-				    Notification.show(lang.getString("CourseAlreadyExists"),
-                            Notification.Type.WARNING_MESSAGE);
+					Notification.show(lang.getString("CourseAlreadyExists"),
+							Notification.Type.WARNING_MESSAGE);
 				}
 			}
 

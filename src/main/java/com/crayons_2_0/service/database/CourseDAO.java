@@ -28,11 +28,9 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class CourseDAO implements CommandLineRunner {
 
-	private @Autowired
-	JdbcTemplate jdbcTemplate;
+	private @Autowired JdbcTemplate jdbcTemplate;
 
-	private @Autowired
-	UserService userService;
+	private @Autowired UserService userService;
 
 	// public void createDbTable() {
 	// log.info("@@ Creating Course table");
@@ -142,7 +140,8 @@ public class CourseDAO implements CommandLineRunner {
 		String deleteStatementCourse = "DELETE FROM courses WHERE title=? AND author=?";
 		String deleteStatementUnits = "DELETE FROM units WHERE coursetitle=?";
 		try {
-			jdbcTemplate.update(deleteStatementCourse, course.getTitle(), course.getAuthor().getEmail());
+			jdbcTemplate.update(deleteStatementCourse, course.getTitle(),
+					course.getAuthor().getEmail());
 			jdbcTemplate.update(deleteStatementUnits, course.getTitle());
 		} catch (RuntimeException e) {
 			// throw new CourseTitleNotFoundException("Course with Title:" +
@@ -159,25 +158,27 @@ public class CourseDAO implements CommandLineRunner {
 	 *            String of Students of Course
 	 * @param course
 	 *            to Update
-	 * @return 
+	 * @return
 	 */
 	public boolean updateStudents(String tmp, String course) {
-		if(jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
+		if (jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
 				tmp, course) == 1) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	public boolean updateStudentsWithAuthor(String tmp, String course, String authorEmail) {
-        if(jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? AND author=?",
-                tmp, course, authorEmail) == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
+	public boolean updateStudentsWithAuthor(String tmp, String course,
+			String authorEmail) {
+		if (jdbcTemplate.update(
+				"UPDATE courses SET students=? WHERE title=? AND author=?",
+				tmp, course, authorEmail) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public void saveData(File file, String title) throws IOException {
 		FileInputStream fis = new FileInputStream(file);

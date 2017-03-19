@@ -36,8 +36,8 @@ public class LoginScreen extends CssLayout implements View {
      */
 	// AccessControl accessControl, LoginListener loginListener
 	public LoginScreen() {
-	    LanguageService.getInstance().setCurrentLocale(Language.German);
-	    lang = LanguageService.getInstance().getRes();
+		LanguageService.getInstance().setCurrentLocale(Language.German);
+		lang = LanguageService.getInstance().getRes();
 		// this.loginListener = loginListener;
 		// this.accessControl = accessControl;
 		buildUI();
