@@ -37,12 +37,13 @@ public class RegistrationTest extends TestBenchTestCase {
         setDriver(TestBench.createDriver(new ChromeDriver()));
         // Open the WebPage
         getDriver().get("http://localhost:8080");
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
     }
 
     @After
     public void tearDown() throws Exception {
         // close the browser window
+        Thread.sleep(2000);
         getDriver().quit();
     }
 
@@ -66,7 +67,7 @@ public class RegistrationTest extends TestBenchTestCase {
         
         // 6. Choose "English" in the "Select Your Language" drop-down list
         $(NativeSelectElement.class).caption(lang.getString("SelectYourLanguage"))
-                .first().setValue(lang.getString("English"));
+                .first().setValue(lang.getString("German"));
            
         // 7. Click "Register" to finish the registration
         $(ButtonElement.class).caption(lang.getString("CreateUser")).first().click();
@@ -229,6 +230,65 @@ public class RegistrationTest extends TestBenchTestCase {
                 lang.getString("FirstName")), notification.getCaption());
     }
     
+    @Test
+    public void testFirstNameInvalid() {
+        
+        // 1. Click "Register" to navigate to the register form 
+        $(ButtonElement.class).caption(lang.getString("Register")).first().click();
+
+        // 2. Leave the First Name field empty
+        $(TextFieldElement.class).get(0).setValue("-Max!");
+        // 3. Enter "Mustermann" into the Last Name field
+        $(TextFieldElement.class).get(1).setValue("Mustermann");
+        
+        // 4. Enter "client@web.de" into the Email field
+        $(TextFieldElement.class).get(2).setValue("client@web.de");
+        
+        // 5. Enter "123456" into the Password field        
+        $(PasswordFieldElement.class).first().setValue("123456");
+        
+        // 6. Choose "English" in the "Select Your Language" drop-down list
+        $(NativeSelectElement.class).caption(lang.getString("SelectYourLanguage"))
+                .first().setValue(lang.getString("English"));
+           
+        // 7. Click "Register" to finish the registration
+        $(ButtonElement.class).caption(lang.getString("CreateUser")).first().click();
+        
+        // 8. Assert that the user gets a notification that the password is too long
+        NotificationElement notification =
+                $(NotificationElement.class).first();
+        assertEquals(lang.getString("FirstnameOrLastnameAreNotValid"), notification.getCaption());
+    }
+    
+    @Test
+    public void testLastNameInvalid() {
+        
+        // 1. Click "Register" to navigate to the register form 
+        $(ButtonElement.class).caption(lang.getString("Register")).first().click();
+
+        // 2. Leave the First Name field empty
+        $(TextFieldElement.class).get(0).setValue("Max");
+        // 3. Enter "Mustermann" into the Last Name field
+        $(TextFieldElement.class).get(1).setValue(",%Mustermann");
+        
+        // 4. Enter "client@web.de" into the Email field
+        $(TextFieldElement.class).get(2).setValue("client@web.de");
+        
+        // 5. Enter "123456" into the Password field        
+        $(PasswordFieldElement.class).first().setValue("123456");
+        
+        // 6. Choose "English" in the "Select Your Language" drop-down list
+        $(NativeSelectElement.class).caption(lang.getString("SelectYourLanguage"))
+                .first().setValue(lang.getString("English"));
+           
+        // 7. Click "Register" to finish the registration
+        $(ButtonElement.class).caption(lang.getString("CreateUser")).first().click();
+        
+        // 8. Assert that the user gets a notification that the password is too long
+        NotificationElement notification =
+                $(NotificationElement.class).first();
+        assertEquals(lang.getString("FirstnameOrLastnameAreNotValid"), notification.getCaption());
+    }
     @Test
     public void testLastNameFieldEmpty() {
         

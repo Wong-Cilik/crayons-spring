@@ -1,6 +1,6 @@
 package crayonsTestbench;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.*; 
 
 import java.util.ResourceBundle;
 
@@ -45,9 +45,9 @@ public class PreferencesTest extends TestBenchTestCase {
        Thread.sleep(2000);
         getDriver().quit();
     }
-
+    
     @Test
-    public void testUpdateUserData() {
+    public void testFirstNameFieldEmpty() {
         
      // 1. Enter eMail < > into the eMail-Login field
         $(TextFieldElement.class).caption(lang.getString("Login") + ": ").first()
@@ -55,33 +55,109 @@ public class PreferencesTest extends TestBenchTestCase {
 
         // 2. Enter password "123456" into the password-Login field
         $(PasswordFieldElement.class).caption(lang.getString("Password") + ": ").first()
-                .setValue("12345678");
+                .setValue("123456");
 
         // 3. Click the "Login" button
         $(ButtonElement.class).caption(lang.getString("Login")).first().click();
         
         // 4. Click at Menu item "Preferences
-        $(ButtonElement.class).caption("Preferences").first().click();
+        $(ButtonElement.class).caption(lang.getString("Preferences")).first().click();
         
-        $(TextFieldElement.class).get(0).setValue("Max");
+        $(TextFieldElement.class).get(0).setValue("");
         
-        $(TextFieldElement.class).get(1).setValue("Mustermann");
         
-        $(TextFieldElement.class).caption("Email").first().setValue("client@web.de");
-        
-        $(TextFieldElement.class).caption("New Password").first().setValue("12345678");
-        
-        $(TextFieldElement.class).caption("Confirm Password").first().setValue("12345678");
-        
-        $(ButtonElement.class).caption("Save").first().click();
+        $(ButtonElement.class).caption(lang.getString("Save")).first().click();
         
         NotificationElement notification =
                 $(NotificationElement.class).first();
-        assertEquals("Profile updated successfully", notification.getCaption());
+        assertEquals(String.format(lang.getString("RequiredField"),
+                lang.getString("FirstName")), notification.getCaption());
+        
+    }
+    @Test
+    public void testLastNameFieldEmpty() {
+        
+     // 1. Enter eMail < > into the eMail-Login field
+        $(TextFieldElement.class).caption(lang.getString("Login") + ": ").first()
+                .setValue("client@web.de");
+
+        // 2. Enter password "123456" into the password-Login field
+        $(PasswordFieldElement.class).caption(lang.getString("Password") + ": ").first()
+                .setValue("123456");
+
+        // 3. Click the "Login" button
+        $(ButtonElement.class).caption(lang.getString("Login")).first().click();
+        
+        // 4. Click at Menu item "Preferences
+        $(ButtonElement.class).caption(lang.getString("Preferences")).first().click();
+        
+        $(TextFieldElement.class).get(1).setValue("");
+        
+        
+        $(ButtonElement.class).caption(lang.getString("Save")).first().click();
+        
+        NotificationElement notification =
+                $(NotificationElement.class).first();
+        assertEquals(String.format(lang.getString("RequiredField"),
+                lang.getString("LastName")), notification.getCaption());
+        
+    }
+
+    @Test
+    public void testUpdateFirstName() {
+        
+     // 1. Enter eMail < > into the eMail-Login field
+        $(TextFieldElement.class).caption(lang.getString("Login") + ": ").first()
+                .setValue("client@web.de");
+
+        // 2. Enter password "123456" into the password-Login field
+        $(PasswordFieldElement.class).caption(lang.getString("Password") + ": ").first()
+                .setValue("123456");
+
+        // 3. Click the "Login" button
+        $(ButtonElement.class).caption(lang.getString("Login")).first().click();
+        
+        // 4. Click at Menu item "Preferences
+        $(ButtonElement.class).caption(lang.getString("Preferences")).first().click();
+        
+        $(TextFieldElement.class).get(0).setValue("Fabi");
+        
+        
+        $(ButtonElement.class).caption(lang.getString("Save")).first().click();
+        
+        NotificationElement notification =
+                $(NotificationElement.class).first();
+        assertEquals(lang.getString("ProfileUpdatedSuccessfully"), notification.getCaption());
         
     }
  
-    
+    @Test
+    public void testUpdateLastName() {
+        
+     // 1. Enter eMail < > into the eMail-Login field
+        $(TextFieldElement.class).caption(lang.getString("Login") + ": ").first()
+                .setValue("client@web.de");
+
+        // 2. Enter password "123456" into the password-Login field
+        $(PasswordFieldElement.class).caption(lang.getString("Password") + ": ").first()
+                .setValue("123456");
+
+        // 3. Click the "Login" button
+        $(ButtonElement.class).caption(lang.getString("Login")).first().click();
+        
+        // 4. Click at Menu item "Preferences
+        $(ButtonElement.class).caption(lang.getString("Preferences")).first().click();
+        
+        $(TextFieldElement.class).get(1).setValue("Foo");
+        
+        
+        $(ButtonElement.class).caption(lang.getString("Save")).first().click();
+        
+        NotificationElement notification =
+                $(NotificationElement.class).first();
+        assertEquals(lang.getString("ProfileUpdatedSuccessfully"), notification.getCaption());
+        
+    }
 
 
 }
