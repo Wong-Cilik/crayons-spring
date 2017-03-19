@@ -2,7 +2,6 @@ package com.crayons_2_0.service.database;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
-import com.crayons_2_0.service.LanguageService;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Notification;
-//import org.springframework.security.core.authority.GrantedAuthorityImpl;
-//import org.springframework.security.core.authority.GrantedAuthorityImpl;
 
 /**
  * Class for Service on users of DB

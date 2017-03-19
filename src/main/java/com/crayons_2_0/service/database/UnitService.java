@@ -33,7 +33,7 @@ public class UnitService {
 	@Autowired
 	private CourseService courseService;
 
-	public List<Unit> findAll() {
+	private List<Unit> findAll() {
 		List<Unit> res = unitDAO.findAll();
 		return res;
 	}
@@ -78,8 +78,8 @@ public class UnitService {
 
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
-				@SuppressWarnings("unused")
 				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
+				dataList.add(dataList.size(), new UnitData(x.getQuestionText().getValue(), x.getAnswerList(), x.getRightAnswer()));
 			}
 
 			if (c.getContent().getClass().getName()

@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crayons.view.dagred3.Dagre;
+import com.crayons_2_0.MyUI;
 import com.crayons_2_0.authentication.CurrentCourses;
 import com.crayons_2_0.component.DeleteVerification;
 import com.crayons_2_0.component.UnitConnectionEditor;
@@ -61,7 +62,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 	private final static Dagre graph = new Dagre();
 
 	private static ResourceBundle lang = LanguageService.getInstance().getRes();
-	private static  ComboBox selectUnit = new ComboBox();
+	private  static ComboBox selectUnit = new ComboBox();
 
 	@PostConstruct
 	void init() {
@@ -72,8 +73,14 @@ public class CourseEditorView extends VerticalLayout implements View {
 		graphData = courseService.getDummyGraph();
 		graph.setGraph(graphData.getNodeNameList(), graphData.getEdgeSequence());
 		graph.setSizeFull();
+		try{
 		graphLayout.addComponent(graph);
-		
+		} catch (RuntimeException e){
+		    getUI().getConnectorTracker().markAllConnectorsDirty();
+		    getUI().getConnectorTracker().markAllClientSidesUninitialized();
+		    MyUI.getCurrent().getPage().reload();
+		    System.out.println("test");
+		}
 		//addComponent( );
 		addComponent(graphLayout);
 		
@@ -84,6 +91,12 @@ public class CourseEditorView extends VerticalLayout implements View {
 		setSpacing(false);
 		
 		
+	}
+	public Dagre getGraph(){
+	    return graph;
+	}
+	public ResourceBundle getLang(){
+	    return lang;
 	}
 	
 	/**

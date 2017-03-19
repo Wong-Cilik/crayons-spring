@@ -105,7 +105,6 @@ public class UnitUserView extends VerticalLayout implements View {
 
 	}
 
-
 	private Component buildFooter() {
 		HorizontalLayout footer = new HorizontalLayout();
 		footer.setSpacing(true);

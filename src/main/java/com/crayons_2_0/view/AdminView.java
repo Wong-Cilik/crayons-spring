@@ -17,7 +17,6 @@ import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.UserDisplay;
 import com.crayons_2_0.service.database.CourseService;
 import com.crayons_2_0.service.database.UserService;
-import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;

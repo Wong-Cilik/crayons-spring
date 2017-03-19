@@ -51,7 +51,7 @@ public class RegisterFormListener implements Button.ClickListener {
 			}
 			String Nameregex = "[a-zA-Z]+";
             Pattern Namepattern = Pattern.compile(Nameregex);
-            if (!(Namepattern.matcher(firstname).matches()) || !(Namepattern.matcher(firstname).matches())) {
+            if (!(Namepattern.matcher(firstname).matches()) || !(Namepattern.matcher(lastname).matches())) {
                 throw new IllegalArgumentException(
                         lang.getString("FirstnameOrLastnameAreNotValid"));
             }
@@ -93,7 +93,7 @@ public class RegisterFormListener implements Button.ClickListener {
 				language = "German";
 			else if (language.equals("Englisch"))
 				language = "English";
-			int permission = 0;
+			int permission = 2;
 
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			authorities.add(new SimpleGrantedAuthority("CLIENT"));

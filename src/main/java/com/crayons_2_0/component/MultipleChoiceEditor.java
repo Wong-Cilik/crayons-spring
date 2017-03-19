@@ -1,20 +1,25 @@
 package com.crayons_2_0.component;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.crayons_2_0.service.LanguageService;
+import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
@@ -30,25 +35,79 @@ public class MultipleChoiceEditor extends CustomComponent {
 	private final Property<String> questionText = new ObjectProperty<String>(
 			"Enter the question here...");
 	private String rightAnswer = "";
+	private List<String> answerList = new ArrayList<String>();
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	public MultipleChoiceEditor(String questionText, ArrayList<String> answers,
-			String rightAnswer) {
+	public MultipleChoiceEditor(String questionText, List<String> list,
+			String rightAnswer, Boolean editable) {
 		setWidth(100.0f, Unit.PERCENTAGE);
 		addStyleName("inline-text-editor");
 
 		if (questionText != null)
 			this.questionText.setValue(questionText);
 
-		if (answers != null)
-			for (String question : answers)
+		if (list != null)
+			for (String question : list) {
 				this.answers.addItem(question);
+				this.answerList.add(question);
+			}
 
 		if (rightAnswer != null)
 			this.rightAnswer = rightAnswer;
+		if (editable) {
+			setCompositionRoot(buildReadOnly());
+		} else {
+			setCompositionRoot(buildUserOnly());
+		}
+	}
 
+	private Component buildUserOnly() {
+		final Label questionText = new Label(this.questionText);
+
+		Button checkButton = new Button(FontAwesome.EYE);
+		checkButton.addStyleName(ValoTheme.BUTTON_SMALL);
+		checkButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
+		checkButton.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+                Notification answer = new Notification(rightAnswer);
+                answer.setDelayMsec(2000);
+                answer.show(Page.getCurrent());
+			}
+		});
+
+		CssLayout result = new CssLayout(questionText, answers, checkButton);
+		result.addStyleName("text-editor");
+		result.setSizeFull();
+		return result;
+	}
+
+	public MultipleChoiceEditor() {
+		setWidth(100.0f, Unit.PERCENTAGE);
+		addStyleName("inline-text-editor");
 		setCompositionRoot(buildMultipleChoiceEditor());
+	}
+
+	public List<String> getAnswerList() {
+		return answerList;
+	}
+
+	public void setRightAnswer(String rightAnswer) {
+		this.rightAnswer = rightAnswer;
+	}
+
+	public String getRightAnswer() {
+		return rightAnswer;
+	}
+
+	public void setAnswerList(List<String> answerList) {
+		this.answerList = answerList;
+	}
+
+	public Property<String> getQuestionText() {
+		return questionText;
 	}
 
 	private Component buildReadOnly() {
@@ -98,6 +157,7 @@ public class MultipleChoiceEditor extends CustomComponent {
 			@Override
 			public void buttonClick(final ClickEvent event) {
 				answers.addItem((String) textField.getValue());
+				answerList.add(textField.getValue());
 				textField.clear();
 			}
 		});
@@ -111,7 +171,6 @@ public class MultipleChoiceEditor extends CustomComponent {
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
-				System.out.println(rightAnswer);
 				setCompositionRoot(buildReadOnly());
 			}
 		});

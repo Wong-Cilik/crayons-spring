@@ -17,21 +17,31 @@ public class Graph implements Serializable {
     private final DbCourse course;
     private final UnitNode startNode;
     private final UnitNode endNode;
-    // this holds not just the start and end node!
     private Set<UnitNode> unitCollection = new HashSet<UnitNode>();
 
-    // private boolean unitsAvailable;
 
-    // create a new graph when a new course is created
+    /**
+     * 
+     * Create a new graph, when a new course is created.
+     * 
+     * @param course
+     *            The corresponding course to a graph
+     */
     public Graph(Course course) {
         this.course = course.createDbObject();
-        // this.unitsAvailable = false;
         this.startNode = new UnitNode("Start", this);
         this.endNode = new UnitNode("End", this);
         this.unitCollection.add(startNode);
         this.unitCollection.add(endNode);
     }
 
+    /**
+     * 
+     * Goes through the unit collection and puts all names of the unitnodes in
+     * an array
+     * 
+     * @return ArrayList<String> tmpNodeNameList
+     */
     public ArrayList<String> getNodeNameList() {
         ArrayList<String> tmpNodeNameList = new ArrayList<String>();
         for (UnitNode tmpNode : this.getUnitCollection()) {
@@ -40,43 +50,35 @@ public class Graph implements Serializable {
         return tmpNodeNameList;
     }
 
+    /**
+     * 
+     * This goes through all the nodes and stores the names of outgoing edges
+     * for each node in an array after every incrementation the size of
+     * tmpEdgeSequence increases by two: the names of the startnode and end node
+     * of an edge later on the edges are added to the javascript render, simply
+     * by incrementing through the array by 2 and connecting the names at even
+     * indices as outgoing with the odd ones as incoming.
+     *
+     * @return ArrayList<String> tmpEdgeSequence
+     */
     public ArrayList<String> getEdgeSequence() {
         ArrayList<String> tmpEdgeSequence = new ArrayList<String>();
-        // this goes through all the nodes and stores the names of outgoing
-        // edges for each node in an array
-        // after every incrementation the size of tmpEdgeSequence increases by
-        // two: the names of the start and end node of an edge
-        // if a node has no children, then a new edge is added, which connects
-        // it to the end node
-        // later on the edges are added to the javascript render, simply by
-        // incrementing through the array by 2 and connecting the names at even
-        // indices as outgoing
-        // with the odd ones as incoming.
         for (UnitNode currentNode : this.unitCollection) {
-            // assert tmpEdgSequence.size() is even
-            /*
-            if (currentNode.getUnitNodeTitle() == "Start") {
-                for (UnitNode currentStartNode : startNode.getChildNodes()) {
-                    tmpEdgeSequence.add("Start");
-                    tmpEdgeSequence.add(currentStartNode.getUnitNodeTitle());
-                }
-            }
-
-            if (currentNode.getChildNodes().isEmpty() && currentNode.getUnitNodeTitle() != "End") {
-                tmpEdgeSequence.add(currentNode.getUnitNodeTitle());
-                tmpEdgeSequence.add("End");
-            }*/
             if (!(currentNode.getChildNodes().isEmpty()))
                 for (UnitNode currentChildNode : currentNode.getChildNodes()) {
                     tmpEdgeSequence.add(currentNode.getUnitNodeTitle());
                     tmpEdgeSequence.add(currentChildNode.getUnitNodeTitle());
-
                 }
         }
-
+        
         return tmpEdgeSequence;
     }
 
+    /**
+     * 
+     * @param NodeName
+     * @return null if not found or the found UnitNode
+     */
     public UnitNode getNodeByName(String NodeName) {
         for (UnitNode tmp : this.unitCollection) {
             if (NodeName.equals(tmp.getUnitNodeTitle()))
@@ -85,40 +87,49 @@ public class Graph implements Serializable {
         return null;
     }
 
+    /**
+     * 
+     * @return startNode
+     */
+
     public UnitNode getStartUnit() {
         return startNode;
     }
 
+    /**
+     * 
+     * @return endNode
+     */
     public UnitNode getEndUnit() {
         return endNode;
     }
 
+    /**
+     * 
+     * @return unitCollection
+     */
     public Set<UnitNode> getUnitCollection() {
         return unitCollection;
     }
 
-    /*
-     * TODO public boolean areUnitsAvailable() { return unitsAvailable; }
+   
+    /**
      * 
-     * public void setUnitsAvailable(boolean unitsAvailable) {
-     * this.unitsAvailable = unitsAvailable; }
+     * @param currentNode
+     *            the node which is added
+     * @param parent
+     *            the parent node of the node which is added
+     * @param child
+     *            the child node of the node which is added
+     * @return boolean
      */
-
     public boolean addUnit(UnitNode currentNode, UnitNode parent, UnitNode child) {
         parent.addChildNode(currentNode);
         child.addParentNode(currentNode);
         this.unitCollection.add(currentNode);
         return true;
     }
-/*
-    public boolean addUnit(UnitNode currentNode, Set<UnitNode> setParent) {
-        for (UnitNode tmpNode : setParent) {
-            tmpNode.addChildNode(currentNode);
-        }
-        this.unitCollection.add(currentNode);
-        return true;
-    }
-*/
+
     /**
      * 
      * @param parent
@@ -135,8 +146,13 @@ public class Graph implements Serializable {
                 tmp.addParentNode(parent);
         }
         return true;
-    }
-
+    }   
+    /**
+     * 
+     * @param unit
+     *          the unit to be deleted
+     * @return true if deleted successfully
+     */
     public boolean deleteUnit(UnitNode unit) {
         for (UnitNode tmp : unit.getParentNodes()) {
             tmp.removeChildNode(unit);
@@ -146,7 +162,15 @@ public class Graph implements Serializable {
         }
         return this.unitCollection.remove(unit);
     }
-
+    /**
+     * 
+     * @param parent
+     *          the start node of the connection
+     * @param child
+     *          the end node of the connection
+     * @return true if units are connected
+     *
+     */
     public boolean isConnected(UnitNode parent, UnitNode child) {
         boolean connected;
         if (child.getParentNodes().contains(parent)) {
@@ -156,9 +180,10 @@ public class Graph implements Serializable {
         }
         return connected;
     }
-
-    
-
+    /**
+     * 
+     * @return course
+     */
     public Course getCourse() {
         Course c = new Course();
         return c.loadDbObject(course);
@@ -182,11 +207,4 @@ public class Graph implements Serializable {
         return true;
     }
 
-    /*
-     * // remove an old connection if exist (alert?) and add a new one public
-     * boolean addConnection(UnitNode from, UnitNode to) { return true; }
-     * 
-     * public boolean removeConnection(UnitNode from, UnitNode to) { return
-     * true; }
-     */
 }
