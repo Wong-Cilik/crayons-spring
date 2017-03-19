@@ -37,6 +37,7 @@ public class UserServiceTest {
     @Autowired
     UserDAO userDAO;
 
+    List <CrayonsUser> usersList;
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
     }
@@ -47,7 +48,10 @@ public class UserServiceTest {
 
     @Before
     public void setUp() throws Exception {
+        
         authorities = new ArrayList<GrantedAuthority>();
+        
+        
         dummyUser1 = new CrayonsUser("user1", "foo", "user1@web.de", "123456", "German", 2, true, true, false, false,
                 authorities);
         dummyUser2 = new CrayonsUser("user2", "boo", "user2@web.de", "123456", "German", 2, true, true, false, false,
@@ -57,6 +61,13 @@ public class UserServiceTest {
         dummyUser4 = new CrayonsUser("user4", "doo", "user4@web.de", "123456", "German", 2, true, true, false, false,
                 authorities);
         
+          usersList = new ArrayList<>();
+        for (CrayonsUser user : userService.findAll()) {
+            usersList.add(user);
+            }
+            usersList.add(dummyUser1);
+            usersList.add(dummyUser3);
+            usersList.add(dummyUser4);
         userService.insertUser(dummyUser1);
         userService.insertUser(dummyUser3);
         userService.insertUser(dummyUser4);
@@ -66,7 +77,7 @@ public class UserServiceTest {
     @After
     public void tearDown() throws Exception {
         userService.removeUser("user2@web.de");
-        userService.updateUser(dummyUser4, "user3@web.de", "user4", "doo", "123456");
+        userService.updateUser(dummyUser4, "user4@web.de", "user4", "doo", "123456");
     }
 
     @Test
@@ -79,10 +90,8 @@ public class UserServiceTest {
     @Test
     public void testFindAll() {
         List <CrayonsUser>  users = userService.findAll();
-        List <CrayonsUser> usersList = new ArrayList<>();
-        usersList.add(dummyUser1);
-        usersList.add(dummyUser3);
-        usersList.add(dummyUser4);
+      
+       
         assertTrue(usersList.containsAll(users));
     }
 
