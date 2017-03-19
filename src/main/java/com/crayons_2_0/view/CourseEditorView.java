@@ -77,7 +77,9 @@ public class CourseEditorView extends VerticalLayout implements View {
 			getUI().getConnectorTracker().markAllConnectorsDirty();
 			getUI().getConnectorTracker().markAllClientSidesUninitialized();
 			MyUI.getCurrent().getPage().reload();
+			System.out.println("test");
 		}
+		// addComponent( );
 		addComponent(graphLayout);
 
 		Component footer = buildFooter();

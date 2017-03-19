@@ -50,13 +50,12 @@ public class RegisterFormListener implements Button.ClickListener {
 						lang.getString("LastName")));
 			}
 			String Nameregex = "[a-zA-Z]+";
-			Pattern Namepattern = Pattern.compile(Nameregex);
-			if (!(Namepattern.matcher(firstname).matches())
-					|| !(Namepattern.matcher(firstname).matches())) {
-				throw new IllegalArgumentException(
-						lang.getString("FirstnameOrLastnameAreNotValid"));
-			}
-
+            Pattern Namepattern = Pattern.compile(Nameregex);
+            if (!(Namepattern.matcher(firstname).matches()) || !(Namepattern.matcher(lastname).matches())) {
+                throw new IllegalArgumentException(
+                        lang.getString("FirstnameOrLastnameAreNotValid"));
+            }
+            
 			String mail = parent.getEmail().getValue();
 			if (mail.isEmpty()) {
 				throw new IllegalArgumentException(String.format(
