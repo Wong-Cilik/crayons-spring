@@ -36,6 +36,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.TwinColSelect;
@@ -61,8 +62,6 @@ public class Authorlibrary extends VerticalLayout implements View {
 	private TabSheet tabSheet;
 	private Component filter;
 	private List<Course> authorCoursesList;
-
-	// TODO bug: author got no course, gets a course he doesnt have
 
 	@PostConstruct
 	void init() {
@@ -258,7 +257,8 @@ public class Authorlibrary extends VerticalLayout implements View {
 				@SuppressWarnings("unchecked")
 				Collection<String> tmp = (Collection<String>) selectStudents
 						.getValue();
-				if(courseService.insertStudent(tmp.toArray(new String[0]), title)){
+				System.out.println(tabContent.getCaption());
+				if(courseService.insertStudent(tmp.toArray(new String[0]), tabContent.getCaption())){
 					Notification success = new Notification(lang
 							.getString("StudentListUpdatedSuccessfully"));
 					success.setDelayMsec(4000);
@@ -266,8 +266,7 @@ public class Authorlibrary extends VerticalLayout implements View {
 					success.setPosition(Position.BOTTOM_CENTER);
 					success.show(Page.getCurrent());
 				} else {
-					Notification failure = new Notification(lang
-							.getString("StudentListUpdatedSuccessfully"));
+					Notification failure = new Notification("FAIL");
 					failure.setDelayMsec(4000);
 					failure.setPosition(Position.BOTTOM_CENTER);
 					failure.show(Page.getCurrent());
@@ -315,10 +314,14 @@ public class Authorlibrary extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				courseService.removeCourse(courseService
-						.findCourseByTitleAndAuthor(title));
+						.findCourseByTitleAndAuthor(tab.getCaption()));
 				getTabSheet().removeTab(
 						getTabSheet().getTab(getTabSheet().getSelectedTab()));
-				// TODO notification
+				Notification success = new Notification(lang
+                        .getString("CourseIsDeletedSuccessfully"));
+                success.setDelayMsec(2000);
+                success.setStyleName("bar success small");
+                success.setPosition(Position.BOTTOM_CENTER);
 			}
 
 		});
@@ -329,9 +332,10 @@ public class Authorlibrary extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
+			    System.out.println(tab.getCaption());
 				UI.getCurrent().addWindow(
 						new CourseModificationWindow(courseService, courseService
-								.findCourseByTitleAndAuthor(title), tab, tabSheet));
+								.findCourseByTitleAndAuthor(tab.getCaption()), tab, tabSheet));
 			}
 		});
 
@@ -339,7 +343,7 @@ public class Authorlibrary extends VerticalLayout implements View {
 		graphEditor.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		controlButtons.addComponent(graphEditor);
 		graphEditor.addClickListener(new ClickListener() {
-
+		    //TODO: replace title with tab.getCaption() ?
 			@Override
 			public void buttonClick(ClickEvent event) {
 				CurrentGraph.getInstance().setCourseTitle(title);
