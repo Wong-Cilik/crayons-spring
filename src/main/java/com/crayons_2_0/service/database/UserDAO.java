@@ -23,8 +23,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class UserDAO implements CommandLineRunner {
 
-	private @Autowired
-	JdbcTemplate jdbcTemplate;
+	private @Autowired JdbcTemplate jdbcTemplate;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<CrayonsUser> findAll() {
@@ -85,7 +84,7 @@ public class UserDAO implements CommandLineRunner {
 	 *            New first name to be saved
 	 * @param lastName
 	 *            New last name o be saved
-	 * @param password 
+	 * @param password
 	 * @return true if successfully inserted, false if not
 	 */
 	public boolean updateUser(CrayonsUser user, String eMail, String firstName,
@@ -123,7 +122,7 @@ public class UserDAO implements CommandLineRunner {
 	@Override
 	public void run(String... arg0) throws Exception {
 		new ArrayList<GrantedAuthority>();
-		//findAll().forEach(entry -> log.info(entry.toString()));
+		// findAll().forEach(entry -> log.info(entry.toString()));
 
 	}
 
