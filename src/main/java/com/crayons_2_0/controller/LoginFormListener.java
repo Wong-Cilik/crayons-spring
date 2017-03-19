@@ -26,18 +26,18 @@ public class LoginFormListener implements Button.ClickListener {
 	/**
 	 * 
 	 */
-    
+
 	@Autowired
 	private AuthManager authManager;
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
-    
+
 	@Override
 	public void buttonClick(Button.ClickEvent event) {
-	    Button source = event.getButton();
-        LoginForm parent = (LoginForm) source.getParent();
-        String username = parent.getTxtLogin().getValue();
-        String password = parent.getTxtPassword().getValue();
+		Button source = event.getButton();
+		LoginForm parent = (LoginForm) source.getParent();
+		String username = parent.getTxtLogin().getValue();
+		String password = parent.getTxtPassword().getValue();
 		try {
 			CurrentUser.getInstance().seteMail(username);
 			UsernamePasswordAuthenticationToken request = new UsernamePasswordAuthenticationToken(
@@ -47,13 +47,14 @@ public class LoginFormListener implements Button.ClickListener {
 			SecurityContextHolder.getContext().setAuthentication(result);
 
 		} catch (UsernameNotFoundException unfe) {
-		    Notification.show(lang.getString("AuthenticationFailed"),
-		            String.format(lang.getString("UserWithMailDoesntExists"), username),
-		            Notification.Type.WARNING_MESSAGE);
+			Notification.show(lang.getString("AuthenticationFailed"), String
+					.format(lang.getString("UserWithMailDoesntExists"),
+							username), Notification.Type.WARNING_MESSAGE);
 		} catch (BadCredentialsException bce) {
-		    Notification.show(lang.getString("AuthenticationFailed"),
-                    lang.getString("PleaseCheckYourUsernameAndPasswordAndTryAgain"),
-                    Notification.Type.WARNING_MESSAGE);
+			Notification
+					.show(lang.getString("AuthenticationFailed"),
+							lang.getString("PleaseCheckYourUsernameAndPasswordAndTryAgain"),
+							Notification.Type.WARNING_MESSAGE);
 		}
 	}
 }

@@ -33,8 +33,7 @@ public class RegisterView extends VerticalLayout implements View {
 	/**
      * 
      */
-	private @Autowired
-	RegisterFormListener registerFormListener;
+	private @Autowired RegisterFormListener registerFormListener;
 
 	public static final String VIEW_NAME = "registerView";
 	private ResourceBundle lang = LanguageService.getInstance().getRes();

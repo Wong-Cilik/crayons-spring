@@ -33,7 +33,6 @@ public final class UnitCreationWindow extends Window {
 	private String unitTitle;
 	private UnitNode child;
 	private static Graph graph;
-	
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
@@ -186,7 +185,7 @@ public final class UnitCreationWindow extends Window {
 				} else {
 					UnitNode newUnit = new UnitNode(unitTitle, parent, child,
 							graph);
-					graph.addUnit(newUnit, parent,child);
+					graph.addUnit(newUnit, parent, child);
 					CourseEditorView.refreshGraph(graph);
 					close();
 					Notification success = new Notification(lang
@@ -195,7 +194,7 @@ public final class UnitCreationWindow extends Window {
 					success.setStyleName("bar success small");
 					success.setPosition(Position.BOTTOM_CENTER);
 					Page.getCurrent().reload();
-					
+
 				}
 
 			}

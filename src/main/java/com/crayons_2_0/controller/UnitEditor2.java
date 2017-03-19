@@ -15,8 +15,6 @@ public class UnitEditor2 {
 	@Autowired
 	private Unit currentUnit;
 
-	
-
 	// @Resource(name = "unitService2")
 	// UnitService2 unitService2;
 

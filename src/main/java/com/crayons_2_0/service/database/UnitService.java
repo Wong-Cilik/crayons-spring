@@ -79,7 +79,8 @@ public class UnitService {
 			if (c.getContent().getClass().getName()
 					.equals("com.crayons_2_0.component.MultipleChoiceEditor")) {
 				MultipleChoiceEditor x = (MultipleChoiceEditor) c.getContent();
-				dataList.add(dataList.size(), new UnitData(x.getQuestionText().getValue(), x.getAnswerList(), x.getRightAnswer()));
+				dataList.add(dataList.size(), new UnitData(x.getQuestionText()
+						.getValue(), x.getAnswerList(), x.getRightAnswer()));
 			}
 
 			if (c.getContent().getClass().getName()

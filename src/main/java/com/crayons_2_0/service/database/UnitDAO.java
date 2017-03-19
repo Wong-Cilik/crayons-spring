@@ -28,8 +28,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UnitDAO {
 
-	private @Autowired
-	JdbcTemplate jdbcTemplate;
+	private @Autowired JdbcTemplate jdbcTemplate;
 
 	/**
 	 * Returns all units of DB

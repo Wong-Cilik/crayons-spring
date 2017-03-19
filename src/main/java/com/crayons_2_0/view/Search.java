@@ -49,8 +49,7 @@ public final class Search extends VerticalLayout implements View {
 
 	private Table table;
 
-	private @Autowired
-	CourseService courseService;
+	private @Autowired CourseService courseService;
 
 	@PostConstruct
 	public void init() {

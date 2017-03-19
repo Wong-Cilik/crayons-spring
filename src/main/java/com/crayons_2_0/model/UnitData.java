@@ -14,7 +14,7 @@ public class UnitData implements Serializable {
 	private String question;
 	private List<String> answerList;
 	private String answer;
-	
+
 	public UnitData(String question, List<String> answerList, String answer) {
 		this.question = question;
 		this.answer = answer;
@@ -57,7 +57,7 @@ public class UnitData implements Serializable {
 	public String getQuestion() {
 		return question;
 	}
-	
+
 	public void setQuestion(String question) {
 		this.question = question;
 	}

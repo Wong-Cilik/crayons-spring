@@ -29,8 +29,7 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public class AuthorlibraryForm extends VerticalLayout {
 
-	private @Autowired
-	CurrentUser user;
+	private @Autowired CurrentUser user;
 
 	@Resource
 	private CourseService courseService;

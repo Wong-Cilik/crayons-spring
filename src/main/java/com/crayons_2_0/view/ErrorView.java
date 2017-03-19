@@ -17,7 +17,7 @@ import com.vaadin.ui.themes.Reindeer;
  * 
  */
 @SuppressWarnings("serial")
-@SpringView(name = ErrorView.VIEW_NAME) 
+@SpringView(name = ErrorView.VIEW_NAME)
 public class ErrorView extends VerticalLayout implements View {
 
 	/**

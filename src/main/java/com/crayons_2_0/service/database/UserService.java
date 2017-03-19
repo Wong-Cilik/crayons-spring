@@ -22,7 +22,7 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	/**
 	 * Returns an User by his Username (=eMail)
 	 */
@@ -94,7 +94,7 @@ public class UserService implements UserDetailsService {
 	 * @param lastName
 	 *            new LastName
 	 * @param password
-	 * 				new password
+	 *            new password
 	 * @return true if successfull
 	 */
 	public boolean updateUser(CrayonsUser user, String eMail, String firstName,
@@ -107,16 +107,16 @@ public class UserService implements UserDetailsService {
 		}
 		if (eMail.length() > 30) {
 			throw new IllegalArgumentException(
-			        "Email should be at most 30 characters long");
+					"Email should be at most 30 characters long");
 		}
-		
+
 		if (password.length() < 6) {
-            throw new IllegalArgumentException(
-                    "Password should be at least 6 characters long");
-        } else if (password.length() > 15) {
-            throw new IllegalArgumentException(
-                    "Password should be at most 15 characters long");
-        }
+			throw new IllegalArgumentException(
+					"Password should be at least 6 characters long");
+		} else if (password.length() > 15) {
+			throw new IllegalArgumentException(
+					"Password should be at most 15 characters long");
+		}
 
 		// Check if firstName is valid
 		if (firstName.isEmpty()) {
@@ -140,7 +140,6 @@ public class UserService implements UserDetailsService {
 		return userDAO.updateLanguage(user, newLanguage);
 	}
 
-	
 	public boolean updateRights(String eMail, String role) {
 		int r = 2;
 		if (role.equals("Author")) {
@@ -179,8 +178,8 @@ public class UserService implements UserDetailsService {
 				return tmpUser;
 			}
 		}
-		throw new UsernameNotFoundException(
-		        "User with mail " + eMail + "does not exists");
+		throw new UsernameNotFoundException("User with mail " + eMail
+				+ "does not exists");
 	}
 
 }

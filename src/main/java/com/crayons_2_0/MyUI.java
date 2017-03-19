@@ -29,60 +29,63 @@ import com.vaadin.ui.themes.ValoTheme;
 @PreserveOnRefresh
 public class MyUI extends UI {
 
-    private ApplicationContext applicationContext;
+	private ApplicationContext applicationContext;
 
-    @Override
-    protected void init(VaadinRequest request) {
-        Responsive.makeResponsive(this);
-        addStyleName(ValoTheme.UI_WITH_MENU);
+	@Override
+	protected void init(VaadinRequest request) {
+		Responsive.makeResponsive(this);
+		addStyleName(ValoTheme.UI_WITH_MENU);
 
-        httpSession(request);
-        getPage().setTitle("Crayons");
+		httpSession(request);
+		getPage().setTitle("Crayons");
 
-        getUI().getNavigator().navigateTo("");
+		getUI().getNavigator().navigateTo("");
 
-    }
+	}
 
-    public static MyUI get() {
-        return (MyUI) UI.getCurrent();
-    }
+	public static MyUI get() {
+		return (MyUI) UI.getCurrent();
+	}
 
-    public void showMainView() {
+	public void showMainView() {
 
-        getUI().getNavigator().navigateTo("mainScreen");
+		getUI().getNavigator().navigateTo("mainScreen");
 
-    }
+	}
 
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
 
-    private void httpSession(VaadinRequest request) {
-        WrappedSession session = request.getWrappedSession();
-        HttpSession httpSession = ((WrappedHttpSession) session).getHttpSession();
-        ServletContext servletContext = httpSession.getServletContext();
-        applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-    }
+	private void httpSession(VaadinRequest request) {
+		WrappedSession session = request.getWrappedSession();
+		HttpSession httpSession = ((WrappedHttpSession) session)
+				.getHttpSession();
+		ServletContext servletContext = httpSession.getServletContext();
+		applicationContext = WebApplicationContextUtils
+				.getRequiredWebApplicationContext(servletContext);
+	}
 
-    private ConnectorTracker tracker;
+	private ConnectorTracker tracker;
 
-    @Override
-    public ConnectorTracker getConnectorTracker() {
-        if (this.tracker == null) {
-            this.tracker = new ConnectorTracker(this) {
-                @Override
-                public void registerConnector(ClientConnector connector) {
-                    try {
-                        super.registerConnector(connector);
-                    } catch (RuntimeException e) {
-                        Logger.getLogger(MyUI.class.getName()).log(Level.ERROR, connector.getClass().getSimpleName());
-                        super.unregisterConnector(connector);
-                        getPage().reload();
-                        throw e;
-                    }
-                }
-            };
-        }
-        return tracker;
-    }
+	@Override
+	public ConnectorTracker getConnectorTracker() {
+		if (this.tracker == null) {
+			this.tracker = new ConnectorTracker(this) {
+				@Override
+				public void registerConnector(ClientConnector connector) {
+					try {
+						super.registerConnector(connector);
+					} catch (RuntimeException e) {
+						Logger.getLogger(MyUI.class.getName()).log(Level.ERROR,
+								connector.getClass().getSimpleName());
+						super.unregisterConnector(connector);
+						getPage().reload();
+						throw e;
+					}
+				}
+			};
+		}
+		return tracker;
+	}
 }

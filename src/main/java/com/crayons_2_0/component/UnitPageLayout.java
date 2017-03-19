@@ -54,7 +54,7 @@ public final class UnitPageLayout extends CustomComponent {
 	 * the user where the components can be dropped.
 	 */
 	public void addDropArea() {
-		//layout.addComponent(buildDropArea());
+		// layout.addComponent(buildDropArea());
 	}
 
 	public VerticalLayout getLayout() {
@@ -153,7 +153,8 @@ public final class UnitPageLayout extends CustomComponent {
 		Component result = null;
 		if (type == PageItemType.TEXT) {
 			result = new TextEditor(
-					prefillData != null ? String.valueOf(prefillData) : null, editable);
+					prefillData != null ? String.valueOf(prefillData) : null,
+					editable);
 		} else if (type == PageItemType.IMAGE) {
 			result = new ImageUploadEditor();
 		} else if (type == PageItemType.MULTIPLE_CHOICE) {
@@ -161,7 +162,8 @@ public final class UnitPageLayout extends CustomComponent {
 			if (unit == null) {
 				result = new MultipleChoiceEditor();
 			} else {
-				result = new MultipleChoiceEditor(unit.getQuestion(), unit.getAnswerList(), unit.getAnswer(), editable);
+				result = new MultipleChoiceEditor(unit.getQuestion(),
+						unit.getAnswerList(), unit.getAnswer(), editable);
 			}
 		}
 

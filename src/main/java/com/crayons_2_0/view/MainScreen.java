@@ -134,7 +134,7 @@ public class MainScreen extends HorizontalLayout implements View {
 		navigator.addViewChangeListener(viewChangeListener);
 
 		navigator.addView(UnitUserView.VIEW_NAME, unitUserView);
-		
+
 		navigator.navigateTo(Authorlibrary.VIEW_NAME);
 
 		addComponent(menu);

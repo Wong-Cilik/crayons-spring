@@ -51,10 +51,8 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringView(name = Authorlibrary.VIEW_NAME)
 @SpringComponent
 public class Authorlibrary extends VerticalLayout implements View {
-	private @Autowired
-	CourseService courseService;
-	private @Autowired
-	UserService userService;
+	private @Autowired CourseService courseService;
+	private @Autowired UserService userService;
 
 	public static final String VIEW_NAME = "Authorlibrary";
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
@@ -172,34 +170,38 @@ public class Authorlibrary extends VerticalLayout implements View {
 		tabContent.addComponent(couseDescription);
 
 		HorizontalLayout footer = new HorizontalLayout();
-        footer.setWidth("100%");
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth("100%");
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
 		Button createCourse = new Button(lang.getString("CreateCourse"));
 		createCourse.setStyleName(ValoTheme.BUTTON_PRIMARY);
-        footer.addComponent(createCourse);
-        footer.setComponentAlignment(createCourse, Alignment.BOTTOM_CENTER);
-        tabContent.addComponent(footer);
+		footer.addComponent(createCourse);
+		footer.setComponentAlignment(createCourse, Alignment.BOTTOM_CENTER);
+		tabContent.addComponent(footer);
 
 		createCourse.addClickListener(new ClickListener() {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
 				try {
-					boolean courseInserted = courseService.insertCourse(new Course(courseTitleField
-							.getValue(), couseDescriptionField.getValue(),
-							userService.findByEMail(CurrentUser.getInstance()
-									.geteMail()), ""));
+					boolean courseInserted = courseService
+							.insertCourse(new Course(courseTitleField
+									.getValue(), couseDescriptionField
+									.getValue(), userService
+									.findByEMail(CurrentUser.getInstance()
+											.geteMail()), ""));
 					if (courseInserted) {
-					    courseService.saveDummyGraph(courseTitleField.getValue());
-                        String title = (String) courseTitleField.getValue();
-                        Component newTab = buildCourseTab(title);
-                        getTabSheet().addComponent(newTab);
-                        getTabSheet().setSelectedTab(newTab);
-                        courseTitleField.clear();
-                        couseDescriptionField.clear();
+						courseService.saveDummyGraph(courseTitleField
+								.getValue());
+						String title = (String) courseTitleField.getValue();
+						Component newTab = buildCourseTab(title);
+						getTabSheet().addComponent(newTab);
+						getTabSheet().setSelectedTab(newTab);
+						courseTitleField.clear();
+						couseDescriptionField.clear();
 					} else {
-					    Notification.show(lang.getString("CourseAlreadyExists"),
-                                Notification.Type.WARNING_MESSAGE);
+						Notification.show(
+								lang.getString("CourseAlreadyExists"),
+								Notification.Type.WARNING_MESSAGE);
 					}
 				} catch (IllegalArgumentException iae) {
 					Notification.show(iae.getMessage());
@@ -236,14 +238,15 @@ public class Authorlibrary extends VerticalLayout implements View {
 
 		List<CrayonsUser> allUsers = userService.findAll();
 		for (int i = 0; i < allUsers.size(); i++) {
-            selectStudents.addItem(allUsers.get(i).getEmail());
-        }
-		
-		String[] emailOfStudentsInCourse = courseService.getStudentsWithAuthor(title);
+			selectStudents.addItem(allUsers.get(i).getEmail());
+		}
+
+		String[] emailOfStudentsInCourse = courseService
+				.getStudentsWithAuthor(title);
 		if (emailOfStudentsInCourse != null) {
-		    for (int i = 1; i < emailOfStudentsInCourse.length; i++) {
-		        selectStudents.select(emailOfStudentsInCourse[i]);
-		    }
+			for (int i = 1; i < emailOfStudentsInCourse.length; i++) {
+				selectStudents.select(emailOfStudentsInCourse[i]);
+			}
 		}
 
 		Button saveStudents = new Button(lang.getString("SaveStudents"));
@@ -256,8 +259,8 @@ public class Authorlibrary extends VerticalLayout implements View {
 				@SuppressWarnings("unchecked")
 				Collection<String> tmp = (Collection<String>) selectStudents
 						.getValue();
-				System.out.println(tabContent.getCaption());
-				if(courseService.insertStudent(tmp.toArray(new String[0]), tabContent.getCaption())){
+				if (courseService.insertStudent(tmp.toArray(new String[0]),
+						tabContent.getCaption())) {
 					Notification success = new Notification(lang
 							.getString("StudentListUpdatedSuccessfully"));
 					success.setDelayMsec(4000);
@@ -317,10 +320,10 @@ public class Authorlibrary extends VerticalLayout implements View {
 				getTabSheet().removeTab(
 						getTabSheet().getTab(getTabSheet().getSelectedTab()));
 				Notification success = new Notification(lang
-                        .getString("CourseIsDeletedSuccessfully"));
-                success.setDelayMsec(2000);
-                success.setStyleName("bar success small");
-                success.setPosition(Position.BOTTOM_CENTER);
+						.getString("CourseIsDeletedSuccessfully"));
+				success.setDelayMsec(2000);
+				success.setStyleName("bar success small");
+				success.setPosition(Position.BOTTOM_CENTER);
 			}
 
 		});
@@ -331,10 +334,10 @@ public class Authorlibrary extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-			    System.out.println(tab.getCaption());
 				UI.getCurrent().addWindow(
-						new CourseModificationWindow(courseService, courseService
-								.findCourseByTitleAndAuthor(tab.getCaption()), tab, tabSheet));
+						new CourseModificationWindow(courseService,
+								courseService.findCourseByTitleAndAuthor(tab
+										.getCaption()), tab, tabSheet));
 			}
 		});
 
@@ -342,7 +345,7 @@ public class Authorlibrary extends VerticalLayout implements View {
 		graphEditor.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		controlButtons.addComponent(graphEditor);
 		graphEditor.addClickListener(new ClickListener() {
-		    //TODO: replace title with tab.getCaption() ?
+			// TODO: replace title with tab.getCaption() ?
 			@Override
 			public void buttonClick(ClickEvent event) {
 				CurrentGraph.getInstance().setCourseTitle(title);
@@ -363,7 +366,6 @@ public class Authorlibrary extends VerticalLayout implements View {
 	public void enter(ViewChangeEvent event) {
 	}
 
-	
 	/**
 	 * Builds a filter to search for a course by name.
 	 * 
