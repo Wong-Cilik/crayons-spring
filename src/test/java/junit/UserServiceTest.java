@@ -114,7 +114,8 @@ public class UserServiceTest {
 
     @Test
     public void testUpdateUserLanguage() {
-        boolean result = userService.updateUserLanguage(dummyUser1, Language.German);
+        boolean result = userService.updateUserLanguage(dummyUser4, Language.German);
+        if (dummyUser4.getLanguage().equals(Language.German)) result = true;
         assertEquals(true, result);
     }
 
