@@ -130,17 +130,7 @@ public class TextEditor extends CustomComponent {
 			}
 		});
 		ckEditorTextField.setValue(property.getValue());
-		ckEditorTextField
-				.addValueChangeListener(new Property.ValueChangeListener() {
-
-					public void valueChange(ValueChangeEvent event) {
-						Notification.show("CKEditor v"
-								+ ckEditorTextField.getVersion()
-								+ " - contents: "
-								+ event.getProperty().getValue().toString());
-					}
-				});
-		
+				
 		Button save = new Button(lang.getString("Save"));
 		save.addClickListener(new ClickListener() {
 
