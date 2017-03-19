@@ -1,3 +1,3 @@
-CREATE TABLE IF NOT EXISTS users (email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL, permission int)
-create table if not exists courses (title varchar(100), description varchar(500), author varchar(100), students varchar(1000), data bytea,datetime date)
-create table if not exists units (unittitle varchar(100), coursetitle varchar(100),data bytea)
+CREATE TABLE IF NOT EXISTS users (email VARCHAR(100) PRIMARY KEY, password VARCHAR(100) NOT NULL, firstname VARCHAR(100)  NOT NULL,lastname VARCHAR(100)  NOT NULL, language VARCHAR(100)  NOT NULL, permission int)
+create table if not exists courses (title varchar(100) PRIMARY KEY, description varchar(500), author varchar(100), students varchar(1000), data bytea,datetime date)
+create table if not exists units (unittitle varchar(100) PRIMARY KEY, coursetitle varchar(100),data bytea)

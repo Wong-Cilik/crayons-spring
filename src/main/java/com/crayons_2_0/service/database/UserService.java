@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +19,7 @@ import com.vaadin.spring.annotation.SpringComponent;
  * Class for Service on users of DB
  */
 @SpringComponent
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, CommandLineRunner {
 
 	@Autowired
 	private UserDAO userDAO;
@@ -181,5 +182,12 @@ public class UserService implements UserDetailsService {
 		throw new UsernameNotFoundException("User with mail " + eMail
 				+ "does not exists");
 	}
+
+    @Override
+    public void run(String... args) throws Exception {
+        this.insertUser(new CrayonsUser("admin", "crayons", "admin@crayons.de", "crayons123", Language.German.toString(), 0, true, true, true, true,  new ArrayList<GrantedAuthority>()));
+
+        
+    }
 
 }

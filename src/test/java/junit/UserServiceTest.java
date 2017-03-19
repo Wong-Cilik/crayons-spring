@@ -22,6 +22,7 @@ import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.database.UserDAO;
 import com.crayons_2_0.service.database.UserService;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CrayonsSpringApplication.class)
 
@@ -76,7 +77,10 @@ public class UserServiceTest {
 
     @After
     public void tearDown() throws Exception {
+        userService.removeUser("user1@web.de");
         userService.removeUser("user2@web.de");
+        userService.removeUser("user3@web.de");
+        userService.removeUser("user4@web.de");
         userService.updateUser(dummyUser4, "user4@web.de", "user4", "doo", "123456");
     }
 
