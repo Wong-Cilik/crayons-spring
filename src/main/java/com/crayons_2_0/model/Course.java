@@ -84,6 +84,9 @@ public class Course {
 	 *            to set
 	 */
 	public void setTitle(String title) {
+		
+		// Darf Leerzeichen enthalten??????
+		
 		if (title.isEmpty()) {
 			throw new IllegalArgumentException(String.format(
 					lang.getString("RequiredField"),
