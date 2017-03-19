@@ -1,21 +1,25 @@
 package com.crayons_2_0.component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import com.crayons_2_0.service.LanguageService;
+import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
@@ -61,7 +65,20 @@ public class MultipleChoiceEditor extends CustomComponent {
 	private Component buildUserOnly() {
 		final Label questionText = new Label(this.questionText);
 
-		CssLayout result = new CssLayout(questionText, answers);
+		Button checkButton = new Button(FontAwesome.EYE);
+		checkButton.addStyleName(ValoTheme.BUTTON_SMALL);
+		checkButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
+		checkButton.addClickListener(new ClickListener() {
+
+			@Override
+			public void buttonClick(final ClickEvent event) {
+                Notification answer = new Notification(rightAnswer);
+                answer.setDelayMsec(2000);
+                answer.show(Page.getCurrent());
+			}
+		});
+
+		CssLayout result = new CssLayout(questionText, answers, checkButton);
 		result.addStyleName("text-editor");
 		result.setSizeFull();
 		return result;

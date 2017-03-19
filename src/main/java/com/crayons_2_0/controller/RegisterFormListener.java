@@ -93,7 +93,7 @@ public class RegisterFormListener implements Button.ClickListener {
 				language = "German";
 			else if (language.equals("Englisch"))
 				language = "English";
-			int permission = 0;
+			int permission = 2;
 
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			authorities.add(new SimpleGrantedAuthority("CLIENT"));
