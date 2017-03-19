@@ -49,360 +49,380 @@ import com.vaadin.ui.themes.ValoTheme;
 @SpringComponent
 public class Preferences extends VerticalLayout implements View {
 
-    /**
+	/**
      * 
      */
 
-    // public static final String ID = "profilepreferenceswindow";
-    public static final String VIEW_NAME = "Preferences";
-    private ResourceBundle lang = LanguageService.getInstance().getRes();
-    private @Autowired UserService userService;
+	// public static final String ID = "profilepreferenceswindow";
+	public static final String VIEW_NAME = "Preferences";
+	private ResourceBundle lang = LanguageService.getInstance().getRes();
+	private @Autowired UserService userService;
 
-    // private final BeanFieldGroup<User> fieldGroup;
-    /*
-     * Fields for editing the User object are defined here as class members.
-     * They are later bound to a FieldGroup by calling
-     * fieldGroup.bindMemberFields(this). The Fields' values don't need to be
-     * explicitly set, calling fieldGroup.setItemDataSource(user) synchronizes
-     * the fields with the user object.
-     */
-    @PropertyId("firstName")
-    private TextField firstNameField;
-    @PropertyId("lastName")
-    private TextField lastNameField;
-    @PropertyId("title")
-    private ComboBox titleField;
-    @PropertyId("male")
-    private OptionGroup sexField;
-    @PropertyId("email")
-    private TextField emailField;
-    @PropertyId("location")
-    private TextField locationField;
-    @PropertyId("phone")
-    private TextField phoneField;
-    /*
-     * @PropertyId("newsletterSubscription") private OptionalSelect<Integer>
-     * newsletterField;
-     */
-    @PropertyId("newpassword")
-    private PasswordField newPassword;
-    @PropertyId("newpasswordconfirmation")
-    private PasswordField newPasswordConfirmation;
+	// private final BeanFieldGroup<User> fieldGroup;
+	/*
+	 * Fields for editing the User object are defined here as class members.
+	 * They are later bound to a FieldGroup by calling
+	 * fieldGroup.bindMemberFields(this). The Fields' values don't need to be
+	 * explicitly set, calling fieldGroup.setItemDataSource(user) synchronizes
+	 * the fields with the user object.
+	 */
+	@PropertyId("firstName")
+	private TextField firstNameField;
+	@PropertyId("lastName")
+	private TextField lastNameField;
+	@PropertyId("title")
+	private ComboBox titleField;
+	@PropertyId("male")
+	private OptionGroup sexField;
+	@PropertyId("email")
+	private TextField emailField;
+	@PropertyId("location")
+	private TextField locationField;
+	@PropertyId("phone")
+	private TextField phoneField;
+	/*
+	 * @PropertyId("newsletterSubscription") private OptionalSelect<Integer>
+	 * newsletterField;
+	 */
+	@PropertyId("newpassword")
+	private PasswordField newPassword;
+	@PropertyId("newpasswordconfirmation")
+	private PasswordField newPasswordConfirmation;
 
-    public Preferences() {
+	public Preferences() {
 
-    }
+	}
 
-    @PostConstruct
-    void init() {
+	@PostConstruct
+	void init() {
 
-        // addStyleName("profile-window");
-        // setId(ID);
-        Responsive.makeResponsive(this);
+		// addStyleName("profile-window");
+		// setId(ID);
+		Responsive.makeResponsive(this);
 
-        VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        content.setMargin(new MarginInfo(true, false, false, false));
-        addComponent(content);
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		content.setMargin(new MarginInfo(true, false, false, false));
+		addComponent(content);
 
-        TabSheet detailsWrapper = new TabSheet();
-        detailsWrapper.setSizeFull();
-        detailsWrapper.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
-        detailsWrapper.addStyleName(ValoTheme.TABSHEET_ICONS_ON_TOP);
-        detailsWrapper.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
-        content.addComponent(detailsWrapper);
-        content.setExpandRatio(detailsWrapper, 1f);
+		TabSheet detailsWrapper = new TabSheet();
+		detailsWrapper.setSizeFull();
+		detailsWrapper.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
+		detailsWrapper.addStyleName(ValoTheme.TABSHEET_ICONS_ON_TOP);
+		detailsWrapper.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
+		content.addComponent(detailsWrapper);
+		content.setExpandRatio(detailsWrapper, 1f);
 
-        detailsWrapper.addComponent(buildProfileTab());
-        detailsWrapper.addComponent(buildPreferencesTab());
-        detailsWrapper.addComponent(changePasswordTab());
+		detailsWrapper.addComponent(buildProfileTab());
+		detailsWrapper.addComponent(buildPreferencesTab());
+		detailsWrapper.addComponent(changePasswordTab());
 
-        content.addComponent(buildFooter());
-        /*
-         * fieldGroup = new BeanFieldGroup<User>(User.class);
-         * fieldGroup.bindMemberFields(this);
-         * fieldGroup.setItemDataSource(user);
-         */
-    }
+		content.addComponent(buildFooter());
+		/*
+		 * fieldGroup = new BeanFieldGroup<User>(User.class);
+		 * fieldGroup.bindMemberFields(this);
+		 * fieldGroup.setItemDataSource(user);
+		 */
+	}
 
-    private Component buildPreferencesTab() {
-        VerticalLayout root = new VerticalLayout();
-        root.setCaption(lang.getString("Preferences"));
-        root.setIcon(FontAwesome.COGS);
-        root.setSpacing(true);
-        root.setMargin(true);
-        root.setSizeFull();
+	private Component buildPreferencesTab() {
+		VerticalLayout root = new VerticalLayout();
+		root.setCaption(lang.getString("Preferences"));
+		root.setIcon(FontAwesome.COGS);
+		root.setSpacing(true);
+		root.setMargin(true);
+		root.setSizeFull();
 
-        ComboBox selectLanguage = new ComboBox(lang.getString("SelectYourLanguage"));
-        selectLanguage.setNullSelectionAllowed(false);
-        selectLanguage.addItem(lang.getString("German"));
-        selectLanguage.addItem(lang.getString("English"));
-        selectLanguage.setValue(lang.getString(LanguageService.getInstance().getLanguage().toString()));
-        selectLanguage.addValueChangeListener(new ValueChangeListener() {
+		ComboBox selectLanguage = new ComboBox(
+				lang.getString("SelectYourLanguage"));
+		selectLanguage.setNullSelectionAllowed(false);
+		selectLanguage.addItem(lang.getString("German"));
+		selectLanguage.addItem(lang.getString("English"));
+		selectLanguage.setValue(lang.getString(LanguageService.getInstance()
+				.getLanguage().toString()));
+		selectLanguage.addValueChangeListener(new ValueChangeListener() {
 
-            // ToDO Makeup Hardcoded.
+			// ToDO Makeup Hardcoded.
 
-            /**
+			/**
              * 
              */
 
-            @Override
-            public void valueChange(ValueChangeEvent event) {
-                Language newLanguage;
-                String value = selectLanguage.getValue().toString();
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				Language newLanguage;
+				String value = selectLanguage.getValue().toString();
 
-                if (value.equals(lang.getString("German"))) {
-                    newLanguage = Language.German;
-                } else if (value.equals(lang.getString("English"))) {
-                    newLanguage = Language.English;
-                } else {
-                    // newLanguage = null;
-                    throw new IllegalArgumentException("Language not Implemented");
-                }
+				if (value.equals(lang.getString("German"))) {
+					newLanguage = Language.German;
+				} else if (value.equals(lang.getString("English"))) {
+					newLanguage = Language.English;
+				} else {
+					// newLanguage = null;
+					throw new IllegalArgumentException(
+							"Language not Implemented");
+				}
 
-                CurrentUser.getInstance().getUser().setLanguage(newLanguage); // ??
+				CurrentUser.getInstance().getUser().setLanguage(newLanguage); // ??
 
-                if (userService.updateUserLanguage(CurrentUser.getInstance().getUser(), newLanguage)) {
-                    Notification success = new Notification(lang.getString("ProfileUpdatedSuccessfully"));
-                    success.setDelayMsec(2000);
-                    success.setStyleName("barSuccessSmall");
-                    success.setPosition(Position.BOTTOM_CENTER);
-                    success.show(Page.getCurrent());
+				if (userService.updateUserLanguage(CurrentUser.getInstance()
+						.getUser(), newLanguage)) {
+					Notification success = new Notification(lang
+							.getString("ProfileUpdatedSuccessfully"));
+					success.setDelayMsec(2000);
+					success.setStyleName("barSuccessSmall");
+					success.setPosition(Position.BOTTOM_CENTER);
+					success.show(Page.getCurrent());
 
-                    LanguageService.getInstance().setCurrentLocale(newLanguage);
+					LanguageService.getInstance().setCurrentLocale(newLanguage);
 
-                    Page.getCurrent().reload();
+					Page.getCurrent().reload();
 
-                    // Problem: Logout - Soloution maybe:
-                    // https://vaadin.com/forum#!/thread/11317960
-                    // http://stackoverflow.com/questions/23612615/preserveonrefresh-purpose-and-need
-                    // https://vaadin.com/tutorial/declarative
+					// Problem: Logout - Soloution maybe:
+					// https://vaadin.com/forum#!/thread/11317960
+					// http://stackoverflow.com/questions/23612615/preserveonrefresh-purpose-and-need
+					// https://vaadin.com/tutorial/declarative
 
-                    Notification.show(lang.getString("LanguageChangedTo") + ": " + value);
+					Notification.show(lang.getString("LanguageChangedTo")
+							+ ": " + value);
 
-                }
+				}
 
-            }
-        });
-        root.addComponent(selectLanguage);
-        return root;
-    }
+			}
+		});
+		root.addComponent(selectLanguage);
+		return root;
+	}
 
-    private Component changePasswordTab() {
-        VerticalLayout root = new VerticalLayout();
-        root.setCaption(lang.getString("Password"));
-        root.setIcon(FontAwesome.LOCK);
-        root.setSpacing(true);
-        root.setMargin(true);
-        root.setSizeFull();
+	private Component changePasswordTab() {
+		VerticalLayout root = new VerticalLayout();
+		root.setCaption(lang.getString("Password"));
+		root.setIcon(FontAwesome.LOCK);
+		root.setSpacing(true);
+		root.setMargin(true);
+		root.setSizeFull();
 
-        FormLayout details = new FormLayout();
-        Label section = new Label(lang.getString("PWChange"));
-        section.addStyleName(ValoTheme.LABEL_H4);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        details.addComponent(section);
+		FormLayout details = new FormLayout();
+		Label section = new Label(lang.getString("PWChange"));
+		section.addStyleName(ValoTheme.LABEL_H4);
+		section.addStyleName(ValoTheme.LABEL_COLORED);
+		details.addComponent(section);
 
-        newPassword = new PasswordField(lang.getString("NewPassword"));
-        // newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
-        newPassword.setWidth("20%");;
-        newPassword.setNullRepresentation("");
-        details.addComponent(newPassword);
+		newPassword = new PasswordField(lang.getString("NewPassword"));
+		// newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
+		newPassword.setWidth("20%");
+		;
+		newPassword.setNullRepresentation("");
+		details.addComponent(newPassword);
 
-        newPasswordConfirmation = new PasswordField(lang.getString("NewPasswordConfirmation"));
-        newPasswordConfirmation.setWidth("20%");
-        newPasswordConfirmation.setNullRepresentation("");
-        details.addComponent(newPasswordConfirmation);
-        
-        root.addComponent(details);
-        return root;
-    }
-    private Component buildProfileTab() {
-        CurrentUser.getInstance().setUser(userService.findByEMail(CurrentUser.getInstance().geteMail()));
-        HorizontalLayout root = new HorizontalLayout();
-        root.setCaption(lang.getString("Profile"));
-        root.setIcon(FontAwesome.USER);
-        root.setWidth(100.0f, Unit.PERCENTAGE);
-        root.setSpacing(true);
-        root.setMargin(true);
-        root.addStyleName("profile-form");
+		newPasswordConfirmation = new PasswordField(
+				lang.getString("NewPasswordConfirmation"));
+		newPasswordConfirmation.setWidth("20%");
+		newPasswordConfirmation.setNullRepresentation("");
+		details.addComponent(newPasswordConfirmation);
 
-        VerticalLayout pic = new VerticalLayout();
-        pic.setSizeUndefined();
-        pic.setSpacing(true);
-        Image profilePic = new Image(null, new ThemeResource("img/profile-pic-300px.jpg"));
-        profilePic.setWidth(100.0f, Unit.PIXELS);
-        pic.addComponent(profilePic);
-        root.addComponent(pic);
+		root.addComponent(details);
+		return root;
+	}
 
-        FormLayout details = new FormLayout();
-        details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-        root.addComponent(details);
-        root.setExpandRatio(details, 1);
+	private Component buildProfileTab() {
+		CurrentUser.getInstance().setUser(
+				userService.findByEMail(CurrentUser.getInstance().geteMail()));
+		HorizontalLayout root = new HorizontalLayout();
+		root.setCaption(lang.getString("Profile"));
+		root.setIcon(FontAwesome.USER);
+		root.setWidth(100.0f, Unit.PERCENTAGE);
+		root.setSpacing(true);
+		root.setMargin(true);
+		root.addStyleName("profile-form");
 
-        firstNameField = new TextField(lang.getString("FirstName"));
-        firstNameField.setValue(CurrentUser.getInstance().getUser().getFirstName());
-        details.addComponent(firstNameField);
-        lastNameField = new TextField(lang.getString("LastName"));
-        lastNameField.setValue(CurrentUser.getInstance().getUser().getLastName());
-        details.addComponent(lastNameField);
-        titleField = new ComboBox(lang.getString("Title"));
-        titleField.setInputPrompt(lang.getString("PleaseSpecify"));
-        titleField.addItem(lang.getString("Mr."));
-        titleField.addItem(lang.getString("Mrs."));
-        titleField.addItem(lang.getString("Ms."));
-        titleField.setNewItemsAllowed(true);
-        details.addComponent(titleField);
+		VerticalLayout pic = new VerticalLayout();
+		pic.setSizeUndefined();
+		pic.setSpacing(true);
+		Image profilePic = new Image(null, new ThemeResource(
+				"img/profile-pic-300px.jpg"));
+		profilePic.setWidth(100.0f, Unit.PIXELS);
+		pic.addComponent(profilePic);
+		root.addComponent(pic);
 
-        sexField = new OptionGroup(lang.getString("Sex"));
-        sexField.addItem(Boolean.FALSE);
-        sexField.setItemCaption(Boolean.FALSE, lang.getString("Female"));
-        sexField.addItem(Boolean.TRUE);
-        sexField.setItemCaption(Boolean.TRUE, lang.getString("Male"));
-        sexField.addStyleName("horizontal");
-        details.addComponent(sexField);
+		FormLayout details = new FormLayout();
+		details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+		root.addComponent(details);
+		root.setExpandRatio(details, 1);
 
-        Label section = new Label(lang.getString("ContactInfo"));
-        section.addStyleName(ValoTheme.LABEL_H4);
-        section.addStyleName(ValoTheme.LABEL_COLORED);
-        details.addComponent(section);
+		firstNameField = new TextField(lang.getString("FirstName"));
+		firstNameField.setValue(CurrentUser.getInstance().getUser()
+				.getFirstName());
+		details.addComponent(firstNameField);
+		lastNameField = new TextField(lang.getString("LastName"));
+		lastNameField.setValue(CurrentUser.getInstance().getUser()
+				.getLastName());
+		details.addComponent(lastNameField);
+		titleField = new ComboBox(lang.getString("Title"));
+		titleField.setInputPrompt(lang.getString("PleaseSpecify"));
+		titleField.addItem(lang.getString("Mr."));
+		titleField.addItem(lang.getString("Mrs."));
+		titleField.addItem(lang.getString("Ms."));
+		titleField.setNewItemsAllowed(true);
+		details.addComponent(titleField);
 
-        emailField = new TextField(lang.getString("Email"));
-        emailField.setValue(CurrentUser.getInstance().getUser().getEmail());
-        emailField.setReadOnly(true);
-        emailField.setWidth("100%");
-        emailField.setNullRepresentation("");
-        details.addComponent(emailField);
+		sexField = new OptionGroup(lang.getString("Sex"));
+		sexField.addItem(Boolean.FALSE);
+		sexField.setItemCaption(Boolean.FALSE, lang.getString("Female"));
+		sexField.addItem(Boolean.TRUE);
+		sexField.setItemCaption(Boolean.TRUE, lang.getString("Male"));
+		sexField.addStyleName("horizontal");
+		details.addComponent(sexField);
 
-        locationField = new TextField(lang.getString("Location"));
-        locationField.setWidth("100%");
-        locationField.setNullRepresentation("");
-        details.addComponent(locationField);
+		Label section = new Label(lang.getString("ContactInfo"));
+		section.addStyleName(ValoTheme.LABEL_H4);
+		section.addStyleName(ValoTheme.LABEL_COLORED);
+		details.addComponent(section);
 
-        phoneField = new TextField(lang.getString("Phone"));
-        phoneField.setWidth("100%");
-        phoneField.setNullRepresentation("");
-        details.addComponent(phoneField);
-        /*
-         * newsletterField = new OptionalSelect<Integer>();
-         * newsletterField.addOption(0, "Daily"); newsletterField.addOption(1,
-         * "Weekly"); newsletterField.addOption(2, "Monthly");
-         * details.addComponent(newsletterField);
-         */
+		emailField = new TextField(lang.getString("Email"));
+		emailField.setValue(CurrentUser.getInstance().getUser().getEmail());
+		emailField.setReadOnly(true);
+		emailField.setWidth("100%");
+		emailField.setNullRepresentation("");
+		details.addComponent(emailField);
 
-        
+		locationField = new TextField(lang.getString("Location"));
+		locationField.setWidth("100%");
+		locationField.setNullRepresentation("");
+		details.addComponent(locationField);
 
-  
+		phoneField = new TextField(lang.getString("Phone"));
+		phoneField.setWidth("100%");
+		phoneField.setNullRepresentation("");
+		details.addComponent(phoneField);
+		/*
+		 * newsletterField = new OptionalSelect<Integer>();
+		 * newsletterField.addOption(0, "Daily"); newsletterField.addOption(1,
+		 * "Weekly"); newsletterField.addOption(2, "Monthly");
+		 * details.addComponent(newsletterField);
+		 */
 
-        return root;
-    }
+		return root;
+	}
 
-    private Component buildFooter() {
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        footer.setWidth(100.0f, Unit.PERCENTAGE);
+	private Component buildFooter() {
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		footer.setWidth(100.0f, Unit.PERCENTAGE);
 
-        Button ok = new Button(lang.getString("Save"));
-        ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        ok.addClickListener(new ClickListener() {
-            /**
+		Button ok = new Button(lang.getString("Save"));
+		ok.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		ok.addClickListener(new ClickListener() {
+			/**
              * 
              */
 
-            @Override
-            public void buttonClick(ClickEvent event) {
-                boolean notAllowedFields = firstNameField.getValue().isEmpty() || lastNameField.getValue().isEmpty()
-                        || emailField.getValue().isEmpty() || newPassword.getValue().length() < 6
-                        || newPassword.getValue().length() > 15;
-                boolean fieldsChanged = !(CurrentUser.getInstance().getUser().getUsername()
-                        .equals(emailField.getValue()))
-                        || !(CurrentUser.getInstance().getUser().getFirstName().equals(firstNameField.getValue()))
-                        || !(CurrentUser.getInstance().getUser().getLastName().equals(lastNameField.getValue()))
-                        || !(CurrentUser.getInstance().getUser().getPassword().equals(newPassword.getValue()));
+			@Override
+			public void buttonClick(ClickEvent event) {
+				boolean notAllowedFields = firstNameField.getValue().isEmpty()
+						|| lastNameField.getValue().isEmpty()
+						|| emailField.getValue().isEmpty()
+						|| newPassword.getValue().length() < 6
+						|| newPassword.getValue().length() > 15;
+				boolean fieldsChanged = !(CurrentUser.getInstance().getUser()
+						.getUsername().equals(emailField.getValue()))
+						|| !(CurrentUser.getInstance().getUser().getFirstName()
+								.equals(firstNameField.getValue()))
+						|| !(CurrentUser.getInstance().getUser().getLastName()
+								.equals(lastNameField.getValue()))
+						|| !(CurrentUser.getInstance().getUser().getPassword()
+								.equals(newPassword.getValue()));
 
-                boolean newPasswordEqualConfirmPassword = newPassword.getValue()
-                        .equals(newPasswordConfirmation.getValue());
+				boolean newPasswordEqualConfirmPassword = newPassword
+						.getValue().equals(newPasswordConfirmation.getValue());
 
-                if (notAllowedFields) {
-                    if (firstNameField.getValue().isEmpty())
-                        fieldIsEmpty("FirstName");
-                    if (lastNameField.getValue().isEmpty())
-                        fieldIsEmpty("LastName");
-                    if (emailField.getValue().isEmpty())
-                        fieldIsEmpty("Email");
-                    if (newPassword.getValue().length() < 6)
-                        passwordMin("Password", 6);
-                    if (newPassword.getValue().length() > 15)
-                        passwordMax("Password", 15);
-                } else if (fieldsChanged) {
-                    if (newPassword.getValue().length() != 0
-                            && (!newPasswordEqualConfirmPassword || newPassword.getValue().length() < 6)) {
-                        notifPWMatchesNot();
+				if (notAllowedFields) {
+					if (firstNameField.getValue().isEmpty())
+						fieldIsEmpty("FirstName");
+					if (lastNameField.getValue().isEmpty())
+						fieldIsEmpty("LastName");
+					if (emailField.getValue().isEmpty())
+						fieldIsEmpty("Email");
+					if (newPassword.getValue().length() < 6)
+						passwordMin("Password", 6);
+					if (newPassword.getValue().length() > 15)
+						passwordMax("Password", 15);
+				} else if (fieldsChanged) {
+					if (newPassword.getValue().length() != 0
+							&& (!newPasswordEqualConfirmPassword || newPassword
+									.getValue().length() < 6)) {
+						notifPWMatchesNot();
 
-                    }
+					}
 
-                    else {
-                        // update Email, FirstName, and LastName but not the
-                        // Password
-                        boolean updateUser = userService.updateUser(CurrentUser.getInstance().getUser(),
-                                emailField.getValue(), firstNameField.getValue(), lastNameField.getValue(),
-                                newPassword.getValue());
-                        if (updateUser) {
-                            System.out.println(fieldsChanged);
-                            notifSuccesProfileChange();
-                        }
-                    }
-                }
-            }
+					else {
+						// update Email, FirstName, and LastName but not the
+						// Password
+						boolean updateUser = userService.updateUser(CurrentUser
+								.getInstance().getUser(),
+								emailField.getValue(), firstNameField
+										.getValue(), lastNameField.getValue(),
+								newPassword.getValue());
+						if (updateUser) {
+							notifSuccesProfileChange();
+						}
+					}
+				}
+			}
 
-        });
-        ok.focus();
-        footer.addComponent(ok);
-        footer.setComponentAlignment(ok, Alignment.TOP_RIGHT);
-        return footer;
-    }
+		});
+		ok.focus();
+		footer.addComponent(ok);
+		footer.setComponentAlignment(ok, Alignment.TOP_RIGHT);
+		return footer;
+	}
 
-    public void notifSuccesProfileChange() {
-        Notification success = new Notification(lang.getString("ProfileUpdatedSuccessfully"));
-        success.setDelayMsec(2000);
-        success.setStyleName("barSuccessSmall");
-        success.setPosition(Position.BOTTOM_CENTER);
-        success.show(Page.getCurrent());
-    }
+	public void notifSuccesProfileChange() {
+		Notification success = new Notification(
+				lang.getString("ProfileUpdatedSuccessfully"));
+		success.setDelayMsec(2000);
+		success.setStyleName("barSuccessSmall");
+		success.setPosition(Position.BOTTOM_CENTER);
+		success.show(Page.getCurrent());
+	}
 
-    public void notifPWMatchesNot() {
-        Notification failure = new Notification(lang.getString("PWsNeedsToBeSameOrGreater6"));
-        failure.setDelayMsec(5000);
-        failure.setPosition(Position.BOTTOM_CENTER);
-        failure.show(Page.getCurrent());
-    }
+	public void notifPWMatchesNot() {
+		Notification failure = new Notification(
+				lang.getString("PWsNeedsToBeSameOrGreater6"));
+		failure.setDelayMsec(5000);
+		failure.setPosition(Position.BOTTOM_CENTER);
+		failure.show(Page.getCurrent());
+	}
 
-    public void fieldIsEmpty(String args) {
-        Notification failure = new Notification(String.format(lang.getString("ValueCannotBeEmpty"), args));
-        failure.setDelayMsec(5000);
-        failure.setPosition(Position.BOTTOM_CENTER);
-        failure.show(Page.getCurrent());
-    }
+	public void fieldIsEmpty(String args) {
+		Notification failure = new Notification(String.format(
+				lang.getString("ValueCannotBeEmpty"), args));
+		failure.setDelayMsec(5000);
+		failure.setPosition(Position.BOTTOM_CENTER);
+		failure.show(Page.getCurrent());
+	}
 
-    public void passwordMin(String args, int n) {
-        Notification failure = new Notification(
-                String.format(lang.getString("ShouldBeAtLeastNCharactersLong"), args, n));
-        failure.setDelayMsec(5000);
-        failure.setPosition(Position.BOTTOM_CENTER);
-        failure.show(Page.getCurrent());
-    }
+	public void passwordMin(String args, int n) {
+		Notification failure = new Notification(String.format(
+				lang.getString("ShouldBeAtLeastNCharactersLong"), args, n));
+		failure.setDelayMsec(5000);
+		failure.setPosition(Position.BOTTOM_CENTER);
+		failure.show(Page.getCurrent());
+	}
 
-    public void passwordMax(String args, int n) {
-        Notification failure = new Notification(
-                String.format(lang.getString("ShouldBeAtMostNCharactersLong"), args, n));
-        failure.setDelayMsec(5000);
-        failure.setPosition(Position.BOTTOM_CENTER);
-        failure.show(Page.getCurrent());
-    }
+	public void passwordMax(String args, int n) {
+		Notification failure = new Notification(String.format(
+				lang.getString("ShouldBeAtMostNCharactersLong"), args, n));
+		failure.setDelayMsec(5000);
+		failure.setPosition(Position.BOTTOM_CENTER);
+		failure.show(Page.getCurrent());
+	}
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-        newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
-        newPasswordConfirmation.setValue(CurrentUser.getInstance().getUser().getPassword());
-    }
+	@Override
+	public void enter(ViewChangeEvent event) {
+		newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
+		newPasswordConfirmation.setValue(CurrentUser.getInstance().getUser()
+				.getPassword());
+	}
 
 }

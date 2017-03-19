@@ -72,9 +72,9 @@ public class MultipleChoiceEditor extends CustomComponent {
 
 			@Override
 			public void buttonClick(final ClickEvent event) {
-                Notification answer = new Notification(rightAnswer);
-                answer.setDelayMsec(2000);
-                answer.show(Page.getCurrent());
+				Notification answer = new Notification(rightAnswer);
+				answer.setDelayMsec(2000);
+				answer.show(Page.getCurrent());
 			}
 		});
 

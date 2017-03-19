@@ -79,9 +79,11 @@ public final class DeleteVerification extends Window {
 		});
 		return selectUnit;
 	}
-	 public void foo(){
-         CourseEditorView.refreshGraph(graph);
-         }
+
+	public void foo() {
+		CourseEditorView.refreshGraph(graph);
+	}
+
 	private Component buildFooter() {
 		HorizontalLayout footer = new HorizontalLayout();
 		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
@@ -93,7 +95,7 @@ public final class DeleteVerification extends Window {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (graph.deleteUnit(deleteUnit)) {
-				  
+
 					close();
 					Notification success = new Notification(lang
 							.getString("UnitIsDeletedSuccessfully"));

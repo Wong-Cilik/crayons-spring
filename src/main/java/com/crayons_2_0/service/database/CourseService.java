@@ -37,11 +37,9 @@ public class CourseService {
 	@Autowired
 	private UnitService unitService;
 
-    @Autowired
+	@Autowired
 	private CurrentUser currentUser;
 
-	
-	
 	/**
 	 * Returns all Courses of DB
 	 * 
@@ -63,24 +61,24 @@ public class CourseService {
 	 * @return course with the title searched for
 	 */
 	public Course findCourseByTitle(String courseTitle) {
-	    for (Course tmpCourse : findAll()) {
-            if (tmpCourse.getTitle().equals(courseTitle)) {
-                return tmpCourse;
-            }
-        }
-        return null;
+		for (Course tmpCourse : findAll()) {
+			if (tmpCourse.getTitle().equals(courseTitle)) {
+				return tmpCourse;
+			}
+		}
+		return null;
 	}
-	
+
 	public Course findCourseByTitleAndAuthor(String courseTitle) {
-	    String userEmail = CurrentUser.getInstance().geteMail();
-        for (Course tmpCourse : findAll()) {
-            if (tmpCourse.getAuthor().getEmail().equals(userEmail) && 
-                    tmpCourse.getTitle().equals(courseTitle)) {
-                return tmpCourse;
-            }
-        }
-        return null;
-    }
+		String userEmail = CurrentUser.getInstance().geteMail();
+		for (Course tmpCourse : findAll()) {
+			if (tmpCourse.getAuthor().getEmail().equals(userEmail)
+					&& tmpCourse.getTitle().equals(courseTitle)) {
+				return tmpCourse;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Returns all Courses of the User
@@ -131,22 +129,23 @@ public class CourseService {
 	 * @return true if successfull
 	 */
 	public boolean insertCourse(Course course) {
-	    boolean courseExists = false;
-        // Check if Exists, return false if exists
-        List<Course> courses = findAll();
-        for (Course tmpCourse : courses) {
-            if (tmpCourse.getAuthor().getEmail().equals(course.getAuthor().getEmail()) &&
-                    tmpCourse.getTitle().equals(course.getTitle())) {
-                courseExists = true;
-                return false;
-            }
+		boolean courseExists = false;
+		// Check if Exists, return false if exists
+		List<Course> courses = findAll();
+		for (Course tmpCourse : courses) {
+			if (tmpCourse.getAuthor().getEmail()
+					.equals(course.getAuthor().getEmail())
+					&& tmpCourse.getTitle().equals(course.getTitle())) {
+				courseExists = true;
+				return false;
+			}
 
-        }
-        
-        if (courseExists == false) {
-            courseDAO.insert(course);
-            saveCourseData(course.getGraph(), course.getTitle());
-        }
+		}
+
+		if (courseExists == false) {
+			courseDAO.insert(course);
+			saveCourseData(course.getGraph(), course.getTitle());
+		}
 
 		return true;
 	}
@@ -186,28 +185,29 @@ public class CourseService {
 		for (String tmp : students) {
 			tmp2 = tmp2 + "/" + tmp;
 		}
-		return courseDAO.updateStudentsWithAuthor(tmp2, title, CurrentUser.getInstance().geteMail());
+		return courseDAO.updateStudentsWithAuthor(tmp2, title, CurrentUser
+				.getInstance().geteMail());
 	}
-	
+
 	public String[] getCourseParticipants(Course course) {
-        String students = course.getStudents();
-        String[] studentsArray = students.split("/");
-        if (!students.equals("")) {
-            return studentsArray;
-        } else {
-            return null;
-        }
-    }
-	
+		String students = course.getStudents();
+		String[] studentsArray = students.split("/");
+		if (!students.equals("")) {
+			return studentsArray;
+		} else {
+			return null;
+		}
+	}
+
 	public String[] getStudentsWithAuthor(String title) {
-        String students = findCourseByTitleAndAuthor(title).getStudents();
-        String[] studentsArray = students.split("/");
-        if (!students.equals("")) {
-            return studentsArray;
-        } else {
-            return null;
-        }
-    }
+		String students = findCourseByTitleAndAuthor(title).getStudents();
+		String[] studentsArray = students.split("/");
+		if (!students.equals("")) {
+			return studentsArray;
+		} else {
+			return null;
+		}
+	}
 
 	public void saveCourseData(Graph data, String title) {
 		File file = new File(title + ".bin");
@@ -262,24 +262,25 @@ public class CourseService {
 		UnitNode one = new UnitNode("Content", dummyGraph.getStartUnit(),
 				dummyGraph.getEndUnit(), dummyGraph);
 
-		dummyGraph.addUnit(one, dummyGraph.getStartUnit(),dummyGraph.getEndUnit());
+		dummyGraph.addUnit(one, dummyGraph.getStartUnit(),
+				dummyGraph.getEndUnit());
 
 		saveCourseData(dummyGraph, title);
 	}
 
-	
 	public void removeStudentFromCourse(String user, Course course) {
-        String updatedStudents = "";
-        String[] tmp = getCourseParticipants(course);
-        if (tmp != null) {
-            for (int i = 1; i < tmp.length; i++) {
-                if (!tmp[i].equals(user)) {
-                    updatedStudents = updatedStudents + "/" + tmp[i];
-                }
-            }
-            courseDAO.updateStudentsWithAuthor(updatedStudents, course.getTitle(), course.getAuthor().getEmail());
-        }
-    }
+		String updatedStudents = "";
+		String[] tmp = getCourseParticipants(course);
+		if (tmp != null) {
+			for (int i = 1; i < tmp.length; i++) {
+				if (!tmp[i].equals(user)) {
+					updatedStudents = updatedStudents + "/" + tmp[i];
+				}
+			}
+			courseDAO.updateStudentsWithAuthor(updatedStudents,
+					course.getTitle(), course.getAuthor().getEmail());
+		}
+	}
 
 	public Graph getDummyGraph() {
 		String dummy = "dummy@web.de";
@@ -292,11 +293,11 @@ public class CourseService {
 		Course dummyCourse = new Course(dummy, dummyUser);
 		Graph dummyGraph = new Graph(dummyCourse);
 
-		
 		UnitNode one = new UnitNode("eins", dummyGraph.getStartUnit(),
 				dummyGraph);
 
-		dummyGraph.addUnit(one, dummyGraph.getStartUnit(),dummyGraph.getEndUnit());
+		dummyGraph.addUnit(one, dummyGraph.getStartUnit(),
+				dummyGraph.getEndUnit());
 		return dummyGraph;
 	}
 

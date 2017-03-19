@@ -37,7 +37,7 @@ public class TextEditor extends CustomComponent {
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public TextEditor(String prefillData, Boolean editable) {
-		
+
 		if (editable) {
 			setWidth(95.0f, Unit.PERCENTAGE);
 			addStyleName("inline-text-editor");
@@ -51,7 +51,7 @@ public class TextEditor extends CustomComponent {
 
 			setCompositionRoot(readOnly);
 		} else {
-			
+
 			setWidth(100.0f, Unit.PERCENTAGE);
 			addStyleName("inline-text-editor");
 
@@ -65,7 +65,6 @@ public class TextEditor extends CustomComponent {
 		}
 	}
 
-
 	private Component buildUserOnly() {
 		final Label text = new Label(property);
 		text.setContentMode(ContentMode.HTML);
@@ -75,7 +74,7 @@ public class TextEditor extends CustomComponent {
 		result.setSizeFull();
 		return result;
 	}
-	
+
 	private Component buildReadOnly() {
 		final Label text = new Label(property);
 		text.setContentMode(ContentMode.HTML);
@@ -130,7 +129,7 @@ public class TextEditor extends CustomComponent {
 			}
 		});
 		ckEditorTextField.setValue(property.getValue());
-				
+
 		Button save = new Button(lang.getString("Save"));
 		save.addClickListener(new ClickListener() {
 

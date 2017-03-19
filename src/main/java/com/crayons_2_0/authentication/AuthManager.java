@@ -24,7 +24,7 @@ public class AuthManager implements AuthenticationManager {
 
 	@Autowired
 	private UserService userService;
-	
+
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
 	public Authentication authenticate(Authentication auth)
@@ -38,14 +38,16 @@ public class AuthManager implements AuthenticationManager {
 			Collection<? extends GrantedAuthority> authorities = user
 					.getAuthorities();
 			if (userService.findByEMail(username).getLanguage() == Language.English) {
-	            LanguageService.getInstance().setCurrentLocale(Language.English);
-	        } else if (userService.findByEMail(username).getLanguage() == Language.German) {
-	            LanguageService.getInstance().setCurrentLocale(Language.German);
-	        }
+				LanguageService.getInstance()
+						.setCurrentLocale(Language.English);
+			} else if (userService.findByEMail(username).getLanguage() == Language.German) {
+				LanguageService.getInstance().setCurrentLocale(Language.German);
+			}
 			MyUI.get().showMainView();
 			return new UsernamePasswordAuthenticationToken(username, password,
 					authorities);
 		}
-		throw new BadCredentialsException(lang.getString("PleaseCheckYourUsernameAndPasswordAndTryAgain"));
+		throw new BadCredentialsException(
+				lang.getString("PleaseCheckYourUsernameAndPasswordAndTryAgain"));
 	}
 }

@@ -50,44 +50,45 @@ public class RegisterFormListener implements Button.ClickListener {
 						lang.getString("LastName")));
 			}
 			String Nameregex = "[a-zA-Z]+";
-            Pattern Namepattern = Pattern.compile(Nameregex);
-            if (!(Namepattern.matcher(firstname).matches()) || !(Namepattern.matcher(firstname).matches())) {
-                throw new IllegalArgumentException(
-                        lang.getString("FirstnameOrLastnameAreNotValid"));
-            }
-            
+			Pattern Namepattern = Pattern.compile(Nameregex);
+			if (!(Namepattern.matcher(firstname).matches())
+					|| !(Namepattern.matcher(firstname).matches())) {
+				throw new IllegalArgumentException(
+						lang.getString("FirstnameOrLastnameAreNotValid"));
+			}
+
 			String mail = parent.getEmail().getValue();
 			if (mail.isEmpty()) {
-                throw new IllegalArgumentException(String.format(
-                        lang.getString("RequiredField"),
-                        lang.getString("Email")));
-            }
+				throw new IllegalArgumentException(String.format(
+						lang.getString("RequiredField"),
+						lang.getString("Email")));
+			}
 			if (mail.length() > 30) {
-	            throw new IllegalArgumentException(String.format(
-	                    lang.getString("ShouldBeAtMostNCharactersLong"),
-	                    lang.getString("Email"), 30));
-	        }
+				throw new IllegalArgumentException(String.format(
+						lang.getString("ShouldBeAtMostNCharactersLong"),
+						lang.getString("Email"), 30));
+			}
 			String emailRegex = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@([_A-Za-z0-9-]+\\.)+[A-Za-z]{2,6}";
-	        Pattern emailPattern = Pattern.compile(emailRegex);
-	        if (!(emailPattern.matcher(mail).matches())) {
-	            throw new IllegalArgumentException(
-	                    lang.getString("EmailIsNotValid"));
-	        }
+			Pattern emailPattern = Pattern.compile(emailRegex);
+			if (!(emailPattern.matcher(mail).matches())) {
+				throw new IllegalArgumentException(
+						lang.getString("EmailIsNotValid"));
+			}
 			String password = parent.getPassword().getValue();
 			if (password.isEmpty()) {
-                throw new IllegalArgumentException(String.format(
-                        lang.getString("RequiredField"),
-                        lang.getString("Password")));
-            }
+				throw new IllegalArgumentException(String.format(
+						lang.getString("RequiredField"),
+						lang.getString("Password")));
+			}
 			if (password.length() < 6) {
-	            throw new IllegalArgumentException(String.format(
-	                    lang.getString("ShouldBeAtLeastNCharactersLong"),
-	                    lang.getString("Password"), 6));
-	        } else if (password.length() > 15) {
-	            throw new IllegalArgumentException(String.format(
-	                    lang.getString("ShouldBeAtMostNCharactersLong"),
-	                    lang.getString("Password"), 15));
-	        }
+				throw new IllegalArgumentException(String.format(
+						lang.getString("ShouldBeAtLeastNCharactersLong"),
+						lang.getString("Password"), 6));
+			} else if (password.length() > 15) {
+				throw new IllegalArgumentException(String.format(
+						lang.getString("ShouldBeAtMostNCharactersLong"),
+						lang.getString("Password"), 15));
+			}
 			String language = (String) parent.getSelectLanguage().getValue();
 			if (language.equals("Deutsch"))
 				language = "German";
@@ -109,7 +110,7 @@ public class RegisterFormListener implements Button.ClickListener {
 				UI.getCurrent().getNavigator()
 						.navigateTo(LoginScreen.VIEW_NAME);
 			} else {
-			    Notification.show(lang.getString("EmailAlreadyExists"));
+				Notification.show(lang.getString("EmailAlreadyExists"));
 			}
 
 		} catch (IllegalArgumentException iae) {

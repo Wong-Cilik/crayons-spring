@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import com.vaadin.shared.ui.JavaScriptComponentState;
 
 @SuppressWarnings("serial")
-public class DagreState extends JavaScriptComponentState
-  {
+public class DagreState extends JavaScriptComponentState {
 	private ArrayList<String> unitNodes;
 	private ArrayList<String> edges;
 

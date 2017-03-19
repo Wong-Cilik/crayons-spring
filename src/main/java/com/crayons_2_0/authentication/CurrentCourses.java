@@ -9,8 +9,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 @SpringComponent
 public class CurrentCourses {
 
-	private @Autowired
-	CourseService courseService;
+	private @Autowired CourseService courseService;
 	private Course course;
 	private String title;
 	private String unitTitle;

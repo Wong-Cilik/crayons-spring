@@ -84,9 +84,9 @@ public class Course {
 	 *            to set
 	 */
 	public void setTitle(String title) {
-		
+
 		// Darf Leerzeichen enthalten??????
-		
+
 		if (title.isEmpty()) {
 			throw new IllegalArgumentException(String.format(
 					lang.getString("RequiredField"),
@@ -169,7 +169,7 @@ public class Course {
 		if (users == null) {
 			throw new IllegalArgumentException("Course users can't be Null");
 		}
-		
+
 		this.users = users;
 	}
 
@@ -190,7 +190,7 @@ public class Course {
 		if (units == null) {
 			throw new IllegalArgumentException("Course units can't be Null");
 		}
-		
+
 		this.units = units;
 	}
 
@@ -208,9 +208,10 @@ public class Course {
 	 */
 	public void setCreationTime(Date creationTime) {
 		if (creationTime == null) {
-			throw new IllegalArgumentException("Course creationTime can't be Null");
+			throw new IllegalArgumentException(
+					"Course creationTime can't be Null");
 		}
-		
+
 		this.creationTime = creationTime;
 	}
 
@@ -229,7 +230,7 @@ public class Course {
 		if (graph == null) {
 			throw new IllegalArgumentException("Course graph can't be Null");
 		}
-		
+
 		this.graph = graph;
 	}
 
@@ -247,9 +248,10 @@ public class Course {
 
 	public Course loadDbObject(DbCourse dbCourse) {
 		if (dbCourse == null) {
-			throw new IllegalArgumentException("Course dbCourse to load can't be Null");
+			throw new IllegalArgumentException(
+					"Course dbCourse to load can't be Null");
 		}
-		
+
 		this.title = dbCourse.getTitle();
 		this.description = dbCourse.getDescription();
 		this.students = dbCourse.getStudents();

@@ -54,12 +54,10 @@ public final class AdminView extends VerticalLayout implements View {
 	 * 
 	 */
 
-	private @Autowired
-	UserService userService;
+	private @Autowired UserService userService;
 
-	private @Autowired
-	CourseService courseService;
-	
+	private @Autowired CourseService courseService;
+
 	public static final String VIEW_NAME = "AdminView";
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	private List<UserDisplay> collection;
@@ -89,7 +87,7 @@ public final class AdminView extends VerticalLayout implements View {
 	void init() {
 		addStyleName("courseDisplay");
 		Responsive.makeResponsive(this);
-		
+
 		Component table = buildTable();
 		Component profileTab = buildProfileTab(null);
 		this.setSizeFull();
@@ -134,57 +132,58 @@ public final class AdminView extends VerticalLayout implements View {
 		table.setContainerDataSource(container);
 		table.setVisibleColumns("email", "name", "role", "createdCourses",
 				"visitedCourses");
-		table.setColumnHeaders(lang.getString("Email"), lang.getString("Name"), 
-		        lang.getString("Rights"), lang.getString("CreatedCourses"),
-		        lang.getString("AttendedCourses"));
+		table.setColumnHeaders(lang.getString("Email"), lang.getString("Name"),
+				lang.getString("Rights"), lang.getString("CreatedCourses"),
+				lang.getString("AttendedCourses"));
 		table.setSortContainerPropertyId("email");
-        table.sort();
+		table.sort();
 		table.addItemClickListener(new TableClickListener());
 		table.setCellStyleGenerator(new TableRowHighlighter());
 		return table;
 	}
-	
+
 	private class TableClickListener implements ItemClickListener {
 
-        @Override
-        public void itemClick(ItemClickEvent event) {
-            UserDisplay userDisplay = (UserDisplay) event.getItemId();
-            selectedRowEmail = userDisplay.getEmail();
-            table.setCellStyleGenerator(new TableRowHighlighter());
-            AdminView ad = (AdminView) event.getComponent().getParent();
+		@Override
+		public void itemClick(ItemClickEvent event) {
+			UserDisplay userDisplay = (UserDisplay) event.getItemId();
+			selectedRowEmail = userDisplay.getEmail();
+			table.setCellStyleGenerator(new TableRowHighlighter());
+			AdminView ad = (AdminView) event.getComponent().getParent();
 
-            ad.nameField.setReadOnly(false);
-            ad.nameField.setValue(userDisplay.getName());
-            ad.nameField.setReadOnly(true);
+			ad.nameField.setReadOnly(false);
+			ad.nameField.setValue(userDisplay.getName());
+			ad.nameField.setReadOnly(true);
 
-            ad.emailField.setReadOnly(false);
-            ad.emailField.setValue(userDisplay.getEmail());
-            ad.emailField.setReadOnly(true);
+			ad.emailField.setReadOnly(false);
+			ad.emailField.setValue(userDisplay.getEmail());
+			ad.emailField.setReadOnly(true);
 
-            ad.locationField.setReadOnly(false);
-            ad.locationField.setValue("");
-            ad.locationField.setReadOnly(true);
+			ad.locationField.setReadOnly(false);
+			ad.locationField.setValue("");
+			ad.locationField.setReadOnly(true);
 
-            ad.phoneField.setReadOnly(false);
-            ad.phoneField.setValue("");
-            ad.phoneField.setReadOnly(true);
+			ad.phoneField.setReadOnly(false);
+			ad.phoneField.setValue("");
+			ad.phoneField.setReadOnly(true);
 
-            ad.rights.setValue(userDisplay.getRole());
-        }
-	    
+			ad.rights.setValue(userDisplay.getRole());
+		}
+
 	}
-	
+
 	private class TableRowHighlighter implements Table.CellStyleGenerator {
 
-        @Override
-        public String getStyle(Table source, Object itemId, Object propertyId) {
-            if (table.getItem(itemId).getItemProperty("email").getValue().toString().equals(selectedRowEmail)) {
-                return "highlight-blue";
-            } else {
-                return "highlight-white";
-            } 
-        }
-	    
+		@Override
+		public String getStyle(Table source, Object itemId, Object propertyId) {
+			if (table.getItem(itemId).getItemProperty("email").getValue()
+					.toString().equals(selectedRowEmail)) {
+				return "highlight-blue";
+			} else {
+				return "highlight-white";
+			}
+		}
+
 	}
 
 	@Override
@@ -219,7 +218,7 @@ public final class AdminView extends VerticalLayout implements View {
 		VerticalLayout detailsWithButtons = new VerticalLayout();
 		root.addComponent(detailsWithButtons);
 		root.setExpandRatio(detailsWithButtons, 7);
-		
+
 		FormLayout details = new FormLayout();
 		details.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
 		detailsWithButtons.addComponent(details);
@@ -235,7 +234,7 @@ public final class AdminView extends VerticalLayout implements View {
 		details.addComponent(title);
 
 		rights.addItems(lang.getString("Admin"), lang.getString("Author"),
-		        lang.getString("Student"));
+				lang.getString("Student"));
 		rights.setNullSelectionAllowed(false);
 		details.addComponent(rights);
 
@@ -258,87 +257,96 @@ public final class AdminView extends VerticalLayout implements View {
 		phoneField.setWidth("100%");
 		phoneField.setReadOnly(true);
 		details.addComponent(phoneField);
-		
+
 		HorizontalLayout controlButtons = new HorizontalLayout();
 		controlButtons.setSizeUndefined();
 		controlButtons.setSpacing(true);
 		detailsWithButtons.addComponent(controlButtons);
-		detailsWithButtons.setComponentAlignment(controlButtons, Alignment.MIDDLE_RIGHT);
+		detailsWithButtons.setComponentAlignment(controlButtons,
+				Alignment.MIDDLE_RIGHT);
 
 		Button deleteUser = new Button(lang.getString("DeleteUser"));
 		deleteUser.setStyleName(ValoTheme.BUTTON_DANGER);
 		controlButtons.addComponent(deleteUser);
-		controlButtons.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
+		controlButtons
+				.setComponentAlignment(deleteUser, Alignment.MIDDLE_RIGHT);
 
 		deleteUser.addClickListener(new ClickListener() {
 			@Override
 			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-			    if (emailField.getValue().equals(CurrentUser.getInstance()
-                        .geteMail())) {
-			        Notification deletionFailed = new Notification(
-			                lang.getString("YouCannotDeleteYourOwnAccount"));
-			        deletionFailed.setPosition(Position.BOTTOM_CENTER);
-			        deletionFailed.setDelayMsec(2000);
-			        deletionFailed.show(Page.getCurrent());
-			    } else {
-			        for (Course tmp : courseService
-	                        .findAllAuthorCoursesOfUser(emailField.getValue())) {
-	                    courseService.removeCourse(tmp);
-	                }
-	                for (Course tmp : courseService.findAll()) {
-	                    courseService.removeStudentFromCourse(emailField.getValue(),
-	                            tmp);
-	                }
-	                boolean removeSuccess = userService.removeUser(emailField.getValue());
-	                if (removeSuccess) {
-	                    updateTable();
-	                    Notification success = new Notification(lang.getString("UserDeletedSuccessfully"));
-	                    success.setDelayMsec(2000);
-	                    success.setStyleName("barSuccessSmall");
-	                    success.setPosition(Position.BOTTOM_CENTER);
-	                    success.show(Page.getCurrent());
-	                }
-			    }
+				if (emailField.getValue().equals(
+						CurrentUser.getInstance().geteMail())) {
+					Notification deletionFailed = new Notification(lang
+							.getString("YouCannotDeleteYourOwnAccount"));
+					deletionFailed.setPosition(Position.BOTTOM_CENTER);
+					deletionFailed.setDelayMsec(2000);
+					deletionFailed.show(Page.getCurrent());
+				} else {
+					for (Course tmp : courseService
+							.findAllAuthorCoursesOfUser(emailField.getValue())) {
+						courseService.removeCourse(tmp);
+					}
+					for (Course tmp : courseService.findAll()) {
+						courseService.removeStudentFromCourse(
+								emailField.getValue(), tmp);
+					}
+					boolean removeSuccess = userService.removeUser(emailField
+							.getValue());
+					if (removeSuccess) {
+						updateTable();
+						Notification success = new Notification(lang
+								.getString("UserDeletedSuccessfully"));
+						success.setDelayMsec(2000);
+						success.setStyleName("barSuccessSmall");
+						success.setPosition(Position.BOTTOM_CENTER);
+						success.show(Page.getCurrent());
+					}
+				}
 			}
 		});
-		
+
 		Button save = new Button(lang.getString("Save"));
-        save.setStyleName(ValoTheme.BUTTON_PRIMARY);
-        controlButtons.addComponent(save);
-        controlButtons.setComponentAlignment(save, Alignment.MIDDLE_RIGHT);
-        
-        save.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
-                String newRights = rights.getValue().toString();
-                switch (newRights) {
-                    case "Administrator": newRights = "Admin";
-                                          break;
-                    case "Schüler": newRights = "Student";
-                                    break;
-                    case "Autor": newRights = "Author";
-                                  break;
-                }
-                boolean updateSuccess = userService.updateRights(emailField.getValue(), newRights);
-                if (updateSuccess) {
-                    updateTable();
-                    Notification success = new Notification(lang.getString("RightsUpdatedSuccessfully"));
-                    success.setDelayMsec(2000);
-                    success.setStyleName("barSuccessSmall");
-                    success.setPosition(Position.BOTTOM_CENTER);
-                    success.show(Page.getCurrent());
-                }
-            }
-        });
+		save.setStyleName(ValoTheme.BUTTON_PRIMARY);
+		controlButtons.addComponent(save);
+		controlButtons.setComponentAlignment(save, Alignment.MIDDLE_RIGHT);
+
+		save.addClickListener(new ClickListener() {
+			@Override
+			public void buttonClick(com.vaadin.ui.Button.ClickEvent event) {
+				String newRights = rights.getValue().toString();
+				switch (newRights) {
+				case "Administrator":
+					newRights = "Admin";
+					break;
+				case "Schüler":
+					newRights = "Student";
+					break;
+				case "Autor":
+					newRights = "Author";
+					break;
+				}
+				boolean updateSuccess = userService.updateRights(
+						emailField.getValue(), newRights);
+				if (updateSuccess) {
+					updateTable();
+					Notification success = new Notification(lang
+							.getString("RightsUpdatedSuccessfully"));
+					success.setDelayMsec(2000);
+					success.setStyleName("barSuccessSmall");
+					success.setPosition(Position.BOTTOM_CENTER);
+					success.show(Page.getCurrent());
+				}
+			}
+		});
 
 		return root;
 	}
-	
+
 	private void updateTable() {
-	    java.lang.Object[] visibleColumns = table.getVisibleColumns();
-        container = new TempContainer(getTableContents());
-        table.setContainerDataSource(container);
-        table.setVisibleColumns(visibleColumns);
-        table.sort();
+		java.lang.Object[] visibleColumns = table.getVisibleColumns();
+		container = new TempContainer(getTableContents());
+		table.setContainerDataSource(container);
+		table.setVisibleColumns(visibleColumns);
+		table.sort();
 	}
 }

@@ -50,11 +50,9 @@ public class UserlibraryView extends VerticalLayout implements View {
 	public static final String VIEW_NAME = "Userlibrary";
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
-	private @Autowired
-	CourseService courseService;
+	private @Autowired CourseService courseService;
 
-	private @Autowired
-	UserService userService;
+	private @Autowired UserService userService;
 
 	private TabSheet coursesTabSheet;
 	private Component filter;
@@ -142,21 +140,21 @@ public class UserlibraryView extends VerticalLayout implements View {
 				+ course.getAuthor().getLastName());
 		courseAuthor.setSizeFull();
 		tabContent.addComponent(courseAuthor);
-		
-		Label courseDescription = new Label();
-        courseDescription.setContentMode(ContentMode.HTML);
-        courseDescription.setValue("<h3>" + lang.getString("CourseDescription") + "</h3>\n"
-                + course.getDescription());
-        courseDescription.setSizeFull();
-        tabContent.addComponent(courseDescription);
 
-        HorizontalLayout footer = new HorizontalLayout();
-        footer.setWidth("100%");
-        footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
-        Component controlButtons = buildControlButtons(tabContent, course);
-        footer.addComponent(controlButtons);
-        footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
-        tabContent.addComponent(footer);
+		Label courseDescription = new Label();
+		courseDescription.setContentMode(ContentMode.HTML);
+		courseDescription.setValue("<h3>" + lang.getString("CourseDescription")
+				+ "</h3>\n" + course.getDescription());
+		courseDescription.setSizeFull();
+		tabContent.addComponent(courseDescription);
+
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.setWidth("100%");
+		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
+		Component controlButtons = buildControlButtons(tabContent, course);
+		footer.addComponent(controlButtons);
+		footer.setComponentAlignment(controlButtons, Alignment.BOTTOM_CENTER);
+		tabContent.addComponent(footer);
 
 		return tabContent;
 	}
@@ -172,7 +170,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 	 * @return layout with the control buttons
 	 */
 	private Component buildControlButtons(Component tab, Course course) {
-	    String title = course.getTitle();
+		String title = course.getTitle();
 		HorizontalLayout controlButtons = new HorizontalLayout();
 		controlButtons.setMargin(false);
 		controlButtons.setSpacing(true);
@@ -210,13 +208,18 @@ public class UserlibraryView extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				CurrentCourses.getInstance().setTitle(title);
-				Set <UnitNode> unitSet = courseService.getCourseData(title).getStartUnit().getChildNodes();
+				Set<UnitNode> unitSet = courseService.getCourseData(title)
+						.getStartUnit().getChildNodes();
 				if (unitSet.size() == 1) {
-					CurrentCourses.getInstance().setUnitTitle(title + "#" + unitSet.iterator().next().getUnitNodeTitle());
+					CurrentCourses.getInstance().setUnitTitle(
+							title
+									+ "#"
+									+ unitSet.iterator().next()
+											.getUnitNodeTitle());
 					UI.getCurrent().getNavigator()
 							.navigateTo(UnitUserView.VIEW_NAME);
 				} else {
-					
+
 				}
 			}
 
@@ -227,7 +230,7 @@ public class UserlibraryView extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		
+
 	}
 
 	/**

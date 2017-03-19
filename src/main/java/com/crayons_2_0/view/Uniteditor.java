@@ -63,8 +63,7 @@ public class Uniteditor extends VerticalLayout implements View {
 
 	private static UnitPageLayout page;
 
-	private @Autowired
-	UnitService unitService;
+	private @Autowired UnitService unitService;
 
 	@PostConstruct
 	void init() {
@@ -126,7 +125,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		paletteLayout.addStyleName("palette");
 
 		paletteLayout.addComponent(buildPaletteItem(PageItemType.TEXT));
-		//paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
+		// paletteLayout.addComponent(buildPaletteItem(PageItemType.IMAGE));
 		paletteLayout
 				.addComponent(buildPaletteItem(PageItemType.MULTIPLE_CHOICE));
 
@@ -239,39 +238,8 @@ public class Uniteditor extends VerticalLayout implements View {
 
 		});
 
-		Button importButton = new Button(lang.getString("Import"),
-				FontAwesome.DOWNLOAD);
-		importButton.addClickListener(new ClickListener() {
-
-			/**
-			 * 
-			 */
-			@Override
-			public void buttonClick(ClickEvent event) {
-				refresh();
-			}
-
-		});
-
-		Button exportButton = new Button(lang.getString("Export"),
-				FontAwesome.UPLOAD);
-		exportButton.addClickListener(new ClickListener() {
-
-			/**
-			 * 
-			 */
-			@Override
-			public void buttonClick(ClickEvent event) {
-				VerticalLayout layout = page.getLayout();
-				unitService.saveUnitData(layout, CurrentCourses.getInstance()
-						.getUnitTitle(), CurrentCourses.getInstance()
-						.getTitle());
-			}
-
-		});
-
 		HorizontalLayout controlButtons = new HorizontalLayout(backButton,
-				saveButton, importButton, exportButton);
+				saveButton);
 		controlButtons.setSpacing(true);
 
 		HorizontalLayout footer = new HorizontalLayout(controlButtons,
@@ -304,8 +272,7 @@ public class Uniteditor extends VerticalLayout implements View {
 		wrapper.setData(pageItemType);
 		return wrapper;
 	}
-	
-	
+
 	/**
 	 * Adds a component of the defined type to the page.
 	 * 

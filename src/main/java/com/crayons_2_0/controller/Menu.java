@@ -85,7 +85,8 @@ public class Menu extends CssLayout {
 					public void menuSelected(MenuItem selectedItem) {
 						SecurityContextHolder.clearContext();
 						getUI().getConnectorTracker().markAllConnectorsDirty();
-						getUI().getConnectorTracker().markAllClientSidesUninitialized();
+						getUI().getConnectorTracker()
+								.markAllClientSidesUninitialized();
 						MyUI.get().getPage().reload();
 						MyUI.get().getSession().close();
 
