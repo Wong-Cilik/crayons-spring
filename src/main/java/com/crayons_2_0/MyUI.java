@@ -77,6 +77,8 @@ public class MyUI extends UI {
                         super.registerConnector(connector);
                     } catch (RuntimeException e) {
                         Logger.getLogger(MyUI.class.getName()).log(Level.ERROR, connector.getClass().getSimpleName());
+                        super.unregisterConnector(connector);
+                        getPage().reload();
                         throw e;
                     }
                 }
