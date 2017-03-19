@@ -132,10 +132,12 @@ public class CourseModificationWindow extends Window {
 			public void buttonClick(ClickEvent event) {
 				Course tmp = courseService.findCourseByTitle(course.getTitle());
 				String newCourseTitle = courseTitleField.getValue();
-				if (courseService.findCourseByTitle(newCourseTitle) == null) {
+				if (newCourseTitle.equals(course.getTitle()) ||
+				        courseService.findCourseByTitle(newCourseTitle) == null) {
 				    tmp.setTitle(courseTitleField.getValue());
 	                tmp.setDescription(couseDescriptionField.getValue());
 	                courseService.update(tmp, course.getTitle());
+	                tab.setCaption(courseTitleField.getValue());
 	                tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
 	                tabSheet.getTab(tab).setDescription(
 	                        couseDescriptionField.getValue());
