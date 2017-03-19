@@ -130,25 +130,24 @@ public class CourseModificationWindow extends Window {
 			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Course tmp = courseService.findCourseByTitle(course.getTitle());
+				Course tmp = courseService.findCourseByTitleAndAuthor(course.getTitle());
 				String newCourseTitle = courseTitleField.getValue();
-				if (newCourseTitle.equals(course.getTitle())
-						|| courseService.findCourseByTitle(newCourseTitle) == null) {
-					tmp.setTitle(courseTitleField.getValue());
-					tmp.setDescription(couseDescriptionField.getValue());
-					courseService.update(tmp, course.getTitle());
-					tab.setCaption(courseTitleField.getValue());
-					tabSheet.getTab(tab)
-							.setCaption(courseTitleField.getValue());
-					tabSheet.getTab(tab).setDescription(
-							couseDescriptionField.getValue());
-					close();
-					Notification success = new Notification(lang
-							.getString("CourseIsModifiedSuccessfully"));
-					success.setDelayMsec(2000);
-					success.setStyleName("bar success small");
-					success.setPosition(Position.BOTTOM_CENTER);
-					success.show(Page.getCurrent());
+				if (newCourseTitle.equals(course.getTitle()) ||
+				        courseService.findCourseByTitleAndAuthor(newCourseTitle) == null) {
+				    tmp.setTitle(courseTitleField.getValue());
+	                tmp.setDescription(couseDescriptionField.getValue());
+	                courseService.update(tmp, course.getTitle());
+	                tab.setCaption(courseTitleField.getValue());
+	                tabSheet.getTab(tab).setCaption(courseTitleField.getValue());
+	                tabSheet.getTab(tab).setDescription(
+	                        couseDescriptionField.getValue());
+	                close();
+	                Notification success = new Notification(lang
+	                        .getString("CourseIsModifiedSuccessfully"));
+	                success.setDelayMsec(2000);
+	                success.setStyleName("bar success small");
+	                success.setPosition(Position.BOTTOM_CENTER);
+	                success.show(Page.getCurrent());
 				} else {
 					Notification.show(lang.getString("CourseAlreadyExists"),
 							Notification.Type.WARNING_MESSAGE);

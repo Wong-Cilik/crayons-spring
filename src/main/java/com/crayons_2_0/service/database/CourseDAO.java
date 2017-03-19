@@ -126,8 +126,8 @@ public class CourseDAO implements CommandLineRunner {
 		String author = course.getAuthor().getEmail();
 
 		jdbcTemplate
-				.update("UPDATE courses SET title=?, description=?, author=? WHERE title=? ",
-						title, description, author, oldTitle);
+				.update("UPDATE courses SET title=?, description=? WHERE title=? AND author=?",
+						title, description, oldTitle, author);
 	}
 
 	/**
