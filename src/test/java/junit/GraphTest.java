@@ -1,11 +1,10 @@
 package junit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.model.CrayonsUser;
@@ -20,6 +20,10 @@ import com.crayons_2_0.model.graph.Graph;
 import com.crayons_2_0.model.graph.UnitNode;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {
+"classpath*:spring/applicationContext.xml",
+"classpath*:spring/applicationContext-jpa.xml",
+"classpath*:spring/applicationContext-security.xml" })
 public class GraphTest {
 
     Graph testGraph;
@@ -58,7 +62,7 @@ public class GraphTest {
 
     @Test
     public void testGetNodeNameList() {
-        final String[] nodeNames = new String[3];
+        final String[] nodeNames = new String[5];
         nodeNames[0] = "Start";
         nodeNames[1] = "one";
         nodeNames[2] = "two";
@@ -75,21 +79,21 @@ public class GraphTest {
 
     @Test
     public void testGetEdgeSequence() {
-        testGraph.addUnit(contentOne, testGraph.getStartUnit(), contentTwo);
-        testGraph.addUnit(contentTwo, contentOne, contentThree);
-        testGraph.addUnit(contentThree, contentTwo, testGraph.getEndUnit());
-        final String[] edgeSequence = new String[3];
-        edgeSequence[0] = "Start";
-        edgeSequence[1] = "one";
-        edgeSequence[2] = "one";
-        edgeSequence[3] = "two";
+        assertTrue(testGraph.addUnit(contentOne, testGraph.getStartUnit(), contentTwo));
+        assertTrue(testGraph.addUnit(contentTwo, contentOne, contentThree));
+        assertTrue(testGraph.addUnit(contentThree, contentTwo, testGraph.getEndUnit()));
+        final String[] edgeSequence = new String[9];
+        edgeSequence[0] = "one";
+        edgeSequence[1] = "two";
+        edgeSequence[2] = "Start";
+        edgeSequence[3] = "one";
         edgeSequence[5] = "two";
         edgeSequence[6] = "three";
         edgeSequence[7] = "three";
         edgeSequence[8] = "End";
-        ArrayList<String> edgeSequenceList = testGraph.getEdgeSequence();
-        for (int i= 0; i< edgeSequenceList.size(); i++){
-            assertEquals(edgeSequence[i],edgeSequenceList.get(i)); 
+        for (int i= 0; i< testGraph.getEdgeSequence().size(); i++){
+            System.out.println(testGraph.getEdgeSequence().get(i));
+            assertEquals(edgeSequence[i],testGraph.getEdgeSequence().get(i)); 
         }
     }
 
@@ -115,32 +119,44 @@ public class GraphTest {
         testGraph.addUnit(contentOne, testGraph.getStartUnit(), contentTwo);
         testGraph.addUnit(contentTwo, contentOne, contentThree);
         testGraph.addUnit(contentThree, contentTwo, testGraph.getEndUnit());
-        
     }
 
-    @Test
-    public void testAddUnit() {
-        fail("Not yet implemented");
-    }
-
+   
     @Test
     public void testAddConnection() {
-        fail("Not yet implemented");
+        testGraph.addUnit(contentOne, testGraph.getStartUnit(), contentTwo);
+        testGraph.addUnit(contentTwo, contentOne, contentThree);
+        testGraph.addUnit(contentThree, contentTwo, testGraph.getEndUnit());
+        assertTrue(testGraph.addConnection(contentOne, contentTwo));
     }
 
     @Test
     public void testDeleteUnit() {
-        fail("Not yet implemented");
+        testGraph.addUnit(contentOne, testGraph.getStartUnit(), contentTwo);
+        testGraph.addUnit(contentTwo, contentOne, contentThree);
+        testGraph.addUnit(contentThree, contentTwo, testGraph.getEndUnit());
+        assertTrue(testGraph.deleteUnit(contentTwo));
+        assertTrue(testGraph.isConnected(contentOne, contentThree));
     }
 
     @Test
     public void testIsConnected() {
-        fail("Not yet implemented");
+        testGraph.addUnit(contentOne, testGraph.getStartUnit(), contentTwo);
+        testGraph.addUnit(contentTwo, contentOne, contentThree);
+        testGraph.addUnit(contentThree, contentTwo, testGraph.getEndUnit());
+        assertTrue(testGraph.isConnected(testGraph.getStartUnit(),contentOne));
+        assertTrue(testGraph.isConnected(contentOne, contentTwo));
+        assertTrue(testGraph.isConnected(contentTwo, contentThree));
+        assertTrue(testGraph.isConnected(contentThree, testGraph.getEndUnit()));
     }
 
     @Test
     public void testDeleteConnection() {
-        fail("Not yet implemented");
+        testGraph.addUnit(contentOne, testGraph.getStartUnit(), contentTwo);
+        testGraph.addUnit(contentTwo, contentOne, contentThree);
+        testGraph.addUnit(contentThree, contentTwo, testGraph.getEndUnit());
+        assertTrue(testGraph.deleteConnection(contentOne, contentTwo));
+        assertFalse(testGraph.isConnected(contentOne, contentTwo));
     }
 
 }

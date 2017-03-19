@@ -70,7 +70,7 @@ public class Graph implements Serializable {
                     tmpEdgeSequence.add(currentChildNode.getUnitNodeTitle());
                 }
         }
-
+        
         return tmpEdgeSequence;
     }
 
