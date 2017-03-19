@@ -13,12 +13,9 @@ import com.crayons_2_0.service.LanguageService;
 import com.vaadin.testbench.TestBench;
 import com.vaadin.testbench.TestBenchTestCase;
 import com.vaadin.testbench.elements.ButtonElement;
-import com.vaadin.testbench.elements.MenuBarElement;
-import com.vaadin.testbench.elements.NativeSelectElement;
 import com.vaadin.testbench.elements.NotificationElement;
 import com.vaadin.testbench.elements.PasswordFieldElement;
 import com.vaadin.testbench.elements.TextFieldElement;
-import com.vaadin.ui.MenuBar.MenuItem;
 
 public class PreferencesTest extends TestBenchTestCase {
     

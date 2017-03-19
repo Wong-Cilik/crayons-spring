@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.crayons_2_0.model.Course;
-import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
 
 public class CourseTest {

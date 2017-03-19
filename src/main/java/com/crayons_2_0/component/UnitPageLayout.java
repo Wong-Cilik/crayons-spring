@@ -157,9 +157,12 @@ public final class UnitPageLayout extends CustomComponent {
 		} else if (type == PageItemType.IMAGE) {
 			result = new ImageUploadEditor();
 		} else if (type == PageItemType.MULTIPLE_CHOICE) {
-			
 			UnitData unit = (UnitData) prefillData;
-			result = new MultipleChoiceEditor(unit.getQuestion(), unit.getAnswerList(), unit.getAnswer(), editable);
+			if (unit == null) {
+				result = new MultipleChoiceEditor();
+			} else {
+				result = new MultipleChoiceEditor(unit.getQuestion(), unit.getAnswerList(), unit.getAnswer(), editable);
+			}
 		}
 
 		return result;

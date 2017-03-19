@@ -48,33 +48,51 @@ public class MultipleChoiceEditor extends CustomComponent {
 				this.answers.addItem(question);
 				this.answerList.add(question);
 			}
-		
+
 		if (rightAnswer != null)
 			this.rightAnswer = rightAnswer;
-		
-		setCompositionRoot(buildReadOnly());
+		if (editable) {
+			setCompositionRoot(buildReadOnly());
+		} else {
+			setCompositionRoot(buildUserOnly());
+		}
 	}
-	
+
+	private Component buildUserOnly() {
+		final Label questionText = new Label(this.questionText);
+
+		CssLayout result = new CssLayout(questionText, answers);
+		result.addStyleName("text-editor");
+		result.setSizeFull();
+		return result;
+	}
+
+	public MultipleChoiceEditor() {
+		setWidth(100.0f, Unit.PERCENTAGE);
+		addStyleName("inline-text-editor");
+		setCompositionRoot(buildMultipleChoiceEditor());
+	}
+
 	public List<String> getAnswerList() {
 		return answerList;
 	}
-	
+
 	public void setRightAnswer(String rightAnswer) {
 		this.rightAnswer = rightAnswer;
 	}
-	
-	public String getRightAnswer () {
+
+	public String getRightAnswer() {
 		return rightAnswer;
 	}
-	
+
 	public void setAnswerList(List<String> answerList) {
 		this.answerList = answerList;
 	}
-	
-	public Property<String> getQuestionText () {
+
+	public Property<String> getQuestionText() {
 		return questionText;
 	}
-	
+
 	private Component buildReadOnly() {
 		final Label questionText = new Label(this.questionText);
 
