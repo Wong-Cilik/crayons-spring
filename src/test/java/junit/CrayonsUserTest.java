@@ -11,14 +11,17 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.crayons_2_0.CrayonsSpringApplication;
 import com.crayons_2_0.model.CrayonsUser;
 import com.crayons_2_0.service.Language;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = CrayonsSpringApplication.class)
 public class CrayonsUserTest {
 
 	private CrayonsUser user;
@@ -157,7 +160,7 @@ public class CrayonsUserTest {
 	public void setValidLanguage() {
 		String newLanguage = Language.English.toString();
 		user.setLanguage(newLanguage);
-		assertEquals(user.getLanguage(), newLanguage);
+		assertEquals(user.getLanguage().toString(), newLanguage);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
