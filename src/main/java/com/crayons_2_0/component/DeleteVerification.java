@@ -23,6 +23,9 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
+/**
+ * Delete verification window allows user to delete the nodes from a graph.
+ */
 @SuppressWarnings("serial")
 public final class DeleteVerification extends Window {
 	// @DB
@@ -35,8 +38,13 @@ public final class DeleteVerification extends Window {
 
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 
+	/**
+	 * Delete verification window constructor. 
+	 * 
+	 * @param graphData
+	 *         graph that represents the selected course
+	 */
 	public DeleteVerification(Graph graphData) {
-
 		graph = graphData;
 		setSizeFull();
 		setModal(true);
@@ -54,8 +62,6 @@ public final class DeleteVerification extends Window {
 		content.addComponent(title);
 		content.setComponentAlignment(title, Alignment.TOP_LEFT);
 
-		// content.addComponent(buildDescription());
-
 		Component unitChoise = buildUnitChoice();
 		content.addComponent(unitChoise);
 		content.setComponentAlignment(unitChoise, Alignment.MIDDLE_LEFT);
@@ -65,6 +71,10 @@ public final class DeleteVerification extends Window {
 		content.setComponentAlignment(footer, Alignment.BOTTOM_CENTER);
 	}
 
+	/**
+	 * 
+	 * @return combo box with the units which can be deleted 
+	 */
 	private Component buildUnitChoice() {
 		ComboBox selectUnit = new ComboBox(
 				lang.getString("SelectTheUnitToBeDeleted"));
@@ -83,7 +93,12 @@ public final class DeleteVerification extends Window {
 	public void foo() {
 		CourseEditorView.refreshGraph(graph);
 	}
-
+	
+	/**
+	 * Builds a footer with a delete button to confirm the selected node deletion. 
+	 * 
+	 * @return horizontal layout which wraps a delete button 
+	 */
 	private Component buildFooter() {
 		HorizontalLayout footer = new HorizontalLayout();
 		footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
@@ -130,8 +145,4 @@ public final class DeleteVerification extends Window {
 		graph = graphData;
 
 	}
-
-	/*
-	 * private Component buildDescription() { return null; }
-	 */
 }

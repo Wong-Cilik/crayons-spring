@@ -2,8 +2,6 @@ package com.crayons_2_0.component;
 
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.crayons_2_0.model.Course;
 import com.crayons_2_0.service.LanguageService;
 import com.crayons_2_0.service.database.CourseService;
@@ -27,23 +25,33 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
+/**
+ * Course modification window allows user to modify the course title and/or the course description.
+ */
 @SuppressWarnings("serial")
 @SpringUI
 @ViewScope
 @SpringComponent
 public class CourseModificationWindow extends Window {
 
-	/**
-	 * 
-	 */
 	private ResourceBundle lang = LanguageService.getInstance().getRes();
 	private TabSheet tabSheet;
 	private Component tab;
 	private Course course;
 
-	@Autowired
 	private CourseService courseService;
-
+	
+	/**
+	 * 
+	 * @param courseService
+	 *         provides logic to operate on the data sent to and from the CourseDAO and the client
+	 * @param course
+	 *         to be modified
+	 * @param tab
+	 *         selected tab
+	 * @param tabSheet
+	 *         includes the tabs with all the courses created by the current user
+	 */
 	public CourseModificationWindow(CourseService courseService, Course course,
 			Component tab, TabSheet tabSheet) {
 		this.courseService = courseService;
@@ -58,7 +66,13 @@ public class CourseModificationWindow extends Window {
 
 		this.setContent(buildContent());
 	}
-
+	
+	/**
+	 * Vertical layout that consists of two text fields with labels - for course title and course
+	 * description - and control buttons.
+	 * 
+	 * @return window content in form of vertical layout
+	 */
 	private Component buildContent() {
 		VerticalLayout content = new VerticalLayout();
 		content.setWidth("100%");
@@ -111,6 +125,15 @@ public class CourseModificationWindow extends Window {
 		return content;
 	}
 
+	/**
+	 * Horizontal layout that wraps save button to save the changes of the course title and description 
+	 * 
+	 * @param courseTitleField
+	 *         contains the course title
+	 * @param couseDescriptionField
+	 *         contains the course description
+	 * @return horizontal layout that wraps the save button
+	 */
 	private Component buildControlButtons(TextField courseTitleField,
 			TextArea couseDescriptionField) {
 		HorizontalLayout controlButtons = new HorizontalLayout();
@@ -125,15 +148,12 @@ public class CourseModificationWindow extends Window {
 				Alignment.BOTTOM_CENTER);
 		saveCourse.addClickListener(new ClickListener() {
 
-			/**
-			 * 
-			 */
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Course tmp = courseService.findCourseByTitleAndAuthor(course.getTitle());
 				String newCourseTitle = courseTitleField.getValue();
-				if (newCourseTitle.equals(course.getTitle()) ||
-				        courseService.findCourseByTitleAndAuthor(newCourseTitle) == null) {
+				if (newCourseTitle.equals(course.getTitle()) 
+				        || courseService.findCourseByTitleAndAuthor(newCourseTitle) == null) {
 				    tmp.setTitle(courseTitleField.getValue());
 	                tmp.setDescription(couseDescriptionField.getValue());
 	                courseService.update(tmp, course.getTitle());
