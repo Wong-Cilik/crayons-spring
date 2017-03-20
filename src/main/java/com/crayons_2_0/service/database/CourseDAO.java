@@ -146,32 +146,21 @@ public class CourseDAO implements CommandLineRunner {
 	}
 
 	/**
-	 * Updates an String of students of an Course
+	 * Updates students of a course
 	 * 
 	 * @param tmp
-	 *            String of Students of Course
+	 *            String of students
 	 * @param course
-	 *            to Update
-	 * @return
+	 *            to be updated
+	 * @param authorEmail      
+	 * @return true if the students were updated, otherwise false 
 	 */
-	public boolean updateStudents(String tmp, String course) {
-		if (jdbcTemplate.update("UPDATE courses SET students=? WHERE title=? ",
-				tmp, course) == 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public boolean updateStudentsWithAuthor(String tmp, String course,
 			String authorEmail) {
-		if (jdbcTemplate.update(
+		int rowsAffected = jdbcTemplate.update(
 				"UPDATE courses SET students=? WHERE title=? AND author=?",
-				tmp, course, authorEmail) == 1) {
-			return true;
-		} else {
-			return false;
-		}
+				tmp, course, authorEmail);
+		return (rowsAffected == 1);
 	}
 
 	public void saveData(File file, String title) throws IOException {
