@@ -71,7 +71,7 @@ public class PreferencesTest extends TestBenchTestCase {
 
 		NotificationElement notification = $(NotificationElement.class).first();
 		assertEquals(
-				String.format(lang.getString("RequiredField"),
+				String.format(lang.getString("ValueCannotBeEmpty"),
 						lang.getString("FirstName")), notification.getCaption());
 
 	}
@@ -101,7 +101,7 @@ public class PreferencesTest extends TestBenchTestCase {
 
 		NotificationElement notification = $(NotificationElement.class).first();
 		assertEquals(
-				String.format(lang.getString("RequiredField"),
+				String.format(lang.getString("ValueCannotBeEmpty"),
 						lang.getString("LastName")), notification.getCaption());
 
 	}

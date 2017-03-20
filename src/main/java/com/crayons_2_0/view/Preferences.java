@@ -209,9 +209,7 @@ public class Preferences extends VerticalLayout implements View {
 		details.addComponent(section);
 
 		newPassword = new PasswordField(lang.getString("NewPassword"));
-		// newPassword.setValue(CurrentUser.getInstance().getUser().getPassword());
 		newPassword.setWidth("20%");
-		;
 		newPassword.setNullRepresentation("");
 		details.addComponent(newPassword);
 
@@ -338,15 +336,15 @@ public class Preferences extends VerticalLayout implements View {
 
 				if (notAllowedFields) {
 					if (firstNameField.getValue().isEmpty())
-						fieldIsEmpty("FirstName");
+						fieldIsEmpty(lang.getString("FirstName"));
 					if (lastNameField.getValue().isEmpty())
-						fieldIsEmpty("LastName");
+						fieldIsEmpty(lang.getString("LastName"));
 					if (emailField.getValue().isEmpty())
-						fieldIsEmpty("Email");
+						fieldIsEmpty(lang.getString("Email"));
 					if (newPassword.getValue().length() < 6)
-						passwordMin("Password", 6);
+						passwordMin(lang.getString("Password"), 6);
 					if (newPassword.getValue().length() > 15)
-						passwordMax("Password", 15);
+						passwordMax(lang.getString("Password"), 15);
 				} else if (fieldsChanged) {
 					if (newPassword.getValue().length() != 0
 							&& (!newPasswordEqualConfirmPassword || newPassword

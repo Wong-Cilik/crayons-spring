@@ -267,11 +267,7 @@ public class AdminTest extends TestBenchTestCase {
 		// 10. Assert that the user got an appropriate notification that the
 		// user doesn't exist
 		notification = $(NotificationElement.class).first();
-		assertEquals(
-				"Authentication failed: "
-						+ String.format(
-								lang.getString("UserWithMailDoesntExists"),
-								"max@web.de"), notification.getCaption());
+		assertEquals(lang.getString("AuthenticationFailed"), notification.getCaption());
 	}
 
 	private void login(String email, String password) {
