@@ -119,7 +119,6 @@ public class CourseServiceTest {
     @Test
     public void testFindAllCoursesOfUser() { 
         List<Course> courses = courseService.findAllCoursesOfUser(dummyUser1);
-        for(Course course: courses) System.out.println(course.getTitle());
         assertEquals(2, courses.size());
     }
 
