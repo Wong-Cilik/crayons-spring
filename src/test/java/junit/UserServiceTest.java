@@ -122,6 +122,12 @@ public class UserServiceTest {
         dummyUser1 = user;
     }
     
+    @Test
+    public void testUpdateUserEmailWhichAlreadyExists() {
+        assertFalse(userService.updateUser(dummyUser1, dummyUser3.getEmail(), dummyUser1.getFirstName(), 
+                dummyUser1.getLastName(), dummyUser1.getPassword()));
+    }
+    
     @Test(expected = IllegalArgumentException.class)
     public void testUpdateUserEmailWrongPattern() {
         userService.updateUser(dummyUser1, "wrongemail", dummyUser1.getFirstName(), dummyUser1.getLastName(), 

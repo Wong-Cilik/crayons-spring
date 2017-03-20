@@ -362,7 +362,6 @@ public class Preferences extends VerticalLayout implements View {
 										.getValue(), lastNameField.getValue(),
 								newPassword.getValue());
 						if (updateUser) {
-							System.out.println(fieldsChanged);
 							notifSuccesProfileChange();
 						}
 					}

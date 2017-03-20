@@ -100,6 +100,14 @@ public class UserService implements UserDetailsService, CommandLineRunner {
 		if (!(pattern.matcher(eMail).matches())) {
 			throw new IllegalArgumentException("Email is not Valid");
 		}
+		if (!(eMail.equals(user.getEmail()))) {
+		    List<CrayonsUser> users = findAll();
+	        for (CrayonsUser tmpUser : users) {
+	            if (tmpUser.getEmail().equals(eMail)) {
+	                return false;
+	            }
+	        }
+		}
 		if (eMail.length() > 30) {
 			throw new IllegalArgumentException(
 					"Email should be at most 30 characters long");
