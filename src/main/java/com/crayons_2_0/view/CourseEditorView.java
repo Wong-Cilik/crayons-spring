@@ -20,6 +20,8 @@ import com.crayons_2_0.service.database.UnitService;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.ViewScope;
@@ -32,6 +34,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -162,6 +165,12 @@ public class CourseEditorView extends VerticalLayout implements View {
 			public void buttonClick(ClickEvent event) {
 				courseService.saveCourseData(graphData, CurrentCourses
 						.getInstance().getTitle());
+				Notification success = new Notification(lang
+                        .getString("GraphSavedSuccessfully"));
+                success.setDelayMsec(4000);
+                success.setStyleName("barSuccessSmall");
+                success.setPosition(Position.BOTTOM_CENTER);
+                success.show(Page.getCurrent());
 			}
 		});
 		return layout;
@@ -182,8 +191,8 @@ public class CourseEditorView extends VerticalLayout implements View {
 			setModal(true);
 			setResizable(false);
 			setClosable(true);
-			setHeight(50.0f, Unit.PERCENTAGE);
-			setWidth(40.0f, Unit.PERCENTAGE);
+			setHeight(30.0f, Unit.PERCENTAGE);
+			setWidth(35.0f, Unit.PERCENTAGE);
 
 			VerticalLayout content = new VerticalLayout();
 			content.setSizeFull();

@@ -218,6 +218,12 @@ public class Uniteditor extends VerticalLayout implements View {
 				unitService.saveUnitData(layout, CurrentCourses.getInstance()
 						.getUnitTitle(), CurrentCourses.getInstance()
 						.getTitle());
+                Notification success = new Notification(lang
+                        .getString("UnitSavedSuccessfully"));
+                success.setDelayMsec(4000);
+                success.setStyleName("barSuccessSmall");
+                success.setPosition(Position.BOTTOM_CENTER);
+                success.show(Page.getCurrent());
 			}
 		});
 
