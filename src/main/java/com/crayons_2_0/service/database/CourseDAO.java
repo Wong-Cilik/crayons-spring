@@ -136,19 +136,13 @@ public class CourseDAO implements CommandLineRunner {
 	 * @param course
 	 *            to remove from DB
 	 */
-	public void remove(Course course) {
+	public boolean remove(Course course) {
 		String deleteStatementCourse = "DELETE FROM courses WHERE title=? AND author=?";
 		String deleteStatementUnits = "DELETE FROM units WHERE coursetitle=?";
-		try {
-			jdbcTemplate.update(deleteStatementCourse, course.getTitle(),
-					course.getAuthor().getEmail());
-			jdbcTemplate.update(deleteStatementUnits, course.getTitle());
-		} catch (RuntimeException e) {
-			// throw new CourseTitleNotFoundException("Course with Title:" +
-			// course.getTitle() + "doesnt exists!");
-			throw new UsernameNotFoundException("Course with Title:"
-					+ course.getTitle() + "doesnt exists!");
-		}
+		int courseRemoved = jdbcTemplate.update(deleteStatementCourse, course.getTitle(),
+				course.getAuthor().getEmail());
+		jdbcTemplate.update(deleteStatementUnits, course.getTitle());
+		return (courseRemoved != 0);
 	}
 
 	/**

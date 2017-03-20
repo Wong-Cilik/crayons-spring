@@ -144,6 +144,11 @@ public class CourseServiceTest {
     }
     
     @Test
+    public void testRemoveCourseWhichDoesntExist() {
+        assertFalse(courseService.removeCourse(course3));
+    }
+    
+    @Test
     public void testCourseWithExistingName() {
         courseService.insertCourse(course3);
         Course course4 = new Course("SWT3", "One more course", dummyUser1, "");

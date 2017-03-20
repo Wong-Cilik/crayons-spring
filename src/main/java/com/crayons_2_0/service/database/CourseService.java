@@ -152,8 +152,7 @@ public class CourseService {
 	 * @return true if successfull
 	 */
 	public boolean removeCourse(Course course) {
-		courseDAO.remove(course);
-		return true;
+		return courseDAO.remove(course);
 	}
 
 	/**
