@@ -20,7 +20,7 @@ Port: <5432>  <br />
 
 Run $ mvn spring-boot:run. Then open in localhost:8080  
 
-<TODO> Test Configuration will be added
+Test Configuration: https://vaadin.com/docs/-/part/testbench/testbench-tutorial.html
 
 Licenses
 ==
