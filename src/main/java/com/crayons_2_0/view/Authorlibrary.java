@@ -244,7 +244,7 @@ public class Authorlibrary extends VerticalLayout implements View {
 		String[] emailOfStudentsInCourse = courseService
 				.getStudentsWithAuthor(title);
 		if (emailOfStudentsInCourse != null) {
-			for (int i = 1; i < emailOfStudentsInCourse.length; i++) {
+			for (int i = 0; i < emailOfStudentsInCourse.length; i++) {
 				selectStudents.select(emailOfStudentsInCourse[i]);
 			}
 		}

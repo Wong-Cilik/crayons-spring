@@ -129,23 +129,18 @@ public class CourseService {
 	 * @return true if successfull
 	 */
 	public boolean insertCourse(Course course) {
-		boolean courseExists = false;
-		// Check if Exists, return false if exists
+		// Check if Exists
 		List<Course> courses = findAll();
 		for (Course tmpCourse : courses) {
 			if (tmpCourse.getAuthor().getEmail()
 					.equals(course.getAuthor().getEmail())
 					&& tmpCourse.getTitle().equals(course.getTitle())) {
-				courseExists = true;
 				return false;
 			}
 
 		}
-
-		if (courseExists == false) {
-			courseDAO.insert(course);
-			saveCourseData(course.getGraph(), course.getTitle());
-		}
+		courseDAO.insert(course);
+		saveCourseData(course.getGraph(), course.getTitle());
 
 		return true;
 	}
@@ -191,8 +186,9 @@ public class CourseService {
 
 	public String[] getCourseParticipants(Course course) {
 		String students = course.getStudents();
-		String[] studentsArray = students.split("/");
-		if (!students.equals("")) {
+		if (!students.isEmpty()) {
+		    students = students.substring(1);
+	        String[] studentsArray = students.split("/");
 			return studentsArray;
 		} else {
 			return null;
@@ -201,9 +197,10 @@ public class CourseService {
 
 	public String[] getStudentsWithAuthor(String title) {
 		String students = findCourseByTitleAndAuthor(title).getStudents();
-		String[] studentsArray = students.split("/");
-		if (!students.equals("")) {
-			return studentsArray;
+		if (!students.isEmpty()) {
+            students = students.substring(1);
+            String[] studentsArray = students.split("/");
+            return studentsArray;
 		} else {
 			return null;
 		}
@@ -272,7 +269,7 @@ public class CourseService {
 		String updatedStudents = "";
 		String[] tmp = getCourseParticipants(course);
 		if (tmp != null) {
-			for (int i = 1; i < tmp.length; i++) {
+			for (int i = 0; i < tmp.length; i++) {
 				if (!tmp[i].equals(user)) {
 					updatedStudents = updatedStudents + "/" + tmp[i];
 				}
