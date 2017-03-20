@@ -101,9 +101,9 @@ public class RegisterFormListener implements Button.ClickListener {
 			CrayonsUser user = new CrayonsUser(firstname, lastname, mail,
 					password, language, permission, true, true, false, false,
 					authorities);
-			boolean userExists = userService.insertUser(user);
+			boolean userExists = !(userService.insertUser(user));
 
-			if (userExists == false) {
+			if (!userExists) {
 				Notification.show(lang.getString("UserCreated"), mail,
 						Type.TRAY_NOTIFICATION);
 

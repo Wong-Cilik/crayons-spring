@@ -97,13 +97,10 @@ public class UserDAO  {
     // Example:
     // http://alvinalexander.com/blog/post/jdbc/java-spring-jdbc-dao-delete-examples-recipes
 
-    public void deleteUser(String user) {
+    public boolean deleteUser(String user) {
         String deleteStatement = "DELETE FROM users WHERE email=?";
-        try {
-            jdbcTemplate.update(deleteStatement, user);
-        } catch (RuntimeException e) {
-            throw new UsernameNotFoundException("User with mail:" + user + "doesnt exists!");
-        }
+        int rowsAffected = jdbcTemplate.update(deleteStatement, user);
+        return (rowsAffected != 0);
     }
 
     // public void createTable() {

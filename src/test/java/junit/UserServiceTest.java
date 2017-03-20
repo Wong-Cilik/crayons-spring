@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.crayons_2_0.CrayonsSpringApplication;
@@ -81,7 +82,6 @@ public class UserServiceTest {
         userService.removeUser("user2@web.de");
         userService.removeUser("user3@web.de");
         userService.removeUser("user4@web.de");
-        userService.updateUser(dummyUser4, "user4@web.de", "user4", "doo", "123456");
     }
 
     /**
@@ -89,7 +89,7 @@ public class UserServiceTest {
      */
     @Test
     public void testLoadUserByUsername() {
-        CrayonsUser result = (CrayonsUser) userService.loadUserByUsername("user1@web.de");
+        CrayonsUser result = (CrayonsUser) userService.loadUserByUsername(dummyUser1.getEmail());
         assertEquals(dummyUser1, result);
     }
 
@@ -99,7 +99,6 @@ public class UserServiceTest {
     @Test
     public void testFindAll() {
         List<CrayonsUser> users = userService.findAll();
-
         assertTrue(usersList.containsAll(users));
     }
 
@@ -107,20 +106,50 @@ public class UserServiceTest {
      * if it's new user, expect false (user doesn't exists)
      */
     @Test
-    public void testinsertUser() {
-
-        boolean isNewUser = userService.insertUser(dummyUser2);
-
-        if (isNewUser)
-            assertEquals(true, isNewUser);
-        else
-            assertEquals(false, isNewUser);
-        boolean alreadyExistingUser = userService.insertUser(dummyUser1);
-        if (alreadyExistingUser)
-            assertEquals(true, alreadyExistingUser);
-        else
-            assertEquals(false, alreadyExistingUser);
-
+    public void testInsertUser() {
+        assertTrue(userService.insertUser(dummyUser2));
+        assertFalse(userService.insertUser(dummyUser1));
+    }
+    
+    @Test
+    public void testUpdateUser() {
+        userService.updateUser(dummyUser1, "newuser1@web.de", "Max", "Mustermann", "123456789");
+        CrayonsUser user = userService.findByEMail(dummyUser4.getEmail());
+        assertEquals(dummyUser4, user);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateUserEmailWrongPattern() {
+        userService.updateUser(dummyUser1, "wrongemail", dummyUser1.getFirstName(), dummyUser1.getLastName(), 
+                dummyUser1.getPassword());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateUserEmailTooLong() {
+        userService.updateUser(dummyUser1, "veryveryveryverylongemail@mail.com", dummyUser1.getFirstName(), 
+                dummyUser1.getLastName(), dummyUser1.getPassword());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateUserPasswordTooShort() {
+        userService.updateUser(dummyUser1, dummyUser1.getEmail(), dummyUser1.getFirstName(), dummyUser1.getLastName(), 
+                "123");
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateUserPasswordTooLong() {
+        userService.updateUser(dummyUser1, dummyUser1.getEmail(), dummyUser1.getFirstName(), dummyUser1.getLastName(), 
+                "1234567891011121314");
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateUserFirstNameEmpty() {
+        userService.updateUser(dummyUser1, dummyUser1.getEmail(), "", dummyUser1.getLastName(), dummyUser1.getPassword());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateUserLastNameEmpty() {
+        userService.updateUser(dummyUser1, dummyUser1.getEmail(), dummyUser1.getFirstName(), "", dummyUser1.getPassword());
     }
 
     /**
@@ -133,26 +162,69 @@ public class UserServiceTest {
             result = true;
         assertEquals(true, result);
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateUserLanguageEmptyLanguage() {
+        userService.updateUserLanguage(dummyUser4, null);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateUserLanguageEmptyUser() {
+        userService.updateUserLanguage(null, Language.German);
+    }
 
     /**
      * if rights for a specific user been updated, expect true
      */
     @Test
-    public void testUpdateRights() {
-        boolean result = userService.updateRights("user4@web.de", "Author");
-        if (dummyUser4.getPermission() == 1)
-            result = true;
-        assertEquals(true, result);
+    public void testUpdateRightsAuthor() {
+        boolean result = userService.updateRights(dummyUser4.getEmail(), "Author");
+        assertTrue(result);
+        assertEquals(1, userService.findByEMail(dummyUser4.getEmail()).getPermission());
     }
-
+    
+    @Test
+    public void testUpdateRightsAdmin() {
+        boolean result = userService.updateRights(dummyUser4.getEmail(), "Admin");
+        assertTrue(result);
+        assertEquals(0, userService.findByEMail(dummyUser4.getEmail()).getPermission());
+    }
+    
+    @Test
+    public void testUpdateRightsStudent() {
+        boolean result = userService.updateRights(dummyUser4.getEmail(), "Student");
+        assertTrue(result);
+        assertEquals(2, userService.findByEMail(dummyUser4.getEmail()).getPermission());
+    }
+    
+    @Test
+    public void testFindByEmail() {
+        CrayonsUser user = userService.findByEMail(dummyUser4.getEmail());
+        assertEquals(dummyUser4.getEmail(), user.getEmail());
+    }
+    
+    @Test(expected = UsernameNotFoundException.class)
+    public void testFindByEmailUserDoesntExist() {
+        userService.findByEMail("random@mail.com");
+    }
     
     /**
      * if user removed expect true
      */
     @Test
     public void testRemoveUser() {
-        boolean result = userService.removeUser("user3@web.de");
-        assertEquals(true, result);
+        assertTrue(userService.removeUser(dummyUser3.getEmail()));
+        List<CrayonsUser> users = userService.findAll();
+        boolean exist = false;
+        for (CrayonsUser user: users) 
+            if (user.getEmail().equals(dummyUser3.getEmail()))
+                exist = true;
+        assertFalse(exist);
+    }
+    
+    @Test
+    public void testRemoveUserWhichDoesntExist() {
+        assertFalse(userService.removeUser("randommail@mail.com"));
     }
 
 }

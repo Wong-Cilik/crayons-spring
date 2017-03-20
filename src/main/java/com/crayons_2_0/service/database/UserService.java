@@ -58,29 +58,23 @@ public class UserService implements UserDetailsService, CommandLineRunner {
 	}
 
 	/**
-	 * Insert / update an User Insert if not exists, update if exists
+	 * Insert an user Insert if not exists
 	 * 
 	 * @param user
 	 *            to insert/update
 	 * @return true if successfull, false otherwise
 	 */
 	public boolean insertUser(CrayonsUser user) {
-		boolean userExists = false;
 		// Check if Exists, return false if exists
 		List<CrayonsUser> users = findAll();
 		for (CrayonsUser tmpUser : users) {
 			if (tmpUser.getEmail().equals(user.getEmail())) {
-				return userExists = true;
+				return false;
 			}
-
 		}
+		userDAO.insertUser(user);
 
-		if (userExists == false) {
-			userDAO.insertUser(user);
-		}
-		// User doesn't exist -> insert
-
-		return userExists;
+		return true;
 	}
 
 	/**
@@ -157,11 +151,10 @@ public class UserService implements UserDetailsService, CommandLineRunner {
 	 * 
 	 * @param user
 	 *            to remove
-	 * @return true if successfull
+	 * @return true if successful
 	 */
 	public boolean removeUser(String user) {
-		userDAO.deleteUser(user);
-		return true;
+		return userDAO.deleteUser(user);
 	}
 
 	/**
@@ -185,7 +178,8 @@ public class UserService implements UserDetailsService, CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.insertUser(new CrayonsUser("admin", "crayons", "admin@crayons.de", "crayons123", Language.German.toString(), 0, true, true, true, true,  new ArrayList<GrantedAuthority>()));
+        this.insertUser(new CrayonsUser("admin", "crayons", "admin@crayons.de", "crayons123", Language.German.toString(), 0, 
+                true, true, true, true,  new ArrayList<GrantedAuthority>()));
 
         
     }
