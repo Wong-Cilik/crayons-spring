@@ -78,10 +78,10 @@ public class UserServiceTest {
 
     @After
     public void tearDown() throws Exception {
-        userService.removeUser("user1@web.de");
-        userService.removeUser("user2@web.de");
-        userService.removeUser("user3@web.de");
-        userService.removeUser("user4@web.de");
+        userService.removeUser(dummyUser1.getEmail());
+        userService.removeUser(dummyUser2.getEmail());
+        userService.removeUser(dummyUser3.getEmail());
+        userService.removeUser(dummyUser4.getEmail());
     }
 
     /**
@@ -114,8 +114,12 @@ public class UserServiceTest {
     @Test
     public void testUpdateUser() {
         userService.updateUser(dummyUser1, "newuser1@web.de", "Max", "Mustermann", "123456789");
-        CrayonsUser user = userService.findByEMail(dummyUser4.getEmail());
-        assertEquals(dummyUser4, user);
+        CrayonsUser user = userService.findByEMail("newuser1@web.de");
+        assertEquals("newuser1@web.de", user.getEmail());
+        assertEquals("Max", user.getFirstName());
+        assertEquals("Mustermann", user.getLastName());
+        assertEquals("123456789", user.getPassword());
+        dummyUser1 = user;
     }
     
     @Test(expected = IllegalArgumentException.class)
