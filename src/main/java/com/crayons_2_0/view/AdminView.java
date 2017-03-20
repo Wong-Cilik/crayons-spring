@@ -44,16 +44,15 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+/**
+ * Admin view represents the information about all users and allows an administrator to modify user permissions.
+ */
 @SuppressWarnings("serial")
 @SpringView(name = AdminView.VIEW_NAME)
 @ViewScope
 @SpringComponent
 public final class AdminView extends VerticalLayout implements View {
-
-	/**
-	 * 
-	 */
-
+    
 	private @Autowired UserService userService;
 
 	private @Autowired CourseService courseService;
@@ -98,6 +97,10 @@ public final class AdminView extends VerticalLayout implements View {
 		this.setExpandRatio(profileTab, 1);
 	}
 
+	/**
+	 * 
+	 * @return list of UserDisplay which includes information about every user
+	 */
 	private List<UserDisplay> getTableContents() {
 		collection = new ArrayList<UserDisplay>();
 		for (CrayonsUser tmpUser : userService.findAll()) {
@@ -119,6 +122,12 @@ public final class AdminView extends VerticalLayout implements View {
 		return collection;
 	}
 
+	/**
+	 * Builds a table which includes the following data about each user: e-mail, full name, role, number of created
+	 * courses, number of visited courses.
+	 *  
+	 * @return table with the information about users 
+	 */
 	private Table buildTable() {
 		container = new TempContainer(getTableContents());
 
@@ -142,6 +151,9 @@ public final class AdminView extends VerticalLayout implements View {
 		return table;
 	}
 
+	/**
+	 * Transfer the data bout the selected user from the table to the profile tab 
+	 */
 	private class TableClickListener implements ItemClickListener {
 
 		@Override
@@ -172,6 +184,9 @@ public final class AdminView extends VerticalLayout implements View {
 
 	}
 
+	/**
+	 * Defines the style of rows. By default, the row color is white. The selected row is highlighted blue. 
+	 */
 	private class TableRowHighlighter implements Table.CellStyleGenerator {
 
 		@Override
@@ -190,6 +205,9 @@ public final class AdminView extends VerticalLayout implements View {
 	public void enter(final ViewChangeEvent event) {
 	}
 
+	/**
+	 * Puts the collection of UserDisplay into ListContainer.
+	 */
 	private class TempContainer extends ListContainer<UserDisplay> {
 
 		public TempContainer(final Collection<UserDisplay> collection) {
@@ -198,6 +216,11 @@ public final class AdminView extends VerticalLayout implements View {
 
 	}
 
+	/**
+	 * 
+	 * @param uD UserDisplay of the selected user
+	 * @return horizontal layout that wraps the fields with the information about the selected user
+	 */
 	private HorizontalLayout buildProfileTab(UserDisplay uD) {
 		root = new HorizontalLayout();
 		root.setWidth(100.0f, Unit.PERCENTAGE);
@@ -342,6 +365,9 @@ public final class AdminView extends VerticalLayout implements View {
 		return root;
 	}
 
+	/**
+	 * Updates table after the content was changed. Control the order of columns and rows.
+	 */
 	private void updateTable() {
 		java.lang.Object[] visibleColumns = table.getVisibleColumns();
 		container = new TempContainer(getTableContents());
