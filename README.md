@@ -34,4 +34,5 @@ The application uses the following licenses:
 [DagreD3 Library](https://github.com/cpettitt/dagre-d3) java script API, which is released under the  
 [MIT License](https://github.com/cpettitt/dagre-d3/blob/master/LICENSE) <br />
 <br />
-[CK Editor](http://ckeditor.com/) Open source text editor, which is released under the GPL License.
+[CK Editor](http://ckeditor.com/) Open source text editor, which is released under the 
+[GPL License](https://de.wikipedia.org/wiki/GNU_General_Public_License).
