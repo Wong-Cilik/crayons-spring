@@ -110,7 +110,7 @@ public final class DeleteVerification extends Window {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				if (graph.deleteUnit(deleteUnit)) {
-
+				    CourseEditorView.refreshGraph(graph);
 					close();
 					Notification success = new Notification(lang
 							.getString("UnitIsDeletedSuccessfully"));

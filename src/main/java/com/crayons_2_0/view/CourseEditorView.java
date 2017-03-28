@@ -326,6 +326,7 @@ public class CourseEditorView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
+			    
 				DeleteVerification.refreshData(graphData);
 				UI.getCurrent().addWindow(new DeleteVerification(graphData));
 			}
