@@ -5,7 +5,9 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.crayons_2_0.MyUI;
 import com.crayons_2_0.authentication.CurrentUser;
 import com.crayons_2_0.service.Language;
 import com.crayons_2_0.service.LanguageService;
@@ -175,8 +177,12 @@ public class Preferences extends VerticalLayout implements View {
 					success.show(Page.getCurrent());
 
 					LanguageService.getInstance().setCurrentLocale(newLanguage);
+					
+					SecurityContextHolder.clearContext();
+                    
+                    MyUI.get().getPage().reload();
+                    MyUI.get().getSession().close();
 
-					Page.getCurrent().reload();
 
 					// Problem: Logout - Soloution maybe:
 					// https://vaadin.com/forum#!/thread/11317960
